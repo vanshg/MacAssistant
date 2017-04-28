@@ -7,19 +7,82 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FFE68A741EB2A81E00F60EF5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE68A731EB2A81E00F60EF5 /* AppDelegate.swift */; };
+		FFA470A91EB2B61E00A5F89A /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFA470A71EB2B61E00A5F89A /* OAuthSwift.framework */; };
+		FFA470AA1EB2B61E00A5F89A /* OAuthSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FFA470A71EB2B61E00A5F89A /* OAuthSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FFA470AB1EB2B61E00A5F89A /* SwiftProtobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFA470A81EB2B61E00A5F89A /* SwiftProtobuf.framework */; };
+		FFA470AC1EB2B61E00A5F89A /* SwiftProtobuf.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FFA470A81EB2B61E00A5F89A /* SwiftProtobuf.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FFA470B11EB2B63500A5F89A /* OAuthSwift.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = FFA470AF1EB2B63500A5F89A /* OAuthSwift.framework.dSYM */; };
+		FFA470B21EB2B63500A5F89A /* SwiftProtobuf.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = FFA470B01EB2B63500A5F89A /* SwiftProtobuf.framework.dSYM */; };
+		FFA470CD1EB2B9B900A5F89A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE68A731EB2A81E00F60EF5 /* AppDelegate.swift */; };
+		FFA470CF1EB2B9D600A5F89A /* embedded_assistant.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA470CE1EB2B9D600A5F89A /* embedded_assistant.pb.swift */; };
+		FFA470D11EB2B9E000A5F89A /* status.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA470D01EB2B9E000A5F89A /* status.pb.swift */; };
+		FFA470E61EB2BE1C00A5F89A /* BoringSSL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFA470E31EB2BE1C00A5F89A /* BoringSSL.framework */; };
+		FFA470E71EB2BE1C00A5F89A /* BoringSSL.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FFA470E31EB2BE1C00A5F89A /* BoringSSL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FFA470E81EB2BE1C00A5F89A /* CgRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFA470E41EB2BE1C00A5F89A /* CgRPC.framework */; };
+		FFA470E91EB2BE1C00A5F89A /* CgRPC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FFA470E41EB2BE1C00A5F89A /* CgRPC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FFA470EA1EB2BE1C00A5F89A /* gRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFA470E51EB2BE1C00A5F89A /* gRPC.framework */; };
+		FFA470EB1EB2BE1C00A5F89A /* gRPC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FFA470E51EB2BE1C00A5F89A /* gRPC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FFA470EF1EB2BE3000A5F89A /* BoringSSL.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = FFA470EC1EB2BE3000A5F89A /* BoringSSL.framework.dSYM */; };
+		FFA470F01EB2BE3000A5F89A /* CgRPC.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = FFA470ED1EB2BE3000A5F89A /* CgRPC.framework.dSYM */; };
+		FFA470F11EB2BE3000A5F89A /* gRPC.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = FFA470EE1EB2BE3000A5F89A /* gRPC.framework.dSYM */; };
 		FFE68A761EB2A81E00F60EF5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE68A751EB2A81E00F60EF5 /* ViewController.swift */; };
 		FFE68A781EB2A81E00F60EF5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FFE68A771EB2A81E00F60EF5 /* Assets.xcassets */; };
 		FFE68A7B1EB2A81E00F60EF5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FFE68A791EB2A81E00F60EF5 /* Main.storyboard */; };
+		FFE68A831EB2AA4300F60EF5 /* AssistantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE68A821EB2AA4300F60EF5 /* AssistantViewController.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		FFA470AD1EB2B61E00A5F89A /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				FFA470E71EB2BE1C00A5F89A /* BoringSSL.framework in Embed Frameworks */,
+				FFA470AA1EB2B61E00A5F89A /* OAuthSwift.framework in Embed Frameworks */,
+				FFA470EB1EB2BE1C00A5F89A /* gRPC.framework in Embed Frameworks */,
+				FFA470E91EB2BE1C00A5F89A /* CgRPC.framework in Embed Frameworks */,
+				FFA470AC1EB2B61E00A5F89A /* SwiftProtobuf.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FFA470AE1EB2B62700A5F89A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+				FFA470B11EB2B63500A5F89A /* OAuthSwift.framework.dSYM in CopyFiles */,
+				FFA470B21EB2B63500A5F89A /* SwiftProtobuf.framework.dSYM in CopyFiles */,
+				FFA470EF1EB2BE3000A5F89A /* BoringSSL.framework.dSYM in CopyFiles */,
+				FFA470F01EB2BE3000A5F89A /* CgRPC.framework.dSYM in CopyFiles */,
+				FFA470F11EB2BE3000A5F89A /* gRPC.framework.dSYM in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		FFA470A71EB2B61E00A5F89A /* OAuthSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwift.framework; path = Carthage/Build/Mac/OAuthSwift.framework; sourceTree = "<group>"; };
+		FFA470A81EB2B61E00A5F89A /* SwiftProtobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftProtobuf.framework; path = Carthage/Build/Mac/SwiftProtobuf.framework; sourceTree = "<group>"; };
+		FFA470AF1EB2B63500A5F89A /* OAuthSwift.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = OAuthSwift.framework.dSYM; path = Carthage/Build/Mac/OAuthSwift.framework.dSYM; sourceTree = "<group>"; };
+		FFA470B01EB2B63500A5F89A /* SwiftProtobuf.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = SwiftProtobuf.framework.dSYM; path = Carthage/Build/Mac/SwiftProtobuf.framework.dSYM; sourceTree = "<group>"; };
+		FFA470CE1EB2B9D600A5F89A /* embedded_assistant.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = embedded_assistant.pb.swift; sourceTree = "<group>"; };
+		FFA470D01EB2B9E000A5F89A /* status.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = status.pb.swift; sourceTree = "<group>"; };
+		FFA470E31EB2BE1C00A5F89A /* BoringSSL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BoringSSL.framework; path = Carthage/Build/Mac/BoringSSL.framework; sourceTree = "<group>"; };
+		FFA470E41EB2BE1C00A5F89A /* CgRPC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CgRPC.framework; path = Carthage/Build/Mac/CgRPC.framework; sourceTree = "<group>"; };
+		FFA470E51EB2BE1C00A5F89A /* gRPC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = gRPC.framework; path = Carthage/Build/Mac/gRPC.framework; sourceTree = "<group>"; };
+		FFA470EC1EB2BE3000A5F89A /* BoringSSL.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = BoringSSL.framework.dSYM; path = Carthage/Build/Mac/BoringSSL.framework.dSYM; sourceTree = "<group>"; };
+		FFA470ED1EB2BE3000A5F89A /* CgRPC.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = CgRPC.framework.dSYM; path = Carthage/Build/Mac/CgRPC.framework.dSYM; sourceTree = "<group>"; };
+		FFA470EE1EB2BE3000A5F89A /* gRPC.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = gRPC.framework.dSYM; path = Carthage/Build/Mac/gRPC.framework.dSYM; sourceTree = "<group>"; };
 		FFE68A701EB2A81E00F60EF5 /* MacAssistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacAssistant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFE68A731EB2A81E00F60EF5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFE68A751EB2A81E00F60EF5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		FFE68A771EB2A81E00F60EF5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FFE68A7A1EB2A81E00F60EF5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FFE68A7C1EB2A81E00F60EF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FFE68A821EB2AA4300F60EF5 /* AssistantViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssistantViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,17 +90,49 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFA470E61EB2BE1C00A5F89A /* BoringSSL.framework in Frameworks */,
+				FFA470A91EB2B61E00A5F89A /* OAuthSwift.framework in Frameworks */,
+				FFA470EA1EB2BE1C00A5F89A /* gRPC.framework in Frameworks */,
+				FFA470E81EB2BE1C00A5F89A /* CgRPC.framework in Frameworks */,
+				FFA470AB1EB2B61E00A5F89A /* SwiftProtobuf.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FFA470B31EB2B79900A5F89A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FFA470A71EB2B61E00A5F89A /* OAuthSwift.framework */,
+				FFA470A81EB2B61E00A5F89A /* SwiftProtobuf.framework */,
+				FFA470E51EB2BE1C00A5F89A /* gRPC.framework */,
+				FFA470E31EB2BE1C00A5F89A /* BoringSSL.framework */,
+				FFA470E41EB2BE1C00A5F89A /* CgRPC.framework */,
+				FFA470AF1EB2B63500A5F89A /* OAuthSwift.framework.dSYM */,
+				FFA470B01EB2B63500A5F89A /* SwiftProtobuf.framework.dSYM */,
+				FFA470EC1EB2BE3000A5F89A /* BoringSSL.framework.dSYM */,
+				FFA470ED1EB2BE3000A5F89A /* CgRPC.framework.dSYM */,
+				FFA470EE1EB2BE3000A5F89A /* gRPC.framework.dSYM */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FFA470F31EB2C20200A5F89A /* Protobuf */ = {
+			isa = PBXGroup;
+			children = (
+				FFA470CE1EB2B9D600A5F89A /* embedded_assistant.pb.swift */,
+				FFA470D01EB2B9E000A5F89A /* status.pb.swift */,
+			);
+			name = Protobuf;
+			sourceTree = "<group>";
+		};
 		FFE68A671EB2A81E00F60EF5 = {
 			isa = PBXGroup;
 			children = (
 				FFE68A721EB2A81E00F60EF5 /* MacAssistant */,
 				FFE68A711EB2A81E00F60EF5 /* Products */,
+				FFA470B31EB2B79900A5F89A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -52,8 +147,10 @@
 		FFE68A721EB2A81E00F60EF5 /* MacAssistant */ = {
 			isa = PBXGroup;
 			children = (
+				FFA470F31EB2C20200A5F89A /* Protobuf */,
 				FFE68A731EB2A81E00F60EF5 /* AppDelegate.swift */,
 				FFE68A751EB2A81E00F60EF5 /* ViewController.swift */,
+				FFE68A821EB2AA4300F60EF5 /* AssistantViewController.swift */,
 				FFE68A771EB2A81E00F60EF5 /* Assets.xcassets */,
 				FFE68A791EB2A81E00F60EF5 /* Main.storyboard */,
 				FFE68A7C1EB2A81E00F60EF5 /* Info.plist */,
@@ -71,6 +168,8 @@
 				FFE68A6C1EB2A81E00F60EF5 /* Sources */,
 				FFE68A6D1EB2A81E00F60EF5 /* Frameworks */,
 				FFE68A6E1EB2A81E00F60EF5 /* Resources */,
+				FFA470AD1EB2B61E00A5F89A /* Embed Frameworks */,
+				FFA470AE1EB2B62700A5F89A /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -132,8 +231,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFA470CD1EB2B9B900A5F89A /* AppDelegate.swift in Sources */,
+				FFA470CF1EB2B9D600A5F89A /* embedded_assistant.pb.swift in Sources */,
+				FFE68A831EB2AA4300F60EF5 /* AssistantViewController.swift in Sources */,
+				FFA470D11EB2B9E000A5F89A /* status.pb.swift in Sources */,
 				FFE68A761EB2A81E00F60EF5 /* ViewController.swift in Sources */,
-				FFE68A741EB2A81E00F60EF5 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -192,6 +294,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/Carthage/Checkouts/grpc-swift/Sources/CgRPC/include";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -236,6 +339,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/Carthage/Checkouts/grpc-swift/Sources/CgRPC/include";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
@@ -248,6 +352,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Carthage/Checkouts/grpc-swift/Sources/CgRPC/include",
+					"\"$(SRCROOT)/Carthage/Checkouts/grpc-swift/Sources/CgRPC/include/CgRPC.h\"",
+				);
 				INFOPLIST_FILE = MacAssistant/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.vanshgandhi.MacAssistant;
@@ -261,6 +373,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Carthage/Checkouts/grpc-swift/Sources/CgRPC/include",
+					"\"$(SRCROOT)/Carthage/Checkouts/grpc-swift/Sources/CgRPC/include/CgRPC.h\"",
+				);
 				INFOPLIST_FILE = MacAssistant/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.vanshgandhi.MacAssistant;
@@ -288,6 +408,7 @@
 				FFE68A811EB2A81E00F60EF5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

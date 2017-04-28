@@ -1,0 +1,3 @@
+github "OAuthSwift/OAuthSwift" "1.1.1"
+github "apple/swift-protobuf" "0.9.901"
+github "grpc/grpc-swift" "0.1.11"

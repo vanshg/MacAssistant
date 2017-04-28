@@ -1,0 +1,3 @@
+framework module OAuthSwift {
+    header "OAuthSwift-Swift.h"
+}
