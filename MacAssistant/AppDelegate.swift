@@ -9,12 +9,15 @@
 import Cocoa
 import OAuthSwift
 import gRPC
+import Magnet
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     let statusItem = NSStatusBar.system().statusItem(withLength: NSSquareStatusItemLength)
     let popover = NSPopover()
+    
+    private var isLoggedIn = true
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         let icon = #imageLiteral(resourceName: "statusIcon")
@@ -22,8 +25,30 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusItem.image = icon
         statusItem.action = #selector(statusIconClicked)
         gRPC.initialize()
-        popover.contentViewController = ViewController(nibName: "ViewController", bundle: nil)
+        popover.contentViewController = AssistantViewController(nibName: "AssistantView", bundle: nil)
         NSAppleEventManager.shared().setEventHandler(self, andSelector:#selector(AppDelegate.handleGetURL(event:withReplyEvent:)), forEventClass: AEEventClass(kInternetEventClass), andEventID: AEEventID(kAEGetURL))
+        registerHotkey()
+    }
+    
+    func registerHotkey() {
+        guard let keyCombo = KeyCombo(doubledCocoaModifiers: .shift) else { return }
+        let hotKey = HotKey(identifier: "ShiftDobuleTap",
+                             keyCombo: keyCombo,
+                             target: self,
+                             action: #selector(AppDelegate.doubleTappedShiftKey))
+        hotKey.register()
+    }
+    
+    func doubleTappedShiftKey(sender: AnyObject?) {
+        if (isLoggedIn) {
+            if (!popover.isShown) {
+                showPopover(sender: sender)
+            } else {
+                // TODO: Activate the mic in already present window
+            }
+        } else {
+            // TODO: begin login process
+        }
     }
     
     func handleGetURL(event: NSAppleEventDescriptor!, withReplyEvent: NSAppleEventDescriptor!) {
@@ -61,6 +86,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // called. If one is still running after we call shutdown(), the
         // program will crash.
         // gRPC.shutdown()
+        HotKeyCenter.shared.unregisterAll()
     }
 
 

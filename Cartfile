@@ -1,3 +1,6 @@
 github "apple/swift-protobuf" "0.9.901"
 github "OAuthSwift/OAuthSwift" ~> 1.1.0
 github "grpc/grpc-swift" "0.1.11"
+github "Octree/SwiftyWave" ~> 0.0.2
+github "audiokit/AudioKit"
+github "Clipy/Magnet"

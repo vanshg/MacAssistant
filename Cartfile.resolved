@@ -1,3 +1,6 @@
+github "Clipy/Magnet" "v2.0.0"
 github "OAuthSwift/OAuthSwift" "1.1.1"
+github "Octree/SwiftyWave" "0.0.2"
 github "apple/swift-protobuf" "0.9.901"
+github "audiokit/AudioKit" "v3.6"
 github "grpc/grpc-swift" "0.1.11"

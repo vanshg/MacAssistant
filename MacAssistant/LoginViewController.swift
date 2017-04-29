@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  LoginViewController.swift
 //  MacAssistant
 //
 //  Created by Vansh on 4/27/17.
@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class ViewController: NSViewController {
+class LoginViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

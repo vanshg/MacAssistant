@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="AssistantViewController" customModule="MacAssistant" customModuleProvider="target">
+            <connections>
+                <outlet property="microphoneButton" destination="Hxt-c3-qkc" id="PJZ-QC-9Tc"/>
+                <outlet property="speechWaveformView" destination="03g-tl-31g" id="NPC-hs-svB"/>
+                <outlet property="view" destination="c22-O7-iKe" id="aKg-d6-BRJ"/>
+                <outlet property="waveformView" destination="03g-tl-31g" id="yDA-Lc-HJ2"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe">
+            <rect key="frame" x="0.0" y="0.0" width="328" height="408"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hxt-c3-qkc">
+                    <rect key="frame" x="140" y="180" width="48" height="48"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="beginRecordingButton" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Q6Z-Es-dhv">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                        <connections>
+                            <action selector="buttonAction:" target="-2" id="Jwz-lR-prf"/>
+                        </connections>
+                    </buttonCell>
+                </button>
+                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="03g-tl-31g" customClass="EZAudioPlot">
+                    <rect key="frame" x="83" y="31" width="163" height="96"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                </customView>
+            </subviews>
+            <point key="canvasLocation" x="43" y="237"/>
+        </customView>
+    </objects>
+    <resources>
+        <image name="beginRecordingButton" width="409.60000610351562" height="409.60000610351562"/>
+    </resources>
+</document>
