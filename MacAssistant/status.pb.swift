@@ -85,26 +85,26 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
 ///
 /// - Logging. If some API errors are stored in logs, the message `Status` could
 ///     be used directly after any stripping needed for security/privacy reasons.
-struct Google_Rpc_Status: SwiftProtobuf.Message {
-  static let protoMessageName: String = _protobuf_package + ".Status"
+public struct Google_Rpc_Status: SwiftProtobuf.Message {
+  public static let protoMessageName: String = _protobuf_package + ".Status"
 
   /// The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
-  var code: Int32 = 0
+  public var code: Int32 = 0
 
   /// A developer-facing error message, which should be in English. Any
   /// user-facing error message should be localized and sent in the
   /// [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
-  var message: String = String()
+  public var message: String = String()
 
   /// A list of messages that carry the error details.  There will be a
   /// common set of message types for APIs to use.
-  var details: [Google_Protobuf_Any] = []
+  public var details: [Google_Protobuf_Any] = []
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularInt32Field(value: &self.code)
@@ -115,7 +115,7 @@ struct Google_Rpc_Status: SwiftProtobuf.Message {
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if self.code != 0 {
       try visitor.visitSingularInt32Field(value: self.code, fieldNumber: 1)
     }
@@ -134,13 +134,13 @@ struct Google_Rpc_Status: SwiftProtobuf.Message {
 fileprivate let _protobuf_package = "google.rpc"
 
 extension Google_Rpc_Status: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "code"),
     2: .same(proto: "message"),
     3: .same(proto: "details"),
   ]
 
-  func _protobuf_generated_isEqualTo(other: Google_Rpc_Status) -> Bool {
+  public func _protobuf_generated_isEqualTo(other: Google_Rpc_Status) -> Bool {
     if self.code != other.code {return false}
     if self.message != other.message {return false}
     if self.details != other.details {return false}

@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FF17D9E81EB5609C003E1412 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF17D9E71EB5609C003E1412 /* Alamofire.framework */; };
+		FF17D9E91EB5609C003E1412 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FF17D9E71EB5609C003E1412 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FF17D9EB1EB560A7003E1412 /* Alamofire.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = FF17D9EA1EB560A7003E1412 /* Alamofire.framework.dSYM */; };
+		FF17DA071EB56CCC003E1412 /* google.assistant.embedded.v1alpha1.server.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF17DA051EB56CCC003E1412 /* google.assistant.embedded.v1alpha1.server.pb.swift */; };
+		FF17DA081EB56CCC003E1412 /* google.assistant.embedded.v1alpha1.client.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF17DA061EB56CCC003E1412 /* google.assistant.embedded.v1alpha1.client.pb.swift */; };
+		FF17DA0A1EB56CD4003E1412 /* embedded_assistant.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF17DA091EB56CD4003E1412 /* embedded_assistant.pb.swift */; };
+		FF17DA0C1EB56CDB003E1412 /* status.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF17DA0B1EB56CDB003E1412 /* status.pb.swift */; };
 		FF41AB811EB40FB8003E994B /* Magnet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF41AB801EB40FB8003E994B /* Magnet.framework */; };
 		FF41AB821EB40FB8003E994B /* Magnet.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FF41AB801EB40FB8003E994B /* Magnet.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FF41AB841EB40FC6003E994B /* Magnet.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = FF41AB831EB40FC6003E994B /* Magnet.framework.dSYM */; };
@@ -18,17 +25,12 @@
 		FFA470B11EB2B63500A5F89A /* OAuthSwift.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = FFA470AF1EB2B63500A5F89A /* OAuthSwift.framework.dSYM */; };
 		FFA470B21EB2B63500A5F89A /* SwiftProtobuf.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = FFA470B01EB2B63500A5F89A /* SwiftProtobuf.framework.dSYM */; };
 		FFA470CD1EB2B9B900A5F89A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE68A731EB2A81E00F60EF5 /* AppDelegate.swift */; };
-		FFA470CF1EB2B9D600A5F89A /* embedded_assistant.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA470CE1EB2B9D600A5F89A /* embedded_assistant.pb.swift */; };
-		FFA470D11EB2B9E000A5F89A /* status.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA470D01EB2B9E000A5F89A /* status.pb.swift */; };
 		FFA470E61EB2BE1C00A5F89A /* BoringSSL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFA470E31EB2BE1C00A5F89A /* BoringSSL.framework */; };
 		FFA470E71EB2BE1C00A5F89A /* BoringSSL.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FFA470E31EB2BE1C00A5F89A /* BoringSSL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FFA470E81EB2BE1C00A5F89A /* CgRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFA470E41EB2BE1C00A5F89A /* CgRPC.framework */; };
 		FFA470E91EB2BE1C00A5F89A /* CgRPC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FFA470E41EB2BE1C00A5F89A /* CgRPC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FFA470EA1EB2BE1C00A5F89A /* gRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFA470E51EB2BE1C00A5F89A /* gRPC.framework */; };
 		FFA470EB1EB2BE1C00A5F89A /* gRPC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FFA470E51EB2BE1C00A5F89A /* gRPC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		FFA470EF1EB2BE3000A5F89A /* BoringSSL.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = FFA470EC1EB2BE3000A5F89A /* BoringSSL.framework.dSYM */; };
-		FFA470F01EB2BE3000A5F89A /* CgRPC.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = FFA470ED1EB2BE3000A5F89A /* CgRPC.framework.dSYM */; };
-		FFA470F11EB2BE3000A5F89A /* gRPC.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = FFA470EE1EB2BE3000A5F89A /* gRPC.framework.dSYM */; };
 		FFA470FE1EB2C9D200A5F89A /* AssistantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA470FD1EB2C9D200A5F89A /* AssistantViewController.swift */; };
 		FFA471001EB2C9EB00A5F89A /* AssistantView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFA470FF1EB2C9EB00A5F89A /* AssistantView.xib */; };
 		FFA471021EB2C9F200A5F89A /* LoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFA471011EB2C9F200A5F89A /* LoginView.xib */; };
@@ -54,6 +56,7 @@
 				FF41AB821EB40FB8003E994B /* Magnet.framework in Embed Frameworks */,
 				FFA470E91EB2BE1C00A5F89A /* CgRPC.framework in Embed Frameworks */,
 				FFA470AC1EB2B61E00A5F89A /* SwiftProtobuf.framework in Embed Frameworks */,
+				FF17D9E91EB5609C003E1412 /* Alamofire.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -66,16 +69,20 @@
 			files = (
 				FFA470B11EB2B63500A5F89A /* OAuthSwift.framework.dSYM in CopyFiles */,
 				FFA470B21EB2B63500A5F89A /* SwiftProtobuf.framework.dSYM in CopyFiles */,
-				FFA470EF1EB2BE3000A5F89A /* BoringSSL.framework.dSYM in CopyFiles */,
-				FFA470F01EB2BE3000A5F89A /* CgRPC.framework.dSYM in CopyFiles */,
-				FFA470F11EB2BE3000A5F89A /* gRPC.framework.dSYM in CopyFiles */,
 				FF41AB841EB40FC6003E994B /* Magnet.framework.dSYM in CopyFiles */,
+				FF17D9EB1EB560A7003E1412 /* Alamofire.framework.dSYM in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		FF17D9E71EB5609C003E1412 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/Mac/Alamofire.framework; sourceTree = "<group>"; };
+		FF17D9EA1EB560A7003E1412 /* Alamofire.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Alamofire.framework.dSYM; path = Carthage/Build/Mac/Alamofire.framework.dSYM; sourceTree = "<group>"; };
+		FF17DA051EB56CCC003E1412 /* google.assistant.embedded.v1alpha1.server.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = google.assistant.embedded.v1alpha1.server.pb.swift; sourceTree = "<group>"; };
+		FF17DA061EB56CCC003E1412 /* google.assistant.embedded.v1alpha1.client.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = google.assistant.embedded.v1alpha1.client.pb.swift; sourceTree = "<group>"; };
+		FF17DA091EB56CD4003E1412 /* embedded_assistant.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = embedded_assistant.pb.swift; sourceTree = "<group>"; };
+		FF17DA0B1EB56CDB003E1412 /* status.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = status.pb.swift; sourceTree = "<group>"; };
 		FF41AB801EB40FB8003E994B /* Magnet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Magnet.framework; path = Carthage/Build/Mac/Magnet.framework; sourceTree = "<group>"; };
 		FF41AB831EB40FC6003E994B /* Magnet.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Magnet.framework.dSYM; path = Carthage/Build/Mac/Magnet.framework.dSYM; sourceTree = "<group>"; };
 		FF41AB851EB416F4003E994B /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
@@ -83,14 +90,9 @@
 		FFA470A81EB2B61E00A5F89A /* SwiftProtobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftProtobuf.framework; path = Carthage/Build/Mac/SwiftProtobuf.framework; sourceTree = "<group>"; };
 		FFA470AF1EB2B63500A5F89A /* OAuthSwift.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = OAuthSwift.framework.dSYM; path = Carthage/Build/Mac/OAuthSwift.framework.dSYM; sourceTree = "<group>"; };
 		FFA470B01EB2B63500A5F89A /* SwiftProtobuf.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = SwiftProtobuf.framework.dSYM; path = Carthage/Build/Mac/SwiftProtobuf.framework.dSYM; sourceTree = "<group>"; };
-		FFA470CE1EB2B9D600A5F89A /* embedded_assistant.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = embedded_assistant.pb.swift; sourceTree = "<group>"; };
-		FFA470D01EB2B9E000A5F89A /* status.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = status.pb.swift; sourceTree = "<group>"; };
 		FFA470E31EB2BE1C00A5F89A /* BoringSSL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BoringSSL.framework; path = Carthage/Build/Mac/BoringSSL.framework; sourceTree = "<group>"; };
 		FFA470E41EB2BE1C00A5F89A /* CgRPC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CgRPC.framework; path = Carthage/Build/Mac/CgRPC.framework; sourceTree = "<group>"; };
 		FFA470E51EB2BE1C00A5F89A /* gRPC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = gRPC.framework; path = Carthage/Build/Mac/gRPC.framework; sourceTree = "<group>"; };
-		FFA470EC1EB2BE3000A5F89A /* BoringSSL.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = BoringSSL.framework.dSYM; path = Carthage/Build/Mac/BoringSSL.framework.dSYM; sourceTree = "<group>"; };
-		FFA470ED1EB2BE3000A5F89A /* CgRPC.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = CgRPC.framework.dSYM; path = Carthage/Build/Mac/CgRPC.framework.dSYM; sourceTree = "<group>"; };
-		FFA470EE1EB2BE3000A5F89A /* gRPC.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = gRPC.framework.dSYM; path = Carthage/Build/Mac/gRPC.framework.dSYM; sourceTree = "<group>"; };
 		FFA470FD1EB2C9D200A5F89A /* AssistantViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssistantViewController.swift; sourceTree = "<group>"; };
 		FFA470FF1EB2C9EB00A5F89A /* AssistantView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AssistantView.xib; sourceTree = "<group>"; };
 		FFA471011EB2C9F200A5F89A /* LoginView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginView.xib; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				FF41AB811EB40FB8003E994B /* Magnet.framework in Frameworks */,
 				FFA470E81EB2BE1C00A5F89A /* CgRPC.framework in Frameworks */,
 				FFA470AB1EB2B61E00A5F89A /* SwiftProtobuf.framework in Frameworks */,
+				FF17D9E81EB5609C003E1412 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +128,7 @@
 		FFA470B31EB2B79900A5F89A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FF17D9E71EB5609C003E1412 /* Alamofire.framework */,
 				FF41AB801EB40FB8003E994B /* Magnet.framework */,
 				FFA471081EB2DF8D00A5F89A /* AudioKit.framework */,
 				FFA470A71EB2B61E00A5F89A /* OAuthSwift.framework */,
@@ -133,10 +137,8 @@
 				FFA470E31EB2BE1C00A5F89A /* BoringSSL.framework */,
 				FFA470E41EB2BE1C00A5F89A /* CgRPC.framework */,
 				FFA470AF1EB2B63500A5F89A /* OAuthSwift.framework.dSYM */,
+				FF17D9EA1EB560A7003E1412 /* Alamofire.framework.dSYM */,
 				FFA470B01EB2B63500A5F89A /* SwiftProtobuf.framework.dSYM */,
-				FFA470EC1EB2BE3000A5F89A /* BoringSSL.framework.dSYM */,
-				FFA470ED1EB2BE3000A5F89A /* CgRPC.framework.dSYM */,
-				FFA470EE1EB2BE3000A5F89A /* gRPC.framework.dSYM */,
 				FF41AB831EB40FC6003E994B /* Magnet.framework.dSYM */,
 			);
 			name = Frameworks;
@@ -145,8 +147,10 @@
 		FFA470F31EB2C20200A5F89A /* Protobuf */ = {
 			isa = PBXGroup;
 			children = (
-				FFA470CE1EB2B9D600A5F89A /* embedded_assistant.pb.swift */,
-				FFA470D01EB2B9E000A5F89A /* status.pb.swift */,
+				FF17DA0B1EB56CDB003E1412 /* status.pb.swift */,
+				FF17DA091EB56CD4003E1412 /* embedded_assistant.pb.swift */,
+				FF17DA051EB56CCC003E1412 /* google.assistant.embedded.v1alpha1.server.pb.swift */,
+				FF17DA061EB56CCC003E1412 /* google.assistant.embedded.v1alpha1.client.pb.swift */,
 			);
 			name = Protobuf;
 			sourceTree = "<group>";
@@ -262,12 +266,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				FFA470CD1EB2B9B900A5F89A /* AppDelegate.swift in Sources */,
+				FF17DA0A1EB56CD4003E1412 /* embedded_assistant.pb.swift in Sources */,
 				FFA471071EB2D47300A5F89A /* SpeechWaveformView.swift in Sources */,
-				FFA470CF1EB2B9D600A5F89A /* embedded_assistant.pb.swift in Sources */,
 				FF41AB861EB416F4003E994B /* API.swift in Sources */,
-				FFA470D11EB2B9E000A5F89A /* status.pb.swift in Sources */,
+				FF17DA0C1EB56CDB003E1412 /* status.pb.swift in Sources */,
 				FFE68A761EB2A81E00F60EF5 /* LoginViewController.swift in Sources */,
+				FF17DA081EB56CCC003E1412 /* google.assistant.embedded.v1alpha1.client.pb.swift in Sources */,
 				FFA470FE1EB2C9D200A5F89A /* AssistantViewController.swift in Sources */,
+				FF17DA071EB56CCC003E1412 /* google.assistant.embedded.v1alpha1.server.pb.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

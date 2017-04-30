@@ -9,8 +9,16 @@
 import Foundation
 import AudioKit
 import gRPC
+import SwiftProtobuf
 
 class API {
+    
+    let ASSISTANT_API_ENDPOINT = "embeddedassistant.googleapis.com"
+    
+    func test() {
+        let c = Channel(address: ASSISTANT_API_ENDPOINT)
+    }
+    
     static func initiateRequest() {
         var request = Google_Assistant_Embedded_V1alpha1_ConverseRequest()
         request.config = Google_Assistant_Embedded_V1alpha1_ConverseConfig()
@@ -18,6 +26,13 @@ class API {
         audioInConfig.sampleRateHertz = Int32(AKSettings.sampleRate)
         audioInConfig.encoding = .linear16
         request.config.audioInConfig = audioInConfig
+        _ = try! request.serializedData()
+//        do {
+//        } catch BinaryEncodingError.anyTranscodeFailure {
+//            print("anyTranscodeFailure")
+//        } catch BinaryEncodingError.missingRequiredFields {
+//            print("missingRequiredFields")
+//        }
     }
     
     static func sendAudioFrame(data: UnsafeMutablePointer<Int16>?, length: Int) {
