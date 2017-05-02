@@ -58,7 +58,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func statusIconClicked(sender: AnyObject?) {
-        print("Status Icon Clicked")
         togglePopover(sender: sender)
     }
     

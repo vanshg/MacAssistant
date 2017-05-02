@@ -14,35 +14,49 @@ import SwiftProtobuf
 class API {
     
     let ASSISTANT_API_ENDPOINT = "embeddedassistant.googleapis.com"
+    var service: Google_Assistant_Embedded_V1Alpha1_EmbeddedAssistantService?
+    var currentCall: Google_Assistant_Embedded_V1Alpha1_EmbeddedAssistantConverseCall?
     
-    func test() {
-        let c = Channel(address: ASSISTANT_API_ENDPOINT)
+    public init() {
+        service = Google_Assistant_Embedded_V1Alpha1_EmbeddedAssistantService(address: ASSISTANT_API_ENDPOINT)
     }
     
-    static func initiateRequest() {
+    func initiateRequest() {
         var request = Google_Assistant_Embedded_V1alpha1_ConverseRequest()
         request.config = Google_Assistant_Embedded_V1alpha1_ConverseConfig()
         var audioInConfig = Google_Assistant_Embedded_V1alpha1_AudioInConfig()
-        audioInConfig.sampleRateHertz = Int32(AKSettings.sampleRate)
+        audioInConfig.sampleRateHertz = 16000 //TODO: This needs to change
         audioInConfig.encoding = .linear16
         request.config.audioInConfig = audioInConfig
-        _ = try! request.serializedData()
-//        do {
-//        } catch BinaryEncodingError.anyTranscodeFailure {
-//            print("anyTranscodeFailure")
-//        } catch BinaryEncodingError.missingRequiredFields {
-//            print("missingRequiredFields")
-//        }
+        do {
+            currentCall = try service?.converse(completion: { result in
+                print("Result code \(result.statusCode)")
+                print("Result description \(result.description)")
+                print("Metadat \(String(describing: result.initialMetadata))")
+                print("Status message \(result.statusMessage)")
+                print("Obj description \(String(describing: result))")
+            })
+        } catch {
+            print("Initial error \(error)")
+        }
     }
     
-    static func sendAudioFrame(data: UnsafeMutablePointer<Int16>?, length: Int) {
+    func sendAudioFrame(data: UnsafePointer<UnsafeMutablePointer<Int16>>, length: Int) {
         var request = Google_Assistant_Embedded_V1alpha1_ConverseRequest()
         var byteData = [UInt8]()
+        let unwrapped = data[0]
         for i in 0...length {
-            let uNv = UInt16(bitPattern: (data?[i])!)
+            let uNv = UInt16(bitPattern: unwrapped[i])
             byteData.append(UInt8(uNv >> 8))
             byteData.append(UInt8(uNv & 0x00ff))
         }
         request.audioIn = Data(byteData)
+        do {
+            try currentCall?.send(request, errorHandler: { err in
+                print("Error \(err.localizedDescription)")
+            })
+        } catch {
+            print("Error is \(error.localizedDescription)")
+        }
     }
 }
