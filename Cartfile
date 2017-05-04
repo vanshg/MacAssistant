@@ -5,3 +5,5 @@ github "grpc/grpc-swift" "master"
 github "Octree/SwiftyWave" ~> 0.0.2
 github "audiokit/AudioKit"
 github "Clipy/Magnet"
+#github "trivago/Heimdallr.swift" ~> 3.6
+github "SwiftyJSON/SwiftyJSON"

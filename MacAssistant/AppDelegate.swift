@@ -9,51 +9,69 @@
 import Cocoa
 import OAuthSwift
 import gRPC
+import WebKit
 import Magnet
+import Alamofire
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-
+    
+    
+    
     let statusItem = NSStatusBar.system().statusItem(withLength: NSSquareStatusItemLength)
     let popover = NSPopover()
+    let userDefaults = UserDefaults.standard
+    var isLoggedIn: Bool {
+        get {
+            return userDefaults.bool(forKey: Constants.LOGGED_IN_KEY)
+        }
+        
+        set {
+            userDefaults.set(newValue, forKey: Constants.LOGGED_IN_KEY)
+        }
+    }
     
-    private var isLoggedIn = true
+    public override init() {
+        super.init()
+        registerHotkey()
+    }
+    
+    func applicationWillFinishLaunching(_ notification: Notification) {
+        if isLoggedIn {
+            // TODO: Check expiration time, then refresh access token
+        }
+        let viewController = isLoggedIn ? AssistantViewController(nibName: "AssistantView", bundle: nil) : LoginViewController(nibName: "LoginView", bundle: nil)
+        popover.contentViewController = viewController
+    }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         let icon = #imageLiteral(resourceName: "statusIcon")
         icon.isTemplate = true
         statusItem.image = icon
         statusItem.action = #selector(statusIconClicked)
-        gRPC.initialize()
-        popover.contentViewController = AssistantViewController(nibName: "AssistantView", bundle: nil)
-        NSAppleEventManager.shared().setEventHandler(self, andSelector:#selector(AppDelegate.handleGetURL(event:withReplyEvent:)), forEventClass: AEEventClass(kInternetEventClass), andEventID: AEEventID(kAEGetURL))
-        registerHotkey()
+    }
+    
+    func notifyLoggedIn() {
+        let controller = AssistantViewController(nibName: "AssistantView", bundle: nil)
+        popover.contentViewController = controller
     }
     
     func registerHotkey() {
-        guard let keyCombo = KeyCombo(doubledCocoaModifiers: .shift) else { return }
-        let hotKey = HotKey(identifier: "ShiftDobuleTap",
+        guard let keyCombo = KeyCombo(doubledCocoaModifiers: .control) else { return }
+        let hotKey = HotKey(identifier: "ControlDoubleTap",
                              keyCombo: keyCombo,
                              target: self,
-                             action: #selector(AppDelegate.doubleTappedShiftKey))
+                             action: #selector(AppDelegate.hotkeyPressed))
         hotKey.register()
     }
     
-    func doubleTappedShiftKey(sender: AnyObject?) {
-        if (isLoggedIn) {
-            if (!popover.isShown) {
-                showPopover(sender: sender)
-            } else {
-                // TODO: Activate the mic in already present window
-            }
-        } else {
-            // TODO: begin login process
+    func hotkeyPressed(sender: AnyObject?) {
+        if (!popover.isShown) {
+            showPopover(sender: sender)
         }
-    }
-    
-    func handleGetURL(event: NSAppleEventDescriptor!, withReplyEvent: NSAppleEventDescriptor!) {
-        if let urlString = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue, let url = URL(string: urlString) {
-            OAuthSwift.handle(url: url)
+        
+        if (isLoggedIn) {
+//            (popover.contentViewController as? AssistantViewController).start()
         }
     }
     
@@ -90,4 +108,3 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 
 }
-

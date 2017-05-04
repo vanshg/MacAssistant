@@ -18,17 +18,28 @@
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>macassistant</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
-	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2017 Vansh Gandhi. All rights reserved.</string>
-	<key>NSPrincipalClass</key>
-	<string>NSApplication</string>
-	<key>NSMainNibFile</key>
-	<string>MainMenu</string>
 	<key>LSUIElement</key>
 	<true/>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2017 Vansh Gandhi. All rights reserved.</string>
+	<key>NSMainNibFile</key>
+	<string>MainMenu</string>
+	<key>NSPrincipalClass</key>
+	<string>NSApplication</string>
 </dict>
 </plist>

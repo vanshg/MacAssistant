@@ -10,6 +10,7 @@ import Foundation
 import AudioKit
 import gRPC
 import SwiftProtobuf
+import Alamofire
 
 class API {
     
@@ -19,6 +20,8 @@ class API {
     
     public init() {
         service = Google_Assistant_Embedded_V1Alpha1_EmbeddedAssistantService(address: ASSISTANT_API_ENDPOINT)
+        let token = "Bearer \(UserDefaults.standard.string(forKey: Constants.AUTH_TOKEN_KEY)!)"
+        service?.metadata = Metadata(["authorization" : token])
     }
     
     func initiateRequest() {
@@ -33,7 +36,7 @@ class API {
                 print("Result code \(result.statusCode)")
                 print("Result description \(result.description)")
                 print("Metadat \(String(describing: result.initialMetadata))")
-                print("Status message \(result.statusMessage)")
+                print("Status message \(result.statusMessage!)")
                 print("Obj description \(String(describing: result))")
             })
         } catch {

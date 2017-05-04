@@ -18,10 +18,16 @@
 		FF41AB821EB40FB8003E994B /* Magnet.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FF41AB801EB40FB8003E994B /* Magnet.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FF41AB841EB40FC6003E994B /* Magnet.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = FF41AB831EB40FC6003E994B /* Magnet.framework.dSYM */; };
 		FF41AB861EB416F4003E994B /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF41AB851EB416F4003E994B /* API.swift */; };
+		FF64FDDB1EBB0DDC00368A78 /* SwiftProtobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF64FDDA1EBB0DDC00368A78 /* SwiftProtobuf.framework */; };
+		FF64FDDC1EBB0DDC00368A78 /* SwiftProtobuf.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FF64FDDA1EBB0DDC00368A78 /* SwiftProtobuf.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FF64FDDF1EBB0E0800368A78 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF64FDDE1EBB0E0800368A78 /* SwiftyJSON.framework */; };
+		FF64FDE01EBB0E0800368A78 /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FF64FDDE1EBB0E0800368A78 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FF64FDE21EBB0E1600368A78 /* SwiftyJSON.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = FF64FDE11EBB0E1600368A78 /* SwiftyJSON.framework.dSYM */; };
+		FF6AA52F1EBA77F60009E342 /* Authenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6AA52E1EBA77F60009E342 /* Authenticator.swift */; };
+		FF6AA5311EBA78650009E342 /* google_oauth.json in Resources */ = {isa = PBXBuildFile; fileRef = FF6AA5301EBA78650009E342 /* google_oauth.json */; };
+		FF6AA5351EBA8A980009E342 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6AA5341EBA8A980009E342 /* Constants.swift */; };
 		FFA470A91EB2B61E00A5F89A /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFA470A71EB2B61E00A5F89A /* OAuthSwift.framework */; };
 		FFA470AA1EB2B61E00A5F89A /* OAuthSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FFA470A71EB2B61E00A5F89A /* OAuthSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		FFA470AB1EB2B61E00A5F89A /* SwiftProtobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFA470A81EB2B61E00A5F89A /* SwiftProtobuf.framework */; };
-		FFA470AC1EB2B61E00A5F89A /* SwiftProtobuf.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FFA470A81EB2B61E00A5F89A /* SwiftProtobuf.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FFA470B11EB2B63500A5F89A /* OAuthSwift.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = FFA470AF1EB2B63500A5F89A /* OAuthSwift.framework.dSYM */; };
 		FFA470B21EB2B63500A5F89A /* SwiftProtobuf.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = FFA470B01EB2B63500A5F89A /* SwiftProtobuf.framework.dSYM */; };
 		FFA470CD1EB2B9B900A5F89A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE68A731EB2A81E00F60EF5 /* AppDelegate.swift */; };
@@ -53,9 +59,10 @@
 				FFA470E71EB2BE1C00A5F89A /* BoringSSL.framework in Embed Frameworks */,
 				FFA470AA1EB2B61E00A5F89A /* OAuthSwift.framework in Embed Frameworks */,
 				FFA470EB1EB2BE1C00A5F89A /* gRPC.framework in Embed Frameworks */,
+				FF64FDE01EBB0E0800368A78 /* SwiftyJSON.framework in Embed Frameworks */,
+				FF64FDDC1EBB0DDC00368A78 /* SwiftProtobuf.framework in Embed Frameworks */,
 				FF41AB821EB40FB8003E994B /* Magnet.framework in Embed Frameworks */,
 				FFA470E91EB2BE1C00A5F89A /* CgRPC.framework in Embed Frameworks */,
-				FFA470AC1EB2B61E00A5F89A /* SwiftProtobuf.framework in Embed Frameworks */,
 				FF17D9E91EB5609C003E1412 /* Alamofire.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -69,6 +76,7 @@
 			files = (
 				FFA470B11EB2B63500A5F89A /* OAuthSwift.framework.dSYM in CopyFiles */,
 				FFA470B21EB2B63500A5F89A /* SwiftProtobuf.framework.dSYM in CopyFiles */,
+				FF64FDE21EBB0E1600368A78 /* SwiftyJSON.framework.dSYM in CopyFiles */,
 				FF41AB841EB40FC6003E994B /* Magnet.framework.dSYM in CopyFiles */,
 				FF17D9EB1EB560A7003E1412 /* Alamofire.framework.dSYM in CopyFiles */,
 			);
@@ -86,6 +94,13 @@
 		FF41AB801EB40FB8003E994B /* Magnet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Magnet.framework; path = Carthage/Build/Mac/Magnet.framework; sourceTree = "<group>"; };
 		FF41AB831EB40FC6003E994B /* Magnet.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Magnet.framework.dSYM; path = Carthage/Build/Mac/Magnet.framework.dSYM; sourceTree = "<group>"; };
 		FF41AB851EB416F4003E994B /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		FF64FDDA1EBB0DDC00368A78 /* SwiftProtobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftProtobuf.framework; path = Carthage/Build/Mac/SwiftProtobuf.framework; sourceTree = "<group>"; };
+		FF64FDDD1EBB0DEB00368A78 /* SwiftProtobuf.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = SwiftProtobuf.framework.dSYM; path = Carthage/Build/Mac/SwiftProtobuf.framework.dSYM; sourceTree = "<group>"; };
+		FF64FDDE1EBB0E0800368A78 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/Mac/SwiftyJSON.framework; sourceTree = "<group>"; };
+		FF64FDE11EBB0E1600368A78 /* SwiftyJSON.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = SwiftyJSON.framework.dSYM; path = Carthage/Build/Mac/SwiftyJSON.framework.dSYM; sourceTree = "<group>"; };
+		FF6AA52E1EBA77F60009E342 /* Authenticator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Authenticator.swift; sourceTree = "<group>"; };
+		FF6AA5301EBA78650009E342 /* google_oauth.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = google_oauth.json; sourceTree = "<group>"; };
+		FF6AA5341EBA8A980009E342 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FFA470A71EB2B61E00A5F89A /* OAuthSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwift.framework; path = Carthage/Build/Mac/OAuthSwift.framework; sourceTree = "<group>"; };
 		FFA470A81EB2B61E00A5F89A /* SwiftProtobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftProtobuf.framework; path = Carthage/Build/Mac/SwiftProtobuf.framework; sourceTree = "<group>"; };
 		FFA470AF1EB2B63500A5F89A /* OAuthSwift.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = OAuthSwift.framework.dSYM; path = Carthage/Build/Mac/OAuthSwift.framework.dSYM; sourceTree = "<group>"; };
@@ -115,9 +130,10 @@
 				FFA470E61EB2BE1C00A5F89A /* BoringSSL.framework in Frameworks */,
 				FFA470A91EB2B61E00A5F89A /* OAuthSwift.framework in Frameworks */,
 				FFA470EA1EB2BE1C00A5F89A /* gRPC.framework in Frameworks */,
+				FF64FDDF1EBB0E0800368A78 /* SwiftyJSON.framework in Frameworks */,
+				FF64FDDB1EBB0DDC00368A78 /* SwiftProtobuf.framework in Frameworks */,
 				FF41AB811EB40FB8003E994B /* Magnet.framework in Frameworks */,
 				FFA470E81EB2BE1C00A5F89A /* CgRPC.framework in Frameworks */,
-				FFA470AB1EB2B61E00A5F89A /* SwiftProtobuf.framework in Frameworks */,
 				FF17D9E81EB5609C003E1412 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -128,6 +144,8 @@
 		FFA470B31EB2B79900A5F89A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FF64FDDE1EBB0E0800368A78 /* SwiftyJSON.framework */,
+				FF64FDDA1EBB0DDC00368A78 /* SwiftProtobuf.framework */,
 				FF17D9E71EB5609C003E1412 /* Alamofire.framework */,
 				FF41AB801EB40FB8003E994B /* Magnet.framework */,
 				FFA471081EB2DF8D00A5F89A /* AudioKit.framework */,
@@ -138,8 +156,10 @@
 				FFA470E41EB2BE1C00A5F89A /* CgRPC.framework */,
 				FFA470AF1EB2B63500A5F89A /* OAuthSwift.framework.dSYM */,
 				FF17D9EA1EB560A7003E1412 /* Alamofire.framework.dSYM */,
+				FF64FDE11EBB0E1600368A78 /* SwiftyJSON.framework.dSYM */,
 				FFA470B01EB2B63500A5F89A /* SwiftProtobuf.framework.dSYM */,
 				FF41AB831EB40FC6003E994B /* Magnet.framework.dSYM */,
+				FF64FDDD1EBB0DEB00368A78 /* SwiftProtobuf.framework.dSYM */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -158,6 +178,7 @@
 		FFE68A671EB2A81E00F60EF5 = {
 			isa = PBXGroup;
 			children = (
+				FF6AA5301EBA78650009E342 /* google_oauth.json */,
 				FFE68A721EB2A81E00F60EF5 /* MacAssistant */,
 				FFE68A711EB2A81E00F60EF5 /* Products */,
 				FFA470B31EB2B79900A5F89A /* Frameworks */,
@@ -186,6 +207,8 @@
 				FFA471031EB2CE4500A5F89A /* MainMenu.xib */,
 				FFE68A771EB2A81E00F60EF5 /* Assets.xcassets */,
 				FFE68A7C1EB2A81E00F60EF5 /* Info.plist */,
+				FF6AA52E1EBA77F60009E342 /* Authenticator.swift */,
+				FF6AA5341EBA8A980009E342 /* Constants.swift */,
 			);
 			path = MacAssistant;
 			sourceTree = "<group>";
@@ -252,6 +275,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FFA471001EB2C9EB00A5F89A /* AssistantView.xib in Resources */,
+				FF6AA5311EBA78650009E342 /* google_oauth.json in Resources */,
 				FFE68A781EB2A81E00F60EF5 /* Assets.xcassets in Resources */,
 				FFA471021EB2C9F200A5F89A /* LoginView.xib in Resources */,
 				FFA471051EB2CE4500A5F89A /* MainMenu.xib in Resources */,
@@ -270,10 +294,12 @@
 				FFA471071EB2D47300A5F89A /* SpeechWaveformView.swift in Sources */,
 				FF41AB861EB416F4003E994B /* API.swift in Sources */,
 				FF17DA0C1EB56CDB003E1412 /* status.pb.swift in Sources */,
+				FF6AA52F1EBA77F60009E342 /* Authenticator.swift in Sources */,
 				FFE68A761EB2A81E00F60EF5 /* LoginViewController.swift in Sources */,
 				FF17DA081EB56CCC003E1412 /* google.assistant.embedded.v1alpha1.client.pb.swift in Sources */,
 				FFA470FE1EB2C9D200A5F89A /* AssistantViewController.swift in Sources */,
 				FF17DA071EB56CCC003E1412 /* google.assistant.embedded.v1alpha1.server.pb.swift in Sources */,
+				FF6AA5351EBA8A980009E342 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
