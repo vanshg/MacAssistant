@@ -33,15 +33,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     public override init() {
         super.init()
+        popover.contentViewController = NSViewController(nibName: "LoadingView", bundle: nil)
         registerHotkey()
     }
     
     func applicationWillFinishLaunching(_ notification: Notification) {
         if isLoggedIn {
-            // TODO: Check expiration time, then refresh access token
+            let date = userDefaults.object(forKey: Constants.EXPIRES_IN_KEY) as? Date
+            if (date ?? Date()) < Date() {
+                Authenticator.refresh() { success in
+                    if success {
+                        self.popover.contentViewController = AssistantViewController(nibName: "AssistantView", bundle: nil)
+                    }
+                }
+            } else {
+                popover.contentViewController = AssistantViewController(nibName: "AssistantView", bundle: nil)
+            }
+        } else {
+            popover.contentViewController = LoginViewController(nibName: "LoginView", bundle: nil)
         }
-        let viewController = isLoggedIn ? AssistantViewController(nibName: "AssistantView", bundle: nil) : LoginViewController(nibName: "LoginView", bundle: nil)
-        popover.contentViewController = viewController
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -71,7 +81,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         if (isLoggedIn) {
-//            (popover.contentViewController as? AssistantViewController).start()
+            (popover.contentViewController as? AssistantViewController)?.startListening()
         }
     }
     

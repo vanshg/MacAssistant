@@ -10,120 +10,75 @@ import Cocoa
 import AudioKit
 import AVFoundation
 
-class AssistantViewController: NSViewController {
+class AssistantViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
     
-    @IBOutlet weak var waveformView: EZAP!
+    @IBOutlet weak var waveformView: CustomPlot!
     @IBOutlet weak var microphoneButton: NSButton!
+    @IBOutlet weak var tableView: NSTableView!
+    
     
     let googleColors = [NSColor.red, NSColor.blue, NSColor.yellow, NSColor.green]
     private var colorChangingTimer: Timer?
     private var colorChangingIndex = 1
-    private var mic: AKMicrophone!
-    private var test: AKNode!
-    private var silence: AKBooster!
     private var api = API()
     private var plot: AKNodeOutputPlot?
-    private var audioEngine = AVAudioEngine()
-//    private var recorder: AVAudioRecorder?
+//    private var audioEngine = AVAudioEngine()
+    private var conversation = [ConversationEntry]()
+    private var nativeFormat = AKSettings.audioFormat
+    private var desiredFormat = AVAudioFormat(commonFormat: .pcmFormatInt16, sampleRate: 16000, channels: 1, interleaved: true)
+    private var converter: AVAudioConverter?
+    private var outputBuffer: AVAudioPCMBuffer?
+    private var mic = AKMicrophone()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        var format = audioEngine.inputNode.inputFormat(forBus: 0)
-//        print("Sample rate \(format.sampleRate)")
-//        format.
-//        AudioKit.format = format
-//        AKSettings.enableLogging = true
-//        AKSettings.audioInputEnabled = true
-//        mic = AKMicrophone()
-//        test = AKMixer(mic)
-//        AKSettings.sampleRate = 16000
-//        AKSettings.recordingBufferLength = .short
-//        let tempFile = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("temp")
-//        print("file is \(String(describing: tempFile?.absoluteString))")
-//        recorder = try! AVAudioRecorder(url: tempFile!, format: format)
-//        recorder?.prepareToRecord()
-        
-        
-        
-        
-        
-        
-        
-        
-//        let downMixer = AVAudioMixerNode()
-//        audioEngine.attach(downMixer)
-        let desiredFormat = AVAudioFormat(commonFormat: .pcmFormatInt16, sampleRate: 44100, channels: 1, interleaved: true)
-        let nativeFormat = audioEngine.inputNode?.inputFormat(forBus: 0)
-        let converter = AVAudioConverter(from: nativeFormat!, to: desiredFormat)
-        audioEngine.inputNode?.installTap(onBus: 0, bufferSize: 1024, format: nil) { buffer, when in //AVAudioPCMBuffer, AVAudioTime
-            if buffer.int16ChannelData != nil {
-                print("int16 is not nil! :)")
-            }
-
-            if buffer.floatChannelData != nil {
-                let outputBuffer = AVAudioPCMBuffer.init(pcmFormat: desiredFormat, frameCapacity: buffer.frameCapacity)
-                outputBuffer.frameLength = buffer.frameLength
-                try! converter.convert(to: outputBuffer, from: buffer)
-                if outputBuffer.int16ChannelData != nil {
-                    print("conversion successful")
-                }
-                self.api.sendAudioFrame(data: outputBuffer.int16ChannelData!, length: Int(outputBuffer.frameLength))
-                print("float is not nil :(")
-            }
-        }
-        audioEngine.connect(audioEngine.inputNode!, to: audioEngine.mainMixerNode, format: nil)
-        audioEngine.prepare()
-
-
-
-//        AVCaptureAudioDataOutput()
-        
-//        test.avAudioNode.installTap(onBus: 0, bufferSize: 1024, format: nativeFormat) { buffer, when in //AVAudioPCMBuffer, AVAudioTime
-//            print("Sample rate: \(when.sampleRate)")
-//            print("Frame length: \(buffer.frameLength)")
-//            print("Frame capacity: \(buffer.frameCapacity)")
-//            if let data = buffer.int16ChannelData {
-//                print("Was not nil")
-//                self.api.sendAudioFrame(data: data, length: Int(buffer.frameLength))
-//            }
-//
-//            if buffer.floatChannelData != nil {
-////                let tempBuffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: buffer.frameCapacity)
-////                try! converter.convert(to: tempBuffer, from: buffer)
-////                self.api.sendAudioFrame(data: tempBuffer.int16ChannelData!, length: Int(tempBuffer.frameLength))
-//                print("float not nil")
-//            }
-//        }
-        
-        
-        
-//        waveformView.setClickListener {
-//            print("executing")
-//            AudioKit.stop()
-//            self.waveformView.isHidden = true
-//            self.microphoneButton.isHidden = false;
-//        }
+        loadFakeData()
+        AudioKit.output = AKBooster(mic, gain: 0)
+        converter = AVAudioConverter(from: nativeFormat, to: desiredFormat)
+        outputBuffer = AVAudioPCMBuffer(pcmFormat: desiredFormat, frameCapacity: 4410) // buffersize of 4410 to get 100 ms of data
+        AudioKit.engine.inputNode?.installTap(onBus: 0, bufferSize: 4410, format: nil, block: onTap)
+        setupPlot()
+        tableView.delegate = self
+        tableView.dataSource = self
     }
     
-    func printDebugInfo() {
-        print("Sample rate is \(AKSettings.sampleRate)")
-        print("Audio format description is \(AKSettings.audioFormat.commonFormat.description)")
-        print("Audio format sample rate is \(AKSettings.audioFormat.sampleRate)")
-        print("Buffer length is \(AKSettings.bufferLength.rawValue)")
-        print("Rec buffer length is \(AKSettings.recordingBufferLength.rawValue)")
-        print("Num channels is \(AKSettings.numberOfChannels)")
+    func tableView(_ tableView: NSTableView, dataCellFor tableColumn: NSTableColumn?, row: Int) -> NSCell? {
+        return NSTextFieldCell(textCell: conversation[row].text)
+    }
+    
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        return conversation.count
+    }
+    
+    public func onTap(buffer: AVAudioPCMBuffer, _: AVAudioTime) {
+        if let _ = buffer.floatChannelData {
+            var err: NSError?
+            converter?.convert(to: outputBuffer!, error: &err) { packetCount, inputStatusPtr in
+                inputStatusPtr.pointee = .haveData
+                return buffer
+            }
+            
+            if let error = err {
+                print("Conversion error \(error)")
+            } else {
+                if let data = outputBuffer?.int16ChannelData {
+                    self.api.sendAudioFrame(data: data, length: Int(outputBuffer!.frameLength))
+                }
+            }
+        }
     }
     
     
     func setupPlot() {
-        plot = AKNodeOutputPlot(test, frame: waveformView.bounds)
+        waveformView.setClickListener(h: buttonAction)
+        plot = AKNodeOutputPlot(mic, frame: waveformView.bounds)
         plot?.shouldFill = false
         plot?.shouldMirror = true
         plot?.color = googleColors[0]
-        plot?.backgroundColor = NSColor(calibratedWhite: 0, alpha: 0) // Transparent
+        plot?.backgroundColor = NSColor.clear
         plot?.autoresizingMask = .viewWidthSizable
         waveformView.addSubview(plot!)
-        colorChangingTimer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(self.updatePlotWaveformColor), userInfo: nil, repeats: true);
+        colorChangingTimer = Timer.scheduledTimer(timeInterval: 0.75, target: self, selector: #selector(self.updatePlotWaveformColor), userInfo: nil, repeats: true);
     }
     
     func updatePlotWaveformColor() {
@@ -132,32 +87,36 @@ class AssistantViewController: NSViewController {
     }
     
     @IBAction func buttonAction(_ sender: Any) {
-        if audioEngine.isRunning {
-            audioEngine.stop()
+        if AudioKit.engine.isRunning {
+            stopListening()
         } else {
-            api.initiateRequest()
-            try! audioEngine.start()
+            startListening()
         }
-//        if (recorder?.isRecording)! {
-//            recorder?.stop()
-//        } else {
-//            recorder?.record(forDuration: 10)
-//        }
-//        if (AudioKit.engine.isRunning) {
-//            AudioKit.stop()
-//
-//        } else {
-//            api.initiateRequest()
-//            AudioKit.start()
-//        }
-//        waveformView.isHidden = false
-//        microphoneButton.isHidden = true
+    }
+    
+    func startListening() {
+        api.initiateRequest()
+        AudioKit.start()
+        microphoneButton.isHidden = true
+        plot?.isHidden = false
+    }
+    
+    func stopListening() {
+        AudioKit.stop()
+        api.doneSpeaking()
+        microphoneButton.isHidden = false
+        plot?.isHidden = true
     }
     
     override func viewDidAppear() {
         super.viewDidAppear()
-//        AudioKit.output = silence
-        setupPlot()
+    }
+    
+    func loadFakeData() {
+        for i in 0...5 {
+            conversation.append( ConversationEntry(text: "User \(i)", fromUser: true))
+            conversation.append(ConversationEntry(text: "Response \(i)", fromUser: false))
+        }
     }
     
     override var representedObject: Any? {
@@ -168,10 +127,10 @@ class AssistantViewController: NSViewController {
 }
 
 
-class EZAP : EZAudioPlot {
+class CustomPlot : EZAudioPlot {
 
     
-    typealias EventHandler = (Void) -> ()
+    typealias EventHandler = (Any) -> ()
     private var handler: EventHandler?
     
     public func setClickListener(h: @escaping EventHandler) {
@@ -179,6 +138,6 @@ class EZAP : EZAudioPlot {
     }
     
     override func mouseDown(with event: NSEvent) {
-        handler?()
+        handler?(event)
     }
 }

@@ -52,6 +52,31 @@ public class Authenticator {
         }
     }
     
+    static func refresh(onRefresh: @escaping ((Bool)->Void)) {
+        let parameters = [
+            "refresh_token": UserDefaults.standard.string(forKey: Constants.REFRESH_TOKEN_KEY)!,
+            "client_id": clientId,
+            "client_secret": clientSecret,
+            "grant_type": "refresh_token",
+        ]
+        
+        Alamofire.request(tokenUrl, method: .post, parameters: parameters).responseJSON() { response in
+            print("Refreshing token")
+            switch response.result {
+            case .success(let value):
+                let json = JSON(value)
+                print("Got refreshed access token: \(json["access_token"].string!)")
+                let expiresIn = Date(timeInterval: TimeInterval(json["expires_in"].int!), since: Date())
+                UserDefaults.standard.set(expiresIn, forKey: Constants.EXPIRES_IN_KEY)
+                UserDefaults.standard.set(json["access_token"].string, forKey: Constants.AUTH_TOKEN_KEY)
+                onRefresh(true)
+            case .failure(let error):
+                print(error)
+                onRefresh(false)
+            }
+        }
+    }
+    
     static func logout() {
         UserDefaults.standard.removeObject(forKey: Constants.AUTH_TOKEN_KEY)
         UserDefaults.standard.removeObject(forKey: Constants.REFRESH_TOKEN_KEY)
