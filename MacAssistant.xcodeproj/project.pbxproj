@@ -46,6 +46,7 @@
 		FFA4710A1EB2DF8D00A5F89A /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FFA471081EB2DF8D00A5F89A /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FFE68A761EB2A81E00F60EF5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE68A751EB2A81E00F60EF5 /* LoginViewController.swift */; };
 		FFE68A781EB2A81E00F60EF5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FFE68A771EB2A81E00F60EF5 /* Assets.xcassets */; };
+		FFE9B12F1EC110FC0034E85B /* roots.pem in Resources */ = {isa = PBXBuildFile; fileRef = FFE9B12E1EC110FC0034E85B /* roots.pem */; };
 		FFF3FABD1EBD545E005E87C9 /* ConversationEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF3FABC1EBD545D005E87C9 /* ConversationEntry.swift */; };
 		FFF3FAC11EBD5ADD005E87C9 /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFF3FAC01EBD5ADD005E87C9 /* LoadingView.xib */; };
 /* End PBXBuildFile section */
@@ -121,6 +122,7 @@
 		FFE68A751EB2A81E00F60EF5 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		FFE68A771EB2A81E00F60EF5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FFE68A7C1EB2A81E00F60EF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FFE9B12E1EC110FC0034E85B /* roots.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = roots.pem; sourceTree = "<group>"; };
 		FFF3FABC1EBD545D005E87C9 /* ConversationEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationEntry.swift; sourceTree = "<group>"; };
 		FFF3FAC01EBD5ADD005E87C9 /* LoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -215,6 +217,7 @@
 				FF6AA5341EBA8A980009E342 /* Constants.swift */,
 				FF6AA5301EBA78650009E342 /* google_oauth.json */,
 				FFF3FABC1EBD545D005E87C9 /* ConversationEntry.swift */,
+				FFE9B12E1EC110FC0034E85B /* roots.pem */,
 			);
 			path = MacAssistant;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFE9B12F1EC110FC0034E85B /* roots.pem in Resources */,
 				FFA471001EB2C9EB00A5F89A /* AssistantView.xib in Resources */,
 				FF6AA5311EBA78650009E342 /* google_oauth.json in Resources */,
 				FFE68A781EB2A81E00F60EF5 /* Assets.xcassets in Resources */,

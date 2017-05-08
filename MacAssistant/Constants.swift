@@ -9,7 +9,7 @@
 import Foundation
 
 struct Constants {
-    public static let ASSISTANT_API_ENDPOINT = "embeddedassistant.googleapis.com:443"
+    public static let ASSISTANT_API_ENDPOINT = "embeddedassistant.googleapis.com"
     
     public static let LOGGED_IN_KEY = "logged_in"
     public static let AUTH_TOKEN_KEY = "auth_token"

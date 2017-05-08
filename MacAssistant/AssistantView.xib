@@ -36,16 +36,29 @@
                                 <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="gridColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <tableColumns>
-                                    <tableColumn identifier="" width="275" minWidth="10" maxWidth="3.4028234663852886e+38" id="10u-KA-xgA">
+                                    <tableColumn identifier="leftColumn" width="140" minWidth="10" maxWidth="3.4028234663852886e+38" id="10u-KA-xgA">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </tableHeaderCell>
-                                        <textFieldCell key="dataCell" selectable="YES" allowsUndo="NO" alignment="left" identifier="textCell" title="Text Cell" placeholderString="Test" allowsEditingTextAttributes="YES" id="QOh-FH-TKi">
+                                        <textFieldCell key="dataCell" selectable="YES" allowsUndo="NO" alignment="left" identifier="leftTextCell" title="Text Cell" placeholderString="" allowsEditingTextAttributes="YES" id="QOh-FH-TKi">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </textFieldCell>
+                                        <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                    </tableColumn>
+                                    <tableColumn identifier="rightColumn" width="130" minWidth="10" maxWidth="3.4028234663852886e+38" id="Znk-BX-C2K">
+                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </tableHeaderCell>
+                                        <textFieldCell key="dataCell" selectable="YES" allowsUndo="NO" alignment="right" identifier="rightTextCell" title="Text Cell" placeholderString="" allowsEditingTextAttributes="YES" id="3po-7W-glM">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                     </tableColumn>
@@ -55,11 +68,11 @@
                         <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                     </clipView>
                     <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="uZD-kj-wnI">
-                        <rect key="frame" x="0.0" y="302" width="277" height="16"/>
+                        <rect key="frame" x="0.0" y="302" width="288" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="i2K-9B-15E">
-                        <rect key="frame" x="224" y="17" width="15" height="102"/>
+                        <rect key="frame" x="-16" y="0.0" width="16" height="0.0"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>

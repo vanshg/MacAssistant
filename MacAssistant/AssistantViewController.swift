@@ -35,15 +35,36 @@ class AssistantViewController: NSViewController, NSTableViewDelegate, NSTableVie
         loadFakeData()
         AudioKit.output = AKBooster(mic, gain: 0)
         converter = AVAudioConverter(from: nativeFormat, to: desiredFormat)
-        outputBuffer = AVAudioPCMBuffer(pcmFormat: desiredFormat, frameCapacity: 4410) // buffersize of 4410 to get 100 ms of data
+        outputBuffer = AVAudioPCMBuffer(pcmFormat: desiredFormat, frameCapacity: 1600) // buffersize of 1600 to get 100 ms of data when converted to 16 kHz
         AudioKit.engine.inputNode?.installTap(onBus: 0, bufferSize: 4410, format: nil, block: onTap)
         setupPlot()
         tableView.delegate = self
         tableView.dataSource = self
     }
     
-    func tableView(_ tableView: NSTableView, dataCellFor tableColumn: NSTableColumn?, row: Int) -> NSCell? {
-        return NSTextFieldCell(textCell: conversation[row].text)
+//    private func tableView(_ tableView: NSTableView, dataCellFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+//        let identifier = conversation[row].fromUser ? "righTextCell" : "leftTextCell"
+//        print("Identifier: \(identifier)")
+//        if let cell = tableView.make(withIdentifier: identifier, owner: self) {
+//            return cell
+//        }
+//        return nil
+////        return NSTextFieldCell(textCell: conversation[row].text)
+//    }
+    
+    func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
+        let convo = conversation[row]
+        if tableColumn?.identifier == "rightColumn" {
+            if convo.fromUser {
+                return convo.text
+            }
+        }
+        if tableColumn?.identifier == "leftColumn" {
+            if !convo.fromUser {
+                return convo.text
+            }
+        }
+        return nil
     }
     
     func numberOfRows(in tableView: NSTableView) -> Int {
@@ -61,8 +82,8 @@ class AssistantViewController: NSViewController, NSTableViewDelegate, NSTableVie
             if let error = err {
                 print("Conversion error \(error)")
             } else {
-                if let data = outputBuffer?.int16ChannelData {
-                    self.api.sendAudioFrame(data: data, length: Int(outputBuffer!.frameLength))
+                if let data = outputBuffer?.int16ChannelData, let length = outputBuffer?.frameLength {
+                    self.api.sendAudio(frame: data, withLength: Int(length))
                 }
             }
         }
@@ -96,7 +117,8 @@ class AssistantViewController: NSViewController, NSTableViewDelegate, NSTableVie
     
     func startListening() {
         api.initiateRequest()
-        AudioKit.start()
+        AudioKit.start()clear
+        
         microphoneButton.isHidden = true
         plot?.isHidden = false
     }
@@ -113,7 +135,7 @@ class AssistantViewController: NSViewController, NSTableViewDelegate, NSTableVie
     }
     
     func loadFakeData() {
-        for i in 0...5 {
+        for i in 0...50 {
             conversation.append( ConversationEntry(text: "User \(i)", fromUser: true))
             conversation.append(ConversationEntry(text: "Response \(i)", fromUser: false))
         }

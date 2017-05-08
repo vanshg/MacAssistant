@@ -27,10 +27,10 @@ class API {
     var currentCall: AssistantCall?
     
     public init() {
-//        let u = Bundle.main.url(forResource: "roots", withExtension: "pem")!
-//        service = AssistantService(address: Constants.ASSISTANT_API_ENDPOINT, certificates: try! String(contentsOf: u), host: "")
-        service = AssistantService(address: Constants.ASSISTANT_API_ENDPOINT)
+        let u = Bundle.main.url(forResource: "roots", withExtension: "pem")!
+        let certificate = try! String(contentsOf: u)
         let token = "Bearer \(UserDefaults.standard.string(forKey: Constants.AUTH_TOKEN_KEY)!)"
+        service = AssistantService(address: Constants.ASSISTANT_API_ENDPOINT, certificates: certificate, host: nil)
         service?.metadata = Metadata(["authorization" : token])
     }
     
@@ -39,7 +39,7 @@ class API {
         request.config = ConverseConfig()
         
         var audioInConfig = AudioInConfig()
-        audioInConfig.sampleRateHertz = 44100 //TODO: This needs to change
+        audioInConfig.sampleRateHertz = 16000 //TODO: This needs to change
         audioInConfig.encoding = .linear16
         request.config.audioInConfig = audioInConfig
         
@@ -52,73 +52,74 @@ class API {
         
         do {
             currentCall = try service?.converse(completion: { result in
+                print("--------------------------------")
                 print("Result code \(result.statusCode)")
                 print("Result description \(result.description)")
                 print("Metadata \(String(describing: result.initialMetadata))")
-                print("Status message \(result.statusMessage ?? "Error")")
+                print("Status message \(result.statusMessage ?? "no status msg")")
                 print("Obj description \(String(describing: result))")
-                print("result \(result)")
+                print("Converse result: \(result)")
+                print("--------------------------------")
+                
             })
             
             try currentCall?.send(request) { err in
-                print("Error in initial request: \(err)")
+                print("Initial send error: \(err)")
             }
-            
-            try currentCall?.receive() { result, error in
-                print("Event type is \(result?.eventType)")
-                print("Error is \(error)")
-            }
-            
-        } catch {
-            print("Initial error \(error)")
-        }
-    }
-    
-    func sendAudioFrame(data: UnsafePointer<UnsafeMutablePointer<Int16>>, length: Int) {
-        var request = ConverseRequest()
-        let u = UnsafeMutableBufferPointer(start: data[0], count: length)
-        let d = Data(buffer: u)
-        print("num bytes: \(d.count)")
-        request.audioIn = d
-        do {
-            try currentCall?.send(request) { err in
-                print("Error send \(err.localizedDescription)")
-            }
-            
+
 //            try currentCall?.receive() { res, err in
 //                if let result = res {
-//                    print("Got result \(result)")
+//                    print("Initial receive event: \(result.eventType)")
 //                }
-//                
 //                if let error = err {
-//                    print("Error receiver: \(error.localizedDescription)")
+//                    print("Initial receive error: \(error)")
 //                }
 //            }
             
-            
         } catch {
-            print("Error do \(error):\(error.localizedDescription)")
+            print("Initial catch: \(error):\(error.localizedDescription)")
+        }
+    }
+    
+    func sendAudio(frame data: UnsafePointer<UnsafeMutablePointer<Int16>>, withLength length: Int) {
+        var request = ConverseRequest()
+        let u = UnsafeMutableBufferPointer(start: data[0], count: length) // convert
+        let d = Data(buffer: u)
+        request.audioIn = d
+        do {
+            try currentCall?.send(request) { err in
+                print("Frame send error: \(err.localizedDescription)")
+            }
+            // Don't do currentCall?.receive() in here. Causes tooManyOperations error
+        } catch {
+            print("Frame catch: \(error):\(error.localizedDescription)")
         }
     }
     
     func doneSpeaking() {
-        print("done speaking")
         do {
             try currentCall?.closeSend {
-                print("Closed sending connection")
+                print("Closed send")
             }
             
             try currentCall?.receive() { res, err in
                 if let result = res {
-                    print("Got result \(result)")
+//                    print("Close receive result: \(result)")
+//                    print("Close receive result result: \(result.result)")
+                    print("++++++++++++++++++++++++++++++")
+                    print("Close receive result error: \(result.error.code)")
+                    print("Close receive result result mic: \(result.result.microphoneMode)")
+                    print("Close receive result result responseText: \(result.result.spokenResponseText)")
+                    print("Close receive result result requestText: \(result.result.spokenRequestText)")
+                    print("++++++++++++++++++++++++++++++")
                 }
                 
                 if let error = err {
-                    print("Got error \(error)")
+                    print("Close receive error: \(error)")
                 }
             }
         } catch {
-            print("doneSpeaking error \(error.localizedDescription)")
+            print("Close catch: \(error):\(error.localizedDescription)")
         }
     }
 }
