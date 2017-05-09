@@ -41,27 +41,38 @@ class AssistantViewController: NSViewController, NSTableViewDelegate, NSTableVie
         tableView.delegate = self
         tableView.dataSource = self
         AudioKit.output = AKBooster(mic, gain: 0)
-//        outputBuffer = 
         AudioKit.engine.inputNode?.installTap(onBus: 0,
                                               bufferSize: UInt32(Constants.NATIVE_SAMPLES_PER_FRAME),
                                               format: nil, block: onTap)
     }
     
-    // TODO
-    func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
+    private func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSCell? {
         let convo = conversation[row]
-        if tableColumn?.identifier == "rightColumn" {
-            if convo.fromUser {
-                return convo.text
-            }
-        }
-        if tableColumn?.identifier == "leftColumn" {
-            if !convo.fromUser {
-                return convo.text
-            }
-        }
-        return nil
+        let cell = NSTextFieldCell(textCell: convo.text)
+        cell.alignment = convo.fromUser ? .right : .left
+        cell.textColor = NSColor.white
+        print("configuring")
+        return cell
     }
+    
+    
+    
+    // TODO
+//    func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
+//        return conversation[row].text
+//        let convo = conversation[row]
+//        if tableColumn?.identifier == "rightColumn" {
+//            if convo.fromUser {
+//                return convo.text
+//            }
+//        }
+//        if tableColumn?.identifier == "leftColumn" {
+//            if !convo.fromUser {
+//                return convo.text
+//            }
+//        }
+//        return nil
+//    }
     
     func numberOfRows(in tableView: NSTableView) -> Int { return conversation.count }
     
@@ -149,5 +160,20 @@ class AssistantViewController: NSViewController, NSTableViewDelegate, NSTableVie
     func updateResponseText(_ text: String) {
         conversation.append(ConversationEntry(text: text, fromUser: false))
         tableView.reloadData()
+    }
+    
+    @IBAction func gearClicked(_ sender: Any) {
+        
+    }
+    
+    @IBAction func actionClicked(_ sender: Any) {
+    }
+    
+    @IBAction func settingsClicked(_ sender: Any) {
+        
+    }
+    
+    @IBAction func quitClicked(_ sender: Any) {
+        NSApp.terminate(self)
     }
 }

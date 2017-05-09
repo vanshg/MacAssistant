@@ -25,6 +25,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     public override init() {
         super.init()
         popover.contentViewController = NSViewController(nibName: "LoadingView", bundle: nil)
+//        popover.appearance = NSAppearance(named: NSAppearanceNameVibrantDark)
         registerHotkey()
     }
     
