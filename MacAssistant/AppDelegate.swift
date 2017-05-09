@@ -7,28 +7,18 @@
 //
 
 import Cocoa
-import OAuthSwift
 import gRPC
-import WebKit
 import Magnet
-import Alamofire
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-    
-    
     
     let statusItem = NSStatusBar.system().statusItem(withLength: NSSquareStatusItemLength)
     let popover = NSPopover()
     let userDefaults = UserDefaults.standard
     var isLoggedIn: Bool {
-        get {
-            return userDefaults.bool(forKey: Constants.LOGGED_IN_KEY)
-        }
-        
-        set {
-            userDefaults.set(newValue, forKey: Constants.LOGGED_IN_KEY)
-        }
+        get { return userDefaults.bool(forKey: Constants.LOGGED_IN_KEY) }
+        set { userDefaults.set(newValue, forKey: Constants.LOGGED_IN_KEY) }
     }
     
     public override init() {
@@ -100,21 +90,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func togglePopover(sender: AnyObject?) {
-        if popover.isShown {
-            closePopover(sender: sender)
-        } else {
-            showPopover(sender: sender)
-        }
+        if popover.isShown { closePopover(sender: sender) }
+        else { showPopover(sender: sender) }
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
-        // We don't call shutdown() here because we can't be sure that
-        // any running server queues will have stopped by the time this is
-        // called. If one is still running after we call shutdown(), the
-        // program will crash.
-        // gRPC.shutdown()
         HotKeyCenter.shared.unregisterAll()
     }
-
-
 }

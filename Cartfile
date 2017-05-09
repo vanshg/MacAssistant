@@ -1,9 +1,7 @@
 github "apple/swift-protobuf" "0.9.901"
-github "OAuthSwift/OAuthSwift" ~> 1.1.0
-github "Alamofire/Alamofire" ~> 4.4
 github "grpc/grpc-swift" "master"
-github "Octree/SwiftyWave" ~> 0.0.2
 github "audiokit/AudioKit"
-github "Clipy/Magnet"
-#github "trivago/Heimdallr.swift" ~> 3.6
+github "Alamofire/Alamofire" ~> 4.4
 github "SwiftyJSON/SwiftyJSON"
+github "Clipy/Magnet"
+github "Octree/SwiftyWave" ~> 0.0.2

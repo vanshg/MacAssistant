@@ -10,48 +10,44 @@ import Cocoa
 import AudioKit
 import AVFoundation
 
-class AssistantViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
+class AssistantViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource, ConversationTextDelegate {
     
     @IBOutlet weak var waveformView: CustomPlot!
     @IBOutlet weak var microphoneButton: NSButton!
     @IBOutlet weak var tableView: NSTableView!
     
     
-    let googleColors = [NSColor.red, NSColor.blue, NSColor.yellow, NSColor.green]
-    private var colorChangingTimer: Timer?
-    private var colorChangingIndex = 1
-    private var api = API()
-    private var plot: AKNodeOutputPlot?
-//    private var audioEngine = AVAudioEngine()
-    private var conversation = [ConversationEntry]()
+    private let googleColors = [NSColor.red, NSColor.blue, NSColor.yellow, NSColor.green]
     private var nativeFormat = AKSettings.audioFormat
-    private var desiredFormat = AVAudioFormat(commonFormat: .pcmFormatInt16, sampleRate: 16000, channels: 1, interleaved: true)
-    private var converter: AVAudioConverter?
-    private var outputBuffer: AVAudioPCMBuffer?
+    private var colorChangingIndex = 1
+    private var conversation = [ConversationEntry]()
     private var mic = AKMicrophone()
+    private var desiredFormat = AVAudioFormat(commonFormat: .pcmFormatInt16,
+                                              sampleRate: Double(Constants.GOOGLE_SAMPLE_RATE),
+                                              channels: 1,
+                                              interleaved: true)
+    
+    private lazy var api: API = API(self)
+    private lazy var plot: AKNodeOutputPlot = AKNodeOutputPlot(self.mic, frame: self.waveformView.bounds)
+    private lazy var converter: AVAudioConverter = AVAudioConverter(from: self.nativeFormat,
+                                                                    to: self.desiredFormat)
+    private lazy var outputBuffer: AVAudioPCMBuffer = AVAudioPCMBuffer(pcmFormat: self.desiredFormat,
+                                                                       frameCapacity: AVAudioFrameCount(Constants.GOOGLE_SAMPLES_PER_FRAME))
     
     override func viewDidLoad() {
         super.viewDidLoad()
         loadFakeData()
-        AudioKit.output = AKBooster(mic, gain: 0)
-        converter = AVAudioConverter(from: nativeFormat, to: desiredFormat)
-        outputBuffer = AVAudioPCMBuffer(pcmFormat: desiredFormat, frameCapacity: 1600) // buffersize of 1600 to get 100 ms of data when converted to 16 kHz
-        AudioKit.engine.inputNode?.installTap(onBus: 0, bufferSize: 4410, format: nil, block: onTap)
         setupPlot()
         tableView.delegate = self
         tableView.dataSource = self
+        AudioKit.output = AKBooster(mic, gain: 0)
+//        outputBuffer = 
+        AudioKit.engine.inputNode?.installTap(onBus: 0,
+                                              bufferSize: UInt32(Constants.NATIVE_SAMPLES_PER_FRAME),
+                                              format: nil, block: onTap)
     }
     
-//    private func tableView(_ tableView: NSTableView, dataCellFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-//        let identifier = conversation[row].fromUser ? "righTextCell" : "leftTextCell"
-//        print("Identifier: \(identifier)")
-//        if let cell = tableView.make(withIdentifier: identifier, owner: self) {
-//            return cell
-//        }
-//        return nil
-////        return NSTextFieldCell(textCell: conversation[row].text)
-//    }
-    
+    // TODO
     func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
         let convo = conversation[row]
         if tableColumn?.identifier == "rightColumn" {
@@ -67,14 +63,12 @@ class AssistantViewController: NSViewController, NSTableViewDelegate, NSTableVie
         return nil
     }
     
-    func numberOfRows(in tableView: NSTableView) -> Int {
-        return conversation.count
-    }
+    func numberOfRows(in tableView: NSTableView) -> Int { return conversation.count }
     
     public func onTap(buffer: AVAudioPCMBuffer, _: AVAudioTime) {
         if let _ = buffer.floatChannelData {
             var err: NSError?
-            converter?.convert(to: outputBuffer!, error: &err) { packetCount, inputStatusPtr in
+            converter.convert(to: outputBuffer, error: &err) { packetCount, inputStatusPtr in
                 inputStatusPtr.pointee = .haveData
                 return buffer
             }
@@ -82,8 +76,8 @@ class AssistantViewController: NSViewController, NSTableViewDelegate, NSTableVie
             if let error = err {
                 print("Conversion error \(error)")
             } else {
-                if let data = outputBuffer?.int16ChannelData, let length = outputBuffer?.frameLength {
-                    self.api.sendAudio(frame: data, withLength: Int(length))
+                if let data = outputBuffer.int16ChannelData {
+                    self.api.sendAudio(frame: data, withLength: outputBuffer.frameLength)
                 }
             }
         }
@@ -92,18 +86,17 @@ class AssistantViewController: NSViewController, NSTableViewDelegate, NSTableVie
     
     func setupPlot() {
         waveformView.setClickListener(h: buttonAction)
-        plot = AKNodeOutputPlot(mic, frame: waveformView.bounds)
-        plot?.shouldFill = false
-        plot?.shouldMirror = true
-        plot?.color = googleColors[0]
-        plot?.backgroundColor = NSColor.clear
-        plot?.autoresizingMask = .viewWidthSizable
-        waveformView.addSubview(plot!)
-        colorChangingTimer = Timer.scheduledTimer(timeInterval: 0.75, target: self, selector: #selector(self.updatePlotWaveformColor), userInfo: nil, repeats: true);
+        plot.shouldFill = false
+        plot.shouldMirror = true
+        plot.color = googleColors[0]
+        plot.backgroundColor = NSColor.clear
+        plot.autoresizingMask = .viewWidthSizable
+        waveformView.addSubview(plot)
+        Timer.scheduledTimer(timeInterval: 0.75, target: self, selector: #selector(self.updatePlotWaveformColor), userInfo: nil, repeats: true);
     }
     
     func updatePlotWaveformColor() {
-        plot?.color = googleColors[colorChangingIndex]
+        plot.color = googleColors[colorChangingIndex]
         colorChangingIndex = (colorChangingIndex + 1) % googleColors.count
     }
     
@@ -117,49 +110,44 @@ class AssistantViewController: NSViewController, NSTableViewDelegate, NSTableVie
     
     func startListening() {
         api.initiateRequest()
-        AudioKit.start()clear
-        
-        microphoneButton.isHidden = true
-        plot?.isHidden = false
+        AudioKit.start()
+        DispatchQueue.main.async {
+            self.microphoneButton.isHidden = true
+            self.plot.isHidden = false
+        }
     }
     
     func stopListening() {
         AudioKit.stop()
         api.doneSpeaking()
-        microphoneButton.isHidden = false
-        plot?.isHidden = true
+        DispatchQueue.main.async {
+            self.microphoneButton.isHidden = false
+            self.plot.isHidden = true
+        }
     }
     
-    override func viewDidAppear() {
-        super.viewDidAppear()
+    // TODO
+    func playResponse(_ data: Data) {
+//        do {
+//            let player = try AVAudioPlayer(data: data)
+//            player.play()
+//        } catch { print("Audio out error \(error):\(error.localizedDescription)") }
     }
     
     func loadFakeData() {
-        for i in 0...50 {
-            conversation.append( ConversationEntry(text: "User \(i)", fromUser: true))
+        for i in 0...10 {
+            conversation.append(ConversationEntry(text: "User \(i)", fromUser: true))
             conversation.append(ConversationEntry(text: "Response \(i)", fromUser: false))
         }
     }
     
-    override var representedObject: Any? {
-        didSet {
-            // Update the view, if already loaded.
-        }
-    }
-}
-
-
-class CustomPlot : EZAudioPlot {
-
-    
-    typealias EventHandler = (Any) -> ()
-    private var handler: EventHandler?
-    
-    public func setClickListener(h: @escaping EventHandler) {
-        handler = h
+    func updateRequestText(_ text: String) {
+        conversation.append(ConversationEntry(text: text, fromUser: true))
+        tableView.reloadData()
     }
     
-    override func mouseDown(with event: NSEvent) {
-        handler?(event)
+    func updateResponseText(_ text: String) {
+        conversation.append(ConversationEntry(text: text, fromUser: false))
+        tableView.reloadData()
     }
 }
