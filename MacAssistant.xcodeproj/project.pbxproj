@@ -24,7 +24,6 @@
 		FF64FDE01EBB0E0800368A78 /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FF64FDDE1EBB0E0800368A78 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FF64FDE21EBB0E1600368A78 /* SwiftyJSON.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = FF64FDE11EBB0E1600368A78 /* SwiftyJSON.framework.dSYM */; };
 		FF6AA52F1EBA77F60009E342 /* Authenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6AA52E1EBA77F60009E342 /* Authenticator.swift */; };
-		FF6AA5311EBA78650009E342 /* google_oauth.json in Resources */ = {isa = PBXBuildFile; fileRef = FF6AA5301EBA78650009E342 /* google_oauth.json */; };
 		FF6AA5351EBA8A980009E342 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6AA5341EBA8A980009E342 /* Constants.swift */; };
 		FFA470B11EB2B63500A5F89A /* OAuthSwift.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = FFA470AF1EB2B63500A5F89A /* OAuthSwift.framework.dSYM */; };
 		FFA470B21EB2B63500A5F89A /* SwiftProtobuf.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = FFA470B01EB2B63500A5F89A /* SwiftProtobuf.framework.dSYM */; };
@@ -47,6 +46,7 @@
 		FFE9B12F1EC110FC0034E85B /* roots.pem in Resources */ = {isa = PBXBuildFile; fileRef = FFE9B12E1EC110FC0034E85B /* roots.pem */; };
 		FFE9B1311EC187550034E85B /* ConversationTextDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE9B1301EC187550034E85B /* ConversationTextDelegate.swift */; };
 		FFE9B1331EC189D60034E85B /* CustomPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE9B1321EC189D60034E85B /* CustomPlot.swift */; };
+		FFE9B1351EC195AB0034E85B /* google_oauth.json in Resources */ = {isa = PBXBuildFile; fileRef = FFE9B1341EC195AB0034E85B /* google_oauth.json */; };
 		FFF3FABD1EBD545E005E87C9 /* ConversationEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF3FABC1EBD545D005E87C9 /* ConversationEntry.swift */; };
 		FFF3FAC11EBD5ADD005E87C9 /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFF3FAC01EBD5ADD005E87C9 /* LoadingView.xib */; };
 /* End PBXBuildFile section */
@@ -101,7 +101,6 @@
 		FF64FDDE1EBB0E0800368A78 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/Mac/SwiftyJSON.framework; sourceTree = "<group>"; };
 		FF64FDE11EBB0E1600368A78 /* SwiftyJSON.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = SwiftyJSON.framework.dSYM; path = Carthage/Build/Mac/SwiftyJSON.framework.dSYM; sourceTree = "<group>"; };
 		FF6AA52E1EBA77F60009E342 /* Authenticator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Authenticator.swift; sourceTree = "<group>"; };
-		FF6AA5301EBA78650009E342 /* google_oauth.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = google_oauth.json; path = ../google_oauth.json; sourceTree = "<group>"; };
 		FF6AA5341EBA8A980009E342 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FFA470A71EB2B61E00A5F89A /* OAuthSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwift.framework; path = Carthage/Build/Mac/OAuthSwift.framework; sourceTree = "<group>"; };
 		FFA470A81EB2B61E00A5F89A /* SwiftProtobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftProtobuf.framework; path = Carthage/Build/Mac/SwiftProtobuf.framework; sourceTree = "<group>"; };
@@ -124,6 +123,7 @@
 		FFE9B12E1EC110FC0034E85B /* roots.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = roots.pem; sourceTree = "<group>"; };
 		FFE9B1301EC187550034E85B /* ConversationTextDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationTextDelegate.swift; sourceTree = "<group>"; };
 		FFE9B1321EC189D60034E85B /* CustomPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPlot.swift; sourceTree = "<group>"; };
+		FFE9B1341EC195AB0034E85B /* google_oauth.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = google_oauth.json; sourceTree = "<group>"; };
 		FFF3FABC1EBD545D005E87C9 /* ConversationEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationEntry.swift; sourceTree = "<group>"; };
 		FFF3FAC01EBD5ADD005E87C9 /* LoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -205,21 +205,21 @@
 				FFE68A731EB2A81E00F60EF5 /* AppDelegate.swift */,
 				FF41AB851EB416F4003E994B /* API.swift */,
 				FFA470FD1EB2C9D200A5F89A /* AssistantViewController.swift */,
-				FFE9B1321EC189D60034E85B /* CustomPlot.swift */,
 				FFA470FF1EB2C9EB00A5F89A /* AssistantView.xib */,
-				FFF3FAC01EBD5ADD005E87C9 /* LoadingView.xib */,
 				FFE9B1301EC187550034E85B /* ConversationTextDelegate.swift */,
+				FFF3FAC01EBD5ADD005E87C9 /* LoadingView.xib */,
 				FFE68A751EB2A81E00F60EF5 /* LoginViewController.swift */,
 				FFA471011EB2C9F200A5F89A /* LoginView.xib */,
 				FFA471061EB2D47300A5F89A /* SpeechWaveformView.swift */,
 				FFA471031EB2CE4500A5F89A /* MainMenu.xib */,
-				FFE68A771EB2A81E00F60EF5 /* Assets.xcassets */,
-				FFE68A7C1EB2A81E00F60EF5 /* Info.plist */,
 				FF6AA52E1EBA77F60009E342 /* Authenticator.swift */,
 				FF6AA5341EBA8A980009E342 /* Constants.swift */,
-				FF6AA5301EBA78650009E342 /* google_oauth.json */,
 				FFF3FABC1EBD545D005E87C9 /* ConversationEntry.swift */,
+				FFE9B1321EC189D60034E85B /* CustomPlot.swift */,
 				FFE9B12E1EC110FC0034E85B /* roots.pem */,
+				FFE9B1341EC195AB0034E85B /* google_oauth.json */,
+				FFE68A7C1EB2A81E00F60EF5 /* Info.plist */,
+				FFE68A771EB2A81E00F60EF5 /* Assets.xcassets */,
 			);
 			path = MacAssistant;
 			sourceTree = "<group>";
@@ -285,9 +285,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFE9B1351EC195AB0034E85B /* google_oauth.json in Resources */,
 				FFE9B12F1EC110FC0034E85B /* roots.pem in Resources */,
 				FFA471001EB2C9EB00A5F89A /* AssistantView.xib in Resources */,
-				FF6AA5311EBA78650009E342 /* google_oauth.json in Resources */,
 				FFE68A781EB2A81E00F60EF5 /* Assets.xcassets in Resources */,
 				FFF3FAC11EBD5ADD005E87C9 /* LoadingView.xib in Resources */,
 				FFA471021EB2C9F200A5F89A /* LoginView.xib in Resources */,

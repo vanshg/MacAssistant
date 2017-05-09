@@ -16,6 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let statusItem = NSStatusBar.system().statusItem(withLength: NSSquareStatusItemLength)
     let popover = NSPopover()
     let userDefaults = UserDefaults.standard
+    let authenticator = Authenticator()
     var isLoggedIn: Bool {
         get { return userDefaults.bool(forKey: Constants.LOGGED_IN_KEY) }
         set { userDefaults.set(newValue, forKey: Constants.LOGGED_IN_KEY) }
@@ -31,7 +32,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if isLoggedIn {
             let date = userDefaults.object(forKey: Constants.EXPIRES_IN_KEY) as? Date
             if (date ?? Date()) < Date() {
-                Authenticator.refresh() { success in
+                authenticator.refresh() { success in
                     if success {
                         self.popover.contentViewController = AssistantViewController(nibName: "AssistantView", bundle: nil)
                     }

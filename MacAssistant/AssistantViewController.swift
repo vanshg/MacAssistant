@@ -77,7 +77,7 @@ class AssistantViewController: NSViewController, NSTableViewDelegate, NSTableVie
                 print("Conversion error \(error)")
             } else {
                 if let data = outputBuffer.int16ChannelData {
-                    self.api.sendAudio(frame: data, withLength: outputBuffer.frameLength)
+                    self.api.sendAudio(frame: data, withLength: Int(outputBuffer.frameLength))
                 }
             }
         }

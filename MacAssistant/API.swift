@@ -7,10 +7,7 @@
 //
 
 import Foundation
-import AudioKit
 import gRPC
-import SwiftProtobuf
-import Alamofire
 
 typealias AssistantService = Google_Assistant_Embedded_V1Alpha1_EmbeddedAssistantService
 typealias AssistantCall = Google_Assistant_Embedded_V1Alpha1_EmbeddedAssistantConverseCall
@@ -79,9 +76,9 @@ class API {
         } catch { print("Initial catch: \(error):\(error.localizedDescription)") }
     }
     
-    func sendAudio(frame data: UnsafePointer<UnsafeMutablePointer<Int16>>, withLength length: AVAudioFrameCount) {
+    func sendAudio(frame data: UnsafePointer<UnsafeMutablePointer<Int16>>, withLength length: Int) {
         var request = ConverseRequest()
-        let buffer = UnsafeMutableBufferPointer(start: data[0], count: Int(length)) // convert from UnsafePointer to BufferPointer
+        let buffer = UnsafeMutableBufferPointer(start: data[0], count: length) // convert from UnsafePointer to BufferPointer
         let data = Data(buffer: buffer) // Wrap Buffer in Data
         request.audioIn = data
         // Don't call currentCall?.receive() in here. Causes tooManyOperations error
