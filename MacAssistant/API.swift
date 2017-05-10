@@ -27,6 +27,7 @@ class API {
     private var converseState: ConverseState?
     private var delegate: ConversationTextDelegate
     private var followUp = false
+    private var buf = NSMutableData()
     
     public init(_ delegate: ConversationTextDelegate) {
         let u = Bundle.main.url(forResource: "roots", withExtension: "pem")!
@@ -47,7 +48,9 @@ class API {
             self.delegate.updateRequestText(response.result.spokenRequestText)
             self.delegate.updateResponseText(response.result.spokenResponseText.isEmpty ? "Speaking response..." : response.result.spokenResponseText)
             // TODO: Save file before playing it? 
-            if response.audioOut.audioData.count > 0 { self.delegate.playResponse(response.audioOut.audioData) }
+            if response.audioOut.audioData.count > 0 {
+                buf.append(response.audioOut.audioData)
+            }
             if response.eventType == .endOfUtterance { self.delegate.stopListening() }
         }
         if let error = error { print("Initial receive error: \(error)") }
@@ -65,7 +68,7 @@ class API {
         
         var audioOutConfig = AudioOutConfig()
         audioOutConfig.sampleRateHertz = Int32(Constants.GOOGLE_SAMPLE_RATE) // TODO: Play back the response and find the appropriate value
-        audioOutConfig.encoding = .linear16
+        audioOutConfig.encoding = .mp3
         audioOutConfig.volumePercentage = 50
         request.config.audioOutConfig = audioOutConfig
         
@@ -89,7 +92,22 @@ class API {
     func doneSpeaking() {
         do {
             try currentCall?.closeSend { print("Closed send") }
-            try currentCall?.receive(completion: onReceive)
+            DispatchQueue.global().async {
+                while true {
+                    do {
+                        let response = try self.currentCall?.receive()
+                        self.onReceive(response: response, error: nil)
+                    } catch {
+                        print("close catch \(error):\(error.localizedDescription)")
+                        break
+                    }
+                }
+                if (self.buf.length > 0) {
+                    self.delegate.playResponse(self.buf as Data)
+                    self.buf.length = 0
+                }
+            }
+            
         } catch {
             print("Close catch: \(error):\(error.localizedDescription)")
         }

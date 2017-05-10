@@ -16,6 +16,7 @@ class AssistantViewController: NSViewController, NSTableViewDelegate, NSTableVie
     @IBOutlet weak var microphoneButton: NSButton!
     @IBOutlet weak var tableView: NSTableView!
     
+    private var player: AVAudioPlayer?
     
     private let googleColors = [NSColor.red, NSColor.blue, NSColor.yellow, NSColor.green]
     private var nativeFormat = AKSettings.audioFormat
@@ -139,10 +140,11 @@ class AssistantViewController: NSViewController, NSTableViewDelegate, NSTableVie
     
     // TODO
     func playResponse(_ data: Data) {
-//        do {
-//            let player = try AVAudioPlayer(data: data)
-//            player.play()
-//        } catch { print("Audio out error \(error):\(error.localizedDescription)") }
+        do {
+            player = try AVAudioPlayer(data: data, fileTypeHint: AVFileTypeMPEGLayer3)
+            player?.play()
+            
+        } catch { print("Audio out error \(error):\(error.localizedDescription)") }
     }
     
     func loadFakeData() {

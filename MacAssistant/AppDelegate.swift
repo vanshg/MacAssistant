@@ -9,6 +9,7 @@
 import Cocoa
 import gRPC
 import Magnet
+import AVFoundation
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {

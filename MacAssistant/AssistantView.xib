@@ -84,7 +84,7 @@
                         <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                     </clipView>
                     <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="uZD-kj-wnI">
-                        <rect key="frame" x="0.0" y="327" width="288" height="15"/>
+                        <rect key="frame" x="0.0" y="-16" width="0.0" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="i2K-9B-15E">
@@ -93,7 +93,7 @@
                     </scroller>
                 </scrollView>
                 <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="7EO-id-zNz">
-                    <rect key="frame" x="0.0" y="45" width="328" height="5"/>
+                    <rect key="frame" x="0.0" y="45" width="328" height="4"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                 </box>
             </subviews>
