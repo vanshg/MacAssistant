@@ -167,6 +167,7 @@ public class Google_Assistant_Embedded_V1Alpha1_EmbeddedAssistantServer {
   public func start(queue:DispatchQueue = DispatchQueue.global()) {
     guard let provider = self.provider else {
       assert(false) // the server requires a provider
+      return
     }
     server.run {(handler) in
       print("Server received request to " + handler.host
