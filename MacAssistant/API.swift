@@ -45,18 +45,17 @@ class API {
             self.converseState = nil
             do { self.converseState = try ConverseState(serializedData: response.result.conversationState) }
             catch { print("ConverseState parse error") }
-            self.delegate.updateRequestText(response.result.spokenRequestText)
-            self.delegate.updateResponseText(response.result.spokenResponseText.isEmpty ? "Speaking response..." : response.result.spokenResponseText)
-            // TODO: Save file before playing it? 
-            if response.audioOut.audioData.count > 0 {
-                buf.append(response.audioOut.audioData)
+            if !response.result.spokenRequestText.isEmpty {
+                self.delegate.updateRequestText(response.result.spokenRequestText)
             }
+            self.delegate.updateResponseText(response.result.spokenResponseText.isEmpty ? "Speaking response..." : response.result.spokenResponseText)
+            if response.audioOut.audioData.count > 0 { buf.append(response.audioOut.audioData) }
             if response.eventType == .endOfUtterance { self.delegate.stopListening() }
         }
         if let error = error { print("Initial receive error: \(error)") }
     }
     
-    func initiateRequest() {
+    func initiateRequest(volumePercent: Int32) {
         var request = ConverseRequest()
         request.config = ConverseConfig()
         
@@ -69,7 +68,7 @@ class API {
         var audioOutConfig = AudioOutConfig()
         audioOutConfig.sampleRateHertz = Int32(Constants.GOOGLE_SAMPLE_RATE) // TODO: Play back the response and find the appropriate value
         audioOutConfig.encoding = .mp3
-        audioOutConfig.volumePercentage = 50
+        audioOutConfig.volumePercentage = volumePercent
         request.config.audioOutConfig = audioOutConfig
         
         do {
@@ -92,6 +91,7 @@ class API {
     func doneSpeaking() {
         do {
             try currentCall?.closeSend { print("Closed send") }
+            // Receive all response audio responses
             DispatchQueue.global().async {
                 while true {
                     do {
@@ -110,6 +110,12 @@ class API {
             
         } catch {
             print("Close catch: \(error):\(error.localizedDescription)")
+        }
+    }
+    
+    func donePlayingResponse() {
+        if followUp {
+            delegate.startListening()
         }
     }
     

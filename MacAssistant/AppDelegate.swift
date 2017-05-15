@@ -27,7 +27,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         super.init()
         popover.contentViewController = NSViewController(nibName: "LoadingView", bundle: nil)
 //        popover.appearance = NSAppearance(named: NSAppearanceNameVibrantDark)
-        registerHotkey()
+//        registerHotkey() // TODO: Proper interaction between hotkey and window
     }
     
     func applicationWillFinishLaunching(_ notification: Notification) {
@@ -65,14 +65,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                              keyCombo: keyCombo,
                              target: self,
                              action: #selector(AppDelegate.hotkeyPressed))
-        hotKey.register()
+         hotKey.register() 
     }
     
     func hotkeyPressed(sender: AnyObject?) {
-        if (!popover.isShown) {
+        if !popover.isShown {
             showPopover(sender: sender)
+        } else if let controller = popover.contentViewController as? AssistantViewController {
+            if controller.isListening {
+                controller.stopListening()
+            }
         }
-        
         if (isLoggedIn) {
             (popover.contentViewController as? AssistantViewController)?.startListening()
         }
@@ -84,12 +87,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func showPopover(sender: AnyObject?) {
         if let button = statusItem.button {
-            popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
+            popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
         }
     }
     
     func closePopover(sender: AnyObject?) {
         popover.performClose(sender)
+        if let controller = popover.contentViewController as? AssistantViewController {
+            controller.stopListening()
+        }
     }
     
     func togglePopover(sender: AnyObject?) {

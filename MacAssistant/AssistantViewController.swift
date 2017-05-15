@@ -10,12 +10,13 @@ import Cocoa
 import AudioKit
 import AVFoundation
 
-class AssistantViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource, ConversationTextDelegate {
+class AssistantViewController: NSViewController, ConversationTextDelegate, AVAudioPlayerDelegate {
     
     @IBOutlet weak var waveformView: CustomPlot!
     @IBOutlet weak var microphoneButton: NSButton!
-    @IBOutlet weak var tableView: NSTableView!
+    @IBOutlet weak var speakerButton: NSButton!
     
+    @IBOutlet weak var spokenTextLabel: NSTextField!
     private var player: AVAudioPlayer?
     
     private let googleColors = [NSColor.red, NSColor.blue, NSColor.yellow, NSColor.green]
@@ -35,74 +36,40 @@ class AssistantViewController: NSViewController, NSTableViewDelegate, NSTableVie
     private lazy var outputBuffer: AVAudioPCMBuffer = AVAudioPCMBuffer(pcmFormat: self.desiredFormat,
                                                                        frameCapacity: AVAudioFrameCount(Constants.GOOGLE_SAMPLES_PER_FRAME))
     
+    public var isListening: Bool { get { return AudioKit.engine.isRunning } }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadFakeData()
         setupPlot()
-        tableView.delegate = self
-        tableView.dataSource = self
         AudioKit.output = AKBooster(mic, gain: 0)
         AudioKit.engine.inputNode?.installTap(onBus: 0,
                                               bufferSize: UInt32(Constants.NATIVE_SAMPLES_PER_FRAME),
                                               format: nil, block: onTap)
     }
     
-    private func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSCell? {
-        let convo = conversation[row]
-        let cell = NSTextFieldCell(textCell: convo.text)
-        cell.alignment = convo.fromUser ? .right : .left
-        cell.textColor = NSColor.white
-        print("configuring")
-        return cell
-    }
-    
-    
-    
-    // TODO
-//    func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
-//        return conversation[row].text
-//        let convo = conversation[row]
-//        if tableColumn?.identifier == "rightColumn" {
-//            if convo.fromUser {
-//                return convo.text
-//            }
-//        }
-//        if tableColumn?.identifier == "leftColumn" {
-//            if !convo.fromUser {
-//                return convo.text
-//            }
-//        }
-//        return nil
-//    }
-    
-    func numberOfRows(in tableView: NSTableView) -> Int { return conversation.count }
-    
     public func onTap(buffer: AVAudioPCMBuffer, _: AVAudioTime) {
-        if let _ = buffer.floatChannelData {
-            var err: NSError?
-            converter.convert(to: outputBuffer, error: &err) { packetCount, inputStatusPtr in
-                inputStatusPtr.pointee = .haveData
-                return buffer
-            }
-            
-            if let error = err {
-                print("Conversion error \(error)")
-            } else {
-                if let data = outputBuffer.int16ChannelData {
-                    self.api.sendAudio(frame: data, withLength: Int(outputBuffer.frameLength))
-                }
-            }
+        var error: NSError?
+        converter.convert(to: outputBuffer, error: &error) { _, inputStatusPtr in
+            inputStatusPtr.pointee = .haveData
+            return buffer
+        }
+        
+        if let error = error { print("Conversion error \(error)") }
+        else if let data = outputBuffer.int16ChannelData {
+            self.api.sendAudio(frame: data, withLength: Int(outputBuffer.frameLength))
         }
     }
     
     
     func setupPlot() {
         waveformView.setClickListener(h: buttonAction)
-        plot.shouldFill = false
+        plot.shouldFill = true
         plot.shouldMirror = true
         plot.color = googleColors[0]
         plot.backgroundColor = NSColor.clear
         plot.autoresizingMask = .viewWidthSizable
+        plot.shouldOptimizeForRealtimePlot = true
+        plot.plotType = .buffer
         waveformView.addSubview(plot)
         Timer.scheduledTimer(timeInterval: 0.75, target: self, selector: #selector(self.updatePlotWaveformColor), userInfo: nil, repeats: true);
     }
@@ -115,18 +82,23 @@ class AssistantViewController: NSViewController, NSTableViewDelegate, NSTableVie
     @IBAction func buttonAction(_ sender: Any) {
         if AudioKit.engine.isRunning {
             stopListening()
-        } else {
+        } else if !(player?.isPlaying ?? false) {
             startListening()
         }
     }
     
     func startListening() {
-        api.initiateRequest()
+        api.initiateRequest(volumePercent: Int32(mic.volume * 100))
         AudioKit.start()
+        let file = Bundle.main.url(forResource: "begin_prompt", withExtension: "mp3")!
+        player = try! AVAudioPlayer(contentsOf: file)
+        player!.play()
         DispatchQueue.main.async {
             self.microphoneButton.isHidden = true
             self.plot.isHidden = false
+            self.speakerButton.isHidden = true
         }
+        spokenTextLabel.stringValue = ""
     }
     
     func stopListening() {
@@ -135,33 +107,47 @@ class AssistantViewController: NSViewController, NSTableViewDelegate, NSTableVie
         DispatchQueue.main.async {
             self.microphoneButton.isHidden = false
             self.plot.isHidden = true
+            self.speakerButton.isHidden = true
         }
     }
     
-    // TODO
     func playResponse(_ data: Data) {
         do {
             player = try AVAudioPlayer(data: data, fileTypeHint: AVFileTypeMPEGLayer3)
             player?.play()
-            
-        } catch { print("Audio out error \(error):\(error.localizedDescription)") }
+            player?.delegate = self
+            speakerIcon(isShown: true)
+        } catch {
+            print("Audio out error \(error):\(error.localizedDescription)")
+            speakerIcon(isShown: false)
+        }
     }
     
-    func loadFakeData() {
-        for i in 0...10 {
-            conversation.append(ConversationEntry(text: "User \(i)", fromUser: true))
-            conversation.append(ConversationEntry(text: "Response \(i)", fromUser: false))
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        speakerIcon(isShown: false)
+        api.donePlayingResponse()
+    }
+    
+    func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
+        speakerIcon(isShown: false)
+    }
+    
+    func speakerIcon(isShown: Bool) {
+        DispatchQueue.main.async {
+            self.speakerButton.isHidden = !isShown
+            self.microphoneButton.isHidden = isShown
+            self.plot.isHidden = true
         }
     }
     
     func updateRequestText(_ text: String) {
+        print("Request text: \(text)")
+        spokenTextLabel.stringValue = "\"\(text)\""
         conversation.append(ConversationEntry(text: text, fromUser: true))
-        tableView.reloadData()
     }
     
     func updateResponseText(_ text: String) {
         conversation.append(ConversationEntry(text: text, fromUser: false))
-        tableView.reloadData()
     }
     
     @IBAction func gearClicked(_ sender: Any) {
@@ -169,6 +155,7 @@ class AssistantViewController: NSViewController, NSTableViewDelegate, NSTableVie
     }
     
     @IBAction func actionClicked(_ sender: Any) {
+        
     }
     
     @IBAction func settingsClicked(_ sender: Any) {
