@@ -16,7 +16,7 @@ Dependencies are managed using Carthage. After you clone the project, run `carth
 You will also need to obtain OAuth credentials from Google. Go to [Google Developer Console](console.developers.google.com) and create a new project. Then, enable the `Google Assistant` API. Finally generate new OAuth credentials (select device type `Other`). Download the json file by clicking the button on the right. Finally, rename the file to `google_oauth.json` and place it in your project.
 
 ## Contributing
-Please feel free to contribute to this project. I welcome all contributions and pull requests.
+Please feel free to contribute to this project. I welcome all contributions and pull requests. There is a list of pending things that need to be worked on in the `TODO.md` file.
 
 ## License
 MIT License
