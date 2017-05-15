@@ -5,3 +5,4 @@
 - Add Settings menu (Allow customizing the hotkey, when it is working)
 - New icon and sound (so as not to get hit by some copyright from El Goog)
 - Better microphone waveform graphic
+- Detect authorization errors/permission revocation and sign user out (Therfore forcing user to re-login)
