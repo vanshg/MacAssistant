@@ -142,16 +142,15 @@ class AssistantViewController: NSViewController, ConversationTextDelegate, AVAud
     }
     
     func updateRequestText(_ text: String) {
-        if (!text.isEmpty) {
-            
-        }
         print("Request text: \(text)")
-        spokenTextLabel.stringValue = "\"\(text)\""
-        conversation.append(ConversationEntry(text: text, fromUser: true))
+        DispatchQueue.main.async {
+            self.spokenTextLabel.stringValue = "\"\(text)\""
+        }
+//        conversation.append(ConversationEntry(text: text, fromUser: true))
     }
     
     func updateResponseText(_ text: String) {
-        conversation.append(ConversationEntry(text: text, fromUser: false))
+//        conversation.append(ConversationEntry(text: text, fromUser: false))
     }
     
     @IBAction func gearClicked(_ sender: Any) {
