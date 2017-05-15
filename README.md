@@ -4,7 +4,7 @@ A project to integrate the Google Assistant into macOS using the Google Assistan
 
 ## Download
 Downloads are listed under the `Releases` tab.
-Click [here]() to download the latest version.
+Click [here](https://github.com/vanshg/MacAssistant/releases/download/0.1/MacAssistant.zip) to directly download the latest version.
 
 This project is currently in Beta
 
