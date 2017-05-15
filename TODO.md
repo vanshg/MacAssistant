@@ -6,3 +6,4 @@
 - New icon and sound (so as not to get hit by some copyright from El Goog)
 - Better microphone waveform graphic
 - Detect authorization errors/permission revocation and sign user out (Therfore forcing user to re-login)
+- Run the incoming response audio through a speech recognizier to get response text manually
