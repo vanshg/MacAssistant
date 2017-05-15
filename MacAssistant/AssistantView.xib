@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="AssistantViewController" customModule="MacAssistant" customModuleProvider="target">
             <connections>
+                <outlet property="gearIcon" destination="OqY-YE-TpG" id="3Dm-PF-m3E"/>
                 <outlet property="microphoneButton" destination="Hxt-c3-qkc" id="PJZ-QC-9Tc"/>
                 <outlet property="speakerButton" destination="O0d-RS-z7Y" id="V4w-v4-1lc"/>
                 <outlet property="spokenTextLabel" destination="dnK-0x-yEG" id="nRs-hI-RHP"/>
@@ -52,7 +53,7 @@
                     </userDefinedRuntimeAttributes>
                 </customView>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OqY-YE-TpG">
-                    <rect key="frame" x="318" y="5" width="10" height="10"/>
+                    <rect key="frame" x="315" y="5" width="10" height="10"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSActionTemplate" imagePosition="left" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="fWe-cN-erA">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -81,19 +82,6 @@
         </customView>
         <menu id="d2E-qz-Qcz">
             <items>
-                <menuItem title="About" id="yrV-EF-8Rg">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="actionClicked:" target="-2" id="B0P-Or-Cvh"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="Settings" id="hO8-Bg-9e2">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="settingsClicked:" target="-2" id="Vsg-Pk-TnF"/>
-                    </connections>
-                </menuItem>
-                <menuItem isSeparatorItem="YES" id="xOJ-hz-nLX"/>
                 <menuItem title="Quit" id="XE8-SU-qYs">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
@@ -101,7 +89,7 @@
                     </connections>
                 </menuItem>
             </items>
-            <point key="canvasLocation" x="371.5" y="425.5"/>
+            <point key="canvasLocation" x="331" y="199.5"/>
         </menu>
     </objects>
     <resources>

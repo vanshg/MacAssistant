@@ -12,12 +12,13 @@ import AVFoundation
 
 class AssistantViewController: NSViewController, ConversationTextDelegate, AVAudioPlayerDelegate {
     
+    @IBOutlet weak var gearIcon: NSButton!
     @IBOutlet weak var waveformView: CustomPlot!
     @IBOutlet weak var microphoneButton: NSButton!
     @IBOutlet weak var speakerButton: NSButton!
-    
     @IBOutlet weak var spokenTextLabel: NSTextField!
     private var player: AVAudioPlayer?
+    
     
     private let googleColors = [NSColor.red, NSColor.blue, NSColor.yellow, NSColor.green]
     private var nativeFormat = AKSettings.audioFormat
@@ -141,6 +142,9 @@ class AssistantViewController: NSViewController, ConversationTextDelegate, AVAud
     }
     
     func updateRequestText(_ text: String) {
+        if (!text.isEmpty) {
+            
+        }
         print("Request text: \(text)")
         spokenTextLabel.stringValue = "\"\(text)\""
         conversation.append(ConversationEntry(text: text, fromUser: true))
@@ -151,15 +155,9 @@ class AssistantViewController: NSViewController, ConversationTextDelegate, AVAud
     }
     
     @IBAction func gearClicked(_ sender: Any) {
-        
-    }
-    
-    @IBAction func actionClicked(_ sender: Any) {
-        
-    }
-    
-    @IBAction func settingsClicked(_ sender: Any) {
-        
+        if let event = NSApp.currentEvent, let menu = gearIcon.menu {
+            NSMenu.popUpContextMenu(menu, with: event, for: gearIcon)
+        }
     }
     
     @IBAction func quitClicked(_ sender: Any) {
