@@ -8,6 +8,15 @@ Click [here](https://github.com/vanshg/MacAssistant/releases/download/0.2/MacAss
 
 This project is currently in Beta
 
+## Example Queries
+*"What time is it"*
+
+*"Who is the president"*, 
+*"How old is he"*, 
+*"Does he have any children"*
+
+as well as anything else you can normally ask Google Assistant
+
 ## Builid Instructions
 MacAssistant is built using Swift 3.1 and Xcode 8
 
