@@ -26,8 +26,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     public override init() {
         super.init()
         popover.contentViewController = NSViewController(nibName: "LoadingView", bundle: nil)
+        registerHotkey() // TODO: Proper interaction between hotkey and window
 //        popover.appearance = NSAppearance(named: NSAppearanceNameVibrantDark)
-//        registerHotkey() // TODO: Proper interaction between hotkey and window
     }
     
     func applicationWillFinishLaunching(_ notification: Notification) {
@@ -60,8 +60,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func registerHotkey() {
-        guard let keyCombo = KeyCombo(doubledCocoaModifiers: .control) else { return }
-        let hotKey = HotKey(identifier: "ControlDoubleTap",
+        guard let keyCombo = KeyCombo(doubledCocoaModifiers: .command) else { return }
+        let hotKey = HotKey(identifier: "CommandDoubleTapped",
                              keyCombo: keyCombo,
                              target: self,
                              action: #selector(AppDelegate.hotkeyPressed))
@@ -71,13 +71,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func hotkeyPressed(sender: AnyObject?) {
         if !popover.isShown {
             showPopover(sender: sender)
+            if (isLoggedIn) {
+                (popover.contentViewController as? AssistantViewController)?.startListening()
+            }
         } else if let controller = popover.contentViewController as? AssistantViewController {
             if controller.isListening {
                 controller.stopListening()
+            } else {
+                controller.startListening()
             }
-        }
-        if (isLoggedIn) {
-            (popover.contentViewController as? AssistantViewController)?.startListening()
         }
     }
     
@@ -92,10 +94,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func closePopover(sender: AnyObject?) {
-        popover.performClose(sender)
         if let controller = popover.contentViewController as? AssistantViewController {
             controller.stopListening()
         }
+        popover.performClose(sender)
     }
     
     func togglePopover(sender: AnyObject?) {
