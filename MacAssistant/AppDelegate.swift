@@ -12,7 +12,7 @@ import Magnet
 import AVFoundation
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, NSSpeechRecognizerDelegate {
     
     let statusItem = NSStatusBar.system().statusItem(withLength: NSSquareStatusItemLength)
     let popover = NSPopover()
@@ -22,15 +22,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         get { return userDefaults.bool(forKey: Constants.LOGGED_IN_KEY) }
         set { userDefaults.set(newValue, forKey: Constants.LOGGED_IN_KEY) }
     }
-    
-    public override init() {
-        super.init()
+
+    internal func applicationDidFinishLaunching(_ aNotification: Notification) {
+        let icon = #imageLiteral(resourceName: "statusIcon")
+        icon.isTemplate = true
+        statusItem.image = icon
+        statusItem.action = #selector(statusIconClicked)
         popover.contentViewController = NSViewController(nibName: "LoadingView", bundle: nil)
-        registerHotkey() // TODO: Proper interaction between hotkey and window
-//        popover.appearance = NSAppearance(named: NSAppearanceNameVibrantDark)
-    }
-    
-    func applicationWillFinishLaunching(_ notification: Notification) {
         if isLoggedIn {
             let date = userDefaults.object(forKey: Constants.EXPIRES_IN_KEY) as? Date
             if (date ?? Date()) < Date() {
@@ -45,13 +43,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         } else {
             popover.contentViewController = LoginViewController(nibName: "LoginView", bundle: nil)
         }
-    }
-
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
-        let icon = #imageLiteral(resourceName: "statusIcon")
-        icon.isTemplate = true
-        statusItem.image = icon
-        statusItem.action = #selector(statusIconClicked)
+        registerHotkey()
+        setupHotword(false) // Hotword activation
     }
     
     func notifyLoggedIn() {
@@ -68,16 +61,40 @@ class AppDelegate: NSObject, NSApplicationDelegate {
          hotKey.register() 
     }
     
+    func setupHotword(_ enable: Bool = true) {
+        if enable {
+            let hotwordDetector = NSSpeechRecognizer()
+            hotwordDetector?.commands = ["okay mac"]
+            hotwordDetector?.blocksOtherRecognizers = true
+            hotwordDetector?.listensInForegroundOnly = false
+            hotwordDetector?.delegate = self
+            hotwordDetector?.startListening()
+        }
+    }
+    
     func hotkeyPressed(sender: AnyObject?) {
         if !popover.isShown {
             showPopover(sender: sender)
-            if (isLoggedIn) {
+            if isLoggedIn {
                 (popover.contentViewController as? AssistantViewController)?.startListening()
             }
         } else if let controller = popover.contentViewController as? AssistantViewController {
-            if controller.isListening {
-                controller.stopListening()
-            } else {
+            if isLoggedIn {
+                if controller.isListening {
+                    controller.stopListening()
+                } else {
+                    controller.startListening()
+                }
+            }
+        }
+    }
+    
+    func speechRecognizer(_ sender: NSSpeechRecognizer, didRecognizeCommand command: String) {
+        if !popover.isShown {
+            showPopover(sender: sender)
+        }
+        if isLoggedIn, let controller = popover.contentViewController as? AssistantViewController {
+            if !controller.isListening {
                 controller.startListening()
             }
         }

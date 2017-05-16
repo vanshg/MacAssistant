@@ -40,11 +40,9 @@ class API {
     
     private func onReceive(response: ConverseReponse?, error: ClientError?) {
         if let response = response {
-            self.debugPrint(result: response)
             self.followUp = response.result.microphoneMode == .dialogFollowOn
             self.converseState = nil
-            do { self.converseState = try ConverseState(serializedData: response.result.conversationState) }
-            catch { print("ConverseState parse error") }
+            converseState = (try? ConverseState(serializedData: response.result.conversationState)) ?? converseState
             if !response.result.spokenRequestText.isEmpty {
                 self.delegate.updateRequestText(response.result.spokenRequestText)
             }
@@ -116,19 +114,7 @@ class API {
     func donePlayingResponse() {
         if followUp {
             delegate.startListening()
+            followUp = false
         }
     }
-    
-    func debugPrint(result: ConverseReponse) {
-        print("\n++++++++++++++++++++++++++++++")
-        print("Close receive result error: \(result.error.code)")
-        print("Close receive result result mic: \(result.result.microphoneMode)")
-        print("Close receive result result responseText: \(result.result.spokenResponseText)")
-        print("Close receive result result requestText: \(result.result.spokenRequestText)")
-        print("Close receive eventType: \(result.eventType)")
-        print("Close receive audio out count \(result.audioOut.audioData.count)")
-        print("++++++++++++++++++++++++++++++\n")
-    }
-    
-    
 }

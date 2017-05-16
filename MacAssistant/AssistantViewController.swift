@@ -42,6 +42,7 @@ class AssistantViewController: NSViewController, ConversationTextDelegate, AVAud
     override func viewDidLoad() {
         super.viewDidLoad()
         setupPlot()
+        microphoneButton.image?.isTemplate = true
         AudioKit.output = AKBooster(mic, gain: 0)
         AudioKit.engine.inputNode?.installTap(onBus: 0,
                                               bufferSize: UInt32(Constants.NATIVE_SAMPLES_PER_FRAME),
