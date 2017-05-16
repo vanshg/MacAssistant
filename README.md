@@ -2,6 +2,10 @@
 
 A project to integrate the Google Assistant into macOS using the Google Assistant SDK
 
+![](images/1.png)
+![](images/2.png)
+![](images/3.png)
+
 ## Download
 Downloads are listed under the `Releases` tab.
 Click [here](https://github.com/vanshg/MacAssistant/releases/download/0.2/MacAssistant.zip) to directly download the latest version.
