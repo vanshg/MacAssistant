@@ -1,4 +1,7 @@
 # TODO
+- Fix Follow up questions/responses
+- Refresh OAuth token when it expires
+- Click on button to stop the speaking
 - Add hotword detection (https://github.com/Kitt-AI/snowboy)
 - Add sound feedback when cancelling speech
 - Add About Screen
