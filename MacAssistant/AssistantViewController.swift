@@ -134,6 +134,11 @@ class AssistantViewController: NSViewController, ConversationTextDelegate, AVAud
         speakerIcon(isShown: false)
     }
     
+    @IBAction func stopSpeaking(_ sender: NSButton) {
+        player?.stop()
+        speakerIcon(isShown: false)
+    }
+    
     func speakerIcon(isShown: Bool) {
         DispatchQueue.main.async {
             self.speakerButton.isHidden = !isShown
