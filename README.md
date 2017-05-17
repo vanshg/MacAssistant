@@ -2,6 +2,10 @@
 
 A project to integrate the Google Assistant into macOS using the Google Assistant SDK
 
+*"Google Assistant is now on over 100 million devices" - Sundar Pichai*
+
+MacAssistant brings that number to 200 million
+
 ![](images/1.png)
 ![](images/2.png)
 ![](images/3.png)
