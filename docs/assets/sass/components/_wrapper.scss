@@ -1,0 +1,120 @@
+///
+/// Story by HTML5 UP
+/// html5up.net | @ajlkn
+/// Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+///
+
+/* Wrapper (style1) */
+
+	.wrapper.style1 {
+		> .inner {
+			@include padding(_size(padding, default), _size(padding, default) * 0.5);
+			margin: 0 auto;
+			max-width: 100%;
+			width: _size(inner);
+
+			&.medium {
+				width: _size(inner) * 0.75;
+			}
+
+			&.small {
+				width: _size(inner) * 0.5;
+			}
+		}
+
+		@include breakpoint(xlarge) {
+			> .inner {
+				@include padding(_size(padding, xlarge), _size(padding, xlarge) * 0.5);
+			}
+		}
+
+		@include breakpoint(large) {
+			> .inner {
+				@include padding(_size(padding, large), _size(padding, large));
+			}
+		}
+
+		@include breakpoint(medium) {
+			> .inner {
+				@include padding(_size(padding, medium) * 1.5, _size(padding, medium));
+			}
+		}
+
+		@include breakpoint(small) {
+			> .inner {
+				@include padding(_size(padding, small) * 1.5, _size(padding, small));
+			}
+		}
+	}
+
+/* Wrapper (style2) */
+
+	.wrapper.style2 {
+		padding: _size(padding, default);
+		background-color: _palette(bg-alt);
+
+		> .inner {
+			@include padding(_size(padding, default) * 0.75, _size(padding, default) * 0.5);
+			background-color: _palette(bg);
+			border-radius: _size(border-radius-alt);
+			margin: 0 auto;
+			max-width: 100%;
+			position: relative;
+			width: _size(inner);
+			z-index: 1;
+
+			&.medium {
+				width: _size(inner) * 0.75;
+			}
+
+			&.small {
+				width: _size(inner) * 0.5;
+			}
+		}
+
+		@include breakpoint(xlarge) {
+			padding: _size(padding, xlarge);
+
+			> .inner {
+				@include padding(_size(padding, xlarge) * 0.75, _size(padding, xlarge) * 0.5);
+			}
+		}
+
+		@include breakpoint(large) {
+			padding: _size(padding, large);
+
+			> .inner {
+				@include padding(_size(padding, large) * 0.75, _size(padding, large) * 0.5);
+			}
+		}
+
+		@include breakpoint(medium) {
+			padding: _size(padding, medium) * 0.75;
+
+			> .inner {
+				@include padding(_size(padding, medium), _size(padding, medium) * 0.75);
+			}
+		}
+
+		@include breakpoint(small) {
+			padding: _size(padding, small) * 0.75;
+
+			> .inner {
+				@include padding(_size(padding, small), _size(padding, small) * 0.75);
+			}
+		}
+	}
+
+	#wrapper {
+		> .wrapper.style2 {
+			&.invert {
+				&:not(.color1):not(.color2):not(.color3):not(.color4):not(.color5):not(.color6):not(.color7) {
+					background-color: _palette(invert, bg-alt);
+				}
+
+				> .inner {
+					background-color: _palette(invert, bg);
+				}
+			}
+		}
+	}

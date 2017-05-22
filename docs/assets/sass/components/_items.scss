@@ -1,0 +1,338 @@
+///
+/// Story by HTML5 UP
+/// html5up.net | @ajlkn
+/// Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+///
+
+/* Items (transitions) */
+
+	.items {
+
+		// Mixin.
+			@mixin transition-items($event) {
+				$x: null;
+				$y: null;
+
+				@if ($event == 'load') {
+					$x: 'body.is-loading &';
+					$y: _duration(on-load);
+				}
+				@else if ($event == 'scroll') {
+					$x: '&.is-inactive';
+					$y: _duration(on-scroll);
+				}
+
+				&.on#{$event}-fade-in {
+					> * {
+						> .inner {
+							@include vendor('transition', 'opacity #{$y} ease-in-out');
+							@include vendor('transition-delay', '#{_misc(items-limit) * _duration(items-delay)}');
+						}
+
+						@for $i from 0 through _misc(items-limit) {
+							&:nth-child(#{$i + 1}) {
+								> .inner {
+									@include vendor('transition-delay', '#{$i * _duration(items-delay)}');
+								}
+							}
+						}
+					}
+
+					#{$x} {
+						> * {
+							> .inner {
+								opacity: 0;
+							}
+						}
+					}
+				}
+			}
+
+		// On Load.
+			@include transition-items('load');
+
+		// On Scroll.
+			@include transition-items('scroll');
+
+	}
+
+/* Items (style1) */
+
+	@mixin items-style1-size($name, $size, $padding) {
+		&.#{$name} {
+			> * {
+				@include padding($padding, $padding);
+				width: #{100% / $size};
+
+				&:nth-child(-n + #{$size}) {
+					border-top-width: 0;
+				}
+
+				&:nth-child(#{$size}n + 1) {
+					border-left-width: 0;
+				}
+			}
+		}
+	}
+
+	@mixin items-style1-size-reset($name, $size) {
+		&.#{$name} {
+			> * {
+				&:nth-child(-n + #{$size}) {
+					border-top-width: _size(border-width);
+				}
+
+				&:nth-child(#{$size}n + 1) {
+					border-left-width: _size(border-width);
+				}
+			}
+		}
+	}
+
+	.items.style1 {
+		@include vendor('display', 'flex');
+		@include vendor('flex-wrap', 'wrap');
+		@include vendor('justify-content', 'center');
+		margin: (_size(element-margin) * 1.5) 0;
+		position: relative;
+
+		> * {
+			@include vendor('flex-grow', '0');
+			@include vendor('flex-shrink', '0');
+			border-style: solid;
+			border-left-width: _size(border-width);
+			border-top-width: _size(border-width);
+		}
+
+		// Modifiers.
+
+			// Size.
+				@include items-style1-size(big, 2, _size(gutter));
+				@include items-style1-size(medium, 3, _size(gutter) * 0.625);
+				@include items-style1-size(small, 4, _size(gutter) * 0.375);
+
+				@include breakpoint(large) {
+					@include items-style1-size-reset(small, 4);
+					@include items-style1-size(small, 3, _size(gutter) * 0.625);
+				}
+
+				@include breakpoint(medium) {
+					@include items-style1-size-reset(medium, 3);
+					@include items-style1-size(medium, 2, _size(gutter));
+
+					@include items-style1-size-reset(small, 3);
+					@include items-style1-size(small, 2, _size(gutter));
+				}
+
+				@include breakpoint(xsmall) {
+					@include items-style1-size-reset(big, 2);
+					@include items-style1-size(big, 1, _size(gutter) * 0.75);
+
+					@include items-style1-size-reset(medium, 2);
+					@include items-style1-size(medium, 1, _size(gutter) * 0.75);
+
+					@include items-style1-size-reset(small, 2);
+					@include items-style1-size(small, 1, _size(gutter) * 0.75);
+
+					&.big,
+					&.medium,
+					&.small {
+						> * {
+							padding-left: 0;
+							padding-right: 0;
+						}
+
+						> :first-child {
+							padding-top: 0;
+						}
+
+						> :last-child {
+							padding-bottom: 0;
+
+							> .inner {
+								> :last-child {
+									margin-bottom: 0;
+								}
+							}
+						}
+					}
+				}
+
+	}
+
+/* Items (style2) */
+
+	@mixin items-style2-size($name, $size, $padding) {
+		&.#{$name} {
+			> * {
+				@include padding($padding, $padding);
+				width: #{100% / $size};
+
+				&:nth-child(-n + #{$size}) {
+					border-top-width: 0;
+				}
+
+				&:nth-child(#{$size}n + 1) {
+					border-left-width: 0;
+				}
+			}
+		}
+	}
+
+	@mixin items-style2-size-reset($name, $size) {
+		&.#{$name} {
+			> * {
+				&:nth-child(-n + #{$size}) {
+					border-top-width: _size(border-width);
+				}
+
+				&:nth-child(#{$size}n + 1) {
+					border-left-width: _size(border-width);
+				}
+			}
+		}
+	}
+
+	.items.style2 {
+		@include vendor('display', 'flex');
+		@include vendor('flex-wrap', 'wrap');
+		@include vendor('justify-content', 'center');
+		margin: (_size(element-margin) * 1.5) 0;
+		position: relative;
+		border: solid _size(border-width);
+		border-radius: _size(border-radius);
+
+		> * {
+			@include vendor('flex-grow', '0');
+			@include vendor('flex-shrink', '0');
+			border-style: solid;
+			border-left-width: _size(border-width);
+			border-top-width: _size(border-width);
+		}
+
+		// Modifiers.
+
+			// Size.
+				@include items-style2-size(big, 2, _size(gutter));
+				@include items-style2-size(medium, 3, _size(gutter) * 0.625);
+				@include items-style2-size(small, 4, _size(gutter) * 0.375);
+
+				@include breakpoint(large) {
+					@include items-style2-size-reset(small, 4);
+					@include items-style2-size(small, 3, _size(gutter) * 0.625);
+				}
+
+				@include breakpoint(medium) {
+					@include items-style2-size-reset(medium, 3);
+					@include items-style2-size(medium, 2, _size(gutter));
+
+					@include items-style2-size-reset(small, 3);
+					@include items-style2-size(small, 2, _size(gutter));
+				}
+
+				@include breakpoint(xsmall) {
+					@include items-style2-size-reset(big, 2);
+					@include items-style2-size(big, 1, _size(gutter) * 0.75);
+
+					@include items-style2-size-reset(medium, 2);
+					@include items-style2-size(medium, 1, _size(gutter) * 0.75);
+
+					@include items-style2-size-reset(small, 2);
+					@include items-style2-size(small, 1, _size(gutter) * 0.75);
+				}
+
+	}
+
+/* Items (style3) */
+
+	@mixin items-style3-size($name, $size, $padding) {
+		&.#{$name} {
+			> * {
+				@include padding($padding, $padding);
+				width: #{100% / $size};
+			}
+		}
+	}
+
+	.items.style3 {
+		@include vendor('display', 'flex');
+		@include vendor('flex-wrap', 'wrap');
+		@include vendor('justify-content', 'center');
+		margin: (_size(element-margin) * 1.5) 0;
+		position: relative;
+
+		> * {
+			@include vendor('flex-grow', '0');
+			@include vendor('flex-shrink', '0');
+		}
+
+		// Modifiers.
+
+			// Size.
+				@include items-style3-size(big, 2, _size(gutter) * 0.5);
+				@include items-style3-size(medium, 3, _size(gutter) * 0.5 * 0.625);
+				@include items-style3-size(small, 4, _size(gutter) * 0.5 * 0.375);
+
+				@include breakpoint(large) {
+					@include items-style3-size(small, 3, _size(gutter) * 0.5 * 0.625);
+				}
+
+				@include breakpoint(medium) {
+					@include items-style3-size(medium, 2, _size(gutter) * 0.5);
+					@include items-style3-size(small, 2, _size(gutter) * 0.5);
+				}
+
+				@include breakpoint(small) {
+					margin: _size(element-margin) 0;
+				}
+
+				@include breakpoint(xsmall) {
+					@include items-style3-size(big, 1, _size(gutter) * 0.5 * 0.75);
+					@include items-style3-size(medium, 1, _size(gutter) * 0.5 * 0.75);
+					@include items-style3-size(small, 1, _size(gutter) * 0.5 * 0.75);
+
+					&.big,
+					&.medium,
+					&.small {
+						> * {
+							padding-left: 0;
+							padding-right: 0;
+						}
+
+						> :first-child {
+							padding-top: 0;
+						}
+
+						> :last-child {
+							padding-bottom: 0;
+
+							> .inner {
+								> :last-child {
+									margin-bottom: 0;
+								}
+							}
+						}
+					}
+				}
+
+	}
+
+// Mixin
+
+	@mixin color-items($p: null) {
+ 		.items.style1 {
+ 			> * {
+	 			border-color: _palette($p, border);
+	 		}
+ 		}
+
+ 		.items.style2 {
+ 			border-color: _palette($p, border);
+
+ 			> * {
+	 			border-color: _palette($p, border);
+	 		}
+ 		}
+	}
+
+	@include color-items;

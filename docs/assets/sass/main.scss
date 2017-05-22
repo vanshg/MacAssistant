@@ -1,0 +1,179 @@
+@import 'libs/vars';
+@import 'libs/functions';
+@import 'libs/mixins';
+@import 'libs/skel';
+@import 'font-awesome.min.css';
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i');
+
+/*
+	Story by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+*/
+
+	@include skel-breakpoints((
+		xlarge: '(max-width: 1680px)',
+		large: '(max-width: 1280px)',
+		medium: '(max-width: 980px)',
+		small: '(max-width: 736px)',
+		xsmall: '(max-width: 480px)',
+		xxsmall: '(max-width: 360px)'
+	));
+
+	@include skel-layout((
+		reset: 'full',
+		boxModel: 'border',
+		grid: ( gutters: 2rem )
+	));
+
+	@mixin color($p) {
+		@include color-typography($p);
+		@include color-box($p);
+		@include color-button($p);
+		@include color-form($p);
+		@include color-icon($p);
+		@include color-list($p);
+		@include color-section($p);
+		@include color-table($p);
+		@include color-banner($p);
+		@include color-spotlight($p);
+		@include color-gallery($p);
+		@include color-items($p);
+		@include color-index($p);
+	}
+
+	@mixin phone($image-width) {
+		@include vendor('flex-grow', '0');
+		@include vendor('flex-shrink', '0');
+		border-radius: 0;
+		border: solid _size(border-width);
+
+		img {
+			@include vendor('object-fit', 'cover');
+			@include vendor('object-position', 'center');
+			display: block;
+			width: 100%;
+			height: 100%;
+			border-radius: 0;
+		}
+
+		&:before {
+			content: '';
+			display: block;
+			background-position: center;
+			background-repeat: no-repeat;
+			border: solid _size(border-width);
+			border-bottom: 0;
+		}
+
+		&:after {
+			content: '';
+			display: block;
+			background-position: center;
+			background-repeat: no-repeat;
+			border: solid _size(border-width);
+			border-top: 0;
+		}
+
+		@include resize-phone($image-width, 1);
+	}
+
+	@mixin resize-phone($image-width, $image-factor) {
+		$image-pad-top: 2.5rem;
+		$image-pad-bottom: 3rem;
+		$image-height: ($image-width * (1920 / 1080));
+
+		width: ($image-width * $image-factor);
+		height: (($image-width * $image-factor) * (1920 / 1080));
+		margin-top: ($image-pad-top * $image-factor);
+		margin-bottom: (_size(element-margin) + ($image-pad-bottom * $image-factor));
+
+		&:before {
+			height: ($image-pad-top * $image-factor);
+			background-size: (64px * $image-factor) (32px * $image-factor);
+			margin-top: (($image-pad-top * $image-factor) * -1);
+			border-radius: (1rem * $image-factor) (1rem * $image-factor) 0 0;
+		}
+
+		&:after {
+			height: ($image-pad-bottom * $image-factor);
+			background-size: (64px * $image-factor) (32px * $image-factor);
+			margin-bottom: (($image-pad-bottom * $image-factor) * -1);
+			border-radius: 0 0 (1rem * $image-factor) (1rem * $image-factor);
+		}
+	}
+
+	@mixin color-phone($p) {
+		border-color: _palette($p, border);
+		background-color: _palette($p, border);
+
+		@if ($p != 'invert') {
+			border-width: 0;
+		}
+		@else {
+			border-width: _size(border-width);
+		}
+
+		&:before {
+			background-image: svg-url('<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="64px" height="32px" viewBox="0 0 64 32" zoomAndPan="disable"><style>rect {fill: transparent; stroke: #{_palette($p, border)}; stroke-width: #{_size(border-width)}; }</style><rect rx="4" ry="4" x="11" y="12" width="42" height="8" vector-effect="non-scaling-stroke" /></svg>');
+			border-color: _palette($p, border);
+
+			@if ($p == 'invert') {
+				width: calc(100% + #{_size(border-width) * 2});
+				margin-left: (_size(border-width) * -1);
+			}
+			@else {
+				width: 100%;
+			}
+		}
+
+		&:after {
+			background-image: svg-url('<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="64px" height="32px" viewBox="0 0 64 32" zoomAndPan="disable"><style>circle {fill: transparent; stroke: #{_palette($p, border)}; stroke-width: #{_size(border-width)}; }</style><circle cx="32" cy="16" r="14" vector-effect="non-scaling-stroke" /></svg>');
+			border-color: _palette($p, border);
+
+			@if ($p == 'invert') {
+				width: calc(100% + #{_size(border-width) * 2});
+				margin-left: (_size(border-width) * -1);
+			}
+			@else {
+				width: 100%;
+			}
+		}
+	}
+
+	@mixin color-phone-variant($v, $p) {
+		@if ($v == 'android') {
+			&:after {
+				background-image: svg-url('<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="64px" height="32px" viewBox="0 0 64 32" zoomAndPan="disable"><style>rect {fill: transparent; stroke: #{_palette($p, border)}; stroke-width: #{_size(border-width)}; }</style><rect rx="4" ry="4" x="6" y="4" width="52" height="24" vector-effect="non-scaling-stroke" /></svg>');
+			}
+		}
+		@else if ($p == 'iphone') {
+			// ...
+		}
+	}
+
+// Base.
+
+	@import 'base/page';
+	@import 'base/typography';
+
+// Component.
+
+	@import 'components/box';
+	@import 'components/button';
+	@import 'components/form';
+	@import 'components/icon';
+	@import 'components/image';
+	@import 'components/list';
+	@import 'components/section';
+	@import 'components/table';
+	@import 'components/banner';
+	@import 'components/spotlight';
+	@import 'components/gallery';
+	@import 'components/wrapper';
+	@import 'components/items';
+	@import 'components/index';
+
+// Layout.
+
+	@import 'layout/wrapper';

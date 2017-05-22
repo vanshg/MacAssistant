@@ -1,0 +1,990 @@
+///
+/// Story by HTML5 UP
+/// html5up.net | @ajlkn
+/// Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+///
+
+/* Banner (transitions) */
+
+	.banner {
+
+		// Mixin.
+			@mixin transition-banner($event) {
+				$x: null;
+				$y: null;
+
+				@if ($event == 'load') {
+					$x: 'body.is-loading &';
+					$y: _duration(on-load);
+				}
+				@else if ($event == 'scroll') {
+					$x: '&.is-inactive';
+					$y: _duration(on-scroll);
+				}
+
+				// Content.
+					&.on#{$event}-content-fade-up {
+						.content {
+							@include vendor('transition', (
+								'opacity #{$y} ease-in-out',
+								'transform #{$y} ease-in-out'
+							));
+						}
+
+						#{$x} {
+							.content {
+								@include vendor('transform', 'translateY(1rem)');
+								opacity: 0;
+							}
+						}
+					}
+
+					&.on#{$event}-content-fade-down {
+						.content {
+							@include vendor('transition', (
+								'opacity #{$y} ease-in-out',
+								'transform #{$y} ease-in-out'
+							));
+						}
+
+						#{$x} {
+							.content {
+								@include vendor('transform', 'translateY(-1rem)');
+								opacity: 0;
+							}
+						}
+					}
+
+					&.on#{$event}-content-fade-left {
+						.content {
+							@include vendor('transition', (
+								'opacity #{$y} ease-in-out',
+								'transform #{$y} ease-in-out'
+							));
+						}
+
+						#{$x} {
+							.content {
+								@include vendor('transform', 'translateX(1rem)');
+								opacity: 0;
+							}
+						}
+					}
+
+					&.on#{$event}-content-fade-right {
+						.content {
+							@include vendor('transition', (
+								'opacity #{$y} ease-in-out',
+								'transform #{$y} ease-in-out'
+							));
+						}
+
+						#{$x} {
+							.content {
+								@include vendor('transform', 'translateX(-1rem)');
+								opacity: 0;
+							}
+						}
+					}
+
+					&.on#{$event}-content-fade-in {
+						.content {
+							@include vendor('transition', 'opacity #{$y} ease-in-out');
+						}
+
+						#{$x} {
+							.content {
+								opacity: 0;
+							}
+						}
+					}
+
+				// Image.
+					&.on#{$event}-image-fade-up {
+						.image {
+							@include vendor('transition', (
+								'opacity #{$y} ease-in-out',
+								'transform #{$y} ease-in-out'
+							));
+
+							img {
+								@include vendor('transition', 'opacity #{$y} ease-in-out');
+								@include vendor('transition-delay', '#{$y * 0.75}');
+							}
+						}
+
+						#{$x} {
+							.image {
+								@include vendor('transform', 'translateY(1rem)');
+								opacity: 0;
+
+								img {
+									opacity: 0;
+								}
+							}
+						}
+					}
+
+					&.on#{$event}-image-fade-down {
+						.image {
+							@include vendor('transition', (
+								'opacity #{$y} ease-in-out',
+								'transform #{$y} ease-in-out'
+							));
+
+							img {
+								@include vendor('transition', 'opacity #{$y} ease-in-out');
+								@include vendor('transition-delay', '#{$y * 0.75}');
+							}
+						}
+
+						#{$x} {
+							.image {
+								@include vendor('transform', 'translateY(-1rem)');
+								opacity: 0;
+
+								img {
+									opacity: 0;
+								}
+							}
+						}
+					}
+
+					&.on#{$event}-image-fade-left {
+						.image {
+							@include vendor('transition', (
+								'opacity #{$y} ease-in-out',
+								'transform #{$y} ease-in-out'
+							));
+
+							img {
+								@include vendor('transition', 'opacity #{$y} ease-in-out');
+								@include vendor('transition-delay', '#{$y * 0.75}');
+							}
+						}
+
+						#{$x} {
+							.image {
+								@include vendor('transform', 'translateX(1rem)');
+								opacity: 0;
+
+								img {
+									opacity: 0;
+								}
+							}
+						}
+					}
+
+					&.on#{$event}-image-fade-right {
+						.image {
+							@include vendor('transition', (
+								'opacity #{$y} ease-in-out',
+								'transform #{$y} ease-in-out'
+							));
+
+							img {
+								@include vendor('transition', 'opacity #{$y} ease-in-out');
+								@include vendor('transition-delay', '#{$y * 0.75}');
+							}
+						}
+
+						#{$x} {
+							.image {
+								@include vendor('transform', 'translateX(-1rem)');
+								opacity: 0;
+
+								img {
+									opacity: 0;
+								}
+							}
+						}
+					}
+
+					&.on#{$event}-image-fade-in {
+						.image {
+							img {
+								@include vendor('transition', 'opacity #{$y} ease-in-out');
+							}
+						}
+
+						#{$x} {
+							.image {
+								img {
+									opacity: 0;
+								}
+							}
+						}
+					}
+
+			}
+
+		// On Load.
+			@include transition-banner('load');
+
+		// On Scroll.
+			@include transition-banner('scroll');
+
+	}
+
+/* Banner (style1) */
+
+	.banner.style1 {
+		@include vendor('align-items', 'stretch');
+		@include vendor('display', 'flex');
+		@include vendor('flex-direction', 'row');
+		@include vendor('justify-content', 'flex-end');
+		position: relative;
+		text-align: left;
+		overflow-x: hidden;
+
+		.content {
+			@include padding(_size(padding, default), _size(padding, default));
+			@include vendor('align-self', 'center');
+			@include vendor('flex-grow', '1');
+			@include vendor('flex-shrink', '1');
+			width: 50%;
+			max-width: (_size(inner) * 0.75);
+			margin: 0 auto;
+		}
+
+		.image {
+			@include vendor('flex-grow', '0');
+			@include vendor('flex-shrink', '0');
+			border-radius: 0;
+			width: 50%;
+
+			img {
+				@include vendor('object-fit', 'cover');
+				@include vendor('object-position', 'center');
+				display: block;
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				border-radius: 0;
+			}
+		}
+
+		@include breakpoint(xlarge) {
+			.content {
+				@include padding(_size(padding, xlarge), _size(padding, xlarge));
+			}
+		}
+
+		@include breakpoint(large) {
+			.content {
+				@include padding(_size(padding, large), _size(padding, large));
+			}
+		}
+
+		@include breakpoint(medium) {
+			.content {
+				@include padding(_size(padding, medium) * 1.25, _size(padding, medium));
+			}
+		}
+
+		@include breakpoint(small) {
+			.content {
+				@include padding(_size(padding, small) * 1.25, _size(padding, small));
+			}
+		}
+
+		@include orientation(portrait) {
+			@include vendor('flex-direction', 'column-reverse');
+			text-align: center;
+
+			.content {
+				@include vendor('display', 'flex');
+				@include vendor('flex-direction', 'column');
+				@include vendor('justify-content', 'center');
+				width: 100%;
+				max-width: 100%;
+			}
+
+			.image {
+				width: 100%;
+				max-width: 100%;
+				height: 45vh;
+			}
+		}
+
+		// Modifiers.
+
+			// Size.
+				&.fullscreen {
+					min-height: 100vh;
+
+					@include orientation(portrait) {
+						.content {
+							min-height: 50vh;
+						}
+
+						.image {
+							height: 50vh;
+						}
+					}
+				}
+
+			// Orientation.
+				&.orient-left {
+					// ...
+				}
+
+				&.orient-right {
+					@include vendor('flex-direction', 'row-reverse');
+
+					@include orientation(portrait) {
+						@include vendor('flex-direction', 'column-reverse');
+					}
+				}
+
+			// Content Alignment.
+				&.content-align-left {
+					// ...
+				}
+
+				&.content-align-center {
+					text-align: center;
+				}
+
+				&.content-align-right {
+					text-align: right;
+
+					@include orientation(portrait) {
+						text-align: center;
+					}
+				}
+
+			// Image Position.
+				&.image-position-left {
+					.image {
+						img {
+							@include vendor('object-position', 'left');
+						}
+					}
+				}
+
+				&.image-position-center {
+					.image {
+						img {
+							// ...
+						}
+					}
+				}
+
+				&.image-position-right {
+					.image {
+						img {
+							@include vendor('object-position', 'right');
+						}
+					}
+				}
+
+	}
+
+/* Banner (style2) */
+
+	.banner.style2 {
+		@include padding(_size(padding, default) * 0.75, _size(padding, default) * 0.75);
+		@include vendor('align-items', 'center');
+		@include vendor('display', 'flex');
+		@include vendor('justify-content', 'center');
+		background-color: inherit;
+		position: relative;
+		text-align: center;
+		overflow-x: hidden;
+
+		.content {
+			@include padding(_size(padding, default) * 0.75, _size(padding, default) * 0.75);
+			position: relative;
+			width: (_size(inner) * 0.625);
+			max-width: 100%;
+			background-color: inherit;
+			border-radius: _size(border-radius-alt);
+			margin-bottom: _size(element-margin);
+			z-index: 1;
+		}
+
+		.image {
+			@include vendor('flex-grow', '0');
+			@include vendor('flex-shrink', '0');
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			border-radius: 0;
+
+			img {
+				@include vendor('object-fit', 'cover');
+				@include vendor('object-position', 'center');
+				display: block;
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				border-radius: 0;
+			}
+		}
+
+		@include breakpoint(xlarge) {
+			@include padding(_size(padding, xlarge) * 0.75, _size(padding, xlarge) * 0.75);
+
+			.content {
+				@include padding(_size(padding, xlarge) * 0.75, _size(padding, xlarge) * 0.75);
+			}
+		}
+
+		@include breakpoint(large) {
+			@include padding(_size(padding, large), _size(padding, large) * 0.75);
+
+			.content {
+				@include padding(_size(padding, large), _size(padding, large) * 0.75);
+			}
+		}
+
+		@include breakpoint(medium) {
+			@include padding(_size(padding, medium), _size(padding, medium));
+
+			.content {
+				@include padding(_size(padding, medium) * 1.25, _size(padding, medium) * 0.75);
+			}
+		}
+
+		@include breakpoint(small) {
+			@include padding(_size(padding, small), _size(padding, small));
+
+			.content {
+				@include padding(_size(padding, small) * 1.25, _size(padding, small) * 0.75);
+			}
+		}
+
+		// Modifiers.
+
+			// Size.
+				&.fullscreen {
+					min-height: 100vh;
+				}
+
+			// Orientation.
+				&.orient-left {
+					@include vendor('justify-content', 'flex-start');
+					padding-left: 0;
+
+					.content {
+						border-top-left-radius: 0;
+						border-bottom-left-radius: 0;
+					}
+				}
+
+				&.orient-center {
+					// ...
+				}
+
+				&.orient-right {
+					@include vendor('justify-content', 'flex-end');
+					padding-right: 0;
+
+					.content {
+						border-top-right-radius: 0;
+						border-bottom-right-radius: 0;
+					}
+				}
+
+			// Content Alignment.
+				&.content-align-left {
+					text-align: left;
+				}
+
+				&.content-align-center {
+					// ...
+				}
+
+				&.content-align-right {
+					text-align: right;
+				}
+
+			// Image Position.
+				&.image-position-left {
+					.image {
+						img {
+							@include vendor('object-position', 'left');
+						}
+					}
+				}
+
+				&.image-position-center {
+					.image {
+						img {
+							// ...
+						}
+					}
+				}
+
+				&.image-position-right {
+					.image {
+						img {
+							@include vendor('object-position', 'right');
+						}
+					}
+				}
+
+	}
+
+/* Banner (style3) */
+
+	.banner.style3 {
+		$image-size: 21rem;
+		$content-size: (_size(inner) * 0.875) - $image-size - (_size(element-margin) * 1.75);
+
+		@include padding(_size(padding, default), _size(padding, default));
+		@include vendor('align-items', 'center');
+		@include vendor('display', 'flex');
+		@include vendor('flex-direction', 'row-reverse');
+		@include vendor('justify-content', 'center');
+		position: relative;
+		text-align: left;
+		overflow-x: hidden;
+
+		.content {
+			width: $content-size;
+			max-width: 100%;
+		}
+
+		.image {
+			@include vendor('flex-grow', '0');
+			@include vendor('flex-shrink', '0');
+			width: $image-size;
+			height: $image-size;
+			border-radius: 100%;
+			margin: 0 (_size(element-margin) * 1.75) _size(element-margin) 0;
+
+			img {
+				@include vendor('object-fit', 'cover');
+				@include vendor('object-position', 'center');
+				display: block;
+				width: 100%;
+				height: 100%;
+				border-radius: 100%;
+			}
+		}
+
+		@include breakpoint(xlarge) {
+			@include padding(_size(padding, xlarge), _size(padding, xlarge));
+		}
+
+		@include breakpoint(large) {
+			@include padding(_size(padding, large), _size(padding, large));
+		}
+
+		@include breakpoint(medium) {
+			@include padding(_size(padding, medium) * 1.25, _size(padding, medium));
+
+			.image {
+				width: ($image-size * 0.875);
+				height: ($image-size * 0.875);
+			}
+		}
+
+		@include breakpoint(small) {
+			@include padding(_size(padding, small) * 1.25, _size(padding, small));
+			@include vendor('align-items', 'flex-start');
+
+			.image {
+				width: ($image-size * 0.75);
+				height: ($image-size * 0.75);
+				margin: 0 (_size(element-margin) * 1) _size(element-margin) 0;
+			}
+		}
+
+		@include orientation(portrait) {
+			@include vendor('align-items', 'center');
+			@include vendor('flex-direction', 'column-reverse');
+			text-align: center;
+
+			.content {
+				width: 34rem;
+				max-width: 100%;
+			}
+
+			.image {
+				margin-right: 0;
+			}
+		}
+
+		// Modifiers.
+
+			// Size.
+				&.fullscreen {
+					min-height: 100vh;
+				}
+
+			// Orientation.
+				&.orient-left {
+					@include vendor('flex-direction', 'row');
+
+					.image {
+						margin: 0 0 _size(element-margin) (_size(element-margin) * 1.75);
+					}
+
+					@include breakpoint(small) {
+						.image {
+							margin: 0 0 _size(element-margin) (_size(element-margin) * 1);
+						}
+					}
+
+					@include orientation(portrait) {
+						@include vendor('flex-direction', 'column-reverse');
+
+						.image {
+							margin-left: 0;
+						}
+					}
+				}
+
+				&.orient-right {
+					// ...
+				}
+
+			// Content Alignment.
+				&.content-align-left {
+					// ...
+				}
+
+				&.content-align-center {
+					text-align: center;
+				}
+
+				&.content-align-right {
+					text-align: right;
+				}
+
+			// Image Position.
+				&.image-position-left {
+					.image {
+						img {
+							@include vendor('object-position', 'left');
+						}
+					}
+				}
+
+				&.image-position-center {
+					// ...
+				}
+
+				&.image-position-right {
+					.image {
+						img {
+							@include vendor('object-position', 'right');
+						}
+					}
+				}
+
+	}
+
+/* Banner (style4) */
+
+	.banner.style4 {
+		$image-width: 13rem;
+		$content-size: (_size(inner) * 0.75) - $image-width - (_size(element-margin) * 1.75);
+
+		@include padding(_size(padding, default), _size(padding, default));
+		@include vendor('align-items', 'center');
+		@include vendor('display', 'flex');
+		@include vendor('flex-direction', 'row-reverse');
+		@include vendor('justify-content', 'center');
+		position: relative;
+		text-align: left;
+		overflow-x: hidden;
+
+		.content {
+			width: $content-size;
+			max-width: 100%;
+		}
+
+		.image {
+			@include phone($image-width);
+			margin-right: (_size(element-margin) * 1.75);
+		}
+
+		@include breakpoint(xlarge) {
+			@include padding(_size(padding, xlarge), _size(padding, xlarge));
+		}
+
+		@include breakpoint(large) {
+			@include padding(_size(padding, large), _size(padding, large));
+		}
+
+		@include breakpoint(medium) {
+			@include padding(_size(padding, medium) * 1.25, _size(padding, medium));
+
+			.image {
+				@include resize-phone($image-width, 0.875);
+			}
+		}
+
+		@include breakpoint(small) {
+			@include padding(_size(padding, small) * 1.25, _size(padding, small));
+			@include vendor('align-items', 'flex-start');
+
+			.image {
+				@include resize-phone($image-width, 0.625);
+			}
+		}
+
+		@include orientation(portrait) {
+			@include vendor('align-items', 'center');
+			@include vendor('flex-direction', 'column-reverse');
+			text-align: center;
+
+			.content {
+				width: 34rem;
+				max-width: 100%;
+			}
+
+			.image {
+				margin-right: 0;
+				margin-left: 0;
+			}
+		}
+
+		// Modifiers.
+
+			// Size.
+				&.fullscreen {
+					min-height: 100vh;
+				}
+
+			// Variant.
+				&.iphone {
+					// ...
+				}
+
+				&.android {
+					// ...
+				}
+
+			// Orientation.
+				&.orient-left {
+					@include vendor('flex-direction', 'row');
+
+					.image {
+						margin-right: 0;
+						margin-left: (_size(element-margin) * 1.75);
+					}
+
+					@include orientation(portrait) {
+						@include vendor('flex-direction', 'column-reverse');
+
+						.image {
+							margin-right: 0;
+							margin-left: 0;
+						}
+					}
+				}
+
+				&.orient-right {
+					// ...
+				}
+
+			// Content Alignment.
+				&.content-align-left {
+					// ...
+				}
+
+				&.content-align-center {
+					text-align: center;
+				}
+
+				&.content-align-right {
+					text-align: right;
+				}
+
+			// Image Position.
+				&.image-position-left {
+					.image {
+						img {
+							@include vendor('object-position', 'left');
+						}
+					}
+				}
+
+				&.image-position-center {
+					// ...
+				}
+
+				&.image-position-right {
+					.image {
+						img {
+							@include vendor('object-position', 'right');
+						}
+					}
+				}
+
+	}
+
+/* Banner (style5) */
+
+	.banner.style5 {
+		@include padding(_size(padding, default), _size(padding, default));
+		@include vendor('align-items', 'center');
+		@include vendor('display', 'flex');
+		@include vendor('justify-content', 'center');
+		background-color: inherit;
+		position: relative;
+		text-align: center;
+		overflow-x: hidden;
+
+		.content {
+			position: relative;
+			width: (_size(inner) * 0.625);
+			max-width: 100%;
+			margin-bottom: _size(element-margin);
+			z-index: 1;
+		}
+
+		.image {
+			@include vendor('flex-grow', '0');
+			@include vendor('flex-shrink', '0');
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			border-radius: 0;
+			opacity: _misc(overlay-opacity);
+
+			img {
+				@include vendor('object-fit', 'cover');
+				@include vendor('object-position', 'center');
+				display: block;
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				border-radius: 0;
+			}
+		}
+
+		@include breakpoint(xlarge) {
+			@include padding(_size(padding, xlarge), _size(padding, xlarge));
+		}
+
+		@include breakpoint(large) {
+			@include padding(_size(padding, large), _size(padding, large));
+		}
+
+		@include breakpoint(medium) {
+			@include padding(_size(padding, medium) * 1.25, _size(padding, medium));
+		}
+
+		@include breakpoint(small) {
+			@include padding(_size(padding, small) * 1.25, _size(padding, small));
+		}
+
+		// Modifiers.
+
+			// Size.
+				&.fullscreen {
+					min-height: 100vh;
+				}
+
+			// Content Alignment.
+				&.content-align-left {
+					text-align: left;
+				}
+
+				&.content-align-center {
+					// ...
+				}
+
+				&.content-align-right {
+					text-align: right;
+				}
+
+			// Image Position.
+				&.image-position-left {
+					.image {
+						img {
+							@include vendor('object-position', 'left');
+						}
+					}
+				}
+
+				&.image-position-center {
+					// ...
+				}
+
+				&.image-position-right {
+					.image {
+						img {
+							@include vendor('object-position', 'right');
+						}
+					}
+				}
+
+	}
+
+// Mixin
+
+	@mixin color-banner($p: null) {
+		.banner {
+			.image {
+				background-color: transparentize(_palette($p, fg-bold), 0.875);
+			}
+
+			@if ($p != 'invert') {
+				&.invert {
+					.image {
+						background-color: transparentize(_palette(invert, fg-bold), 0.875);
+					}
+				}
+			}
+		}
+
+		.banner.style4 {
+			.image {
+				@include color-phone($p);
+			}
+
+			// Variant.
+				&.iphone {
+					.image {
+						@include color-phone-variant('iphone', $p);
+					}
+				}
+
+				&.android {
+					.image {
+						@include color-phone-variant('android', $p);
+					}
+				}
+
+			@if ($p != 'invert') {
+				&.invert {
+					.image {
+						@include color-phone(invert);
+					}
+
+					// Variant.
+						&.iphone {
+							.image {
+								@include color-phone-variant('iphone', invert);
+							}
+						}
+
+						&.android {
+							.image {
+								@include color-phone-variant('android', invert);
+							}
+						}
+
+				}
+			}
+		}
+	}
+
+	@include color-banner;

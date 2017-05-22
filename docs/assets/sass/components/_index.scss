@@ -1,0 +1,66 @@
+///
+/// Story by HTML5 UP
+/// html5up.net | @ajlkn
+/// Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+///
+
+/* Index */
+
+	.index {
+		> * {
+			@include padding(3rem, 0);
+			@include vendor('display', 'flex');
+			border-top: solid 1px;
+
+			> header {
+				@include vendor('flex-grow', '0');
+				@include vendor('flex-shrink', '0');
+				width: 15rem;
+			}
+
+			> .content {
+				@include vendor('flex-grow', '1');
+				@include vendor('flex-shrink', '1');
+			}
+		}
+
+		> :first-child {
+			border-top: 0;
+		}
+
+		@include breakpoint(medium) {
+			> * {
+				> header {
+					width: 11rem;
+				}
+			}
+		}
+
+		@include breakpoint(small) {
+			> * {
+				> header {
+					width: 10rem;
+				}
+			}
+		}
+
+		@include breakpoint(xsmall) {
+			> * {
+				@include vendor('flex-direction', 'column');
+
+				> header {
+					width: 100%;
+				}
+			}
+		}
+	}
+
+	@mixin color-index($p: null) {
+		.index {
+			> * {
+ 				border-top-color: _palette($p, border);
+ 			}
+ 		}
+	}
+
+	@include color-index;
