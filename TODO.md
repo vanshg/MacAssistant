@@ -8,3 +8,5 @@
 - Better microphone waveform graphic
 - Run the incoming response audio through a speech recognizier to get response text manually
 - Handle No internet conneciton case
+- Convert from Carthage to CocoaPods
+- Add updating support (Sparkle)
