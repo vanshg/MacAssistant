@@ -1,12 +1,10 @@
 # TODO
 - Fix Follow up questions/responses
-- Refresh OAuth token when it expires
 - Add hotword detection (https://github.com/Kitt-AI/snowboy)
 - Add sound feedback when cancelling speech
 - Add About Screen
 - Add Settings menu (Allow customizing the hotkey, when it is working)
 - New icon and sound (so as not to get hit by some copyright from El Goog)
 - Better microphone waveform graphic
-- Detect authorization errors/permission revocation and sign user out (Therfore forcing user to re-login)
 - Run the incoming response audio through a speech recognizier to get response text manually
 - Handle No internet conneciton case
