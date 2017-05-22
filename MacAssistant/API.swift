@@ -33,27 +33,14 @@ class API {
         let u = Bundle.main.url(forResource: "roots", withExtension: "pem")!
         let certificate = try! String(contentsOf: u)
         service = AssistantService(address: ASSISTANT_API_ENDPOINT, certificates: certificate, host: nil)
-        let token = "Bearer \(UserDefaults.standard.string(forKey: Constants.AUTH_TOKEN_KEY) ?? "")"
-        service.metadata = Metadata(["authorization" : token])
         self.delegate = delegate
     }
     
-    private func onReceive(response: ConverseReponse?, error: ClientError?) {
-        if let response = response {
-            self.followUp = response.result.microphoneMode == .dialogFollowOn
-            self.converseState = nil
-            converseState = (try? ConverseState(serializedData: response.result.conversationState)) ?? converseState
-            if !response.result.spokenRequestText.isEmpty {
-                self.delegate.updateRequestText(response.result.spokenRequestText)
-            }
-            self.delegate.updateResponseText(response.result.spokenResponseText.isEmpty ? "Speaking response..." : response.result.spokenResponseText)
-            if response.audioOut.audioData.count > 0 { buf.append(response.audioOut.audioData) }
-            if response.eventType == .endOfUtterance { self.delegate.stopListening() }
-        }
-        if let error = error { print("Initial receive error: \(error)") }
-    }
-    
     func initiateRequest(volumePercent: Int32) {
+        // always have the most up-to-date metadata, because token may have been refreshed 
+        let token = "Bearer \(UserDefaults.standard.string(forKey: Constants.AUTH_TOKEN_KEY) ?? "")"
+        service.metadata = Metadata(["authorization" : token])
+        
         var request = ConverseRequest()
         request.config = ConverseConfig()
         
@@ -109,6 +96,21 @@ class API {
         } catch {
             print("Close catch: \(error):\(error.localizedDescription)")
         }
+    }
+    
+    private func onReceive(response: ConverseReponse?, error: ClientError?) {
+        if let response = response {
+            self.followUp = response.result.microphoneMode == .dialogFollowOn
+            self.converseState = nil
+            converseState = (try? ConverseState(serializedData: response.result.conversationState)) ?? converseState
+            if !response.result.spokenRequestText.isEmpty {
+                self.delegate.updateRequestText(response.result.spokenRequestText)
+            }
+            self.delegate.updateResponseText(response.result.spokenResponseText.isEmpty ? "Speaking response..." : response.result.spokenResponseText)
+            if response.audioOut.audioData.count > 0 { buf.append(response.audioOut.audioData) }
+            if response.eventType == .endOfUtterance { self.delegate.stopListening() }
+        }
+        if let error = error { print("Initial receive error: \(error)") }
     }
     
     func donePlayingResponse() {

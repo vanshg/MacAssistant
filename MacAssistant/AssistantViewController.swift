@@ -73,7 +73,7 @@ class AssistantViewController: NSViewController, ConversationTextDelegate, AVAud
         plot.shouldOptimizeForRealtimePlot = true
         plot.plotType = .buffer
         waveformView.addSubview(plot)
-        Timer.scheduledTimer(timeInterval: 0.75, target: self, selector: #selector(self.updatePlotWaveformColor), userInfo: nil, repeats: true);
+        Timer.scheduledTimer(timeInterval: 0.75, target: self, selector: #selector(self.updatePlotWaveformColor), userInfo: nil, repeats: true)
     }
     
     func updatePlotWaveformColor() {

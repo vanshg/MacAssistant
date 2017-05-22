@@ -22,27 +22,26 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSSpeechRecognizerDelegate {
         get { return userDefaults.bool(forKey: Constants.LOGGED_IN_KEY) }
         set { userDefaults.set(newValue, forKey: Constants.LOGGED_IN_KEY) }
     }
+    
+    internal func applicationWillFinishLaunching(_ notification: Notification) {
+        popover.contentViewController = NSViewController(nibName: "LoadingView", bundle: nil)
+        Timer.scheduledTimer(withTimeInterval: 600, repeats: true) { _ in
+            print("About to check refresh")
+            self.refreshTokenIfNecessary() { success in
+                if success {
+                    self.popover.contentViewController = AssistantViewController(nibName: "AssistantView", bundle: nil)
+                } else {
+                    self.popover.contentViewController = LoginViewController(nibName: "LoginView", bundle: nil)
+                }
+            }
+        }.fire()
+    }
 
     internal func applicationDidFinishLaunching(_ aNotification: Notification) {
         let icon = #imageLiteral(resourceName: "statusIcon")
         icon.isTemplate = true
         statusItem.image = icon
         statusItem.action = #selector(statusIconClicked)
-        popover.contentViewController = NSViewController(nibName: "LoadingView", bundle: nil)
-        if isLoggedIn {
-            let date = userDefaults.object(forKey: Constants.EXPIRES_IN_KEY) as? Date
-            if (date ?? Date()) < Date() {
-                authenticator.refresh() { success in
-                    if success {
-                        self.popover.contentViewController = AssistantViewController(nibName: "AssistantView", bundle: nil)
-                    }
-                }
-            } else {
-                popover.contentViewController = AssistantViewController(nibName: "AssistantView", bundle: nil)
-            }
-        } else {
-            popover.contentViewController = LoginViewController(nibName: "LoginView", bundle: nil)
-        }
         registerHotkey()
         setupHotword(false) // Hotword activation
     }
@@ -124,5 +123,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSSpeechRecognizerDelegate {
 
     func applicationWillTerminate(_ aNotification: Notification) {
         HotKeyCenter.shared.unregisterAll()
+    }
+    
+    func refreshTokenIfNecessary(_ completion: @escaping ((Bool)->Void)) {
+        var date = userDefaults.object(forKey: Constants.EXPIRES_IN_KEY) as? Date
+        date?.addTimeInterval(60*20) //refresh token with 20 mins left
+        if isLoggedIn && (date ?? Date()) < Date() {
+            authenticator.refresh(onRefresh: completion)
+        } else {
+            completion(isLoggedIn)
+        }
+
     }
 }
