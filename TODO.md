@@ -9,3 +9,4 @@
 - Better microphone waveform graphic
 - Detect authorization errors/permission revocation and sign user out (Therfore forcing user to re-login)
 - Run the incoming response audio through a speech recognizier to get response text manually
+- Handle No internet conneciton case
