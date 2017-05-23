@@ -2,7 +2,8 @@
 
 [![Github All Releases](https://img.shields.io/github/downloads/vanshg/MacAssistant/total.svg)](https://github.com/vanshg/MacAssistant/releases) [![Travis](https://img.shields.io/badge/Swift-3.1-blue.svg)](https://github.com/vanshg/MacAssistant) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/vanshg/MacAssistant/master/LICENSE) [![Twitter](https://img.shields.io/twitter/url/https/github.com/vanshg/MacAssistant.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=%5Bobject%20Object%5D)
 
-***NOTE: I've currently hit the API limit and am working with Google to resolve this issue and give me more API quota***
+***NOTE: I've currently hit the API limit and am working with Google to resolve this issue and give me more API quota.***
+*In the meantime, you can obtain your own OAuth client key and build the project yourself by following the Build Instructions below.*
 
 A project that integrates the Google Assistant into macOS, using the Google Assistant SDK.
 
