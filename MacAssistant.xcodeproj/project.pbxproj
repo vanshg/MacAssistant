@@ -19,6 +19,8 @@
 		FF41AB821EB40FB8003E994B /* Magnet.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FF41AB801EB40FB8003E994B /* Magnet.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FF41AB841EB40FC6003E994B /* Magnet.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = FF41AB831EB40FC6003E994B /* Magnet.framework.dSYM */; };
 		FF41AB861EB416F4003E994B /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF41AB851EB416F4003E994B /* API.swift */; };
+		FF4F5E321ED3AFDE002CE445 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4F5E311ED3AFDE002CE445 /* PreferencesWindowController.swift */; };
+		FF4F5E341ED3B04E002CE445 /* PreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF4F5E331ED3B04E002CE445 /* PreferencesWindow.xib */; };
 		FF64FDDB1EBB0DDC00368A78 /* SwiftProtobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF64FDDA1EBB0DDC00368A78 /* SwiftProtobuf.framework */; };
 		FF64FDDC1EBB0DDC00368A78 /* SwiftProtobuf.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FF64FDDA1EBB0DDC00368A78 /* SwiftProtobuf.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FF64FDDF1EBB0E0800368A78 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF64FDDE1EBB0E0800368A78 /* SwiftyJSON.framework */; };
@@ -99,6 +101,8 @@
 		FF41AB801EB40FB8003E994B /* Magnet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Magnet.framework; path = Carthage/Build/Mac/Magnet.framework; sourceTree = "<group>"; };
 		FF41AB831EB40FC6003E994B /* Magnet.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Magnet.framework.dSYM; path = Carthage/Build/Mac/Magnet.framework.dSYM; sourceTree = "<group>"; };
 		FF41AB851EB416F4003E994B /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		FF4F5E311ED3AFDE002CE445 /* PreferencesWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
+		FF4F5E331ED3B04E002CE445 /* PreferencesWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesWindow.xib; sourceTree = "<group>"; };
 		FF64FDDA1EBB0DDC00368A78 /* SwiftProtobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftProtobuf.framework; path = Carthage/Build/Mac/SwiftProtobuf.framework; sourceTree = "<group>"; };
 		FF64FDDD1EBB0DEB00368A78 /* SwiftProtobuf.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = SwiftProtobuf.framework.dSYM; path = Carthage/Build/Mac/SwiftProtobuf.framework.dSYM; sourceTree = "<group>"; };
 		FF64FDDE1EBB0E0800368A78 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/Mac/SwiftyJSON.framework; sourceTree = "<group>"; };
@@ -208,6 +212,8 @@
 				FFA470F31EB2C20200A5F89A /* Generated */,
 				FFE68A731EB2A81E00F60EF5 /* AppDelegate.swift */,
 				FF41AB851EB416F4003E994B /* API.swift */,
+				FF4F5E311ED3AFDE002CE445 /* PreferencesWindowController.swift */,
+				FF4F5E331ED3B04E002CE445 /* PreferencesWindow.xib */,
 				FFA470FD1EB2C9D200A5F89A /* AssistantViewController.swift */,
 				FFA470FF1EB2C9EB00A5F89A /* AssistantView.xib */,
 				FFE9B1301EC187550034E85B /* ConversationTextDelegate.swift */,
@@ -298,6 +304,7 @@
 				FFE68A781EB2A81E00F60EF5 /* Assets.xcassets in Resources */,
 				FF2652021EC93DEE00ACDBB5 /* begin_prompt.mp3 in Resources */,
 				FFF3FAC11EBD5ADD005E87C9 /* LoadingView.xib in Resources */,
+				FF4F5E341ED3B04E002CE445 /* PreferencesWindow.xib in Resources */,
 				FFA471021EB2C9F200A5F89A /* LoginView.xib in Resources */,
 				FFA471051EB2CE4500A5F89A /* MainMenu.xib in Resources */,
 			);
@@ -317,6 +324,7 @@
 				FFF3FABD1EBD545E005E87C9 /* ConversationEntry.swift in Sources */,
 				FF41AB861EB416F4003E994B /* API.swift in Sources */,
 				FF17DA0C1EB56CDB003E1412 /* status.pb.swift in Sources */,
+				FF4F5E321ED3AFDE002CE445 /* PreferencesWindowController.swift in Sources */,
 				FF6AA52F1EBA77F60009E342 /* Authenticator.swift in Sources */,
 				FFE68A761EB2A81E00F60EF5 /* LoginViewController.swift in Sources */,
 				FF17DA081EB56CCC003E1412 /* google.assistant.embedded.v1alpha1.client.pb.swift in Sources */,

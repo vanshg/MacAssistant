@@ -85,6 +85,18 @@
         </customView>
         <menu id="d2E-qz-Qcz">
             <items>
+                <menuItem title="Preferences" keyEquivalent="," id="Yvn-P9-n85">
+                    <connections>
+                        <action selector="settingsClicked:" target="-2" id="E9s-5M-TPh"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Logout" id="VG7-iZ-Zte">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="logoutClicked:" target="-2" id="pnb-9H-xrz"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="fa8-Kc-Mgx"/>
                 <menuItem title="Quit" id="XE8-SU-qYs">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>

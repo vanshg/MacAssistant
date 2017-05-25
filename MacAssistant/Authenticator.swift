@@ -18,6 +18,7 @@ public class Authenticator {
     private var clientId: String
     private var clientSecret: String
     public var loginUrl: String
+    private let defaults = UserDefaults.standard
     
     init() {
         let url = Bundle.main.url(forResource: "google_oauth", withExtension: "json")
@@ -44,13 +45,13 @@ public class Authenticator {
             case .success(let value):
                 let json = JSON(value)
                 let expiresIn = Date(timeInterval: TimeInterval(json["expires_in"].int!), since: Date())
-                UserDefaults.standard.set(expiresIn, forKey: Constants.EXPIRES_IN_KEY)
-                UserDefaults.standard.set(json["access_token"].string, forKey: Constants.AUTH_TOKEN_KEY)
-                UserDefaults.standard.set(json["refresh_token"].string, forKey: Constants.REFRESH_TOKEN_KEY)
-                UserDefaults.standard.set(true, forKey: Constants.LOGGED_IN_KEY)
-                DispatchQueue.main.async { (NSApp.delegate as? AppDelegate)?.notifyLoggedIn() }
+                self.defaults.set(expiresIn, forKey: Constants.EXPIRES_IN_KEY)
+                self.defaults.set(json["access_token"].string, forKey: Constants.AUTH_TOKEN_KEY)
+                self.defaults.set(json["refresh_token"].string, forKey: Constants.REFRESH_TOKEN_KEY)
+                self.defaults.set(true, forKey: Constants.LOGGED_IN_KEY)
             case .failure(let error):
                 print(error)
+                
             }
             
         }
@@ -79,11 +80,20 @@ public class Authenticator {
         }
     }
     
+    func refreshTokenIfNecessary(_ completion: @escaping ((Bool)->Void)) {
+        var date = defaults.object(forKey: Constants.EXPIRES_IN_KEY) as? Date
+        date?.addTimeInterval(60*20) //refresh token with 20 mins left
+        let isLoggedIn = defaults.bool(forKey: Constants.LOGGED_IN_KEY)
+        if isLoggedIn && (date ?? Date()) < Date() {
+            refresh(onRefresh: completion)
+        } else {
+            completion(isLoggedIn)
+        }
+        
+    }
+    
     func logout() {
-        UserDefaults.standard.removeObject(forKey: Constants.AUTH_TOKEN_KEY)
-        UserDefaults.standard.removeObject(forKey: Constants.REFRESH_TOKEN_KEY)
-        UserDefaults.standard.removeObject(forKey: Constants.EXPIRES_IN_KEY)
-        UserDefaults.standard.removeObject(forKey: Constants.LOGGED_IN_KEY)
+        defaults.set(false, forKey: Constants.LOGGED_IN_KEY)
     }
     
 }

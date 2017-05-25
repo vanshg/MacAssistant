@@ -17,6 +17,9 @@ class AssistantViewController: NSViewController, ConversationTextDelegate, AVAud
     @IBOutlet weak var microphoneButton: NSButton!
     @IBOutlet weak var speakerButton: NSButton!
     @IBOutlet weak var spokenTextLabel: NSTextField!
+    
+    private let settingsWindow = NSWindowController(windowNibName: "PreferencesWindow")
+    
     private var player: AVAudioPlayer?
     
     
@@ -163,6 +166,15 @@ class AssistantViewController: NSViewController, ConversationTextDelegate, AVAud
         if let event = NSApp.currentEvent, let menu = gearIcon.menu {
             NSMenu.popUpContextMenu(menu, with: event, for: gearIcon)
         }
+    }
+    
+    @IBAction func settingsClicked(_ sender: Any) {
+        settingsWindow.showWindow(sender)
+    }
+    
+    @IBAction func logoutClicked(_ sender: Any) {
+        // will perform logout actions via KVO in AppDelegate
+        UserDefaults.standard.set(false, forKey: Constants.LOGGED_IN_KEY)
     }
     
     @IBAction func quitClicked(_ sender: Any) {

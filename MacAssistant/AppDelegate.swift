@@ -14,26 +14,26 @@ import AVFoundation
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSSpeechRecognizerDelegate {
     
+    lazy var loadingViewController = NSViewController(nibName: "LoadingView", bundle: nil)
+    lazy var assistantViewController = AssistantViewController(nibName: "AssistantView", bundle: nil)
+    lazy var loginViewController = LoginViewController(nibName: "LoginView", bundle: nil)
+    
     let statusItem = NSStatusBar.system().statusItem(withLength: NSSquareStatusItemLength)
     let popover = NSPopover()
     let userDefaults = UserDefaults.standard
     let authenticator = Authenticator()
+    
     var isLoggedIn: Bool {
         get { return userDefaults.bool(forKey: Constants.LOGGED_IN_KEY) }
         set { userDefaults.set(newValue, forKey: Constants.LOGGED_IN_KEY) }
     }
     
     internal func applicationWillFinishLaunching(_ notification: Notification) {
-        popover.contentViewController = NSViewController(nibName: "LoadingView", bundle: nil)
+        popover.contentViewController = loadingViewController
+        userDefaults.addObserver(self, forKeyPath: Constants.LOGGED_IN_KEY, options: NSKeyValueObservingOptions.new, context: nil)
         Timer.scheduledTimer(withTimeInterval: 600, repeats: true) { _ in
             print("About to check refresh")
-            self.refreshTokenIfNecessary() { success in
-                if success {
-                    self.popover.contentViewController = AssistantViewController(nibName: "AssistantView", bundle: nil)
-                } else {
-                    self.popover.contentViewController = LoginViewController(nibName: "LoginView", bundle: nil)
-                }
-            }
+            self.authenticator.refreshTokenIfNecessary() { self.setAppropriateViewController(forLoginStatus: $0) }
         }.fire()
     }
 
@@ -44,11 +44,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSSpeechRecognizerDelegate {
         statusItem.action = #selector(statusIconClicked)
         registerHotkey()
         setupHotword(false) // Hotword activation
-    }
-    
-    func notifyLoggedIn() {
-        let controller = AssistantViewController(nibName: "AssistantView", bundle: nil)
-        popover.contentViewController = controller
     }
     
     func registerHotkey() {
@@ -124,15 +119,22 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSSpeechRecognizerDelegate {
     func applicationWillTerminate(_ aNotification: Notification) {
         HotKeyCenter.shared.unregisterAll()
     }
-    
-    func refreshTokenIfNecessary(_ completion: @escaping ((Bool)->Void)) {
-        var date = userDefaults.object(forKey: Constants.EXPIRES_IN_KEY) as? Date
-        date?.addTimeInterval(60*20) //refresh token with 20 mins left
-        if isLoggedIn && (date ?? Date()) < Date() {
-            authenticator.refresh(onRefresh: completion)
-        } else {
-            completion(isLoggedIn)
-        }
 
+    // Observing the loggedIn key value pair
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if let loggedIn = change?[.newKey] as? Bool {
+            setAppropriateViewController(forLoginStatus: loggedIn)
+            if !loggedIn {
+                userDefaults.removeObject(forKey: Constants.AUTH_TOKEN_KEY)
+                userDefaults.removeObject(forKey: Constants.REFRESH_TOKEN_KEY)
+                userDefaults.removeObject(forKey: Constants.EXPIRES_IN_KEY)
+            }
+        }
+    }
+    
+    func setAppropriateViewController(forLoginStatus loggedIn: Bool) {
+        popover.contentViewController = loggedIn ?
+            assistantViewController :
+            loginViewController
     }
 }
