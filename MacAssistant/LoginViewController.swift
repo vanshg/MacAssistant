@@ -16,7 +16,7 @@ class LoginViewController: NSViewController, WKNavigationDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        webView.load(URLRequest(url: URL(string: authenticator.loginUrl)!))
+        loadLoginUrl()
         webView.navigationDelegate = self
         // Do any additional setup after loading the view.
     }
@@ -35,15 +35,18 @@ class LoginViewController: NSViewController, WKNavigationDelegate {
                     let code = url.substring(from: url.index(index, offsetBy: 1))
                     authenticator.authenticate(code: code)
                 }
+                loadLoginUrl() // To reset the WebView if user later logs out
+                
+                // TODO: Completely dismiss this viewcontroller on authentication
+                
                 return
             }
         }
         decisionHandler(.allow)
     }
-
-//    func webView(webView: WKWebView!, shouldStartLoadWithRequest request: NSURLRequest!, navigationType: WKWebViewConfiguration) -> Bool {
-//        
-//    }
-
+    
+    func loadLoginUrl() {
+        webView.load(URLRequest(url: URL(string: authenticator.loginUrl)!))
+    }
 }
 
