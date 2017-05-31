@@ -35,7 +35,7 @@ MacAssistant is built using Swift 3.1 and Xcode 8
 
 Dependencies are managed using Carthage. After you clone the project, run `carthage update --platform macOS`. (If you don't have Carthage, refer [here](https://github.com/Carthage/Carthage) for installation instructions)
 
-You'll need OAuth credentials from the [Google Developer Console](https://console.developers.google.com). In order to get them, you'll need to create a new project and enable the Assistant API for that project. Then, generate an OAuth credential, and select application type of `Other`. Download the json file by clicking the button on the right. Finally, rename the file to `google_oauth.json` and place it in your project (*/MacAssistant/google_oauth.json*).
+You will need OAuth credentials from the [Google Developer Console](https://console.developers.google.com). In order to get them, you'll need to create a new project and enable the Assistant API for that project. Then, generate an OAuth credential, and select application type of `Other`. Download the json file by clicking the button on the right. Finally, rename the file to `google_oauth.json` and place it in your project (*/MacAssistant/google_oauth.json*).
 
 ## Contributing
 Please feel free to contribute to this project. I welcome all contributions and pull requests. There is a list of pending things that need to be worked on in the `TODO.md` file.
