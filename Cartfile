@@ -1,5 +1,5 @@
 github "apple/swift-protobuf" "0.9.901"
-github "grpc/grpc-swift" "master"
+github "grpc/grpc-swift" "0.1.11"
 github "audiokit/AudioKit"
 github "Alamofire/Alamofire" ~> 4.4
 github "SwiftyJSON/SwiftyJSON"
