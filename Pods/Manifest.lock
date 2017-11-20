@@ -1,0 +1,30 @@
+PODS:
+  - Alamofire (4.5.1)
+  - AudioKit (4.0.4):
+    - AudioKit/UI (= 4.0.4)
+  - AudioKit/UI (4.0.4)
+  - KeyHolder (2.0.1):
+    - Magnet (~> 2.0)
+  - Magnet (2.0.1)
+  - SwiftProtobuf (1.0.1)
+  - SwiftyJSON (4.0.0)
+
+DEPENDENCIES:
+  - Alamofire (~> 4.5)
+  - AudioKit (~> 4.0)
+  - KeyHolder (~> 2.0)
+  - Magnet (~> 2.0)
+  - SwiftProtobuf (~> 1.0)
+  - SwiftyJSON (~> 4.0)
+
+SPEC CHECKSUMS:
+  Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
+  AudioKit: 647145c0462dc9dc8a8582998cd6db5f2e1ea848
+  KeyHolder: 33180865d66f40088758915f30ba7017e96ca264
+  Magnet: d4a1767953d02c2141f5b572ea483244fe0878d5
+  SwiftProtobuf: 78b2f4f3b282cad8cedf855358ec5c1921aaf633
+  SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
+
+PODFILE CHECKSUM: 822ac42170959162356b81e6043c16ba8b95ce46
+
+COCOAPODS: 1.4.0.beta.2
