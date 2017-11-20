@@ -6,7 +6,7 @@
 //  Copyright © 2017 vanshgandhi. All rights reserved.
 //
 
-import AudioKit
+import AudioKitUI
 
 class CustomPlot : EZAudioPlot {
     

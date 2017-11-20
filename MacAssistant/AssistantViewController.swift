@@ -8,17 +8,18 @@
 
 import Cocoa
 import AudioKit
+import AudioKitUI
 import AVFoundation
 
 class AssistantViewController: NSViewController, ConversationTextDelegate, AVAudioPlayerDelegate {
     
     @IBOutlet weak var gearIcon: NSButton!
-    @IBOutlet weak var waveformView: CustomPlot!
+    weak var waveformView: CustomPlot!
     @IBOutlet weak var microphoneButton: NSButton!
     @IBOutlet weak var speakerButton: NSButton!
     @IBOutlet weak var spokenTextLabel: NSTextField!
     
-    private let settingsWindow = NSWindowController(windowNibName: "PreferencesWindow")
+    private let settingsWindow = NSWindowController(windowNibName: NSNib.Name(rawValue: "PreferencesWindow"))
     
     private var player: AVAudioPlayer?
     
@@ -36,9 +37,9 @@ class AssistantViewController: NSViewController, ConversationTextDelegate, AVAud
     private lazy var api: API = API(self)
     private lazy var plot: AKNodeOutputPlot = AKNodeOutputPlot(self.mic, frame: self.waveformView.bounds)
     private lazy var converter: AVAudioConverter = AVAudioConverter(from: self.nativeFormat,
-                                                                    to: self.desiredFormat)
-    private lazy var outputBuffer: AVAudioPCMBuffer = AVAudioPCMBuffer(pcmFormat: self.desiredFormat,
-                                                                       frameCapacity: AVAudioFrameCount(Constants.GOOGLE_SAMPLES_PER_FRAME))
+                                                                    to: self.desiredFormat!)!
+    private lazy var outputBuffer: AVAudioPCMBuffer = AVAudioPCMBuffer(pcmFormat: self.desiredFormat!,
+                                                                       frameCapacity: AVAudioFrameCount(Constants.GOOGLE_SAMPLES_PER_FRAME))!
     
     public var isListening: Bool { get { return AudioKit.engine.isRunning } }
     
@@ -47,7 +48,7 @@ class AssistantViewController: NSViewController, ConversationTextDelegate, AVAud
         setupPlot()
         microphoneButton.image?.isTemplate = true
         AudioKit.output = AKBooster(mic, gain: 0)
-        AudioKit.engine.inputNode?.installTap(onBus: 0,
+        AudioKit.engine.inputNode.installTap(onBus: 0,
                                               bufferSize: UInt32(Constants.NATIVE_SAMPLES_PER_FRAME),
                                               format: nil, block: onTap)
     }
@@ -72,14 +73,14 @@ class AssistantViewController: NSViewController, ConversationTextDelegate, AVAud
         plot.shouldMirror = true
         plot.color = googleColors[0]
         plot.backgroundColor = NSColor.clear
-        plot.autoresizingMask = .viewWidthSizable
+        plot.autoresizingMask = .width
         plot.shouldOptimizeForRealtimePlot = true
         plot.plotType = .buffer
         waveformView.addSubview(plot)
         Timer.scheduledTimer(timeInterval: 0.75, target: self, selector: #selector(self.updatePlotWaveformColor), userInfo: nil, repeats: true)
     }
     
-    func updatePlotWaveformColor() {
+    @objc func updatePlotWaveformColor() {
         plot.color = googleColors[colorChangingIndex]
         colorChangingIndex = (colorChangingIndex + 1) % googleColors.count
     }
@@ -118,7 +119,7 @@ class AssistantViewController: NSViewController, ConversationTextDelegate, AVAud
     
     func playResponse(_ data: Data) {
         do {
-            player = try AVAudioPlayer(data: data, fileTypeHint: AVFileTypeMPEGLayer3)
+            player = try AVAudioPlayer(data: data, fileTypeHint: AVFileType.mp3.rawValue)
             player?.play()
             player?.delegate = self
             speakerIcon(isShown: true)

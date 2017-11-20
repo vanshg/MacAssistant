@@ -14,11 +14,11 @@ import AVFoundation
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSSpeechRecognizerDelegate {
     
-    lazy var loadingViewController = NSViewController(nibName: "LoadingView", bundle: nil)
-    lazy var assistantViewController = AssistantViewController(nibName: "AssistantView", bundle: nil)
-    lazy var loginViewController = LoginViewController(nibName: "LoginView", bundle: nil)
+    lazy var loadingViewController = NSViewController(nibName: NSNib.Name(rawValue: "LoadingView"), bundle: nil)
+    lazy var assistantViewController = AssistantViewController(nibName: NSNib.Name(rawValue: "AssistantView"), bundle: nil)
+    lazy var loginViewController = LoginViewController(nibName: NSNib.Name(rawValue: "LoginView"), bundle: nil)
     
-    let statusItem = NSStatusBar.system().statusItem(withLength: NSSquareStatusItemLength)
+    let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
     let popover = NSPopover()
     let userDefaults = UserDefaults.standard
     let authenticator = Authenticator()
@@ -66,7 +66,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSSpeechRecognizerDelegate {
         }
     }
     
-    func hotkeyPressed(sender: AnyObject?) {
+    @objc func hotkeyPressed(sender: AnyObject?) {
         if !popover.isShown {
             showPopover(sender: sender)
             if isLoggedIn {
@@ -94,7 +94,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSSpeechRecognizerDelegate {
         }
     }
     
-    func statusIconClicked(sender: AnyObject?) {
+    @objc func statusIconClicked(sender: AnyObject?) {
         togglePopover(sender: sender)
     }
     

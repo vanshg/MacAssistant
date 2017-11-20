@@ -4,5 +4,5 @@ protoc \
 	--swiftgrpc_out=/Users/vanshgandhi/Desktop \
 	--swift_out=/Users/vanshgandhi/Desktop \
 	--swift_opt=Visibility=Public \
-	--plugin=./protoc-gen-swiftgrpc \
-	--plugin=./protoc-gen-swift
+	--plugin=./grpc-swift/Plugin/protoc-gen-swiftgrpc \
+	--plugin=./grpc-swift/Plugin/protoc-gen-swift

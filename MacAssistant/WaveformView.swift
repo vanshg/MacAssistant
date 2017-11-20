@@ -48,16 +48,16 @@ public class WaveformView: NSView {
     override public func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
         
-        let context = NSGraphicsContext.current()!.cgContext
-        context.clear(bounds)
+        let context = NSGraphicsContext.current?.cgContext
+        context?.clear(bounds)
         
         //        backgroundColor?.set()
-        context.fill(dirtyRect)
+        context?.fill(dirtyRect)
         
         // Draw multiple sinus waves, with equal phases but altered
         // amplitudes, multiplied by a parable function.
         for waveNumber in 0...numberOfWaves {
-            context.setLineWidth((waveNumber == 0 ? primaryWaveLineWidth : secondaryWaveLineWidth))
+            context?.setLineWidth((waveNumber == 0 ? primaryWaveLineWidth : secondaryWaveLineWidth))
             
             let halfHeight = bounds.height / 2.0
             let width = bounds.width
@@ -80,15 +80,15 @@ public class WaveformView: NSView {
                 let y = scaling * maxAmplitude * normedAmplitude * CGFloat(sinf(Float(tempCasting))) + halfHeight
                 
                 if x == 0 {
-                    context.move(to: CGPoint(x: x, y: y))
+                    context?.move(to: CGPoint(x: x, y: y))
                 } else {
-                    context.addLine(to: CGPoint(x: x, y: y))
+                    context?.addLine(to: CGPoint(x: x, y: y))
                 }
                 
                 x += density
             }
             
-            context.strokePath()
+            context?.strokePath()
         }
     }
 }

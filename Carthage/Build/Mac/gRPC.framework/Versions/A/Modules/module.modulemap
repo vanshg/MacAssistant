@@ -1,3 +1,0 @@
-framework module gRPC {
-    header "gRPC-Swift.h"
-}
