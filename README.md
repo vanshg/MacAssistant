@@ -32,9 +32,13 @@ MacAssistant is currently in Beta.
 ## Build Instructions
 MacAssistant is built using Swift 4 and Xcode 9.1
 
-Dependencies are managed using CocoaPods. After you clone the project, run `carthage install`. (If you don't have CocoaPods, refer [here](https://guides.cocoapods.org/using/getting-started.html) for installation instructions)
+Clone the project using `git clone --recursive https://github.com/vanshg/MacAssistant.git` (This project relies on some submodules to work)
 
-You will need OAuth credentials from the [Google Developer Console](https://console.developers.google.com). In order to get them, you'll need to create a new project and enable the Assistant API for that project. Then, generate an OAuth credential, and select application type of `Other`. Download the json file by clicking the button on the right. Finally, rename the file to `google_oauth.json` and place it in your project (*/MacAssistant/google_oauth.json*).
+Once cloned, `cd` into the `grpc-swift` directory, and run `make`.
+
+You should then be able to open the `MacAssistant.xcworkspace` file (not `xcproject`!)
+
+You will also need OAuth credentials from the [Google Developer Console](https://console.developers.google.com). In order to get them, you'll need to create a new project and enable the Assistant API for that project. Then, generate an OAuth credential, and select application type of `Other`. Download the json file by clicking the button on the right. Finally, rename the file to `google_oauth.json` and place it in your project (*/MacAssistant/google_oauth.json*).
 
 ## Contributing
 Please feel free to contribute to this project. I welcome all contributions and pull requests. There is a list of pending things that need to be worked on in the `TODO.md` file.
