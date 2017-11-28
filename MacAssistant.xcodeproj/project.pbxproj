@@ -654,27 +654,7 @@
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/grpc-swift/Sources/CgRPC/include\"";
 				INFOPLIST_FILE = MacAssistant/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-framework",
-					"\"gRPC\"",
-					"-framework",
-					"\"AVFoundation\"",
-					"-framework",
-					"\"Alamofire\"",
-					"-framework",
-					"\"AudioKit\"",
-					"-framework",
-					"\"AudioKitUI\"",
-					"-framework",
-					"\"KeyHolder\"",
-					"-framework",
-					"\"Magnet\"",
-					"-framework",
-					"\"SwiftProtobuf\"",
-					"-framework",
-					"\"SwiftyJSON\"",
-				);
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.vanshgandhi.MacAssistant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -699,27 +679,7 @@
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/grpc-swift/Sources/CgRPC/include\"";
 				INFOPLIST_FILE = MacAssistant/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-framework",
-					"\"gRPC\"",
-					"-framework",
-					"\"AVFoundation\"",
-					"-framework",
-					"\"Alamofire\"",
-					"-framework",
-					"\"AudioKit\"",
-					"-framework",
-					"\"AudioKitUI\"",
-					"-framework",
-					"\"KeyHolder\"",
-					"-framework",
-					"\"Magnet\"",
-					"-framework",
-					"\"SwiftProtobuf\"",
-					"-framework",
-					"\"SwiftyJSON\"",
-				);
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.vanshgandhi.MacAssistant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
