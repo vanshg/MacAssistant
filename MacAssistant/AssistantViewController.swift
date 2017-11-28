@@ -14,7 +14,8 @@ import AVFoundation
 class AssistantViewController: NSViewController, ConversationTextDelegate, AVAudioPlayerDelegate {
     
     @IBOutlet weak var gearIcon: NSButton!
-    weak var waveformView: CustomPlot!
+
+    @IBOutlet weak var waveformView: CustomPlot!
     @IBOutlet weak var microphoneButton: NSButton!
     @IBOutlet weak var speakerButton: NSButton!
     @IBOutlet weak var spokenTextLabel: NSTextField!
