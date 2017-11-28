@@ -31,8 +31,8 @@ class LoginViewController: NSViewController, WKNavigationDelegate {
         if let url = navigationAction.request.url?.absoluteString {
             if url.hasPrefix("http://localhost") { // TODO: Un-hardcode this
                 decisionHandler(.cancel)
-                if let index = url.characters.index(of: "=") {
-                    let code = url.substring(from: url.index(index, offsetBy: 1))
+                if let index = url.index(of: "=") {
+                    let code = String(url[url.index(index, offsetBy: 1)...])
                     authenticator.authenticate(code: code)
                 }
                 loadLoginUrl() // To reset the WebView if user later logs out
