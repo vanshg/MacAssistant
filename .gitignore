@@ -3,7 +3,7 @@ build/
 DerivedData/
 Carthage/Checkouts
 Carthage/Build
-Pods/
+#Pods/
 Packages/
 xcuserdata/
 *.pbxuser
