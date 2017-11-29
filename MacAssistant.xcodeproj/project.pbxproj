@@ -8,10 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		6DBC4E10926A3D8EC97BE26F /* Pods_MacAssistant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5173A459BC47FAEEC7E61B /* Pods_MacAssistant.framework */; };
-		FF17DA071EB56CCC003E1412 /* google.assistant.embedded.v1alpha1.server.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF17DA051EB56CCC003E1412 /* google.assistant.embedded.v1alpha1.server.pb.swift */; };
-		FF17DA081EB56CCC003E1412 /* google.assistant.embedded.v1alpha1.client.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF17DA061EB56CCC003E1412 /* google.assistant.embedded.v1alpha1.client.pb.swift */; };
-		FF17DA0A1EB56CD4003E1412 /* embedded_assistant.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF17DA091EB56CD4003E1412 /* embedded_assistant.pb.swift */; };
-		FF17DA0C1EB56CDB003E1412 /* status.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF17DA0B1EB56CDB003E1412 /* status.pb.swift */; };
 		FF2652021EC93DEE00ACDBB5 /* begin_prompt.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FF2652011EC93DEE00ACDBB5 /* begin_prompt.mp3 */; };
 		FF41AB861EB416F4003E994B /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF41AB851EB416F4003E994B /* API.swift */; };
 		FF4F5E321ED3AFDE002CE445 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4F5E311ED3AFDE002CE445 /* PreferencesWindowController.swift */; };
@@ -30,7 +26,11 @@
 		FFCED5F81EC4268B0049676B /* WaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCED5F71EC4268B0049676B /* WaveformView.swift */; };
 		FFE68A761EB2A81E00F60EF5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE68A751EB2A81E00F60EF5 /* LoginViewController.swift */; };
 		FFE68A781EB2A81E00F60EF5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FFE68A771EB2A81E00F60EF5 /* Assets.xcassets */; };
-		FFE9B12F1EC110FC0034E85B /* roots.pem in Resources */ = {isa = PBXBuildFile; fileRef = FFE9B12E1EC110FC0034E85B /* roots.pem */; };
+		FFE854841FCE2D1900C7E09B /* google.assistant.embedded.v1alpha1.client.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE8547B1FCE2D1900C7E09B /* google.assistant.embedded.v1alpha1.client.pb.swift */; };
+		FFE854851FCE2D1900C7E09B /* embedded_assistant.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE854801FCE2D1900C7E09B /* embedded_assistant.pb.swift */; };
+		FFE854861FCE2D1900C7E09B /* status.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE854821FCE2D1900C7E09B /* status.pb.swift */; };
+		FFE854871FCE2D1900C7E09B /* google.assistant.embedded.v1alpha1.server.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE854831FCE2D1900C7E09B /* google.assistant.embedded.v1alpha1.server.pb.swift */; };
+		FFE854891FCE2F8B00C7E09B /* roots.pem in Resources */ = {isa = PBXBuildFile; fileRef = FFE854881FCE2F8B00C7E09B /* roots.pem */; };
 		FFE9B1311EC187550034E85B /* ConversationTextDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE9B1301EC187550034E85B /* ConversationTextDelegate.swift */; };
 		FFE9B1331EC189D60034E85B /* CustomPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE9B1321EC189D60034E85B /* CustomPlot.swift */; };
 		FFE9B1351EC195AB0034E85B /* google_oauth.json in Resources */ = {isa = PBXBuildFile; fileRef = FFE9B1341EC195AB0034E85B /* google_oauth.json */; };
@@ -127,10 +127,6 @@
 		416FFB1DA0770C90826554EA /* Pods-MacAssistant.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacAssistant.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MacAssistant/Pods-MacAssistant.debug.xcconfig"; sourceTree = "<group>"; };
 		6BC614CFFB22F0565D5D55D2 /* Pods-MacAssistant.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacAssistant.release.xcconfig"; path = "Pods/Target Support Files/Pods-MacAssistant/Pods-MacAssistant.release.xcconfig"; sourceTree = "<group>"; };
 		DA5173A459BC47FAEEC7E61B /* Pods_MacAssistant.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MacAssistant.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FF17DA051EB56CCC003E1412 /* google.assistant.embedded.v1alpha1.server.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = google.assistant.embedded.v1alpha1.server.pb.swift; sourceTree = "<group>"; };
-		FF17DA061EB56CCC003E1412 /* google.assistant.embedded.v1alpha1.client.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = google.assistant.embedded.v1alpha1.client.pb.swift; sourceTree = "<group>"; };
-		FF17DA091EB56CD4003E1412 /* embedded_assistant.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = embedded_assistant.pb.swift; sourceTree = "<group>"; };
-		FF17DA0B1EB56CDB003E1412 /* status.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = status.pb.swift; sourceTree = "<group>"; };
 		FF2652011EC93DEE00ACDBB5 /* begin_prompt.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = begin_prompt.mp3; sourceTree = "<group>"; };
 		FF41AB851EB416F4003E994B /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		FF4F5E311ED3AFDE002CE445 /* PreferencesWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
@@ -149,7 +145,11 @@
 		FFE68A751EB2A81E00F60EF5 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		FFE68A771EB2A81E00F60EF5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FFE68A7C1EB2A81E00F60EF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FFE9B12E1EC110FC0034E85B /* roots.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = roots.pem; sourceTree = "<group>"; };
+		FFE8547B1FCE2D1900C7E09B /* google.assistant.embedded.v1alpha1.client.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = google.assistant.embedded.v1alpha1.client.pb.swift; sourceTree = "<group>"; };
+		FFE854801FCE2D1900C7E09B /* embedded_assistant.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = embedded_assistant.pb.swift; sourceTree = "<group>"; };
+		FFE854821FCE2D1900C7E09B /* status.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = status.pb.swift; sourceTree = "<group>"; };
+		FFE854831FCE2D1900C7E09B /* google.assistant.embedded.v1alpha1.server.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = google.assistant.embedded.v1alpha1.server.pb.swift; sourceTree = "<group>"; };
+		FFE854881FCE2F8B00C7E09B /* roots.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = roots.pem; path = "grpc-swift/Assets/roots.pem"; sourceTree = SOURCE_ROOT; };
 		FFE9B1301EC187550034E85B /* ConversationTextDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationTextDelegate.swift; sourceTree = "<group>"; };
 		FFE9B1321EC189D60034E85B /* CustomPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPlot.swift; sourceTree = "<group>"; };
 		FFE9B1341EC195AB0034E85B /* google_oauth.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = google_oauth.json; sourceTree = "<group>"; };
@@ -205,10 +205,9 @@
 		FFA470F31EB2C20200A5F89A /* Generated */ = {
 			isa = PBXGroup;
 			children = (
-				FF17DA091EB56CD4003E1412 /* embedded_assistant.pb.swift */,
-				FF17DA061EB56CCC003E1412 /* google.assistant.embedded.v1alpha1.client.pb.swift */,
-				FF17DA0B1EB56CDB003E1412 /* status.pb.swift */,
-				FF17DA051EB56CCC003E1412 /* google.assistant.embedded.v1alpha1.server.pb.swift */,
+				FFE8547C1FCE2D1900C7E09B /* google */,
+				FFE8547B1FCE2D1900C7E09B /* google.assistant.embedded.v1alpha1.client.pb.swift */,
+				FFE854831FCE2D1900C7E09B /* google.assistant.embedded.v1alpha1.server.pb.swift */,
 			);
 			name = Generated;
 			sourceTree = "<group>";
@@ -253,13 +252,54 @@
 				FF6AA5341EBA8A980009E342 /* Constants.swift */,
 				FFF3FABC1EBD545D005E87C9 /* ConversationEntry.swift */,
 				FFE9B1321EC189D60034E85B /* CustomPlot.swift */,
-				FFE9B12E1EC110FC0034E85B /* roots.pem */,
 				FFE9B1341EC195AB0034E85B /* google_oauth.json */,
 				FF2652011EC93DEE00ACDBB5 /* begin_prompt.mp3 */,
+				FFE854881FCE2F8B00C7E09B /* roots.pem */,
 				FFE68A7C1EB2A81E00F60EF5 /* Info.plist */,
 				FFE68A771EB2A81E00F60EF5 /* Assets.xcassets */,
 			);
 			path = MacAssistant;
+			sourceTree = "<group>";
+		};
+		FFE8547C1FCE2D1900C7E09B /* google */ = {
+			isa = PBXGroup;
+			children = (
+				FFE8547D1FCE2D1900C7E09B /* assistant */,
+				FFE854811FCE2D1900C7E09B /* rpc */,
+			);
+			path = google;
+			sourceTree = "<group>";
+		};
+		FFE8547D1FCE2D1900C7E09B /* assistant */ = {
+			isa = PBXGroup;
+			children = (
+				FFE8547E1FCE2D1900C7E09B /* embedded */,
+			);
+			path = assistant;
+			sourceTree = "<group>";
+		};
+		FFE8547E1FCE2D1900C7E09B /* embedded */ = {
+			isa = PBXGroup;
+			children = (
+				FFE8547F1FCE2D1900C7E09B /* v1alpha1 */,
+			);
+			path = embedded;
+			sourceTree = "<group>";
+		};
+		FFE8547F1FCE2D1900C7E09B /* v1alpha1 */ = {
+			isa = PBXGroup;
+			children = (
+				FFE854801FCE2D1900C7E09B /* embedded_assistant.pb.swift */,
+			);
+			path = v1alpha1;
+			sourceTree = "<group>";
+		};
+		FFE854811FCE2D1900C7E09B /* rpc */ = {
+			isa = PBXGroup;
+			children = (
+				FFE854821FCE2D1900C7E09B /* status.pb.swift */,
+			);
+			path = rpc;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -383,9 +423,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				FFE9B1351EC195AB0034E85B /* google_oauth.json in Resources */,
-				FFE9B12F1EC110FC0034E85B /* roots.pem in Resources */,
 				FFA471001EB2C9EB00A5F89A /* AssistantView.xib in Resources */,
 				FFE68A781EB2A81E00F60EF5 /* Assets.xcassets in Resources */,
+				FFE854891FCE2F8B00C7E09B /* roots.pem in Resources */,
 				FF2652021EC93DEE00ACDBB5 /* begin_prompt.mp3 in Resources */,
 				FFF3FAC11EBD5ADD005E87C9 /* LoadingView.xib in Resources */,
 				FF4F5E341ED3B04E002CE445 /* PreferencesWindow.xib in Resources */,
@@ -467,21 +507,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFE854841FCE2D1900C7E09B /* google.assistant.embedded.v1alpha1.client.pb.swift in Sources */,
 				FFA470CD1EB2B9B900A5F89A /* AppDelegate.swift in Sources */,
-				FF17DA0A1EB56CD4003E1412 /* embedded_assistant.pb.swift in Sources */,
 				FFCED5F81EC4268B0049676B /* WaveformView.swift in Sources */,
 				FFA471071EB2D47300A5F89A /* SpeechWaveformView.swift in Sources */,
 				FFF3FABD1EBD545E005E87C9 /* ConversationEntry.swift in Sources */,
+				FFE854851FCE2D1900C7E09B /* embedded_assistant.pb.swift in Sources */,
 				FF41AB861EB416F4003E994B /* API.swift in Sources */,
-				FF17DA0C1EB56CDB003E1412 /* status.pb.swift in Sources */,
 				FF4F5E321ED3AFDE002CE445 /* PreferencesWindowController.swift in Sources */,
 				FF6AA52F1EBA77F60009E342 /* Authenticator.swift in Sources */,
 				FFE68A761EB2A81E00F60EF5 /* LoginViewController.swift in Sources */,
-				FF17DA081EB56CCC003E1412 /* google.assistant.embedded.v1alpha1.client.pb.swift in Sources */,
 				FFA470FE1EB2C9D200A5F89A /* AssistantViewController.swift in Sources */,
+				FFE854871FCE2D1900C7E09B /* google.assistant.embedded.v1alpha1.server.pb.swift in Sources */,
 				FFE9B1311EC187550034E85B /* ConversationTextDelegate.swift in Sources */,
-				FF17DA071EB56CCC003E1412 /* google.assistant.embedded.v1alpha1.server.pb.swift in Sources */,
 				FF6AA5351EBA8A980009E342 /* Constants.swift in Sources */,
+				FFE854861FCE2D1900C7E09B /* status.pb.swift in Sources */,
 				FFE9B1331EC189D60034E85B /* CustomPlot.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
