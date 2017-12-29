@@ -31,6 +31,7 @@
 		FFE854861FCE2D1900C7E09B /* status.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE854821FCE2D1900C7E09B /* status.pb.swift */; };
 		FFE854871FCE2D1900C7E09B /* google.assistant.embedded.v1alpha1.server.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE854831FCE2D1900C7E09B /* google.assistant.embedded.v1alpha1.server.pb.swift */; };
 		FFE854891FCE2F8B00C7E09B /* roots.pem in Resources */ = {isa = PBXBuildFile; fileRef = FFE854881FCE2F8B00C7E09B /* roots.pem */; };
+		FFE8548D1FCE37F300C7E09B /* google_oauth_dev.json in Resources */ = {isa = PBXBuildFile; fileRef = FFE8548C1FCE37F300C7E09B /* google_oauth_dev.json */; };
 		FFE9B1311EC187550034E85B /* ConversationTextDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE9B1301EC187550034E85B /* ConversationTextDelegate.swift */; };
 		FFE9B1331EC189D60034E85B /* CustomPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE9B1321EC189D60034E85B /* CustomPlot.swift */; };
 		FFE9B1351EC195AB0034E85B /* google_oauth.json in Resources */ = {isa = PBXBuildFile; fileRef = FFE9B1341EC195AB0034E85B /* google_oauth.json */; };
@@ -150,6 +151,7 @@
 		FFE854821FCE2D1900C7E09B /* status.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = status.pb.swift; sourceTree = "<group>"; };
 		FFE854831FCE2D1900C7E09B /* google.assistant.embedded.v1alpha1.server.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = google.assistant.embedded.v1alpha1.server.pb.swift; sourceTree = "<group>"; };
 		FFE854881FCE2F8B00C7E09B /* roots.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = roots.pem; path = "grpc-swift/Assets/roots.pem"; sourceTree = SOURCE_ROOT; };
+		FFE8548C1FCE37F300C7E09B /* google_oauth_dev.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = google_oauth_dev.json; sourceTree = "<group>"; };
 		FFE9B1301EC187550034E85B /* ConversationTextDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationTextDelegate.swift; sourceTree = "<group>"; };
 		FFE9B1321EC189D60034E85B /* CustomPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPlot.swift; sourceTree = "<group>"; };
 		FFE9B1341EC195AB0034E85B /* google_oauth.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = google_oauth.json; sourceTree = "<group>"; };
@@ -179,6 +181,15 @@
 				6BC614CFFB22F0565D5D55D2 /* Pods-MacAssistant.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		FF3644EA1FD1187200F2A9AE /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				FF4F5E311ED3AFDE002CE445 /* PreferencesWindowController.swift */,
+				FF4F5E331ED3B04E002CE445 /* PreferencesWindow.xib */,
+			);
+			path = Preferences;
 			sourceTree = "<group>";
 		};
 		FF9379371FC2702F00C9B2E8 /* Products */ = {
@@ -234,29 +245,27 @@
 		FFE68A721EB2A81E00F60EF5 /* MacAssistant */ = {
 			isa = PBXGroup;
 			children = (
-				FFA470F31EB2C20200A5F89A /* Generated */,
+				FF3644EA1FD1187200F2A9AE /* Preferences */,
+				FFE8548A1FCE378600C7E09B /* Auth */,
 				FFE68A731EB2A81E00F60EF5 /* AppDelegate.swift */,
 				FF41AB851EB416F4003E994B /* API.swift */,
-				FF4F5E311ED3AFDE002CE445 /* PreferencesWindowController.swift */,
-				FF4F5E331ED3B04E002CE445 /* PreferencesWindow.xib */,
 				FFA470FD1EB2C9D200A5F89A /* AssistantViewController.swift */,
 				FFA470FF1EB2C9EB00A5F89A /* AssistantView.xib */,
 				FFE9B1301EC187550034E85B /* ConversationTextDelegate.swift */,
 				FFF3FAC01EBD5ADD005E87C9 /* LoadingView.xib */,
-				FFE68A751EB2A81E00F60EF5 /* LoginViewController.swift */,
-				FFA471011EB2C9F200A5F89A /* LoginView.xib */,
 				FFA471061EB2D47300A5F89A /* SpeechWaveformView.swift */,
 				FFCED5F71EC4268B0049676B /* WaveformView.swift */,
 				FFA471031EB2CE4500A5F89A /* MainMenu.xib */,
-				FF6AA52E1EBA77F60009E342 /* Authenticator.swift */,
 				FF6AA5341EBA8A980009E342 /* Constants.swift */,
 				FFF3FABC1EBD545D005E87C9 /* ConversationEntry.swift */,
 				FFE9B1321EC189D60034E85B /* CustomPlot.swift */,
 				FFE9B1341EC195AB0034E85B /* google_oauth.json */,
+				FFE8548C1FCE37F300C7E09B /* google_oauth_dev.json */,
 				FF2652011EC93DEE00ACDBB5 /* begin_prompt.mp3 */,
 				FFE854881FCE2F8B00C7E09B /* roots.pem */,
 				FFE68A7C1EB2A81E00F60EF5 /* Info.plist */,
 				FFE68A771EB2A81E00F60EF5 /* Assets.xcassets */,
+				FFA470F31EB2C20200A5F89A /* Generated */,
 			);
 			path = MacAssistant;
 			sourceTree = "<group>";
@@ -300,6 +309,16 @@
 				FFE854821FCE2D1900C7E09B /* status.pb.swift */,
 			);
 			path = rpc;
+			sourceTree = "<group>";
+		};
+		FFE8548A1FCE378600C7E09B /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				FF6AA52E1EBA77F60009E342 /* Authenticator.swift */,
+				FFE68A751EB2A81E00F60EF5 /* LoginViewController.swift */,
+				FFA471011EB2C9F200A5F89A /* LoginView.xib */,
+			);
+			path = Auth;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -427,6 +446,7 @@
 				FFE68A781EB2A81E00F60EF5 /* Assets.xcassets in Resources */,
 				FFE854891FCE2F8B00C7E09B /* roots.pem in Resources */,
 				FF2652021EC93DEE00ACDBB5 /* begin_prompt.mp3 in Resources */,
+				FFE8548D1FCE37F300C7E09B /* google_oauth_dev.json in Resources */,
 				FFF3FAC11EBD5ADD005E87C9 /* LoadingView.xib in Resources */,
 				FF4F5E341ED3B04E002CE445 /* PreferencesWindow.xib in Resources */,
 				FFA471021EB2C9F200A5F89A /* LoginView.xib in Resources */,
@@ -448,6 +468,7 @@
 				"${PODS_ROOT}/AudioKit/macOS/AudioKit.framework",
 				"${PODS_ROOT}/AudioKit/macOS/AudioKitUI.framework",
 				"${BUILT_PRODUCTS_DIR}/KeyHolder/KeyHolder.framework",
+				"${BUILT_PRODUCTS_DIR}/Log/Log.framework",
 				"${BUILT_PRODUCTS_DIR}/Magnet/Magnet.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftProtobuf/SwiftProtobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
@@ -458,6 +479,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AudioKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AudioKitUI.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeyHolder.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Log.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Magnet.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftProtobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",

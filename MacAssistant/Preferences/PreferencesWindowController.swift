@@ -8,15 +8,18 @@
 
 import Foundation
 import Cocoa
+import Log
 
 class PreferencesWindowController: NSWindowController {
     
+    let Log = Logger()
+    
     @IBAction func didClickAdvancedTab(_ sender: Any) {
-        print("Advanced")
+        Log.debug("Advanced")
     }
     
     @IBAction func didClickGeneralTab(_ sender: Any) {
-        print("General")
+        Log.debug("General")
     }
     
     

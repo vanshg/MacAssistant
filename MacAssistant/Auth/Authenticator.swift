@@ -9,20 +9,22 @@ import Foundation
 import Cocoa
 import Alamofire
 import SwiftyJSON
+import Log
 
 public class Authenticator {
-    private let scope = "https://www.googleapis.com/auth/assistant-sdk-prototype"
-    private var authUrl: String
-    private var tokenUrl: String
-    private var redirectUrl: String
-    private var clientId: String
-    private var clientSecret: String
-    public var loginUrl: String
-    private let defaults = UserDefaults.standard
+    let Log = Logger()
+    let scope = "https://www.googleapis.com/auth/assistant-sdk-prototype"
+    var authUrl: String
+    var tokenUrl: String
+    var redirectUrl: String
+    var clientId: String
+    var clientSecret: String
+    var loginUrl: String
+    let defaults = UserDefaults.standard
     
     init() {
-        let url = Bundle.main.url(forResource: "google_oauth", withExtension: "json")
-        let json = try! JSON(data: Data(contentsOf: url!))["installed"]
+        let url = Bundle.main.url(forResource: "google_oauth", withExtension: "json")!
+        let json = try! JSON(data: Data(contentsOf: url))["installed"]
         authUrl = json["auth_uri"].stringValue
         tokenUrl = json["token_uri"].stringValue
         redirectUrl = json["redirect_uris"][1].stringValue // Get the "http://localhost url
@@ -49,15 +51,14 @@ public class Authenticator {
                 self.defaults.set(json["access_token"].string, forKey: Constants.AUTH_TOKEN_KEY)
                 self.defaults.set(json["refresh_token"].string, forKey: Constants.REFRESH_TOKEN_KEY)
                 self.defaults.set(true, forKey: Constants.LOGGED_IN_KEY)
-            case .failure(let error):
-                print(error)
-                
+            case .failure(let error): self.Log.error(error)
             }
             
         }
     }
     
     func refresh(onRefresh: @escaping ((Bool)->Void)) {
+        Log.info("Refreshing token")
         let parameters = [
             "refresh_token": UserDefaults.standard.string(forKey: Constants.REFRESH_TOKEN_KEY)!,
             "client_id": clientId,
@@ -74,15 +75,16 @@ public class Authenticator {
                 UserDefaults.standard.set(json["access_token"].string, forKey: Constants.AUTH_TOKEN_KEY)
                 onRefresh(true)
             case .failure(let error):
-                print(error)
+                self.Log.error(error)
                 onRefresh(false)
             }
         }
     }
     
     func refreshTokenIfNecessary(_ completion: @escaping ((Bool)->Void)) {
+        Log.info("Checking if token needs to be refreshed")
         var date = defaults.object(forKey: Constants.EXPIRES_IN_KEY) as? Date
-        date?.addTimeInterval(60*20) //refresh token with 20 mins left
+        date?.addTimeInterval(60*10) //refresh token with 10 mins left
         let isLoggedIn = defaults.bool(forKey: Constants.LOGGED_IN_KEY)
         if isLoggedIn && (date ?? Date()) < Date() {
             refresh(onRefresh: completion)

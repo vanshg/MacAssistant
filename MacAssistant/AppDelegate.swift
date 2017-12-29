@@ -10,9 +10,12 @@ import Cocoa
 import gRPC
 import Magnet
 import AVFoundation
+import Log
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSSpeechRecognizerDelegate {
+    
+    let Log = Logger()
     
     lazy var loadingViewController = NSViewController(nibName: NSNib.Name(rawValue: "LoadingView"), bundle: nil)
     lazy var assistantViewController = AssistantViewController(nibName: NSNib.Name(rawValue: "AssistantView"), bundle: nil)
@@ -30,9 +33,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSSpeechRecognizerDelegate {
     
     internal func applicationWillFinishLaunching(_ notification: Notification) {
         popover.contentViewController = loadingViewController
+        userDefaults.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+        userDefaults.synchronize()
         userDefaults.addObserver(self, forKeyPath: Constants.LOGGED_IN_KEY, options: NSKeyValueObservingOptions.new, context: nil)
-        Timer.scheduledTimer(withTimeInterval: 600, repeats: true) { _ in
-            print("About to check refresh")
+        Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { _ in
             self.authenticator.refreshTokenIfNecessary() { self.setAppropriateViewController(forLoginStatus: $0) }
         }.fire()
     }
@@ -47,6 +51,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSSpeechRecognizerDelegate {
     }
     
     func registerHotkey() {
+        Log.info("Registering hotkey")
         guard let keyCombo = KeyCombo(doubledCocoaModifiers: .command) else { return }
         let hotKey = HotKey(identifier: "CommandDoubleTapped",
                              keyCombo: keyCombo,
@@ -67,6 +72,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSSpeechRecognizerDelegate {
     }
     
     @objc func hotkeyPressed(sender: AnyObject?) {
+        Log.info("Hotkey pressed")
         if !popover.isShown {
             showPopover(sender: sender)
             if isLoggedIn {
@@ -99,12 +105,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSSpeechRecognizerDelegate {
     }
     
     func showPopover(sender: AnyObject?) {
+        Log.info("Showing popover")
         if let button = statusItem.button {
             popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
         }
     }
     
     func closePopover(sender: AnyObject?) {
+        Log.info("Closing popover")
         if let controller = popover.contentViewController as? AssistantViewController {
             controller.stopListening()
         }
@@ -125,6 +133,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSSpeechRecognizerDelegate {
         if let loggedIn = change?[.newKey] as? Bool {
             setAppropriateViewController(forLoginStatus: loggedIn)
             if !loggedIn {
+                self.Log.info("Removing tokens from UserDefaults")
                 userDefaults.removeObject(forKey: Constants.AUTH_TOKEN_KEY)
                 userDefaults.removeObject(forKey: Constants.REFRESH_TOKEN_KEY)
                 userDefaults.removeObject(forKey: Constants.EXPIRES_IN_KEY)

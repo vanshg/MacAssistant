@@ -12,4 +12,5 @@ target 'MacAssistant' do
   pod 'SwiftyJSON', '~> 4.0'
   pod 'Magnet', '~> 2.0'
   pod 'KeyHolder', '~> 2.0'
+  pod 'Log'
 end

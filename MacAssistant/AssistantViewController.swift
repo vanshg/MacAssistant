@@ -6,6 +6,7 @@
 //  Copyright © 2017 vanshgandhi. All rights reserved.
 //
 
+import Log
 import Cocoa
 import AudioKit
 import AudioKitUI
@@ -13,17 +14,17 @@ import AVFoundation
 
 class AssistantViewController: NSViewController, ConversationTextDelegate, AVAudioPlayerDelegate {
     
+    let Log = Logger()
+    
     @IBOutlet weak var gearIcon: NSButton!
-
     @IBOutlet weak var waveformView: CustomPlot!
     @IBOutlet weak var microphoneButton: NSButton!
     @IBOutlet weak var speakerButton: NSButton!
     @IBOutlet weak var spokenTextLabel: NSTextField!
     
-    private let settingsWindow = NSWindowController(windowNibName: NSNib.Name(rawValue: "PreferencesWindow"))
+    private lazy var settingsWindow = NSWindowController(windowNibName: NSNib.Name(rawValue: "PreferencesWindow"))
     
     private var player: AVAudioPlayer?
-    
     
     private let googleColors = [NSColor.red, NSColor.blue, NSColor.yellow, NSColor.green]
     private var nativeFormat = AKSettings.audioFormat
@@ -42,7 +43,12 @@ class AssistantViewController: NSViewController, ConversationTextDelegate, AVAud
     private lazy var outputBuffer: AVAudioPCMBuffer = AVAudioPCMBuffer(pcmFormat: self.desiredFormat!,
                                                                        frameCapacity: AVAudioFrameCount(Constants.GOOGLE_SAMPLES_PER_FRAME))!
     
+    private let prompt_file = Bundle.main.url(forResource: "begin_prompt", withExtension: "mp3")!
+    
+//    private let userDefaults = UserDefaults.standard
+//    private var shouldPlayPrompt: Bool { get { return userDefaults.bool(forKey: Constants.PLAY_PROMPT_KEY) } }
     public var isListening: Bool { get { return AudioKit.engine.isRunning } }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,9 +67,12 @@ class AssistantViewController: NSViewController, ConversationTextDelegate, AVAud
             return buffer
         }
         
-        if let error = error { print("Conversion error \(error)") }
-        else if let data = outputBuffer.int16ChannelData {
+        if let error = error {
+            Log.error("Conversion error", error)
+        } else if let data = outputBuffer.int16ChannelData {
             self.api.sendAudio(frame: data, withLength: Int(outputBuffer.frameLength))
+        } else {
+            Log.debug("Neither error or data...")
         }
     }
     
@@ -97,9 +106,8 @@ class AssistantViewController: NSViewController, ConversationTextDelegate, AVAud
     func startListening() {
         api.initiateRequest(volumePercent: Int32(mic.volume * 100))
         AudioKit.start()
-        let file = Bundle.main.url(forResource: "begin_prompt", withExtension: "mp3")!
-        player = try! AVAudioPlayer(contentsOf: file)
-        player!.play()
+        player = try? AVAudioPlayer(contentsOf: prompt_file)
+        player?.play()
         DispatchQueue.main.async {
             self.microphoneButton.isHidden = true
             self.plot.isHidden = false
@@ -125,7 +133,7 @@ class AssistantViewController: NSViewController, ConversationTextDelegate, AVAud
             player?.delegate = self
             speakerIcon(isShown: true)
         } catch {
-            print("Audio out error \(error):\(error.localizedDescription)")
+            Log.error("Audio out error", error, error.localizedDescription)
             speakerIcon(isShown: false)
         }
     }
@@ -136,6 +144,9 @@ class AssistantViewController: NSViewController, ConversationTextDelegate, AVAud
     }
     
     func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
+        if let error = error {
+            Log.error(error)
+        }
         speakerIcon(isShown: false)
     }
     
@@ -153,7 +164,7 @@ class AssistantViewController: NSViewController, ConversationTextDelegate, AVAud
     }
     
     func updateRequestText(_ text: String) {
-        print("Request text: \(text)")
+        Log.info("Request text", text)
         DispatchQueue.main.async {
             self.spokenTextLabel.stringValue = "\"\(text)\""
         }

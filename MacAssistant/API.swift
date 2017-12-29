@@ -8,6 +8,7 @@
 
 import Foundation
 import gRPC
+import Log
 
 typealias AssistantService = Google_Assistant_Embedded_V1Alpha1_EmbeddedAssistantService
 typealias AssistantCall = Google_Assistant_Embedded_V1Alpha1_EmbeddedAssistantConverseCall
@@ -20,6 +21,8 @@ typealias ClientError = Google_Assistant_Embedded_V1Alpha1_EmbeddedAssistantClie
 typealias ConverseState = Google_Assistant_Embedded_V1alpha1_ConverseState
 
 class API {
+    
+    let Log = Logger()
     
     private let ASSISTANT_API_ENDPOINT = "embeddedassistant.googleapis.com"
     private var service: AssistantService
@@ -57,10 +60,10 @@ class API {
         request.config.audioOutConfig = audioOutConfig
         
         do {
-            currentCall = try service.converse(completion: { _ in print("Call completed") })
-            try currentCall?.send(request) { print("Initial send error: \($0)") }
+            currentCall = try service.converse(completion: { _ in self.Log.debug("Call completed") })
+            try currentCall?.send(request) { self.Log.error("Initial send error", $0) }
             try currentCall?.receive(completion: onReceive)
-        } catch { print("Initial catch: \(error):\(error.localizedDescription)") }
+        } catch { Log.error("Initial catch", error, error.localizedDescription) }
     }
     
     func sendAudio(frame data: UnsafePointer<UnsafeMutablePointer<Int16>>, withLength length: Int) {
@@ -69,13 +72,13 @@ class API {
         let data = Data(buffer: buffer) // Wrap Buffer in Data
         request.audioIn = data
         // Don't call currentCall?.receive() in here. Causes tooManyOperations error
-        do { try currentCall?.send(request) { print("Frame send error: \($0.localizedDescription)") } }
-        catch { print("Frame catch: \(error):\(error.localizedDescription)") }
+        do { try currentCall?.send(request) { self.Log.error("Frame send error", $0.localizedDescription) } }
+        catch { Log.error("Frame catch", error, error.localizedDescription) }
     }
     
     func doneSpeaking() {
         do {
-            try currentCall?.closeSend { print("Closed send") }
+            try currentCall?.closeSend { self.Log.info("Closed send") }
             // Receive all response audio responses
             DispatchQueue.global().async {
                 while true {
@@ -83,7 +86,7 @@ class API {
                         let response = try self.currentCall?.receive()
                         self.onReceive(response: response, error: nil)
                     } catch {
-                        print("close catch \(error):\(error.localizedDescription)")
+                        self.Log.error("close catch", error, error.localizedDescription)
                         break
                     }
                 }
@@ -94,7 +97,7 @@ class API {
             }
             
         } catch {
-            print("Close catch: \(error):\(error.localizedDescription)")
+            Log.error("Close catch", error, error.localizedDescription)
         }
     }
     
@@ -110,7 +113,7 @@ class API {
             if response.audioOut.audioData.count > 0 { buf.append(response.audioOut.audioData) }
             if response.eventType == .endOfUtterance { self.delegate.stopListening() }
         }
-        if let error = error { print("Initial receive error: \(error)") }
+        if let error = error { Log.error("Initial receive error", error) }
     }
     
     func donePlayingResponse() {
