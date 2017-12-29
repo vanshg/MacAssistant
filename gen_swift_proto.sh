@@ -1,11 +1,12 @@
 #!/bin/bash
 # Need to cd into the root director where the proto files are stored, otherwise protoc complains
-VERSION="v1alpha1"
+VERSION="v1alpha2"
 OUT_DIR="../MacAssistant/Generated/"
 cd googleapis
 protoc \
 	google/assistant/embedded/$VERSION/embedded_assistant.proto \
 	google/rpc/status.proto \
+	google/type/latlng.proto \
 	--swiftgrpc_out=$OUT_DIR \
 	--swift_out=$OUT_DIR \
 	--swift_opt=Visibility=Public \

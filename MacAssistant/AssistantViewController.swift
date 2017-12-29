@@ -22,6 +22,7 @@ class AssistantViewController: NSViewController, ConversationTextDelegate, AVAud
     @IBOutlet weak var speakerButton: NSButton!
     @IBOutlet weak var spokenTextLabel: NSTextField!
     
+    @IBOutlet weak var dotsButton: NSImageView!
     private lazy var settingsWindow = NSWindowController(windowNibName: NSNib.Name(rawValue: "PreferencesWindow"))
     
     private var player: AVAudioPlayer?
@@ -47,13 +48,19 @@ class AssistantViewController: NSViewController, ConversationTextDelegate, AVAud
     
 //    private let userDefaults = UserDefaults.standard
 //    private var shouldPlayPrompt: Bool { get { return userDefaults.bool(forKey: Constants.PLAY_PROMPT_KEY) } }
+//    private var shouldUseAppleUi: Bool { get { return userDefaults.bool(forKey: Constants.APPLE_UI_KEY)} }
     public var isListening: Bool { get { return AudioKit.engine.isRunning } }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupPlot()
-        microphoneButton.image?.isTemplate = true
+        dotsButton.animates = true
+        dotsButton.canDrawSubviewsIntoLayer = true
+        let image = NSImage(named: NSImage.Name(rawValue: "dots.gif"))!
+        (image.representations[0] as! NSBitmapImageRep).setProperty(NSBitmapImageRep.PropertyKey.currentFrameDuration, withValue: 0.007)
+        dotsButton.image = image
+//        microphoneButton.image?.isTemplate = shouldUseAppleUi
         AudioKit.output = AKBooster(mic, gain: 0)
         AudioKit.engine.inputNode.installTap(onBus: 0,
                                               bufferSize: UInt32(Constants.NATIVE_SAMPLES_PER_FRAME),
@@ -70,7 +77,7 @@ class AssistantViewController: NSViewController, ConversationTextDelegate, AVAud
         if let error = error {
             Log.error("Conversion error", error)
         } else if let data = outputBuffer.int16ChannelData {
-            self.api.sendAudio(frame: data, withLength: Int(outputBuffer.frameLength))
+//            self.api.sendAudio(frame: data, withLength: Int(outputBuffer.frameLength))
         } else {
             Log.debug("Neither error or data...")
         }
@@ -112,6 +119,7 @@ class AssistantViewController: NSViewController, ConversationTextDelegate, AVAud
             self.microphoneButton.isHidden = true
             self.plot.isHidden = false
             self.speakerButton.isHidden = true
+            self.dotsButton.isHidden = false
         }
         spokenTextLabel.stringValue = ""
     }
@@ -123,6 +131,7 @@ class AssistantViewController: NSViewController, ConversationTextDelegate, AVAud
             self.microphoneButton.isHidden = false
             self.plot.isHidden = true
             self.speakerButton.isHidden = true
+            self.dotsButton.isHidden = true
         }
     }
     

@@ -14,6 +14,6 @@ xcuserdata/
 !default.mode2v3
 *.perspectivev3
 !default.perspectivev3
-google_oauth.json
+google_oauth*.json
 MacAssistant/swiftgrpc.log
 *.log

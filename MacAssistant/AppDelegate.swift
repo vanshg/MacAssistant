@@ -33,8 +33,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSSpeechRecognizerDelegate {
     
     internal func applicationWillFinishLaunching(_ notification: Notification) {
         popover.contentViewController = loadingViewController
-        userDefaults.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
-        userDefaults.synchronize()
         userDefaults.addObserver(self, forKeyPath: Constants.LOGGED_IN_KEY, options: NSKeyValueObservingOptions.new, context: nil)
         Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { _ in
             self.authenticator.refreshTokenIfNecessary() { self.setAppropriateViewController(forLoginStatus: $0) }
@@ -133,10 +131,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSSpeechRecognizerDelegate {
         if let loggedIn = change?[.newKey] as? Bool {
             setAppropriateViewController(forLoginStatus: loggedIn)
             if !loggedIn {
-                self.Log.info("Removing tokens from UserDefaults")
-                userDefaults.removeObject(forKey: Constants.AUTH_TOKEN_KEY)
-                userDefaults.removeObject(forKey: Constants.REFRESH_TOKEN_KEY)
-                userDefaults.removeObject(forKey: Constants.EXPIRES_IN_KEY)
+                logout()
             }
         }
     }
@@ -145,5 +140,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSSpeechRecognizerDelegate {
         popover.contentViewController = loggedIn ?
             assistantViewController :
             loginViewController
+    }
+    
+    func logout() {
+        self.Log.info("Logging out")
+        userDefaults.removeObject(forKey: Constants.AUTH_TOKEN_KEY)
+        userDefaults.removeObject(forKey: Constants.REFRESH_TOKEN_KEY)
+        userDefaults.removeObject(forKey: Constants.EXPIRES_IN_KEY)
     }
 }

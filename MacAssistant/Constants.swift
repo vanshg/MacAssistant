@@ -15,6 +15,8 @@ struct Constants {
     public static let REFRESH_TOKEN_KEY = "refresh_token"
     public static let EXPIRES_IN_KEY = "expires_in"
     public static let PLAY_PROMPT_KEY = "play_prompt"
+    public static let APPLE_UI_KEY = "apple_ui"
+    public static let CONVERSATION_STATE_KEY = "conversation_state"
     
     public static let NATIVE_SAMPLE_RATE = 44100 // TODO: See if this value works on all Macs
     public static let GOOGLE_SAMPLE_RATE = 16000 // Hertz

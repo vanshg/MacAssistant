@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="AssistantViewController" customModule="MacAssistant" customModuleProvider="target">
             <connections>
+                <outlet property="dotsButton" destination="cps-Sm-I4Z" id="MbA-EO-UId"/>
                 <outlet property="gearIcon" destination="OqY-YE-TpG" id="3Dm-PF-m3E"/>
                 <outlet property="microphoneButton" destination="Hxt-c3-qkc" id="PJZ-QC-9Tc"/>
                 <outlet property="speakerButton" destination="O0d-RS-z7Y" id="V4w-v4-1lc"/>
@@ -26,6 +27,11 @@
                     <rect key="frame" x="43" y="0.0" width="253" height="48"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <subviews>
+                        <imageView hidden="YES" canDrawConcurrently="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cps-Sm-I4Z">
+                            <rect key="frame" x="102" y="0.0" width="48" height="48"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <imageCell key="cell" continuous="YES" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="uEO-da-FFC"/>
+                        </imageView>
                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hxt-c3-qkc">
                             <rect key="frame" x="20" y="7" width="213" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -109,7 +115,7 @@
     </objects>
     <resources>
         <image name="NSActionTemplate" width="14" height="14"/>
-        <image name="beginRecordingButton" width="409.60000610351562" height="409.60000610351562"/>
+        <image name="beginRecordingButton" width="334.55999755859375" height="334.55999755859375"/>
         <image name="statusIcon" width="22" height="22"/>
     </resources>
 </document>

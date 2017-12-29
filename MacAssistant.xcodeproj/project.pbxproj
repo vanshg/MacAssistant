@@ -33,10 +33,12 @@
 		FFE9B1351EC195AB0034E85B /* google_oauth.json in Resources */ = {isa = PBXBuildFile; fileRef = FFE9B1341EC195AB0034E85B /* google_oauth.json */; };
 		FFF3FABD1EBD545E005E87C9 /* ConversationEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF3FABC1EBD545D005E87C9 /* ConversationEntry.swift */; };
 		FFF3FAC11EBD5ADD005E87C9 /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFF3FAC01EBD5ADD005E87C9 /* LoadingView.xib */; };
-		FFFC22A21FF699BF0093592F /* embedded_assistant.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFC229D1FF699BF0093592F /* embedded_assistant.pb.swift */; };
 		FFFC22A31FF699BF0093592F /* status.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFC229F1FF699BF0093592F /* status.pb.swift */; };
-		FFFC22A41FF699BF0093592F /* google.assistant.embedded.v1alpha1.client.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFC22A01FF699BF0093592F /* google.assistant.embedded.v1alpha1.client.pb.swift */; };
-		FFFC22A51FF699BF0093592F /* google.assistant.embedded.v1alpha1.server.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFC22A11FF699BF0093592F /* google.assistant.embedded.v1alpha1.server.pb.swift */; };
+		FFFC22A81FF69D720093592F /* google.assistant.embedded.v1alpha2.client.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFC22A61FF69D710093592F /* google.assistant.embedded.v1alpha2.client.pb.swift */; };
+		FFFC22A91FF69D720093592F /* google.assistant.embedded.v1alpha2.server.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFC22A71FF69D710093592F /* google.assistant.embedded.v1alpha2.server.pb.swift */; };
+		FFFC22AC1FF69E250093592F /* embedded_assistant.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFC22AB1FF69E250093592F /* embedded_assistant.pb.swift */; };
+		FFFC22AF1FF6A71C0093592F /* latlng.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFC22AE1FF6A71C0093592F /* latlng.pb.swift */; };
+		FFFC22B11FF6BF6E0093592F /* dots.gif in Resources */ = {isa = PBXBuildFile; fileRef = FFFC22B01FF6BF6E0093592F /* dots.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -153,10 +155,12 @@
 		FFE9B1341EC195AB0034E85B /* google_oauth.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = google_oauth.json; sourceTree = "<group>"; };
 		FFF3FABC1EBD545D005E87C9 /* ConversationEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationEntry.swift; sourceTree = "<group>"; };
 		FFF3FAC01EBD5ADD005E87C9 /* LoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingView.xib; sourceTree = "<group>"; };
-		FFFC229D1FF699BF0093592F /* embedded_assistant.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = embedded_assistant.pb.swift; sourceTree = "<group>"; };
 		FFFC229F1FF699BF0093592F /* status.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = status.pb.swift; sourceTree = "<group>"; };
-		FFFC22A01FF699BF0093592F /* google.assistant.embedded.v1alpha1.client.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = google.assistant.embedded.v1alpha1.client.pb.swift; sourceTree = "<group>"; };
-		FFFC22A11FF699BF0093592F /* google.assistant.embedded.v1alpha1.server.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = google.assistant.embedded.v1alpha1.server.pb.swift; sourceTree = "<group>"; };
+		FFFC22A61FF69D710093592F /* google.assistant.embedded.v1alpha2.client.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = google.assistant.embedded.v1alpha2.client.pb.swift; sourceTree = "<group>"; };
+		FFFC22A71FF69D710093592F /* google.assistant.embedded.v1alpha2.server.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = google.assistant.embedded.v1alpha2.server.pb.swift; sourceTree = "<group>"; };
+		FFFC22AB1FF69E250093592F /* embedded_assistant.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = embedded_assistant.pb.swift; sourceTree = "<group>"; };
+		FFFC22AE1FF6A71C0093592F /* latlng.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = latlng.pb.swift; sourceTree = "<group>"; };
+		FFFC22B01FF6BF6E0093592F /* dots.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = dots.gif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -235,7 +239,6 @@
 		FFE68A721EB2A81E00F60EF5 /* MacAssistant */ = {
 			isa = PBXGroup;
 			children = (
-				FFFC22981FF699BF0093592F /* Generated */,
 				FF3644EA1FD1187200F2A9AE /* Preferences */,
 				FFE8548A1FCE378600C7E09B /* Auth */,
 				FFE68A731EB2A81E00F60EF5 /* AppDelegate.swift */,
@@ -255,7 +258,9 @@
 				FF2652011EC93DEE00ACDBB5 /* begin_prompt.mp3 */,
 				FFE854881FCE2F8B00C7E09B /* roots.pem */,
 				FFE68A7C1EB2A81E00F60EF5 /* Info.plist */,
+				FFFC22B01FF6BF6E0093592F /* dots.gif */,
 				FFE68A771EB2A81E00F60EF5 /* Assets.xcassets */,
+				FFFC22981FF699BF0093592F /* Generated */,
 			);
 			path = MacAssistant;
 			sourceTree = "<group>";
@@ -274,8 +279,8 @@
 			isa = PBXGroup;
 			children = (
 				FFFC22991FF699BF0093592F /* google */,
-				FFFC22A01FF699BF0093592F /* google.assistant.embedded.v1alpha1.client.pb.swift */,
-				FFFC22A11FF699BF0093592F /* google.assistant.embedded.v1alpha1.server.pb.swift */,
+				FFFC22A61FF69D710093592F /* google.assistant.embedded.v1alpha2.client.pb.swift */,
+				FFFC22A71FF69D710093592F /* google.assistant.embedded.v1alpha2.server.pb.swift */,
 			);
 			name = Generated;
 			path = MacAssistant/Generated;
@@ -286,6 +291,7 @@
 			children = (
 				FFFC229A1FF699BF0093592F /* assistant */,
 				FFFC229E1FF699BF0093592F /* rpc */,
+				FFFC22AD1FF6A71C0093592F /* type */,
 			);
 			path = google;
 			sourceTree = "<group>";
@@ -301,17 +307,9 @@
 		FFFC229B1FF699BF0093592F /* embedded */ = {
 			isa = PBXGroup;
 			children = (
-				FFFC229C1FF699BF0093592F /* v1alpha1 */,
+				FFFC22AA1FF69E250093592F /* v1alpha2 */,
 			);
 			path = embedded;
-			sourceTree = "<group>";
-		};
-		FFFC229C1FF699BF0093592F /* v1alpha1 */ = {
-			isa = PBXGroup;
-			children = (
-				FFFC229D1FF699BF0093592F /* embedded_assistant.pb.swift */,
-			);
-			path = v1alpha1;
 			sourceTree = "<group>";
 		};
 		FFFC229E1FF699BF0093592F /* rpc */ = {
@@ -320,6 +318,22 @@
 				FFFC229F1FF699BF0093592F /* status.pb.swift */,
 			);
 			path = rpc;
+			sourceTree = "<group>";
+		};
+		FFFC22AA1FF69E250093592F /* v1alpha2 */ = {
+			isa = PBXGroup;
+			children = (
+				FFFC22AB1FF69E250093592F /* embedded_assistant.pb.swift */,
+			);
+			path = v1alpha2;
+			sourceTree = "<group>";
+		};
+		FFFC22AD1FF6A71C0093592F /* type */ = {
+			isa = PBXGroup;
+			children = (
+				FFFC22AE1FF6A71C0093592F /* latlng.pb.swift */,
+			);
+			path = type;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -446,6 +460,7 @@
 				FFA471001EB2C9EB00A5F89A /* AssistantView.xib in Resources */,
 				FFE68A781EB2A81E00F60EF5 /* Assets.xcassets in Resources */,
 				FFE854891FCE2F8B00C7E09B /* roots.pem in Resources */,
+				FFFC22B11FF6BF6E0093592F /* dots.gif in Resources */,
 				FF2652021EC93DEE00ACDBB5 /* begin_prompt.mp3 in Resources */,
 				FFE8548D1FCE37F300C7E09B /* google_oauth_dev.json in Resources */,
 				FFF3FAC11EBD5ADD005E87C9 /* LoadingView.xib in Resources */,
@@ -533,17 +548,18 @@
 				FFA470CD1EB2B9B900A5F89A /* AppDelegate.swift in Sources */,
 				FFCED5F81EC4268B0049676B /* WaveformView.swift in Sources */,
 				FFA471071EB2D47300A5F89A /* SpeechWaveformView.swift in Sources */,
+				FFFC22AF1FF6A71C0093592F /* latlng.pb.swift in Sources */,
+				FFFC22AC1FF69E250093592F /* embedded_assistant.pb.swift in Sources */,
 				FFF3FABD1EBD545E005E87C9 /* ConversationEntry.swift in Sources */,
 				FF41AB861EB416F4003E994B /* API.swift in Sources */,
 				FF4F5E321ED3AFDE002CE445 /* PreferencesWindowController.swift in Sources */,
 				FFFC22A31FF699BF0093592F /* status.pb.swift in Sources */,
+				FFFC22A81FF69D720093592F /* google.assistant.embedded.v1alpha2.client.pb.swift in Sources */,
+				FFFC22A91FF69D720093592F /* google.assistant.embedded.v1alpha2.server.pb.swift in Sources */,
 				FF6AA52F1EBA77F60009E342 /* Authenticator.swift in Sources */,
 				FFE68A761EB2A81E00F60EF5 /* LoginViewController.swift in Sources */,
 				FFA470FE1EB2C9D200A5F89A /* AssistantViewController.swift in Sources */,
-				FFFC22A41FF699BF0093592F /* google.assistant.embedded.v1alpha1.client.pb.swift in Sources */,
-				FFFC22A51FF699BF0093592F /* google.assistant.embedded.v1alpha1.server.pb.swift in Sources */,
 				FFE9B1311EC187550034E85B /* ConversationTextDelegate.swift in Sources */,
-				FFFC22A21FF699BF0093592F /* embedded_assistant.pb.swift in Sources */,
 				FF6AA5351EBA8A980009E342 /* Constants.swift in Sources */,
 				FFE9B1331EC189D60034E85B /* CustomPlot.swift in Sources */,
 			);
