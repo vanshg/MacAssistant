@@ -34,9 +34,11 @@ MacAssistant is built using Swift 4 and Xcode 9.1
 
 Clone the project using `git clone --recursive https://github.com/vanshg/MacAssistant.git` (This project relies on some submodules to work)
 
-![](images/build-SS01.png)
+![](images/build_SS01.png)
 
 Once cloned, `cd` into the `grpc-swift` directory, and run `make`.
+
+![](images/build_SS02.png)
 
 You should then be able to open the `MacAssistant.xcworkspace` file (not `xcproject`!)
 
