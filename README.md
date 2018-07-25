@@ -2,7 +2,7 @@
 
 [![Github All Releases](https://img.shields.io/github/downloads/vanshg/MacAssistant/total.svg)](https://github.com/vanshg/MacAssistant/releases) [![Travis](https://img.shields.io/badge/Swift-3.1-blue.svg)](https://github.com/vanshg/MacAssistant) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/vanshg/MacAssistant/master/LICENSE) [![Twitter](https://img.shields.io/twitter/url/https/github.com/vanshg/MacAssistant.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=%5Bobject%20Object%5D)
 
-***NOTE: I've currently hit the API limit. In the meantime, you can provide your own OAuth credentials and build the project manually.***
+***NOTE: I've currently hit the API limit. In the meantime, you can use your own OAuth credentials by following the instructions [here](https://github.com/vanshg/MacAssistant#Use-your-own-OAuth-Credentials).***
 
 A project that integrates the Google Assistant into macOS, using the Google Assistant SDK.
 
@@ -38,7 +38,10 @@ Once cloned, `cd` into the `grpc-swift` directory, and run `make`.
 
 You should then be able to open the `MacAssistant.xcworkspace` file (not `xcproject`!)
 
-You will also need OAuth credentials from the [Google Developer Console](https://console.developers.google.com). In order to get them, you'll need to create a new project and enable the Assistant API for that project. Then, generate an OAuth credential, and select application type of `Other`. Download the json file by clicking the button on the right. Finally, rename the file to `google_oauth.json` and place it in your project (*/MacAssistant/google_oauth.json*).
+You will also need OAuth credentials from the [Google Developer Console](https://console.developers.google.com). In order to get them, you'll need to create a new project and enable the Google Assistant API for that project. Then, generate an OAuth credential, and select the application type of `Other UI`. State that you will be using `User Data`, and then download the json file. Finally, rename the file to `google_oauth.json` and place it in your project (*/MacAssistant/google_oauth.json*).
+
+## Use your own OAuth Credentials
+Follow the final step of the Build Instructions to get your `google_oauth.json`. Then download [MacAssistant](https://github.com/vanshg/MacAssistant/releases/download/0.2/MacAssistant.zip), unzip the file, and right click the app to `Show Package Contents`. Next, go to `Contents`, `Resources`, and replace the `google_oauth.json` file with your own.
 
 ## Contributing
 Please feel free to contribute to this project. I welcome all contributions and pull requests. There is a list of pending things that need to be worked on in the [TODO](TODO.md) file.
