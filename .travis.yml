@@ -1,0 +1,5 @@
+language: objective-c
+osx_image: xcode9.1
+xcode_project: MacAssistant.xcodeproj
+script:
+- xcodebuild clean build test -project MacAssistant.xcodeproj
