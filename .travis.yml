@@ -3,9 +3,8 @@ osx_image: xcode9.1
 xcode_project: MacAssistant.xcodeproj
 notifications:
   email: false
+before_install:
+- gem install xcpretty
 script:
 - cd grpc-swift && make
-xcodebuild \
-  -workspace MacAssistant.xcworkspace \
-  -scheme MacAssistant \
-  test | xcpretty --test --color
+- cd - && xcodebuild -scheme SwiftGRPC-Package build | xcpretty
