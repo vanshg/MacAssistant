@@ -3,8 +3,6 @@ osx_image: xcode9.1
 xcode_project: MacAssistant.xcodeproj
 notifications:
   email: false
-install:
-  - git clone --recursive https://github.com/vanshg/MacAssistant.git
 script:
 - cd grpc-swift
 - make
