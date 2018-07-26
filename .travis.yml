@@ -1,5 +1,10 @@
 language: objective-c
 osx_image: xcode9.1
 xcode_project: MacAssistant.xcodeproj
+notifications:
+  email: false
+install:
+  - git clone --recursive https://github.com/vanshg/MacAssistant.git
 script:
-- xcodebuild clean build test -project MacAssistant.xcodeproj
+- cd grpc-swift
+- make
