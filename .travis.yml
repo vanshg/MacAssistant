@@ -4,5 +4,8 @@ xcode_project: MacAssistant.xcodeproj
 notifications:
   email: false
 script:
-- cd grpc-swift
-- make
+- cd grpc-swift && make
+xcodebuild \
+  -workspace MacAssistant.xcworkspace \
+  -scheme MacAssistant \
+  test | xcpretty --test --color
