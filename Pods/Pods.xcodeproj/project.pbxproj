@@ -210,8 +210,8 @@
 		00A7C9A72E0C239230C4A955AB9359C2 /* EZOutput.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EZOutput.h; path = macOS/AudioKit.framework/Versions/A/Headers/EZOutput.h; sourceTree = "<group>"; };
 		02DEF4EEC408BAB3C87E849F4F694C74 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		03E4AF53BCC21BEC99EA786BA8D938C1 /* AKOperationGeneratorAudioUnit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AKOperationGeneratorAudioUnit.h; path = macOS/AudioKit.framework/Versions/A/Headers/AKOperationGeneratorAudioUnit.h; sourceTree = "<group>"; };
-		040167ECF84176CA84F5AD38466C50DC /* Magnet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Magnet.framework; path = Magnet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		04B6343382F574828191A0BB8407D8C5 /* Pods_MacAssistant.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_MacAssistant.framework; path = "Pods-MacAssistant.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		040167ECF84176CA84F5AD38466C50DC /* Magnet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Magnet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		04B6343382F574828191A0BB8407D8C5 /* Pods_MacAssistant.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MacAssistant.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0656EE0CD49F3A50303A7BB2CFDEBB31 /* AKDripAudioUnit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AKDripAudioUnit.h; path = macOS/AudioKit.framework/Versions/A/Headers/AKDripAudioUnit.h; sourceTree = "<group>"; };
 		06DD5C79350BA50B465E84908A5E2527 /* AKFormantFilterAudioUnit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AKFormantFilterAudioUnit.h; path = macOS/AudioKit.framework/Versions/A/Headers/AKFormantFilterAudioUnit.h; sourceTree = "<group>"; };
 		0797122363E97721722A90CD452784C9 /* clear-on.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "clear-on.png"; path = "Lib/KeyHolder/Resources/clear-on.png"; sourceTree = "<group>"; };
@@ -251,17 +251,17 @@
 		32BE92E1DD72F882FD614E56FA6F5740 /* AKPluckedStringAudioUnit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AKPluckedStringAudioUnit.h; path = macOS/AudioKit.framework/Versions/A/Headers/AKPluckedStringAudioUnit.h; sourceTree = "<group>"; };
 		35C86D52A841BA292DBE61301BF6F19E /* AKZitaReverbAudioUnit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AKZitaReverbAudioUnit.h; path = macOS/AudioKit.framework/Versions/A/Headers/AKZitaReverbAudioUnit.h; sourceTree = "<group>"; };
 		3712C6796D142616A87B4B7C09E1B166 /* Response.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Response.swift; path = Source/Response.swift; sourceTree = "<group>"; };
-		371E0296240FEE0A86C0B009AE0F0B95 /* SwiftProtobuf.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SwiftProtobuf.framework; path = SwiftProtobuf.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		371E0296240FEE0A86C0B009AE0F0B95 /* SwiftProtobuf.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftProtobuf.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3727B9CB4B97CF233FE4B03BF3C22402 /* CustomJSONCodable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CustomJSONCodable.swift; path = Sources/SwiftProtobuf/CustomJSONCodable.swift; sourceTree = "<group>"; };
 		37BC9B4B98E8218DF6D016B8649C3F2E /* SelectiveVisitor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SelectiveVisitor.swift; path = Sources/SwiftProtobuf/SelectiveVisitor.swift; sourceTree = "<group>"; };
-		37F069703A87E2912779EEB7FF2E36E6 /* SwiftProtobuf.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = SwiftProtobuf.modulemap; sourceTree = "<group>"; };
+		37F069703A87E2912779EEB7FF2E36E6 /* SwiftProtobuf.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SwiftProtobuf.modulemap; sourceTree = "<group>"; };
 		3A048564D2B265B0E2EEDA001A072FC1 /* Google_Protobuf_Any+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Google_Protobuf_Any+Extensions.swift"; path = "Sources/SwiftProtobuf/Google_Protobuf_Any+Extensions.swift"; sourceTree = "<group>"; };
 		3A2F6DDA55777086FCA20ED1B878882C /* SwiftyJSON.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = Source/SwiftyJSON.swift; sourceTree = "<group>"; };
 		3B18EA5D60D0ED62C4A88B595360BF14 /* JSONScanner.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = JSONScanner.swift; path = Sources/SwiftProtobuf/JSONScanner.swift; sourceTree = "<group>"; };
 		3CA576713CD9C36CE44EB0503FFE0404 /* Magnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Magnet.xcconfig; sourceTree = "<group>"; };
 		3FC114EB10CEDBD319EA28C5CACA20BA /* Log.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Log.xcconfig; sourceTree = "<group>"; };
 		40BD1D42C3EC6A43EFDB4A642EA08FCE /* Alamofire-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Alamofire-prefix.pch"; sourceTree = "<group>"; };
-		414D3727C8ED24BCDA22FC824C2C0D86 /* KeyHolder.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = KeyHolder.modulemap; sourceTree = "<group>"; };
+		414D3727C8ED24BCDA22FC824C2C0D86 /* KeyHolder.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = KeyHolder.modulemap; sourceTree = "<group>"; };
 		4208BDE89D81313B98FEF2AADCB234BC /* AKPinkNoiseAudioUnit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AKPinkNoiseAudioUnit.h; path = macOS/AudioKit.framework/Versions/A/Headers/AKPinkNoiseAudioUnit.h; sourceTree = "<group>"; };
 		425E49DF9D9D656FC150CBB54E40232A /* TextFormatScanner.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TextFormatScanner.swift; path = Sources/SwiftProtobuf/TextFormatScanner.swift; sourceTree = "<group>"; };
 		42CEA781002A17EA92DD32CF2457897D /* BinaryEncoder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BinaryEncoder.swift; path = Sources/SwiftProtobuf/BinaryEncoder.swift; sourceTree = "<group>"; };
@@ -282,7 +282,7 @@
 		4BD6F37BD211864FD50BD9204418EF0B /* MathUtils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MathUtils.swift; path = Sources/SwiftProtobuf/MathUtils.swift; sourceTree = "<group>"; };
 		4CB7C7A73BEF3F7243083D9A6227DA93 /* Formatters.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Formatters.swift; path = Source/Extensions/Formatters.swift; sourceTree = "<group>"; };
 		4D06DE438F736F18AE4E936CE87C4512 /* SwiftProtobuf-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftProtobuf-umbrella.h"; sourceTree = "<group>"; };
-		4D36F61210F482A784552885D9FDA769 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SwiftyJSON.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D36F61210F482A784552885D9FDA769 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5125AB685272035C0DCF47FF5B257AAC /* AKResonantFilterAudioUnit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AKResonantFilterAudioUnit.h; path = macOS/AudioKit.framework/Versions/A/Headers/AKResonantFilterAudioUnit.h; sourceTree = "<group>"; };
 		53D07161CA0CC114B13BFCF78C9B418E /* AKVocalTractAudioUnit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AKVocalTractAudioUnit.h; path = macOS/AudioKit.framework/Versions/A/Headers/AKVocalTractAudioUnit.h; sourceTree = "<group>"; };
 		56498334E7E69503D3151D1BAA676F66 /* AFError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AFError.swift; path = Source/AFError.swift; sourceTree = "<group>"; };
@@ -292,8 +292,8 @@
 		5854D2BA272E47A47DCDB946A53D410C /* Google_Protobuf_Wrappers+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Google_Protobuf_Wrappers+Extensions.swift"; path = "Sources/SwiftProtobuf/Google_Protobuf_Wrappers+Extensions.swift"; sourceTree = "<group>"; };
 		58AD557FEB2544960C81AE2BD79D35C6 /* AKMorphingOscillatorAudioUnit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AKMorphingOscillatorAudioUnit.h; path = macOS/AudioKit.framework/Versions/A/Headers/AKMorphingOscillatorAudioUnit.h; sourceTree = "<group>"; };
 		5A2523FD5E8151ABFB0BC4EB4E964E87 /* clear-on@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "clear-on@2x.png"; path = "Lib/KeyHolder/Resources/clear-on@2x.png"; sourceTree = "<group>"; };
-		5B7E88F682CD1C57209314A8CF54BA71 /* KeyHolder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = KeyHolder.framework; path = KeyHolder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5BEDC2AFF0D734D42AB9FCF6A86331BA /* KeyHolder.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = KeyHolder.bundle; path = "KeyHolder-KeyHolder.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B7E88F682CD1C57209314A8CF54BA71 /* KeyHolder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KeyHolder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5BEDC2AFF0D734D42AB9FCF6A86331BA /* KeyHolder.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KeyHolder.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C7D1C4550B117FD2883F2CB05AC9A01 /* Log-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Log-umbrella.h"; sourceTree = "<group>"; };
 		5D27E35E30140FF85661C1F8ED6B7719 /* AKFrequencyTrackerAudioUnit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AKFrequencyTrackerAudioUnit.h; path = macOS/AudioKit.framework/Versions/A/Headers/AKFrequencyTrackerAudioUnit.h; sourceTree = "<group>"; };
 		5D6942F9CEB349EFB8B1AA29A9B9F450 /* SwiftyJSON-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftyJSON-dummy.m"; sourceTree = "<group>"; };
@@ -319,7 +319,7 @@
 		69226B20123FE937C3ADD8CBAF88E72D /* AKShakerAudioUnit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AKShakerAudioUnit.h; path = macOS/AudioKit.framework/Versions/A/Headers/AKShakerAudioUnit.h; sourceTree = "<group>"; };
 		69CB8C353A5401EEBA99AFF92D2C3DEB /* AKHighPassButterworthFilterAudioUnit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AKHighPassButterworthFilterAudioUnit.h; path = macOS/AudioKit.framework/Versions/A/Headers/AKHighPassButterworthFilterAudioUnit.h; sourceTree = "<group>"; };
 		6C7C3B01627D7FD61832F03F2DF7AC2E /* SwiftyJSON.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftyJSON.xcconfig; sourceTree = "<group>"; };
-		6F227DE58BB325AB94A5A752E3670D51 /* Log.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Log.framework; path = Log.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F227DE58BB325AB94A5A752E3670D51 /* Log.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Log.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		703CCD5DBDE5CCC52A492DFF0B78F57A /* AKSamplerMetronome.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AKSamplerMetronome.h; path = macOS/AudioKit.framework/Versions/A/Headers/AKSamplerMetronome.h; sourceTree = "<group>"; };
 		7266810130BACA3A584609ACBF550CD9 /* Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Alamofire.swift; path = Source/Alamofire.swift; sourceTree = "<group>"; };
 		7531584E5D4C9276386FFF1F5E88BF45 /* MultipartFormData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MultipartFormData.swift; path = Source/MultipartFormData.swift; sourceTree = "<group>"; };
@@ -334,7 +334,7 @@
 		7FA0518C4FFB0C74862CD03E68653832 /* AKLowShelfParametricEqualizerFilterAudioUnit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AKLowShelfParametricEqualizerFilterAudioUnit.h; path = macOS/AudioKit.framework/Versions/A/Headers/AKLowShelfParametricEqualizerFilterAudioUnit.h; sourceTree = "<group>"; };
 		7FC769EA78E557A51A9DFC000339E8A5 /* SimpleExtensionMap.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SimpleExtensionMap.swift; path = Sources/SwiftProtobuf/SimpleExtensionMap.swift; sourceTree = "<group>"; };
 		812EDB8362616BDB45305C5B5EC18652 /* TPCircularBuffer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TPCircularBuffer.h; path = macOS/AudioKit.framework/Versions/A/Headers/TPCircularBuffer.h; sourceTree = "<group>"; };
-		81A6783DE12C84981490BF46F950507D /* Pods-MacAssistant.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-MacAssistant.modulemap"; sourceTree = "<group>"; };
+		81A6783DE12C84981490BF46F950507D /* Pods-MacAssistant.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-MacAssistant.modulemap"; sourceTree = "<group>"; };
 		81D30B7846683FDD05C23990197E1C34 /* SwiftProtobuf-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftProtobuf-prefix.pch"; sourceTree = "<group>"; };
 		8200B04FC8833DF3E0AB6E587D7EC155 /* AKFlatFrequencyResponseReverbAudioUnit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AKFlatFrequencyResponseReverbAudioUnit.h; path = macOS/AudioKit.framework/Versions/A/Headers/AKFlatFrequencyResponseReverbAudioUnit.h; sourceTree = "<group>"; };
 		82471B1374C37524C94F1ACF8E6DEA96 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -344,8 +344,8 @@
 		85E212E9BE18F7612BCAD743021D8B3A /* Pods-MacAssistant-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MacAssistant-resources.sh"; sourceTree = "<group>"; };
 		85E7A465A55AEE485056F4B39B8F404F /* RecordView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RecordView.swift; path = Lib/KeyHolder/RecordView.swift; sourceTree = "<group>"; };
 		866C6B2DDC2168F33E0EBFFEC1431753 /* Google_Protobuf_ListValue+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Google_Protobuf_ListValue+Extensions.swift"; path = "Sources/SwiftProtobuf/Google_Protobuf_ListValue+Extensions.swift"; sourceTree = "<group>"; };
-		87482445766C1F8B9E8BD4308A557991 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Alamofire.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		87E82FD5F39E393927899FCCF8B3400C /* SwiftyJSON.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = SwiftyJSON.modulemap; sourceTree = "<group>"; };
+		87482445766C1F8B9E8BD4308A557991 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		87E82FD5F39E393927899FCCF8B3400C /* SwiftyJSON.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SwiftyJSON.modulemap; sourceTree = "<group>"; };
 		884E74B7FAFF5435210CA0E8B74871FD /* AudioKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AudioKit.h; path = macOS/AudioKit.framework/Versions/A/Headers/AudioKit.h; sourceTree = "<group>"; };
 		888227A1B678A84FD539220F86D990D9 /* AKMorphingOscillatorBankAudioUnit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AKMorphingOscillatorBankAudioUnit.h; path = macOS/AudioKit.framework/Versions/A/Headers/AKMorphingOscillatorBankAudioUnit.h; sourceTree = "<group>"; };
 		89094ACFCD99DC8E4C17B63E6F9E7736 /* AKTimeline.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AKTimeline.h; path = macOS/AudioKit.framework/Versions/A/Headers/AKTimeline.h; sourceTree = "<group>"; };
@@ -364,8 +364,8 @@
 		902A7AAC0A951CC854FE427D871DB459 /* AudioKit-Swift.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "AudioKit-Swift.h"; path = "macOS/AudioKit.framework/Versions/A/Headers/AudioKit-Swift.h"; sourceTree = "<group>"; };
 		91BA1A46366917A36832F4CD75BA74FC /* TextFormatEncoder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TextFormatEncoder.swift; path = Sources/SwiftProtobuf/TextFormatEncoder.swift; sourceTree = "<group>"; };
 		9217BFBC9D3DA52B06F81212D63ECFA8 /* TextFormatEncodingVisitor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TextFormatEncodingVisitor.swift; path = Sources/SwiftProtobuf/TextFormatEncodingVisitor.swift; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		93C889E4F3AD8C9E4309C184352CE442 /* Magnet.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = Magnet.modulemap; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93C889E4F3AD8C9E4309C184352CE442 /* Magnet.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = Magnet.modulemap; sourceTree = "<group>"; };
 		941FF54F6DADBB9ABBD6656E770F61C0 /* JSONDecodingOptions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = JSONDecodingOptions.swift; path = Sources/SwiftProtobuf/JSONDecodingOptions.swift; sourceTree = "<group>"; };
 		94B6B25C85141A90CB3E952D582C9516 /* AKStereoFieldLimiterAudioUnit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AKStereoFieldLimiterAudioUnit.h; path = macOS/AudioKit.framework/Versions/A/Headers/AKStereoFieldLimiterAudioUnit.h; sourceTree = "<group>"; };
 		9508D3B6369FD8BD51181E11DE26101B /* AKRhodesPianoAudioUnit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AKRhodesPianoAudioUnit.h; path = macOS/AudioKit.framework/Versions/A/Headers/AKRhodesPianoAudioUnit.h; sourceTree = "<group>"; };
@@ -457,7 +457,7 @@
 		E3CB8ACA0951E7A5D2539162983C5C17 /* Message+AnyAdditions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Message+AnyAdditions.swift"; path = "Sources/SwiftProtobuf/Message+AnyAdditions.swift"; sourceTree = "<group>"; };
 		E45B38ADA7BDF8A31D6418DEC317FBFC /* EZAudioPlotGL.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EZAudioPlotGL.h; path = macOS/AudioKitUI.framework/Versions/A/Headers/EZAudioPlotGL.h; sourceTree = "<group>"; };
 		E5875ECF8A0AA99B1E9621FD197F1170 /* SwiftProtobuf.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftProtobuf.xcconfig; sourceTree = "<group>"; };
-		E5AE5F45DD7FA2F18BCC5682CB9FCF46 /* Log.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = Log.modulemap; sourceTree = "<group>"; };
+		E5AE5F45DD7FA2F18BCC5682CB9FCF46 /* Log.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = Log.modulemap; sourceTree = "<group>"; };
 		E7A1FD5107AC519B2FFD9B97C92546B0 /* BinaryDecoder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BinaryDecoder.swift; path = Sources/SwiftProtobuf/BinaryDecoder.swift; sourceTree = "<group>"; };
 		E7E25C0DA4AEF88CA4B89217684F12CC /* AKFluteAudioUnit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AKFluteAudioUnit.h; path = macOS/AudioKit.framework/Versions/A/Headers/AKFluteAudioUnit.h; sourceTree = "<group>"; };
 		E8604E668716BF548347B53054D86D15 /* Pods-MacAssistant.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MacAssistant.debug.xcconfig"; sourceTree = "<group>"; };
@@ -466,7 +466,7 @@
 		EE592B47290CA95972C07C05CE702BC6 /* AK4AudioUnitBase.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AK4AudioUnitBase.h; path = macOS/AudioKit.framework/Versions/A/Headers/AK4AudioUnitBase.h; sourceTree = "<group>"; };
 		EF4D4865F00E42365640C1C97C199A76 /* AKPhaserAudioUnit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AKPhaserAudioUnit.h; path = macOS/AudioKit.framework/Versions/A/Headers/AKPhaserAudioUnit.h; sourceTree = "<group>"; };
 		EF6E03DA339C30F1366F44B0CD7B26BD /* EZAudioFloatData.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EZAudioFloatData.h; path = macOS/AudioKit.framework/Versions/A/Headers/EZAudioFloatData.h; sourceTree = "<group>"; };
-		EFAF5E6D32842F9A69E7FC1C5F2D7698 /* Alamofire.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = Alamofire.modulemap; sourceTree = "<group>"; };
+		EFAF5E6D32842F9A69E7FC1C5F2D7698 /* Alamofire.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = Alamofire.modulemap; sourceTree = "<group>"; };
 		F041C38C72F23F7B19440AC43D703043 /* AKOscillatorAudioUnit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AKOscillatorAudioUnit.h; path = macOS/AudioKit.framework/Versions/A/Headers/AKOscillatorAudioUnit.h; sourceTree = "<group>"; };
 		F0A9B6C732332CA29A9E8CCC1BFD1162 /* AKMoogLadderAudioUnit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AKMoogLadderAudioUnit.h; path = macOS/AudioKit.framework/Versions/A/Headers/AKMoogLadderAudioUnit.h; sourceTree = "<group>"; };
 		F0BAC2AA6C62293A9C8CF40648EA0228 /* BinaryDelimited.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BinaryDelimited.swift; path = Sources/SwiftProtobuf/BinaryDelimited.swift; sourceTree = "<group>"; };
@@ -631,7 +631,6 @@
 				3A2F6DDA55777086FCA20ED1B878882C /* SwiftyJSON.swift */,
 				74C58F076E224267103268D0625BEC83 /* Support Files */,
 			);
-			name = SwiftyJSON;
 			path = SwiftyJSON;
 			sourceTree = "<group>";
 		};
@@ -717,7 +716,6 @@
 				FD21C666FD0B4142A39F6514C17E8483 /* ZigZag.swift */,
 				F4420D7C3DCA60441EBDDE4F1B8BF3C4 /* Support Files */,
 			);
-			name = SwiftProtobuf;
 			path = SwiftProtobuf;
 			sourceTree = "<group>";
 		};
@@ -780,7 +778,6 @@
 				A63FCC3DF67AC5276BFD5C1AA3985E1D /* Validation.swift */,
 				0810E57703EE7FE36920E51E6D9A0017 /* Support Files */,
 			);
-			name = Alamofire;
 			path = Alamofire;
 			sourceTree = "<group>";
 		};
@@ -796,7 +793,6 @@
 				B7E78D191FEF4B5277430C21BF711DBA /* Utilities.swift */,
 				DEFAA1D5AC29B0C12EC907CBAC3D8467 /* Support Files */,
 			);
-			name = Log;
 			path = Log;
 			sourceTree = "<group>";
 		};
@@ -953,7 +949,6 @@
 				3459A720EF3B480E45FA53571D55B9B9 /* Frameworks */,
 				9048062623CD9325533253428E1BF101 /* UI */,
 			);
-			name = AudioKit;
 			path = AudioKit;
 			sourceTree = "<group>";
 		};
@@ -965,7 +960,6 @@
 				1B135CD002FCC5AFEEE46D6116252E2A /* Resources */,
 				36323F9CC76A038D2BE9EC5B7CD1250A /* Support Files */,
 			);
-			name = KeyHolder;
 			path = KeyHolder;
 			sourceTree = "<group>";
 		};
@@ -979,7 +973,6 @@
 				5E407F5E8A53A17B03B55F5D8167B64B /* KeyTransformer.swift */,
 				2AB6DA120D58A6C249ECC5D3DD9AE35B /* Support Files */,
 			);
-			name = Magnet;
 			path = Magnet;
 			sourceTree = "<group>";
 		};
@@ -1257,7 +1250,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0920;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -2004,6 +1997,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Release;
