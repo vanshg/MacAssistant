@@ -2,15 +2,14 @@
 //  AKTimelineTap.h
 //  AudioKit
 //
-//  Created by David O'Neill on 8/28/17.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Created by David O'Neill, revision history on GitHub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import "AKTimeline.h"
-
 
 @interface AKTimelineTap : NSObject {
 @public
@@ -45,10 +44,10 @@ typedef void(^AKTimelineBlock)( AKTimeline      * _Nonnull  timeline,
 @property (readonly) AKTimelineBlock _Nullable timelineCallback NS_SWIFT_UNAVAILABLE("No render code in Swift");
 
 /**
- Dictates if timelineCallback will be called pre-render or post-render, defaults to false (postRender).
+ Dictates if the timeline callback will be called pre-render or post-render, defaults to false (post-render).
 
  Pre-render is better for triggering MIDI as the sample offset is taken into consideration. Post-render
- is neccessary for ioData buffer manipulation as buffers' mData is NULL during pre-render.
+ is necessary for ioData buffer manipulation as buffers' mData is NULL during pre-render.
  */
 @property BOOL preRender;
 
@@ -58,7 +57,7 @@ typedef void(^AKTimelineBlock)( AKTimeline      * _Nonnull  timeline,
 @property (readonly) AKTimeline * _Nonnull timeline;
 
 /**
- Initializes a timelineTap, holds reference to audioUnit.
+ Initializes a timeline tap, holds reference to audioUnit.
 
  @param audioUnit The audioUnit that will the tap notify on.
  @param block The block tha will be called on render thread.

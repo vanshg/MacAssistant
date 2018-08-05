@@ -2,7 +2,7 @@
 //  EZPlot.h
 //  EZAudio
 //
-//  Created by Syed Haris Ali on 11/24/13.
+//  Created by Syed Haris Ali, revision history on Githbub.
 //  Copyright (c) 2015 Syed Haris Ali. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -55,7 +55,7 @@ typedef NS_ENUM(NSInteger, EZPlotType)
 
  ## Subclassing Notes
 
- This class isn't meant to be directly used in practice, but instead establishes the default properties and behaviors subclasses should obey to provide consistent behavior accross multiple types of graphs (i.e. set background color, plot type, should fill in, etc.). Subclasses should make use of the inherited properties from this class to allow all child plots to benefit from the same
+ This class isn't meant to be directly used in practice, but instead establishes the default properties and behaviors subclasses should obey to provide consistent behavior across multiple types of graphs (i.e. set background color, plot type, should fill in, etc.). Subclasses should make use of the inherited properties from this class to allow all child plots to benefit from the same
  */
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>

@@ -2,7 +2,7 @@
 //  EZRecorder.h
 //  EZAudio
 //
-//  Created by Syed Haris Ali on 12/1/13.
+//  Created by Syed Haris Ali, revision history on Githbub.
 //  Copyright (c) 2015 Syed Haris Ali. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -313,7 +313,7 @@ typedef NS_ENUM(NSInteger, EZRecorderFileType)
 //------------------------------------------------------------------------------
 
 /**
- Provides the frame index (a.k.a the write positon) within the audio file as SInt64. This can be helpful when seeking through the audio file.
+ Provides the frame index (a.k.a the write position) within the audio file as SInt64. This can be helpful when seeking through the audio file.
  @return The current frame index within the audio file as a SInt64.
  */
 @property (readonly) SInt64 frameIndex;

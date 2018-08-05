@@ -1,16 +1,13 @@
-# Uncomment the next line to define a global platform for your project
 platform :osx, '10.13'
 
 target 'MacAssistant' do
-  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
   # Pods for MacAssistant
-  pod 'SwiftProtobuf', '~> 1.0'
+  pod 'SwiftGRPC', '~> 0.4.3'
   pod 'AudioKit', '~> 4.0'
-  pod 'Alamofire', '~> 4.5'
+  pod 'Log', '~> 1.0'
+  pod 'Alamofire', '~> 4.7'
   pod 'SwiftyJSON', '~> 4.0'
-  pod 'Magnet', '~> 2.0'
-  pod 'KeyHolder', '~> 2.0'
-  pod 'Log'
+  pod 'SwiftyUserDefaults', '4.0.0-alpha.1'
 end

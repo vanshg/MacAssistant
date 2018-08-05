@@ -135,6 +135,16 @@ directory.
 To install, just copy this one executable into a directory that is
 part of your `PATH` environment variable.
 
+### Alternatively install via Homebrew
+
+If you prefer using [Homebrew](https://brew.sh):
+
+```
+$ brew install swift-protobuf
+```
+
+This will install `protoc` compiler and Swift code generator plugin.
+
 ## Converting .proto files into Swift
 
 To generate Swift output for your .proto files, you run the `protoc` command as
@@ -191,7 +201,7 @@ If you're using CocoaPods, add this to your `Podfile` adjusting the `:tag` to
 match the `[tag_name]` you used to build the plugin above:
 
 ```ruby
-pod 'SwiftProtobuf', '~> 1.0.1'
+pod 'SwiftProtobuf', '~> 1.0'
 ```
 
 And run `pod install`.
@@ -203,7 +213,7 @@ And run `pod install`.
 If you're using Carthage, add this to your `Cartfile` but adjust the tag to match the `[tag_name]` you used to build the plugin above:
 
 ```ruby
-github "apple/swift-protobuf" "1.0.1"
+github "apple/swift-protobuf" ~> 1.0
 ```
 
 Run `carthage update` and drag `SwiftProtobuf.framework` into your Xcode.project.

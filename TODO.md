@@ -1,12 +1,15 @@
 # TODO
-- Fix Follow up questions/responses
-- Add hotword detection (https://github.com/Kitt-AI/snowboy)
-- Add sound feedback when cancelling speech
+- Prevent window from opening multiple times
+- Wire up microphone button
+- Add Settings menu
+- Add hotkey
 - Add About Screen
-- Add Settings menu (allow customizing the hotkey, when it is working)
-- New icon and sound (so as not to get hit by some copyright from El Goog)
-- Better microphone waveform graphic
-- Run the incoming response audio through a speech recognizier to get response text manually
-- Handle No internet connection case
-- Convert from Carthage to CocoaPods
+- Add location
+- Add theming (Google theme vs Apple theme)
+- Get Assistant sounds (decompile an APK?)
+- Get Assistant graphics (decompile an APK?)
+- Add hotword detection (https://github.com/Kitt-AI/snowboy)
+    - Look into reverse engineering T2 chip/Hey Siri detection
+- Handle errors in UI
+    - Handle No internet conneciton case
 - Add updating support (Sparkle)

@@ -1,0 +1,18 @@
+{
+  "project_id": "macassistant-165919",
+  "device_model_id": "macassistant-165919_macos",
+  "manifest": {
+    "manufacturer": "Apple",
+    "product_name": "macOS",
+    "device_description": "Assistant on macOS"
+  },
+  "device_type": "action.devices.types.OUTLET",
+  "traits": [
+    "action.devices.traits.OnOff",
+    "action.devices.traits.Brightness",
+    "action.devices.traits.CameraStream",
+    "action.devices.traits.Locator",
+    "action.devices.traits.Modes",
+    "action.devices.traits.Toggles"
+  ]
+}
