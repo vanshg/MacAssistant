@@ -1,0 +1,10 @@
+language: objective-c
+osx_image: xcode9.1
+xcode_project: MacAssistant.xcodeproj
+notifications:
+  email: false
+before_install:
+- gem install xcpretty
+script:
+- cd grpc-swift && make
+- cd - && xcodebuild -scheme SwiftGRPC-Package build | xcpretty
