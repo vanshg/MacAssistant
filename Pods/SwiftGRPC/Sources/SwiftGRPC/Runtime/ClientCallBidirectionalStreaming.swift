@@ -20,7 +20,7 @@ import SwiftProtobuf
 
 public protocol ClientCallBidirectionalStreaming: ClientCall {
   func waitForSendOperationsToFinish()
-  
+
   // TODO: Move the other, message type-dependent, methods into this protocol. At the moment, this is not possible,
   // as the protocol would then have an associated type requirement (and become pretty much unusable in the process).
 }
@@ -28,7 +28,7 @@ public protocol ClientCallBidirectionalStreaming: ClientCall {
 open class ClientCallBidirectionalStreamingBase<InputType: Message, OutputType: Message>: ClientCallBase, ClientCallBidirectionalStreaming, StreamReceiving, StreamSending {
   public typealias ReceivedType = OutputType
   public typealias SentType = InputType
-  
+
   /// Call this to start a call. Nonblocking.
   public func start(metadata: Metadata, completion: ((CallResult) -> Void)?)
     throws -> Self {
@@ -55,10 +55,10 @@ open class ClientCallBidirectionalStreamingTestStub<InputType: Message, OutputTy
   open class var method: String { fatalError("needs to be overridden") }
 
   open var lock = Mutex()
-  
+
   open var inputs: [InputType] = []
   open var outputs: [OutputType] = []
-  
+
   public init() {}
 
   open func _receive(timeout: DispatchTime) throws -> OutputType? {
@@ -67,7 +67,7 @@ open class ClientCallBidirectionalStreamingTestStub<InputType: Message, OutputTy
       return outputs.first
     }
   }
-  
+
   open func receive(completion: @escaping (ResultOrRPCError<OutputType?>) -> Void) throws {
     completion(.result(try self._receive(timeout: .distantFuture)))
   }
@@ -75,7 +75,7 @@ open class ClientCallBidirectionalStreamingTestStub<InputType: Message, OutputTy
   open func send(_ message: InputType, completion _: @escaping (Error?) -> Void) throws {
     lock.synchronize { inputs.append(message) }
   }
-  
+
   open func _send(_ message: InputType, timeout: DispatchTime) throws {
     lock.synchronize { inputs.append(message) }
   }

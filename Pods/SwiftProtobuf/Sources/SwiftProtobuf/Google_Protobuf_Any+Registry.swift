@@ -51,10 +51,10 @@ internal func typeName(fromURL s: String) -> String {
   return String(s[typeStart..<s.endIndex])
 }
 
-fileprivate var serialQueue = DispatchQueue(label: "org.swift.protobuf.typeRegistry")
+private var serialQueue = DispatchQueue(label: "org.swift.protobuf.typeRegistry")
 
 // All access to this should be done on `serialQueue`.
-fileprivate var knownTypes: [String:Message.Type] = [
+private var knownTypes: [String: Message.Type] = [
   // Seeded with the Well Known Types.
   "google.protobuf.Any": Google_Protobuf_Any.self,
   "google.protobuf.BoolValue": Google_Protobuf_BoolValue.self,
@@ -72,7 +72,7 @@ fileprivate var knownTypes: [String:Message.Type] = [
   "google.protobuf.Timestamp": Google_Protobuf_Timestamp.self,
   "google.protobuf.UInt32Value": Google_Protobuf_UInt32Value.self,
   "google.protobuf.UInt64Value": Google_Protobuf_UInt64Value.self,
-  "google.protobuf.Value": Google_Protobuf_Value.self,
+  "google.protobuf.Value": Google_Protobuf_Value.self
 ]
 
 public extension Google_Protobuf_Any {

@@ -31,7 +31,7 @@ public class Channel {
 
   /// Default host to use for new calls
   public var host: String
-  
+
   public var connectivityState: ConnectivityState? {
     return ConnectivityState.fromCEnum(cgrpc_channel_check_connectivity_state(underlyingChannel, 0))
   }

@@ -81,7 +81,7 @@ public extension Message {
     fromJSONUTF8Data jsonUTF8Data: Data,
     options: JSONDecodingOptions = JSONDecodingOptions()
   ) throws -> [Self] {
-    return try jsonUTF8Data.withUnsafeBytes { (bytes:UnsafePointer<UInt8>) in
+    return try jsonUTF8Data.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) in
       var array = [Self]()
       let buffer = UnsafeBufferPointer(start: bytes, count: jsonUTF8Data.count)
       var decoder = JSONDecoder(source: buffer, options: options)

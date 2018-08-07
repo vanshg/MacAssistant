@@ -15,7 +15,7 @@
 // -----------------------------------------------------------------------------
 
 public struct ExtensionFieldValueSet: Equatable {
-  fileprivate var values = [Int : AnyExtensionField]()
+  fileprivate var values = [Int: AnyExtensionField]()
 
   public static func ==(lhs: ExtensionFieldValueSet,
                         rhs: ExtensionFieldValueSet) -> Bool {

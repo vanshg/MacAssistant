@@ -25,7 +25,7 @@ public protocol ClientCallServerStreaming: ClientCall {
 
 open class ClientCallServerStreamingBase<InputType: Message, OutputType: Message>: ClientCallBase, ClientCallServerStreaming, StreamReceiving {
   public typealias ReceivedType = OutputType
-  
+
   /// Call this once with the message to send. Nonblocking.
   public func start(request: InputType, metadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Self {
     let requestData = try request.serializedData()
@@ -42,18 +42,18 @@ open class ClientCallServerStreamingTestStub<OutputType: Message>: ClientCallSer
   open class var method: String { fatalError("needs to be overridden") }
 
   open var lock = Mutex()
-  
+
   open var outputs: [OutputType] = []
-  
+
   public init() {}
-  
+
   open func _receive(timeout: DispatchTime) throws -> OutputType? {
     return lock.synchronize {
       defer { if !outputs.isEmpty { outputs.removeFirst() } }
       return outputs.first
     }
   }
-  
+
   open func receive(completion: @escaping (ResultOrRPCError<OutputType?>) -> Void) throws {
     completion(.result(try self._receive(timeout: .distantFuture)))
   }

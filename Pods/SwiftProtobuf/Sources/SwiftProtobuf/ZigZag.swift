@@ -12,7 +12,6 @@
 ///
 // -----------------------------------------------------------------------------
 
-
 /// Contains helper methods to ZigZag encode and decode signed integers.
 internal enum ZigZag {
 

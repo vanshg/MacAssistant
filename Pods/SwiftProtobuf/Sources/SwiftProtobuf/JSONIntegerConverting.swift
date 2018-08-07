@@ -41,7 +41,6 @@ internal protocol JSONIntegerConverting {
   init?(exactly value: Double)
 }
 
-
 extension Int64: JSONIntegerConverting {
 
   init?(exactly value: Double) {
@@ -60,7 +59,6 @@ extension Int64: JSONIntegerConverting {
     self.init(value)
   }
 }
-
 
 extension UInt64: JSONIntegerConverting {
 

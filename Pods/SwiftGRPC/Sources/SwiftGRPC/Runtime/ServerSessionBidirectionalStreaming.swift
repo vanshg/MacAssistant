@@ -25,7 +25,7 @@ public protocol ServerSessionBidirectionalStreaming: ServerSession {
 open class ServerSessionBidirectionalStreamingBase<InputType: Message, OutputType: Message>: ServerSessionBase, ServerSessionBidirectionalStreaming, StreamReceiving, StreamSending {
   public typealias ReceivedType = InputType
   public typealias SentType = OutputType
-  
+
   public typealias ProviderBlock = (ServerSessionBidirectionalStreamingBase) throws -> ServerStatus?
   private var providerBlock: ProviderBlock
 
@@ -33,7 +33,7 @@ open class ServerSessionBidirectionalStreamingBase<InputType: Message, OutputTyp
     self.providerBlock = providerBlock
     super.init(handler: handler)
   }
-  
+
   public func run() throws -> ServerStatus? {
     try sendInitialMetadataAndWait()
     do {
@@ -50,7 +50,7 @@ open class ServerSessionBidirectionalStreamingBase<InputType: Message, OutputTyp
 /// and stores sent values for later verification.
 open class ServerSessionBidirectionalStreamingTestStub<InputType: Message, OutputType: Message>: ServerSessionTestStub, ServerSessionBidirectionalStreaming {
   open var lock = Mutex()
-  
+
   open var inputs: [InputType] = []
   open var outputs: [OutputType] = []
   open var status: ServerStatus?
@@ -61,7 +61,7 @@ open class ServerSessionBidirectionalStreamingTestStub<InputType: Message, Outpu
       return inputs.first
     }
   }
-  
+
   open func receive(completion: @escaping (ResultOrRPCError<InputType?>) -> Void) throws {
     completion(.result(try self._receive(timeout: .distantFuture)))
   }

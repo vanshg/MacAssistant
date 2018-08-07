@@ -36,7 +36,7 @@ public class Call {
   private static let callMutex = Mutex()
 
   /// Maximum number of messages that can be queued
-  public static var messageQueueMaxLength: Int? = nil
+  public static var messageQueueMaxLength: Int?
 
   /// Pointer to underlying C representation
   private let underlyingCall: UnsafeMutableRawPointer
@@ -53,7 +53,7 @@ public class Call {
   /// A dispatch group that contains all pending send operations.
   /// You can wait on it to ensure that all currently enqueued messages have been sent.
   public let messageQueueEmpty = DispatchGroup()
-  
+
   /// True if a message write operation is underway
   private var writing: Bool
 
@@ -88,7 +88,7 @@ public class Call {
       Call.callMutex.lock()
       // We need to do the perform *inside* the `completionQueue.register` call, to ensure that the queue can't get
       // shutdown in between registering the operation group and calling `cgrpc_call_perform`.
-      let error = cgrpc_call_perform(underlyingCall, operations.underlyingOperations, UnsafeMutableRawPointer(bitPattern:operations.tag))
+      let error = cgrpc_call_perform(underlyingCall, operations.underlyingOperations, UnsafeMutableRawPointer(bitPattern: operations.tag))
       Call.callMutex.unlock()
       if error != GRPC_CALL_OK {
         throw CallError.callError(grpcCallError: error)
@@ -118,11 +118,11 @@ public class Call {
       }
       operations = [
         .sendInitialMetadata(metadata.copy()),
-        .sendMessage(ByteBuffer(data:message)),
+        .sendMessage(ByteBuffer(data: message)),
         .sendCloseFromClient,
         .receiveInitialMetadata,
         .receiveMessage,
-        .receiveStatusOnClient,
+        .receiveStatusOnClient
       ]
     case .serverStreaming:
       guard let message = message else {
@@ -130,10 +130,10 @@ public class Call {
       }
       operations = [
         .sendInitialMetadata(metadata.copy()),
-        .sendMessage(ByteBuffer(data:message)),
+        .sendMessage(ByteBuffer(data: message)),
         .sendCloseFromClient,
         .receiveInitialMetadata,
-        .receiveStatusOnClient,
+        .receiveStatusOnClient
       ]
     case .clientStreaming, .bidiStreaming:
       try perform(OperationGroup(call: self,
@@ -227,7 +227,7 @@ public class Call {
   public func close(completion: (() -> Void)? = nil) throws {
     try perform(OperationGroup(call: self, operations: [.sendCloseFromClient],
                                completion: completion != nil
-                                ? { op in completion?() }
+                                ? { _ in completion?() }
                                 : nil))
   }
 

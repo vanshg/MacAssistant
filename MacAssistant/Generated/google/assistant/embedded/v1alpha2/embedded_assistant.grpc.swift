@@ -56,7 +56,6 @@ fileprivate final class Google_Assistant_Embedded_V1alpha2_EmbeddedAssistantAssi
   override class var method: String { return "/google.assistant.embedded.v1alpha2.EmbeddedAssistant/Assist" }
 }
 
-
 /// Instantiate Google_Assistant_Embedded_V1alpha2_EmbeddedAssistantServiceClient, then call methods of this protocol to make API calls.
 internal protocol Google_Assistant_Embedded_V1alpha2_EmbeddedAssistantService: ServiceClient {
   /// Asynchronous. Bidirectional-streaming.
@@ -76,4 +75,3 @@ internal final class Google_Assistant_Embedded_V1alpha2_EmbeddedAssistantService
   }
 
 }
-

@@ -81,7 +81,7 @@ public extension Message {
     options: JSONDecodingOptions = JSONDecodingOptions()
   ) throws {
     self.init()
-    try jsonUTF8Data.withUnsafeBytes { (bytes:UnsafePointer<UInt8>) in
+    try jsonUTF8Data.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) in
       let buffer = UnsafeBufferPointer(start: bytes, count: jsonUTF8Data.count)
       var decoder = JSONDecoder(source: buffer, options: options)
       if !decoder.scanner.skipOptionalNull() {
@@ -100,4 +100,3 @@ public extension Message {
     }
   }
 }
-

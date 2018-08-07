@@ -28,7 +28,7 @@ import SwiftProtobuf
 // incompatible with the version of SwiftProtobuf to which you are linking.
 // Please ensure that your are building against the same version of the API
 // that was used to generate this file.
-fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
+private struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
   struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
@@ -981,13 +981,13 @@ public struct Google_Assistant_Embedded_V1alpha2_DeviceLocation {
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
-fileprivate let _protobuf_package = "google.assistant.embedded.v1alpha2"
+private let _protobuf_package = "google.assistant.embedded.v1alpha2"
 
 extension Google_Assistant_Embedded_V1alpha2_AssistRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".AssistRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "config"),
-    2: .standard(proto: "audio_in"),
+    2: .standard(proto: "audio_in")
   ]
 
   fileprivate class _StorageClass {
@@ -1070,17 +1070,17 @@ extension Google_Assistant_Embedded_V1alpha2_AssistResponse: SwiftProtobuf.Messa
     6: .standard(proto: "device_action"),
     2: .standard(proto: "speech_results"),
     5: .standard(proto: "dialog_state_out"),
-    8: .standard(proto: "debug_info"),
+    8: .standard(proto: "debug_info")
   ]
 
   fileprivate class _StorageClass {
     var _eventType: Google_Assistant_Embedded_V1alpha2_AssistResponse.EventType = .unspecified
-    var _audioOut: Google_Assistant_Embedded_V1alpha2_AudioOut? = nil
-    var _screenOut: Google_Assistant_Embedded_V1alpha2_ScreenOut? = nil
-    var _deviceAction: Google_Assistant_Embedded_V1alpha2_DeviceAction? = nil
+    var _audioOut: Google_Assistant_Embedded_V1alpha2_AudioOut?
+    var _screenOut: Google_Assistant_Embedded_V1alpha2_ScreenOut?
+    var _deviceAction: Google_Assistant_Embedded_V1alpha2_DeviceAction?
     var _speechResults: [Google_Assistant_Embedded_V1alpha2_SpeechRecognitionResult] = []
-    var _dialogStateOut: Google_Assistant_Embedded_V1alpha2_DialogStateOut? = nil
-    var _debugInfo: Google_Assistant_Embedded_V1alpha2_DebugInfo? = nil
+    var _dialogStateOut: Google_Assistant_Embedded_V1alpha2_DialogStateOut?
+    var _debugInfo: Google_Assistant_Embedded_V1alpha2_DebugInfo?
 
     static let defaultInstance = _StorageClass()
 
@@ -1173,14 +1173,14 @@ extension Google_Assistant_Embedded_V1alpha2_AssistResponse: SwiftProtobuf.Messa
 extension Google_Assistant_Embedded_V1alpha2_AssistResponse.EventType: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "EVENT_TYPE_UNSPECIFIED"),
-    1: .same(proto: "END_OF_UTTERANCE"),
+    1: .same(proto: "END_OF_UTTERANCE")
   ]
 }
 
 extension Google_Assistant_Embedded_V1alpha2_DebugInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".DebugInfo"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "aog_agent_to_assistant_json"),
+    1: .standard(proto: "aog_agent_to_assistant_json")
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1215,16 +1215,16 @@ extension Google_Assistant_Embedded_V1alpha2_AssistConfig: SwiftProtobuf.Message
     8: .standard(proto: "screen_out_config"),
     3: .standard(proto: "dialog_state_in"),
     4: .standard(proto: "device_config"),
-    5: .standard(proto: "debug_config"),
+    5: .standard(proto: "debug_config")
   ]
 
   fileprivate class _StorageClass {
     var _type: Google_Assistant_Embedded_V1alpha2_AssistConfig.OneOf_Type?
-    var _audioOutConfig: Google_Assistant_Embedded_V1alpha2_AudioOutConfig? = nil
-    var _screenOutConfig: Google_Assistant_Embedded_V1alpha2_ScreenOutConfig? = nil
-    var _dialogStateIn: Google_Assistant_Embedded_V1alpha2_DialogStateIn? = nil
-    var _deviceConfig: Google_Assistant_Embedded_V1alpha2_DeviceConfig? = nil
-    var _debugConfig: Google_Assistant_Embedded_V1alpha2_DebugConfig? = nil
+    var _audioOutConfig: Google_Assistant_Embedded_V1alpha2_AudioOutConfig?
+    var _screenOutConfig: Google_Assistant_Embedded_V1alpha2_ScreenOutConfig?
+    var _dialogStateIn: Google_Assistant_Embedded_V1alpha2_DialogStateIn?
+    var _deviceConfig: Google_Assistant_Embedded_V1alpha2_DeviceConfig?
+    var _debugConfig: Google_Assistant_Embedded_V1alpha2_DebugConfig?
 
     static let defaultInstance = _StorageClass()
 
@@ -1327,7 +1327,7 @@ extension Google_Assistant_Embedded_V1alpha2_AudioInConfig: SwiftProtobuf.Messag
   public static let protoMessageName: String = _protobuf_package + ".AudioInConfig"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "encoding"),
-    2: .standard(proto: "sample_rate_hertz"),
+    2: .standard(proto: "sample_rate_hertz")
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1362,7 +1362,7 @@ extension Google_Assistant_Embedded_V1alpha2_AudioInConfig.Encoding: SwiftProtob
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "ENCODING_UNSPECIFIED"),
     1: .same(proto: "LINEAR16"),
-    2: .same(proto: "FLAC"),
+    2: .same(proto: "FLAC")
   ]
 }
 
@@ -1371,7 +1371,7 @@ extension Google_Assistant_Embedded_V1alpha2_AudioOutConfig: SwiftProtobuf.Messa
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "encoding"),
     2: .standard(proto: "sample_rate_hertz"),
-    3: .standard(proto: "volume_percentage"),
+    3: .standard(proto: "volume_percentage")
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1412,14 +1412,14 @@ extension Google_Assistant_Embedded_V1alpha2_AudioOutConfig.Encoding: SwiftProto
     0: .same(proto: "ENCODING_UNSPECIFIED"),
     1: .same(proto: "LINEAR16"),
     2: .same(proto: "MP3"),
-    3: .same(proto: "OPUS_IN_OGG"),
+    3: .same(proto: "OPUS_IN_OGG")
   ]
 }
 
 extension Google_Assistant_Embedded_V1alpha2_ScreenOutConfig: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".ScreenOutConfig"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "screen_mode"),
+    1: .standard(proto: "screen_mode")
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1449,7 +1449,7 @@ extension Google_Assistant_Embedded_V1alpha2_ScreenOutConfig.ScreenMode: SwiftPr
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "SCREEN_MODE_UNSPECIFIED"),
     1: .same(proto: "OFF"),
-    3: .same(proto: "PLAYING"),
+    3: .same(proto: "PLAYING")
   ]
 }
 
@@ -1459,13 +1459,13 @@ extension Google_Assistant_Embedded_V1alpha2_DialogStateIn: SwiftProtobuf.Messag
     1: .standard(proto: "conversation_state"),
     2: .standard(proto: "language_code"),
     5: .standard(proto: "device_location"),
-    7: .standard(proto: "is_new_conversation"),
+    7: .standard(proto: "is_new_conversation")
   ]
 
   fileprivate class _StorageClass {
     var _conversationState: Data = SwiftProtobuf.Internal.emptyData
     var _languageCode: String = String()
-    var _deviceLocation: Google_Assistant_Embedded_V1alpha2_DeviceLocation? = nil
+    var _deviceLocation: Google_Assistant_Embedded_V1alpha2_DeviceLocation?
     var _isNewConversation: Bool = false
 
     static let defaultInstance = _StorageClass()
@@ -1542,7 +1542,7 @@ extension Google_Assistant_Embedded_V1alpha2_DeviceConfig: SwiftProtobuf.Message
   public static let protoMessageName: String = _protobuf_package + ".DeviceConfig"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "device_id"),
-    3: .standard(proto: "device_model_id"),
+    3: .standard(proto: "device_model_id")
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1576,7 +1576,7 @@ extension Google_Assistant_Embedded_V1alpha2_DeviceConfig: SwiftProtobuf.Message
 extension Google_Assistant_Embedded_V1alpha2_AudioOut: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".AudioOut"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "audio_data"),
+    1: .standard(proto: "audio_data")
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1606,7 +1606,7 @@ extension Google_Assistant_Embedded_V1alpha2_ScreenOut: SwiftProtobuf.Message, S
   public static let protoMessageName: String = _protobuf_package + ".ScreenOut"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "format"),
-    2: .same(proto: "data"),
+    2: .same(proto: "data")
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1640,14 +1640,14 @@ extension Google_Assistant_Embedded_V1alpha2_ScreenOut: SwiftProtobuf.Message, S
 extension Google_Assistant_Embedded_V1alpha2_ScreenOut.Format: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "FORMAT_UNSPECIFIED"),
-    1: .same(proto: "HTML"),
+    1: .same(proto: "HTML")
   ]
 }
 
 extension Google_Assistant_Embedded_V1alpha2_DeviceAction: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".DeviceAction"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "device_request_json"),
+    1: .standard(proto: "device_request_json")
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1677,7 +1677,7 @@ extension Google_Assistant_Embedded_V1alpha2_SpeechRecognitionResult: SwiftProto
   public static let protoMessageName: String = _protobuf_package + ".SpeechRecognitionResult"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "transcript"),
-    2: .same(proto: "stability"),
+    2: .same(proto: "stability")
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1714,7 +1714,7 @@ extension Google_Assistant_Embedded_V1alpha2_DialogStateOut: SwiftProtobuf.Messa
     1: .standard(proto: "supplemental_display_text"),
     2: .standard(proto: "conversation_state"),
     3: .standard(proto: "microphone_mode"),
-    4: .standard(proto: "volume_percentage"),
+    4: .standard(proto: "volume_percentage")
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1759,14 +1759,14 @@ extension Google_Assistant_Embedded_V1alpha2_DialogStateOut.MicrophoneMode: Swif
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "MICROPHONE_MODE_UNSPECIFIED"),
     1: .same(proto: "CLOSE_MICROPHONE"),
-    2: .same(proto: "DIALOG_FOLLOW_ON"),
+    2: .same(proto: "DIALOG_FOLLOW_ON")
   ]
 }
 
 extension Google_Assistant_Embedded_V1alpha2_DebugConfig: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".DebugConfig"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    6: .standard(proto: "return_debug_info"),
+    6: .standard(proto: "return_debug_info")
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1795,7 +1795,7 @@ extension Google_Assistant_Embedded_V1alpha2_DebugConfig: SwiftProtobuf.Message,
 extension Google_Assistant_Embedded_V1alpha2_DeviceLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".DeviceLocation"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "coordinates"),
+    1: .same(proto: "coordinates")
   ]
 
   fileprivate class _StorageClass {

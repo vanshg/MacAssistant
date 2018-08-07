@@ -25,7 +25,7 @@ public class Metadata: CustomStringConvertible {
     /// fields we do not own.
     case doesNotOwnFields
   }
-  
+
   /// Pointer to underlying C representation
   fileprivate let underlyingArray: UnsafeMutableRawPointer
   /// Ownership of the fields inside metadata arrays provided by `grpc_op_recv_initial_metadata` and
@@ -62,7 +62,7 @@ public class Metadata: CustomStringConvertible {
   public func count() -> Int {
     return cgrpc_metadata_array_get_count(underlyingArray)
   }
-  
+
   // Returns `nil` for non-UTF8 metadata key strings.
   public func key(_ index: Int) -> String? {
     // We actually know that this method will never return nil,
@@ -71,7 +71,7 @@ public class Metadata: CustomStringConvertible {
     defer { cgrpc_free_copied_string(keyData) }
     return String(cString: keyData, encoding: String.Encoding.utf8)
   }
-  
+
   // Returns `nil` for non-UTF8 metadata value strings.
   public func value(_ index: Int) -> String? {
     // We actually know that this method will never return nil,
@@ -80,14 +80,14 @@ public class Metadata: CustomStringConvertible {
     defer { cgrpc_free_copied_string(valueData) }
     return String(cString: valueData, encoding: String.Encoding.utf8)
   }
-  
+
   public func add(key: String, value: String) throws {
     if !ownsFields {
       throw Error.doesNotOwnFields
     }
     cgrpc_metadata_array_append_metadata(underlyingArray, key, value)
   }
-  
+
   public var description: String {
     var lines: [String] = []
     for i in 0..<count() {
@@ -97,11 +97,11 @@ public class Metadata: CustomStringConvertible {
     }
     return lines.joined(separator: "\n")
   }
-  
+
   public func copy() -> Metadata {
     return Metadata(underlyingArray: cgrpc_metadata_array_copy(underlyingArray), ownsFields: true)
   }
-  
+
   func getUnderlyingArrayAndTransferFieldOwnership() throws -> UnsafeMutableRawPointer {
     if !ownsFields {
       throw Error.doesNotOwnFields
@@ -117,10 +117,10 @@ extension Metadata {
       let currentKey = self.key(i)
       guard currentKey == key
         else { continue }
-      
+
       return self.value(i)
     }
-    
+
     return nil
   }
 }

@@ -69,7 +69,7 @@ internal func utf8ToString(bytes: UnsafePointer<UInt8>, count: Int) -> String? {
   Loop:
   while true {
     switch p.parseScalar(from: &i) {
-    case .valid(_):
+    case .valid:
       break
     case .error:
       return nil

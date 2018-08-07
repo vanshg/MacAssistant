@@ -51,7 +51,7 @@ open class ServiceServer {
   public enum HandleMethodError: Error {
     case unknownMethod
   }
-  
+
   /// Handle the given method. Needs to be overridden by actual implementations.
   /// Returns whether the method was actually handled.
   open func handleMethod(_ method: String, handler: Handler) throws -> ServerStatus? { fatalError("needs to be overridden") }
@@ -73,7 +73,7 @@ open class ServiceServer {
           + " from " + unwrappedCaller
           + " with " + handler.requestMetadata.description)
       }
-      
+
       do {
         do {
           if let responseStatus = try strongSelf.handleMethod(unwrappedMethod, handler: handler),

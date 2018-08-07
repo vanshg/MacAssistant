@@ -43,7 +43,7 @@ import Foundation
 // incompatible with the version of SwiftProtobuf to which you are linking.
 // Please ensure that your are building against the same version of the API
 // that was used to generate this file.
-fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
+private struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
   struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
@@ -264,7 +264,7 @@ public struct Google_Protobuf_Mixin {
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
-fileprivate let _protobuf_package = "google.protobuf"
+private let _protobuf_package = "google.protobuf"
 
 extension Google_Protobuf_Api: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".Api"
@@ -275,7 +275,7 @@ extension Google_Protobuf_Api: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
     4: .same(proto: "version"),
     5: .standard(proto: "source_context"),
     6: .same(proto: "mixins"),
-    7: .same(proto: "syntax"),
+    7: .same(proto: "syntax")
   ]
 
   fileprivate class _StorageClass {
@@ -283,7 +283,7 @@ extension Google_Protobuf_Api: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
     var _methods: [Google_Protobuf_Method] = []
     var _options: [Google_Protobuf_Option] = []
     var _version: String = String()
-    var _sourceContext: Google_Protobuf_SourceContext? = nil
+    var _sourceContext: Google_Protobuf_SourceContext?
     var _mixins: [Google_Protobuf_Mixin] = []
     var _syntax: Google_Protobuf_Syntax = .proto2
 
@@ -384,7 +384,7 @@ extension Google_Protobuf_Method: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     4: .standard(proto: "response_type_url"),
     5: .standard(proto: "response_streaming"),
     6: .same(proto: "options"),
-    7: .same(proto: "syntax"),
+    7: .same(proto: "syntax")
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -444,7 +444,7 @@ extension Google_Protobuf_Mixin: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
   public static let protoMessageName: String = _protobuf_package + ".Mixin"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "name"),
-    2: .same(proto: "root"),
+    2: .same(proto: "root")
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {

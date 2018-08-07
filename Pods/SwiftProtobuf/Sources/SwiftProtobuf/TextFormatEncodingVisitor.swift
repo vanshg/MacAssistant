@@ -14,14 +14,14 @@
 
 import Foundation
 
-private let mapNameResolver: [Int:StaticString] = [1: "key", 2: "value"]
+private let mapNameResolver: [Int: StaticString] = [1: "key", 2: "value"]
 
 /// Visitor that serializes a message into protobuf text format.
 internal struct TextFormatEncodingVisitor: Visitor {
 
   private var encoder: TextFormatEncoder
   private var nameMap: _NameMap?
-  private var nameResolver: [Int:StaticString]
+  private var nameResolver: [Int: StaticString]
   private var extensions: ExtensionFieldValueSet?
 
   /// The protobuf text produced by the visitor.
@@ -48,7 +48,7 @@ internal struct TextFormatEncodingVisitor: Visitor {
     self.init(nameMap: nameMap, nameResolver: [:], extensions: extensions, encoder: encoder)
   }
 
-  private init(nameMap: _NameMap?, nameResolver: [Int:StaticString], extensions: ExtensionFieldValueSet?, encoder: TextFormatEncoder) {
+  private init(nameMap: _NameMap?, nameResolver: [Int: StaticString], extensions: ExtensionFieldValueSet?, encoder: TextFormatEncoder) {
     self.nameMap = nameMap
     self.nameResolver = nameResolver
     self.extensions = extensions
@@ -68,7 +68,7 @@ internal struct TextFormatEncodingVisitor: Visitor {
   }
 
   mutating func visitUnknown(bytes: Data) throws {
-      try bytes.withUnsafeBytes { (p: UnsafePointer<UInt8>) -> () in
+      try bytes.withUnsafeBytes { (p: UnsafePointer<UInt8>) -> Void in
           var decoder = BinaryDecoder(forReadingFrom: p,
                                       count: bytes.count,
                                       options: BinaryDecodingOptions())
@@ -97,7 +97,7 @@ internal struct TextFormatEncodingVisitor: Visitor {
               encoder.emitFieldNumber(number: tag.fieldNumber)
               var bytes = Internal.emptyData
               try decoder.decodeSingularBytesField(value: &bytes)
-              bytes.withUnsafeBytes { (p: UnsafePointer<UInt8>) -> () in
+              bytes.withUnsafeBytes { (p: UnsafePointer<UInt8>) -> Void in
                   var testDecoder = BinaryDecoder(forReadingFrom: p,
                                                   count: bytes.count,
                                                   parent: decoder)
@@ -384,7 +384,7 @@ internal struct TextFormatEncodingVisitor: Visitor {
 
   private mutating func _visitPacked<T>(
     value: [T], fieldNumber: Int,
-    encode: (T, inout TextFormatEncoder) -> ()
+    encode: (T, inout TextFormatEncoder) -> Void
   ) throws {
       emitFieldName(lookingUp: fieldNumber)
       encoder.startRegularField()
@@ -486,9 +486,9 @@ internal struct TextFormatEncodingVisitor: Visitor {
   private mutating func _visitMap<K, V>(
     map: Dictionary<K, V>,
     fieldNumber: Int,
-    coder: (inout TextFormatEncodingVisitor, K, V) throws -> ()
+    coder: (inout TextFormatEncodingVisitor, K, V) throws -> Void
   ) throws {
-      for (k,v) in map {
+      for (k, v) in map {
           emitFieldName(lookingUp: fieldNumber)
           encoder.startMessageField()
           var visitor = TextFormatEncodingVisitor(nameMap: nil, nameResolver: mapNameResolver, extensions: nil, encoder: encoder)
@@ -504,7 +504,7 @@ internal struct TextFormatEncodingVisitor: Visitor {
     fieldNumber: Int
   ) throws {
       try _visitMap(map: value, fieldNumber: fieldNumber) {
-          (visitor: inout TextFormatEncodingVisitor, key, value) throws -> () in
+          (visitor: inout TextFormatEncodingVisitor, key, value) throws -> Void in
           try KeyType.visitSingular(value: key, fieldNumber: 1, with: &visitor)
           try ValueType.visitSingular(value: value, fieldNumber: 2, with: &visitor)
       }
@@ -516,7 +516,7 @@ internal struct TextFormatEncodingVisitor: Visitor {
     fieldNumber: Int
   ) throws where ValueType.RawValue == Int {
       try _visitMap(map: value, fieldNumber: fieldNumber) {
-          (visitor: inout TextFormatEncodingVisitor, key, value) throws -> () in
+          (visitor: inout TextFormatEncodingVisitor, key, value) throws -> Void in
           try KeyType.visitSingular(value: key, fieldNumber: 1, with: &visitor)
           try visitor.visitSingularEnumField(value: value, fieldNumber: 2)
       }
@@ -528,7 +528,7 @@ internal struct TextFormatEncodingVisitor: Visitor {
     fieldNumber: Int
   ) throws {
       try _visitMap(map: value, fieldNumber: fieldNumber) {
-          (visitor: inout TextFormatEncodingVisitor, key, value) throws -> () in
+          (visitor: inout TextFormatEncodingVisitor, key, value) throws -> Void in
           try KeyType.visitSingular(value: key, fieldNumber: 1, with: &visitor)
           try visitor.visitSingularMessageField(value: value, fieldNumber: 2)
       }

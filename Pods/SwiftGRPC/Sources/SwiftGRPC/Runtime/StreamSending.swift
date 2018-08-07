@@ -20,7 +20,7 @@ import SwiftProtobuf
 
 public protocol StreamSending {
   associatedtype SentType: Message
-  
+
   var call: Call { get }
 }
 
@@ -28,7 +28,7 @@ extension StreamSending {
   public func send(_ message: SentType, completion: @escaping (Error?) -> Void) throws {
     try call.sendMessage(data: message.serializedData(), completion: completion)
   }
-  
+
   public func _send(_ message: SentType, timeout: DispatchTime) throws {
     var resultError: Error?
     let sem = DispatchSemaphore(value: 0)
@@ -43,7 +43,7 @@ extension StreamSending {
       throw resultError
     }
   }
-  
+
   public func waitForSendOperationsToFinish() {
     call.messageQueueEmpty.wait()
   }

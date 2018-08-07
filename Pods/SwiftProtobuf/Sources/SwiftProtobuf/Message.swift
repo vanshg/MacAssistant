@@ -126,7 +126,7 @@ public extension Message {
   /// set. Users of the generated code SHOULD NOT override this property.
   var isInitialized: Bool {
     // The generated code will include a specialization as needed.
-    return true;
+    return true
   }
 
   /// A hash based on the message's full contents. Can be overridden
@@ -171,7 +171,7 @@ public extension Message {
   ///   which is passed into the block as an `inout` argument.
   /// - Returns: The message after execution of the block.
   public static func with(
-    _ populator: (inout Self) throws -> ()
+    _ populator: (inout Self) throws -> Void
   ) rethrows -> Self {
     var message = Self()
     try populator(&message)

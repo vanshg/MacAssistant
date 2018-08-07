@@ -20,7 +20,7 @@ import SwiftProtobuf
 
 public protocol ClientCall: class {
   static var method: String { get }
-  
+
   /// Cancel the call.
   func cancel()
 }
@@ -34,6 +34,6 @@ open class ClientCallBase: ClientCall {
   public init(_ channel: Channel) {
     call = channel.makeCall(type(of: self).method)
   }
-  
+
   public func cancel() { call.cancel() }
 }

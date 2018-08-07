@@ -148,7 +148,7 @@ public struct RepeatedExtensionField<T: FieldType>: ExtensionField {
   }
 
   public var debugDescription: String {
-    return "[" + value.map{String(reflecting: $0)}.joined(separator: ",") + "]"
+    return "[" + value.map {String(reflecting: $0)}.joined(separator: ",") + "]"
   }
 
   public mutating func decodeExtensionField<D: Decoder>(decoder: inout D) throws {
@@ -206,7 +206,7 @@ public struct PackedExtensionField<T: FieldType>: ExtensionField {
   }
 
   public var debugDescription: String {
-    return "[" + value.map{String(reflecting: $0)}.joined(separator: ",") + "]"
+    return "[" + value.map {String(reflecting: $0)}.joined(separator: ",") + "]"
   }
 
   public mutating func decodeExtensionField<D: Decoder>(decoder: inout D) throws {
@@ -320,7 +320,7 @@ public struct RepeatedEnumExtensionField<E: Enum>: ExtensionField where E.RawVal
   }
 
   public var debugDescription: String {
-    return "[" + value.map{String(reflecting: $0)}.joined(separator: ",") + "]"
+    return "[" + value.map {String(reflecting: $0)}.joined(separator: ",") + "]"
   }
 
   public mutating func decodeExtensionField<D: Decoder>(decoder: inout D) throws {
@@ -380,7 +380,7 @@ public struct PackedEnumExtensionField<E: Enum>: ExtensionField where E.RawValue
   }
 
   public var debugDescription: String {
-    return "[" + value.map{String(reflecting: $0)}.joined(separator: ",") + "]"
+    return "[" + value.map {String(reflecting: $0)}.joined(separator: ",") + "]"
   }
 
   public mutating func decodeExtensionField<D: Decoder>(decoder: inout D) throws {
@@ -496,7 +496,7 @@ public struct RepeatedMessageExtensionField<M: Message & Equatable>:
   }
 
   public var debugDescription: String {
-    return "[" + value.map{String(reflecting: $0)}.joined(separator: ",") + "]"
+    return "[" + value.map {String(reflecting: $0)}.joined(separator: ",") + "]"
   }
 
   public mutating func decodeExtensionField<D: Decoder>(decoder: inout D) throws {
@@ -609,7 +609,7 @@ public struct RepeatedGroupExtensionField<G: Message & Hashable>:
   }
 
   public var debugDescription: String {
-    return "[" + value.map{$0.debugDescription}.joined(separator: ",") + "]"
+    return "[" + value.map {$0.debugDescription}.joined(separator: ",") + "]"
   }
 
   public func isEqual(other: AnyExtensionField) -> Bool {

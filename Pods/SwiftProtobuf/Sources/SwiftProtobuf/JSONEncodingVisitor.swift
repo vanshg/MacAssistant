@@ -137,7 +137,7 @@ internal struct JSONEncodingVisitor: Visitor {
   private mutating func _visitRepeated<T>(
     value: [T],
     fieldNumber: Int,
-    encode: (inout JSONEncoder, T) throws -> ()
+    encode: (inout JSONEncoder, T) throws -> Void
   ) throws {
     try startField(for: fieldNumber)
     var comma = false
@@ -284,13 +284,11 @@ internal struct JSONEncodingVisitor: Visitor {
   // Packed fields are handled the same as non-packed fields, so JSON just
   // relies on the default implementations in Visitor.swift
 
-
-
   mutating func visitMapField<KeyType, ValueType: MapValueType>(fieldType: _ProtobufMap<KeyType, ValueType>.Type, value: _ProtobufMap<KeyType, ValueType>.BaseType, fieldNumber: Int) throws {
     try startField(for: fieldNumber)
     encoder.append(text: "{")
     var mapVisitor = JSONMapEncodingVisitor(encoder: encoder)
-    for (k,v) in value {
+    for (k, v) in value {
         try KeyType.visitSingular(value: k, fieldNumber: 1, with: &mapVisitor)
         try ValueType.visitSingular(value: v, fieldNumber: 2, with: &mapVisitor)
     }
@@ -314,7 +312,7 @@ internal struct JSONEncodingVisitor: Visitor {
     try startField(for: fieldNumber)
     encoder.append(text: "{")
     var mapVisitor = JSONMapEncodingVisitor(encoder: encoder)
-    for (k,v) in value {
+    for (k, v) in value {
         try KeyType.visitSingular(value: k, fieldNumber: 1, with: &mapVisitor)
         try mapVisitor.visitSingularMessageField(value: v, fieldNumber: 2)
     }

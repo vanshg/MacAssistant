@@ -35,9 +35,9 @@ public enum CallError: Error {
   case notServerCompletionQueue
   case batchTooBig
   case payloadTypeMismatch
-  
+
   case completionQueueShutdown
-  
+
   static func callError(grpcCallError error: grpc_call_error) -> CallError {
     switch error {
     case GRPC_CALL_OK:
@@ -75,4 +75,3 @@ public enum CallError: Error {
     }
   }
 }
-

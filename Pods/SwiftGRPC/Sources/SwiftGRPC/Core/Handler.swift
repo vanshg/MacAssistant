@@ -88,12 +88,12 @@ public class Handler {
       throw CallError.callError(grpcCallError: error)
     }
   }
-  
+
   /// Shuts down the handler's completion queue
   public func shutdown() {
     completionQueue.shutdown()
   }
-  
+
   /// Send initial metadata in response to a connection
   ///
   /// - Parameter initialMetadata: initial metadata to send

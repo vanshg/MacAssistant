@@ -86,7 +86,7 @@ public class Assistant {
 
     private func beginCall(delegate: AssistantDelegate) throws -> AssistCall {
         service.metadata = try! Metadata(["authorization": "Bearer \(Defaults[.accessToken])"])
-        return try service.assist() { result in
+        return try service.assist { result in
             // This is called after the stream is finished
             delegate.onAssistantCallCompleted(result: result)
         }
@@ -154,7 +154,7 @@ public class Assistant {
     }
 
     private func closeSend(streamCall: AssistCall) throws {
-        try streamCall.closeSend() {
+        try streamCall.closeSend {
             self.Log.debug("Closed sending channel")
         }
     }

@@ -23,11 +23,10 @@ private let maxTimestampSeconds: Int64 = 253402300799  // 9999-12-31T23:59:59Z
 // Int or Double, an easy way to convert to/from Foundation's
 // NSDateTime (on Apple platforms only?), others?
 
-
 // Parse an RFC3339 timestamp into a pair of seconds-since-1970 and nanos.
 private func parseTimestamp(s: String) throws -> (Int64, Int32) {
   // Convert to an array of integer character values
-  let value = s.utf8.map{Int($0)}
+  let value = s.utf8.map {Int($0)}
   if value.count < 20 {
     throw JSONDecodingError.malformedTimestamp
   }

@@ -14,5 +14,5 @@ class ConversationItem: NSCollectionViewItem {
         super.viewDidLoad()
         textField?.stringValue = "Hello"
     }
-    
+
 }

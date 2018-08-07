@@ -297,4 +297,3 @@ internal struct TextFormatEncoder {
         data.append(asciiDoubleQuote)
     }
 }
-

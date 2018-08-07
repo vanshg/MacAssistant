@@ -43,7 +43,7 @@ import Foundation
 // incompatible with the version of SwiftProtobuf to which you are linking.
 // Please ensure that your are building against the same version of the API
 // that was used to generate this file.
-fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
+private struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
   struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
@@ -443,12 +443,12 @@ public struct Google_Protobuf_Option {
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
-fileprivate let _protobuf_package = "google.protobuf"
+private let _protobuf_package = "google.protobuf"
 
 extension Google_Protobuf_Syntax: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "SYNTAX_PROTO2"),
-    1: .same(proto: "SYNTAX_PROTO3"),
+    1: .same(proto: "SYNTAX_PROTO3")
   ]
 }
 
@@ -460,7 +460,7 @@ extension Google_Protobuf_Type: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
     3: .same(proto: "oneofs"),
     4: .same(proto: "options"),
     5: .standard(proto: "source_context"),
-    6: .same(proto: "syntax"),
+    6: .same(proto: "syntax")
   ]
 
   fileprivate class _StorageClass {
@@ -468,7 +468,7 @@ extension Google_Protobuf_Type: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
     var _fields: [Google_Protobuf_Field] = []
     var _oneofs: [String] = []
     var _options: [Google_Protobuf_Option] = []
-    var _sourceContext: Google_Protobuf_SourceContext? = nil
+    var _sourceContext: Google_Protobuf_SourceContext?
     var _syntax: Google_Protobuf_Syntax = .proto2
 
     static let defaultInstance = _StorageClass()
@@ -565,7 +565,7 @@ extension Google_Protobuf_Field: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     8: .same(proto: "packed"),
     9: .same(proto: "options"),
     10: .standard(proto: "json_name"),
-    11: .standard(proto: "default_value"),
+    11: .standard(proto: "default_value")
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -656,7 +656,7 @@ extension Google_Protobuf_Field.Kind: SwiftProtobuf._ProtoNameProviding {
     15: .same(proto: "TYPE_SFIXED32"),
     16: .same(proto: "TYPE_SFIXED64"),
     17: .same(proto: "TYPE_SINT32"),
-    18: .same(proto: "TYPE_SINT64"),
+    18: .same(proto: "TYPE_SINT64")
   ]
 }
 
@@ -665,7 +665,7 @@ extension Google_Protobuf_Field.Cardinality: SwiftProtobuf._ProtoNameProviding {
     0: .same(proto: "CARDINALITY_UNKNOWN"),
     1: .same(proto: "CARDINALITY_OPTIONAL"),
     2: .same(proto: "CARDINALITY_REQUIRED"),
-    3: .same(proto: "CARDINALITY_REPEATED"),
+    3: .same(proto: "CARDINALITY_REPEATED")
   ]
 }
 
@@ -676,14 +676,14 @@ extension Google_Protobuf_Enum: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
     2: .same(proto: "enumvalue"),
     3: .same(proto: "options"),
     4: .standard(proto: "source_context"),
-    5: .same(proto: "syntax"),
+    5: .same(proto: "syntax")
   ]
 
   fileprivate class _StorageClass {
     var _name: String = String()
     var _enumvalue: [Google_Protobuf_EnumValue] = []
     var _options: [Google_Protobuf_Option] = []
-    var _sourceContext: Google_Protobuf_SourceContext? = nil
+    var _sourceContext: Google_Protobuf_SourceContext?
     var _syntax: Google_Protobuf_Syntax = .proto2
 
     static let defaultInstance = _StorageClass()
@@ -767,7 +767,7 @@ extension Google_Protobuf_EnumValue: SwiftProtobuf.Message, SwiftProtobuf._Messa
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "name"),
     2: .same(proto: "number"),
-    3: .same(proto: "options"),
+    3: .same(proto: "options")
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -807,12 +807,12 @@ extension Google_Protobuf_Option: SwiftProtobuf.Message, SwiftProtobuf._MessageI
   public static let protoMessageName: String = _protobuf_package + ".Option"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "name"),
-    2: .same(proto: "value"),
+    2: .same(proto: "value")
   ]
 
   fileprivate class _StorageClass {
     var _name: String = String()
-    var _value: Google_Protobuf_Any? = nil
+    var _value: Google_Protobuf_Any?
 
     static let defaultInstance = _StorageClass()
 

@@ -26,7 +26,7 @@ public struct CallResult: CustomStringConvertible {
   public let resultData: Data?
   public let initialMetadata: Metadata?
   public let trailingMetadata: Metadata?
-  
+
   init(_ op: OperationGroup) {
     success = op.success
     if let statusCodeRawValue = op.receivedStatusCode(),
@@ -40,7 +40,7 @@ public struct CallResult: CustomStringConvertible {
     initialMetadata = op.receivedInitialMetadata()
     trailingMetadata = op.receivedTrailingMetadata()
   }
-  
+
   fileprivate init(success: Bool, statusCode: StatusCode, statusMessage: String?, resultData: Data?,
                    initialMetadata: Metadata?, trailingMetadata: Metadata?) {
     self.success = success
@@ -50,7 +50,7 @@ public struct CallResult: CustomStringConvertible {
     self.initialMetadata = initialMetadata
     self.trailingMetadata = trailingMetadata
   }
-  
+
   public var description: String {
     var result = "\(success ? "successful" : "unsuccessful"), status \(statusCode)"
     if let statusMessage = self.statusMessage {
@@ -70,7 +70,7 @@ public struct CallResult: CustomStringConvertible {
     }
     return result
   }
-  
+
   static let fakeOK = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil,
                                  initialMetadata: nil, trailingMetadata: nil)
 }

@@ -12,7 +12,6 @@
 ///
 // -----------------------------------------------------------------------------
 
-
 // Note: The generated code only relies on ExpressibleByArrayLiteral
 public struct SimpleExtensionMap: ExtensionMap, ExpressibleByArrayLiteral, CustomDebugStringConvertible {
     public typealias Element = AnyMessageExtension

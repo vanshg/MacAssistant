@@ -21,12 +21,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, LoginSuccessDelegate {
     var audioEngine: AudioEngine!
     var streamCall: AssistCall!
     let authenticator = Authenticator.instance
-    
+
     let sb = NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"), bundle: nil)
     let assitantWindowControllerID = NSStoryboard.SceneIdentifier(rawValue: "AssistantWindowControllerID")
     let loginWindowControllerID = NSStoryboard.SceneIdentifier(rawValue: "LoginWindowControllerID")
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
-
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         statusItem.image = #imageLiteral(resourceName: "statusIcon")
@@ -35,9 +34,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, LoginSuccessDelegate {
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
-        
+
     }
-    
+
     @objc func showAppropriateWindow() {
         if Defaults[.isLoggedIn] {
             showAssistant()
@@ -45,24 +44,24 @@ class AppDelegate: NSObject, NSApplicationDelegate, LoginSuccessDelegate {
             showLogin()
         }
     }
-    
+
     func showAssistant() {
         let awc = sb.instantiateController(withIdentifier: assitantWindowControllerID) as! AssistantWindowController
         awc.showWindow(nil)
     }
-    
+
     func showLogin() {
         let lwc = sb.instantiateController(withIdentifier: loginWindowControllerID) as? LoginWindowController
         let lvc = lwc?.contentViewController as? LoginViewController
         lvc?.loginSuccessDelegate = self
         lwc?.showWindow(nil)
     }
-    
+
     func onLoginSuccess() {
         Log.debug("login success")
         showAppropriateWindow()
     }
-    
+
     func logout() {
         self.Log.info("Logging out")
         authenticator.logout()

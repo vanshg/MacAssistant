@@ -60,7 +60,7 @@ open class ServiceClientBase: ServiceClient {
     self.channel = channel
     metadata = Metadata()
   }
-  
+
   /// Create a client that makes secure connections with a custom certificate.
   public init(address: String, certificates: String, arguments: [Channel.Argument] = []) {
     gRPC.initialize()

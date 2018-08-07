@@ -29,13 +29,13 @@ extension Formatters {
         .level,
         .message
     ])
-    
+
     public static let minimal = Formatter("%@ %@: %@", [
         .location,
         .level,
         .message
     ])
-    
+
     public static let detailed = Formatter("[%@] %@.%@:%@ %@: %@", [
         .date("yyyy-MM-dd HH:mm:ss.SSS"),
         .file(fullPath: false, fileExtension: false),

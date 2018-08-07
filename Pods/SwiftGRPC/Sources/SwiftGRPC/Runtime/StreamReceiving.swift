@@ -20,7 +20,7 @@ import SwiftProtobuf
 
 public protocol StreamReceiving {
   associatedtype ReceivedType: Message
-  
+
   var call: Call { get }
 }
 
@@ -42,7 +42,7 @@ extension StreamReceiving {
       }
     }
   }
-  
+
   public func _receive(timeout: DispatchTime) throws -> ReceivedType? {
     var result: ResultOrRPCError<ReceivedType?>?
     let sem = DispatchSemaphore(value: 0)

@@ -46,7 +46,7 @@ class OperationGroup {
 
   /// Indicates that the OperationGroup completed successfully
   var success = false
-  
+
   fileprivate var cachedInitialMetadata: Metadata?
   fileprivate var cachedTrailingMetadata: Metadata?
 

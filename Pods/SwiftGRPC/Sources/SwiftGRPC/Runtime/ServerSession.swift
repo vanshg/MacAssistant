@@ -22,13 +22,13 @@ public struct ServerStatus: Error {
   public let code: StatusCode
   public let message: String
   public let trailingMetadata: Metadata
-  
+
   public init(code: StatusCode, message: String, trailingMetadata: Metadata = Metadata()) {
     self.code = code
     self.message = message
     self.trailingMetadata = trailingMetadata
   }
-  
+
   public static let ok = ServerStatus(code: .ok, message: "OK")
   public static let processingError = ServerStatus(code: .internalError, message: "unknown error processing request")
   public static let noRequestData = ServerStatus(code: .invalidArgument, message: "no request data received")
@@ -39,7 +39,7 @@ public protocol ServerSession: class {
   var requestMetadata: Metadata { get }
 
   var initialMetadata: Metadata { get set }
-  
+
   func cancel()
 }
 
@@ -48,18 +48,18 @@ open class ServerSessionBase: ServerSession {
   public var requestMetadata: Metadata { return handler.requestMetadata }
 
   public var initialMetadata: Metadata = Metadata()
-  
+
   public var call: Call { return handler.call }
 
   public init(handler: Handler) {
     self.handler = handler
   }
-  
+
   public func cancel() {
     call.cancel()
     handler.shutdown()
   }
-  
+
   func sendInitialMetadataAndWait() throws {
     let sendMetadataSignal = DispatchSemaphore(value: 0)
     var success = false
@@ -68,12 +68,12 @@ open class ServerSessionBase: ServerSession {
       sendMetadataSignal.signal()
     }
     sendMetadataSignal.wait()
-    
+
     if !success {
       throw ServerStatus.sendingInitialMetadataFailed
     }
   }
-  
+
   func receiveRequestAndWait() throws -> Data {
     let sendMetadataSignal = DispatchSemaphore(value: 0)
     var requestData: Data?
@@ -82,7 +82,7 @@ open class ServerSessionBase: ServerSession {
       sendMetadataSignal.signal()
     }
     sendMetadataSignal.wait()
-    
+
     if let requestData = requestData {
       return requestData
     } else {
@@ -97,6 +97,6 @@ open class ServerSessionTestStub: ServerSession {
   open var initialMetadata = Metadata()
 
   public init() {}
-  
+
   open func cancel() {}
 }

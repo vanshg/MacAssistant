@@ -119,7 +119,6 @@ internal struct BinaryEncodingVisitor: Visitor {
 
   // Repeated fields are handled by the default implementations in Visitor.swift
 
-
   // Packed Fields
 
   mutating func visitPackedFloatField(value: [Float], fieldNumber: Int) throws {
@@ -267,7 +266,7 @@ internal struct BinaryEncodingVisitor: Visitor {
     value: _ProtobufMap<KeyType, ValueType>.BaseType,
     fieldNumber: Int
   ) throws {
-    for (k,v) in value {
+    for (k, v) in value {
       encoder.startField(fieldNumber: fieldNumber, wireFormat: .lengthDelimited)
       var sizer = BinaryEncodingSizeVisitor()
       try KeyType.visitSingular(value: k, fieldNumber: 1, with: &sizer)
@@ -284,7 +283,7 @@ internal struct BinaryEncodingVisitor: Visitor {
     value: _ProtobufEnumMap<KeyType, ValueType>.BaseType,
     fieldNumber: Int
   ) throws where ValueType.RawValue == Int {
-    for (k,v) in value {
+    for (k, v) in value {
       encoder.startField(fieldNumber: fieldNumber, wireFormat: .lengthDelimited)
       var sizer = BinaryEncodingSizeVisitor()
       try KeyType.visitSingular(value: k, fieldNumber: 1, with: &sizer)
@@ -301,7 +300,7 @@ internal struct BinaryEncodingVisitor: Visitor {
     value: _ProtobufMessageMap<KeyType, ValueType>.BaseType,
     fieldNumber: Int
   ) throws {
-    for (k,v) in value {
+    for (k, v) in value {
       encoder.startField(fieldNumber: fieldNumber, wireFormat: .lengthDelimited)
       var sizer = BinaryEncodingSizeVisitor()
       try KeyType.visitSingular(value: k, fieldNumber: 1, with: &sizer)

@@ -46,7 +46,7 @@ public extension Google_Protobuf_Any {
       throw BinaryEncodingError.missingRequiredFields
     }
     self.init()
-    typeURL = buildTypeURL(forMessage:message, typePrefix: typePrefix)
+    typeURL = buildTypeURL(forMessage: message, typePrefix: typePrefix)
     _storage.state = .message(message)
   }
 

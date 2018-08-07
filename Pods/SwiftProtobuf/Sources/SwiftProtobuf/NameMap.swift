@@ -38,13 +38,13 @@ private func toJsonFieldName(_ s: String) -> String {
             result.append(String(c))
         }
     }
-    return result;
+    return result
 }
 
 /// Allocate static memory buffers to intern UTF-8
 /// string data.  Track the buffers and release all of those buffers
 /// in case we ever get deallocated.
-fileprivate class InternPool {
+private class InternPool {
   private var interned = [UnsafeBufferPointer<UInt8>]()
 
   func intern(utf8: String.UTF8View) -> UnsafeBufferPointer<UInt8> {

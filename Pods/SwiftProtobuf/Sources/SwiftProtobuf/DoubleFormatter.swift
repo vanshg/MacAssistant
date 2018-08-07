@@ -79,7 +79,7 @@ internal class DoubleFormatter {
         #if swift(>=4.1)
           work.copyMemory(from:source)
         #else
-          work.copyBytes(from:source)
+          work.copyBytes(from: source)
         #endif
         work[count] = 0
 

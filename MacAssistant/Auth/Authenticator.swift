@@ -46,10 +46,10 @@ public class Authenticator {
             "client_id": clientId,
             "client_secret": clientSecret,
             "redirect_uri": redirectUrl,
-            "grant_type": "authorization_code",
+            "grant_type": "authorization_code"
         ]
 
-        Alamofire.request(tokenUrl, method: .post, parameters: parameters).responseJSON() { response in
+        Alamofire.request(tokenUrl, method: .post, parameters: parameters).responseJSON { response in
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
@@ -58,7 +58,7 @@ public class Authenticator {
                     onLoginResult(NSError())
                     return
                 }
-                
+
                 let tokenExpiration = Date(timeInterval: TimeInterval(json["expires_in"].intValue), since: Date())
                 Defaults[.tokenExpirationDate] = tokenExpiration
                 Defaults[.accessToken] = json["access_token"].stringValue
@@ -79,10 +79,10 @@ public class Authenticator {
             "refresh_token": Defaults[.refreshToken],
             "client_id": clientId,
             "client_secret": clientSecret,
-            "grant_type": "refresh_token",
+            "grant_type": "refresh_token"
         ]
 
-        Alamofire.request(tokenUrl, method: .post, parameters: parameters).responseJSON() { response in
+        Alamofire.request(tokenUrl, method: .post, parameters: parameters).responseJSON { response in
             switch response.result {
             case .success(let value):
                 let json = JSON(value)

@@ -18,7 +18,7 @@ import Foundation
 private let i_2166136261 = Int(bitPattern: 2166136261)
 private let i_16777619 = Int(16777619)
 
-fileprivate func serializeAnyJSON(for message: Message, typeURL: String) throws -> String {
+private func serializeAnyJSON(for message: Message, typeURL: String) throws -> String {
   var visitor = try JSONEncodingVisitor(message: message)
   visitor.startObject()
   visitor.encodeField(name: "@type", stringValue: typeURL)
@@ -32,7 +32,7 @@ fileprivate func serializeAnyJSON(for message: Message, typeURL: String) throws 
   return visitor.stringResult
 }
 
-fileprivate func emitVerboseTextForm(visitor: inout TextFormatEncodingVisitor, message: Message, typeURL: String) {
+private func emitVerboseTextForm(visitor: inout TextFormatEncodingVisitor, message: Message, typeURL: String) {
   let url: String
   if typeURL.isEmpty {
     url = buildTypeURL(forMessage: message, typePrefix: defaultAnyTypeURLPrefix)
@@ -42,7 +42,7 @@ fileprivate func emitVerboseTextForm(visitor: inout TextFormatEncodingVisitor, m
   visitor.visitAnyVerbose(value: message, typeURL: url)
 }
 
-fileprivate func asJSONObject(body: Data) -> Data {
+private func asJSONObject(body: Data) -> Data {
   let asciiOpenCurlyBracket = UInt8(ascii: "{")
   let asciiCloseCurlyBracket = UInt8(ascii: "}")
   var result = Data(bytes: [asciiOpenCurlyBracket])
@@ -51,7 +51,7 @@ fileprivate func asJSONObject(body: Data) -> Data {
   return result
 }
 
-fileprivate func unpack(contentJSON: Data,
+private func unpack(contentJSON: Data,
                         options: JSONDecodingOptions,
                         as messageType: Message.Type) throws -> Message {
   guard messageType is _CustomJSONCodable.Type else {
@@ -60,7 +60,7 @@ fileprivate func unpack(contentJSON: Data,
   }
 
   var value = String()
-  try contentJSON.withUnsafeBytes { (bytes:UnsafePointer<UInt8>) in
+  try contentJSON.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) in
     let buffer = UnsafeBufferPointer(start: bytes, count: contentJSON.count)
     var scanner = JSONScanner(source: buffer, messageDepthLimit: options.messageDepthLimit)
     let key = try scanner.nextQuotedString()

@@ -27,7 +27,7 @@ public protocol ClientCallClientStreaming: ClientCall {
 
 open class ClientCallClientStreamingBase<InputType: Message, OutputType: Message>: ClientCallBase, ClientCallClientStreaming, StreamSending {
   public typealias SentType = InputType
-  
+
   /// Call this to start a call. Nonblocking.
   public func start(metadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Self {
     try call.start(.clientStreaming, metadata: metadata, completion: completion)
@@ -68,16 +68,16 @@ open class ClientCallClientStreamingTestStub<InputType: Message, OutputType: Mes
   open class var method: String { fatalError("needs to be overridden") }
 
   open var lock = Mutex()
-  
+
   open var inputs: [InputType] = []
   open var output: OutputType?
-  
+
   public init() {}
 
   open func send(_ message: InputType, completion _: @escaping (Error?) -> Void) throws {
     lock.synchronize { inputs.append(message) }
   }
-  
+
   open func _send(_ message: InputType, timeout: DispatchTime) throws {
     lock.synchronize { inputs.append(message) }
   }
@@ -91,6 +91,6 @@ open class ClientCallClientStreamingTestStub<InputType: Message, OutputType: Mes
   }
 
   open func waitForSendOperationsToFinish() {}
-  
+
   open func cancel() {}
 }

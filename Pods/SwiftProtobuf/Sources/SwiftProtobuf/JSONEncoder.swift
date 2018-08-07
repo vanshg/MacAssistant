@@ -374,4 +374,3 @@ internal struct JSONEncoder {
         data.append(asciiDoubleQuote)
     }
 }
-

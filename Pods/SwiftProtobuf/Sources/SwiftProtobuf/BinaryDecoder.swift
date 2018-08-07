@@ -19,13 +19,13 @@ import Foundation
 
 internal struct BinaryDecoder: Decoder {
     // Current position
-    private var p : UnsafePointer<UInt8>
+    private var p: UnsafePointer<UInt8>
     // Remaining bytes in input.
-    private var available : Int
+    private var available: Int
     // Position of start of field currently being parsed
-    private var fieldStartP : UnsafePointer<UInt8>
+    private var fieldStartP: UnsafePointer<UInt8>
     // Position of end of field currently being parsed, nil if we don't know.
-    private var fieldEndP : UnsafePointer<UInt8>?
+    private var fieldEndP: UnsafePointer<UInt8>?
     // Whether or not the field value  has actually been parsed
     private var consumed = true
     // Wire format for last-examined field

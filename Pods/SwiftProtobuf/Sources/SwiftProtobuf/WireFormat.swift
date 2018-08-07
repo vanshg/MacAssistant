@@ -49,9 +49,9 @@ extension WireFormat {
   internal enum MessageSet {
 
     enum FieldNumbers {
-      static let item = 1;
-      static let typeId = 2;
-      static let message = 3;
+      static let item = 1
+      static let typeId = 2
+      static let message = 3
     }
 
     enum Tags {

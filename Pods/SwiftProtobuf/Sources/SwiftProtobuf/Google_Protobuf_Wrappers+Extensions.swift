@@ -32,8 +32,7 @@ protocol ProtobufWrapper {
   init(_ value: WrappedType.BaseType)
 }
 
-extension Google_Protobuf_DoubleValue:
-  ProtobufWrapper, ExpressibleByFloatLiteral, _CustomJSONCodable {
+extension Google_Protobuf_DoubleValue: ProtobufWrapper, ExpressibleByFloatLiteral, _CustomJSONCodable {
 
   public typealias WrappedType = ProtobufDouble
   public typealias FloatLiteralType = WrappedType.BaseType
@@ -60,8 +59,7 @@ extension Google_Protobuf_DoubleValue:
   }
 }
 
-extension Google_Protobuf_FloatValue:
-  ProtobufWrapper, ExpressibleByFloatLiteral, _CustomJSONCodable {
+extension Google_Protobuf_FloatValue: ProtobufWrapper, ExpressibleByFloatLiteral, _CustomJSONCodable {
 
   public typealias WrappedType = ProtobufFloat
   public typealias FloatLiteralType = Float
@@ -88,8 +86,7 @@ extension Google_Protobuf_FloatValue:
   }
 }
 
-extension Google_Protobuf_Int64Value:
-  ProtobufWrapper, ExpressibleByIntegerLiteral, _CustomJSONCodable {
+extension Google_Protobuf_Int64Value: ProtobufWrapper, ExpressibleByIntegerLiteral, _CustomJSONCodable {
 
   public typealias WrappedType = ProtobufInt64
   public typealias IntegerLiteralType = WrappedType.BaseType
@@ -116,8 +113,7 @@ extension Google_Protobuf_Int64Value:
   }
 }
 
-extension Google_Protobuf_UInt64Value:
-  ProtobufWrapper, ExpressibleByIntegerLiteral, _CustomJSONCodable {
+extension Google_Protobuf_UInt64Value: ProtobufWrapper, ExpressibleByIntegerLiteral, _CustomJSONCodable {
 
   public typealias WrappedType = ProtobufUInt64
   public typealias IntegerLiteralType = WrappedType.BaseType
@@ -144,8 +140,7 @@ extension Google_Protobuf_UInt64Value:
   }
 }
 
-extension Google_Protobuf_Int32Value:
-  ProtobufWrapper, ExpressibleByIntegerLiteral, _CustomJSONCodable {
+extension Google_Protobuf_Int32Value: ProtobufWrapper, ExpressibleByIntegerLiteral, _CustomJSONCodable {
 
   public typealias WrappedType = ProtobufInt32
   public typealias IntegerLiteralType = WrappedType.BaseType
@@ -170,8 +165,7 @@ extension Google_Protobuf_Int32Value:
   }
 }
 
-extension Google_Protobuf_UInt32Value:
-  ProtobufWrapper, ExpressibleByIntegerLiteral, _CustomJSONCodable {
+extension Google_Protobuf_UInt32Value: ProtobufWrapper, ExpressibleByIntegerLiteral, _CustomJSONCodable {
 
   public typealias WrappedType = ProtobufUInt32
   public typealias IntegerLiteralType = WrappedType.BaseType
@@ -196,8 +190,7 @@ extension Google_Protobuf_UInt32Value:
   }
 }
 
-extension Google_Protobuf_BoolValue:
-  ProtobufWrapper, ExpressibleByBooleanLiteral, _CustomJSONCodable {
+extension Google_Protobuf_BoolValue: ProtobufWrapper, ExpressibleByBooleanLiteral, _CustomJSONCodable {
 
   public typealias WrappedType = ProtobufBool
   public typealias BooleanLiteralType = Bool
@@ -222,8 +215,7 @@ extension Google_Protobuf_BoolValue:
   }
 }
 
-extension Google_Protobuf_StringValue:
-  ProtobufWrapper, ExpressibleByStringLiteral, _CustomJSONCodable {
+extension Google_Protobuf_StringValue: ProtobufWrapper, ExpressibleByStringLiteral, _CustomJSONCodable {
 
   public typealias WrappedType = ProtobufString
   public typealias StringLiteralType = String

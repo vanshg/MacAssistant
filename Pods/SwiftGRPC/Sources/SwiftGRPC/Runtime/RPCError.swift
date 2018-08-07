@@ -32,7 +32,6 @@ public extension RPCError {
   }
 }
 
-
 public enum ResultOrRPCError<ResultType> {
   case result(ResultType)
   case error(RPCError)
@@ -45,7 +44,7 @@ public extension ResultOrRPCError {
     case .error: return nil
     }
   }
-  
+
   var error: RPCError? {
     switch self {
     case .result: return nil
@@ -53,4 +52,3 @@ public extension ResultOrRPCError {
     }
   }
 }
-

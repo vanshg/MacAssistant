@@ -22,7 +22,7 @@ public protocol ServerSessionUnary: ServerSession {}
 
 open class ServerSessionUnaryBase<InputType: Message, OutputType: Message>: ServerSessionBase, ServerSessionUnary {
   public typealias SentType = OutputType
-  
+
   public typealias ProviderBlock = (InputType, ServerSessionUnaryBase) throws -> OutputType
   private var providerBlock: ProviderBlock
 
@@ -30,11 +30,11 @@ open class ServerSessionUnaryBase<InputType: Message, OutputType: Message>: Serv
     self.providerBlock = providerBlock
     super.init(handler: handler)
   }
-  
+
   public func run() throws -> ServerStatus? {
     let requestData = try receiveRequestAndWait()
     let requestMessage = try InputType(serializedData: requestData)
-    
+
     let responseMessage: OutputType
     do {
       responseMessage = try self.providerBlock(requestMessage, self)
@@ -43,7 +43,7 @@ open class ServerSessionUnaryBase<InputType: Message, OutputType: Message>: Serv
       // we return the error as a status code to avoid `ServiceServer` logging this as a "really unexpected" error.
       return (error as? ServerStatus) ?? .processingError
     }
-    
+
     let sendResponseSignal = DispatchSemaphore(value: 0)
     var sendResponseError: Error?
     try self.handler.call.sendMessage(data: responseMessage.serializedData()) {
@@ -54,7 +54,7 @@ open class ServerSessionUnaryBase<InputType: Message, OutputType: Message>: Serv
     if let sendResponseError = sendResponseError {
       throw sendResponseError
     }
-    
+
     return .ok
   }
 }

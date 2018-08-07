@@ -289,7 +289,7 @@ internal struct BinaryEncodingSizeVisitor: Visitor {
   ) throws {
     let tagSize = FieldTag(fieldNumber: fieldNumber,
                            wireFormat: .lengthDelimited).encodedSize
-    for (k,v) in value {
+    for (k, v) in value {
         var sizer = BinaryEncodingSizeVisitor()
         try KeyType.visitSingular(value: k, fieldNumber: 1, with: &sizer)
         try ValueType.visitSingular(value: v, fieldNumber: 2, with: &sizer)
@@ -306,7 +306,7 @@ internal struct BinaryEncodingSizeVisitor: Visitor {
   ) throws where ValueType.RawValue == Int {
     let tagSize = FieldTag(fieldNumber: fieldNumber,
                            wireFormat: .lengthDelimited).encodedSize
-    for (k,v) in value {
+    for (k, v) in value {
         var sizer = BinaryEncodingSizeVisitor()
         try KeyType.visitSingular(value: k, fieldNumber: 1, with: &sizer)
         try sizer.visitSingularEnumField(value: v, fieldNumber: 2)
@@ -323,7 +323,7 @@ internal struct BinaryEncodingSizeVisitor: Visitor {
   ) throws {
     let tagSize = FieldTag(fieldNumber: fieldNumber,
                            wireFormat: .lengthDelimited).encodedSize
-    for (k,v) in value {
+    for (k, v) in value {
         var sizer = BinaryEncodingSizeVisitor()
         try KeyType.visitSingular(value: k, fieldNumber: 1, with: &sizer)
         try sizer.visitSingularMessageField(value: v, fieldNumber: 2)

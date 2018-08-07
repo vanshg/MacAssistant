@@ -39,23 +39,23 @@ public class Formatters {}
 public class Formatter: Formatters {
     /// The formatter format.
     private var format: String
-    
+
     /// The formatter components.
     private var components: [Component]
-    
+
     /// The date formatter.
     fileprivate let dateFormatter = DateFormatter()
-    
+
     /// The formatter logger.
     internal weak var logger: Logger!
-    
+
     /// The formatter textual representation.
     internal var description: String {
         return String(format: format, arguments: components.map { (component: Component) -> CVarArg in
             return String(describing: component).uppercased()
         })
     }
-    
+
     /**
      Creates and returns a new formatter with the specified format and components.
      
@@ -67,7 +67,7 @@ public class Formatter: Formatters {
     public convenience init(_ format: String, _ components: Component...) {
         self.init(format, components)
     }
-    
+
     /**
      Creates and returns a new formatter with the specified format and components.
      
@@ -80,7 +80,7 @@ public class Formatter: Formatters {
         self.format = format
         self.components = components
     }
-    
+
     /**
      Formats a string with the formatter format and components.
      
@@ -119,10 +119,10 @@ public class Formatter: Formatters {
                 return block().flatMap({ String(describing: $0) }) ?? ""
             }
         }
-        
+
         return String(format: format, arguments: arguments) + terminator
     }
-    
+
     /**
      Formats a string with the formatter format and components.
      
@@ -138,7 +138,7 @@ public class Formatter: Formatters {
      - returns: A formatted string.
      */
     func format(description: String?, average: Double, relativeStandardDeviation: Double, file: String, line: Int, column: Int, function: String, date: Date) -> String {
-        
+
         let arguments = components.map { (component: Component) -> CVarArg in
             switch component {
             case .date(let dateFormat):
@@ -161,7 +161,7 @@ public class Formatter: Formatters {
                 return block().flatMap({ String(describing: $0) }) ?? ""
             }
         }
-        
+
         return String(format: format, arguments: arguments)
     }
 }
@@ -179,7 +179,7 @@ private extension Formatter {
         dateFormatter.dateFormat = dateFormat
         return dateFormatter.string(from: date)
     }
-    
+
     /**
      Formats a file path with the specified parameters.
      
@@ -191,13 +191,13 @@ private extension Formatter {
      */
     func format(file: String, fullPath: Bool, fileExtension: Bool) -> String {
         var file = file
-        
-        if !fullPath      { file = file.lastPathComponent }
+
+        if !fullPath { file = file.lastPathComponent }
         if !fileExtension { file = file.stringByDeletingPathExtension }
-        
+
         return file
     }
-    
+
     /**
      Formats a Location component with a specified file path and line number.
      
@@ -212,7 +212,7 @@ private extension Formatter {
             String(line)
         ].joined(separator: ":")
     }
-    
+
     /**
      Formats a Level component.
      
@@ -222,14 +222,14 @@ private extension Formatter {
      */
     func format(level: Level) -> String {
         let text = level.description
-        
+
         if let color = logger.theme?.colors[level] {
             return text.withColor(color)
         }
-        
+
         return text
     }
-    
+
     /**
      Formats a measure description.
      
@@ -239,18 +239,18 @@ private extension Formatter {
      */
     func format(description: String?) -> String {
         var text = "MEASURE"
-        
+
         if let color = logger.theme?.colors[.debug] {
             text = text.withColor(color)
         }
-        
+
         if let description = description {
             text = "\(text) \(description)"
         }
-        
+
         return text
     }
-    
+
     /**
      Formats an average time and a relative standard deviation.
      
@@ -262,10 +262,10 @@ private extension Formatter {
     func format(average: Double, relativeStandardDeviation: Double) -> String {
         let average = format(average: average)
         let relativeStandardDeviation = format(relativeStandardDeviation: relativeStandardDeviation)
-        
+
         return "Time: \(average) sec (\(relativeStandardDeviation) STDEV)"
     }
-    
+
     /**
      Formats an average time.
      
@@ -276,7 +276,7 @@ private extension Formatter {
     func format(average: Double) -> String {
         return String(format: "%.3f", average)
     }
-    
+
     /**
      Formats a list of durations.
      
@@ -287,10 +287,10 @@ private extension Formatter {
     func format(durations: [Double]) -> String {
         var format = Array(repeating: "%.6f", count: durations.count).joined(separator: ", ")
         format = "[\(format)]"
-        
-        return String(format: format, arguments: durations.map{ $0 as CVarArg })
+
+        return String(format: format, arguments: durations.map { $0 as CVarArg })
     }
-    
+
     /**
      Formats a standard deviation.
      
@@ -301,7 +301,7 @@ private extension Formatter {
     func format(standardDeviation: Double) -> String {
         return String(format: "%.6f", standardDeviation)
     }
-    
+
     /**
      Formats a relative standard deviation.
      

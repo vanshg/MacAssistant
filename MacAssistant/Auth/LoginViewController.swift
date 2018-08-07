@@ -17,7 +17,7 @@ class LoginViewController: NSViewController, WKNavigationDelegate {
     private let Log = Logger()
     private let authenticator = Authenticator.instance
     var loginSuccessDelegate: LoginSuccessDelegate?
-    
+
     override func viewDidLoad() {
         webView.navigationDelegate = self
         loadLoginUrl()
@@ -44,7 +44,7 @@ class LoginViewController: NSViewController, WKNavigationDelegate {
         }
         decisionHandler(.allow)
     }
-    
+
     func loadLoginUrl() {
         if let url = URL(string: authenticator.loginUrl) {
             webView.load(URLRequest(url: url))
@@ -52,7 +52,7 @@ class LoginViewController: NSViewController, WKNavigationDelegate {
             Log.debug("invalid loginUrl: \(authenticator.loginUrl)")
         }
     }
-    
+
     func loadNextScreen() {
         view.window?.close()
         loginSuccessDelegate?.onLoginSuccess()

@@ -24,7 +24,7 @@ public protocol ServerSessionServerStreaming: ServerSession {
 
 open class ServerSessionServerStreamingBase<InputType: Message, OutputType: Message>: ServerSessionBase, ServerSessionServerStreaming, StreamSending {
   public typealias SentType = OutputType
-  
+
   public typealias ProviderBlock = (InputType, ServerSessionServerStreamingBase) throws -> ServerStatus?
   private var providerBlock: ProviderBlock
 
@@ -32,7 +32,7 @@ open class ServerSessionServerStreamingBase<InputType: Message, OutputType: Mess
     self.providerBlock = providerBlock
     super.init(handler: handler)
   }
-  
+
   public func run() throws -> ServerStatus? {
     let requestData = try receiveRequestAndWait()
     let requestMessage = try InputType(serializedData: requestData)
@@ -50,7 +50,7 @@ open class ServerSessionServerStreamingBase<InputType: Message, OutputType: Mess
 /// and stores sent values for later verification.
 open class ServerSessionServerStreamingTestStub<OutputType: Message>: ServerSessionTestStub, ServerSessionServerStreaming {
   open var lock = Mutex()
-  
+
   open var outputs: [OutputType] = []
   open var status: ServerStatus?
 

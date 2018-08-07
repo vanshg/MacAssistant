@@ -78,11 +78,11 @@ extension Channel.Argument {
   class Wrapper {
     // Creating a `grpc_arg` allocates memory. This wrapper ensures that the memory is freed after use.
     let wrapped: grpc_arg
-    
+
     init(_ wrapped: grpc_arg) {
       self.wrapped = wrapped
     }
-    
+
     deinit {
       gpr_free(wrapped.key)
       if wrapped.type == GRPC_ARG_STRING {
@@ -90,7 +90,7 @@ extension Channel.Argument {
       }
     }
   }
-  
+
   func toCArg() -> Wrapper {
     switch self {
     case let .defaultAuthority(value):

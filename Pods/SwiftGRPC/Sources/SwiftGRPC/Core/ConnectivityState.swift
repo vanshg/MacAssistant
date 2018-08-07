@@ -25,7 +25,7 @@ public enum ConnectivityState: Int32, Error {
   case ready
   case transient_failure
   case shutdown
-  
+
   static func fromCEnum(_ connectivityState: grpc_connectivity_state) -> ConnectivityState? {
     return ConnectivityState(rawValue: connectivityState.rawValue)
   }

@@ -22,11 +22,11 @@ import Foundation
 /// gRPC Server
 public class Server {
   static let handlerCallTag = 101
-  
+
   // These are sent by the CgRPC shim.
   static let stopTag = 0
   static let destroyTag = 1000
-  
+
   /// Pointer to underlying C representation
   private let underlyingServer: UnsafeMutableRawPointer
 
@@ -91,7 +91,7 @@ public class Server {
                   // release the handler when it finishes
                   strongHandlerReference = nil
                 }
-                
+
                 // Dispatch the handler function on a separate thread.
                 let handlerDispatchThreadQueue = DispatchQueue(label: "SwiftGRPC.Server.run.dispatchHandlerThread")
                 handlerDispatchThreadQueue.async {

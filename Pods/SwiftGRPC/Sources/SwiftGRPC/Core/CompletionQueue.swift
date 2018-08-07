@@ -66,9 +66,9 @@ class CompletionQueue {
 
   /// Mutex for synchronizing access to operationGroups
   private let operationGroupsMutex: Mutex = Mutex()
-  
+
   private var _hasBeenShutdown = false
-  
+
   public var hasBeenShutdown: Bool { return operationGroupsMutex.synchronize { _hasBeenShutdown } }
 
   /// Initializes a CompletionQueue
@@ -79,7 +79,7 @@ class CompletionQueue {
     self.underlyingCompletionQueue = underlyingCompletionQueue
     self.name = name
   }
-  
+
   deinit {
     operationGroupsMutex.synchronize {
       _hasBeenShutdown = true
@@ -125,7 +125,7 @@ class CompletionQueue {
         let event = cgrpc_completion_queue_get_next_event(self.underlyingCompletionQueue, 600)
         switch event.type {
         case GRPC_OP_COMPLETE:
-          let tag = Int(bitPattern:cgrpc_event_tag(event))
+          let tag = Int(bitPattern: cgrpc_event_tag(event))
           self.operationGroupsMutex.lock()
           let operationGroup = self.operationGroups[tag]
           self.operationGroupsMutex.unlock()
@@ -144,7 +144,7 @@ class CompletionQueue {
           let currentOperationGroups = self.operationGroups
           self.operationGroups = [:]
           self.operationGroupsMutex.unlock()
-          
+
           for operationGroup in currentOperationGroups.values {
             operationGroup.success = false
             operationGroup.completion?(operationGroup)

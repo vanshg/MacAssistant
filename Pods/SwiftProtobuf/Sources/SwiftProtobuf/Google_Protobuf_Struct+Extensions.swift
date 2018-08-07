@@ -21,7 +21,7 @@ extension Google_Protobuf_Struct: ExpressibleByDictionaryLiteral {
   /// values of type `Google_Protobuf_Value`.
   public init(dictionaryLiteral: (String, Google_Protobuf_Value)...) {
     self.init()
-    for (k,v) in dictionaryLiteral {
+    for (k, v) in dictionaryLiteral {
       fields[k] = v
     }
   }
@@ -32,7 +32,7 @@ extension Google_Protobuf_Struct: _CustomJSONCodable {
     var jsonEncoder = JSONEncoder()
     jsonEncoder.startObject()
     var mapVisitor = JSONMapEncodingVisitor(encoder: jsonEncoder)
-    for (k,v) in fields {
+    for (k, v) in fields {
       try mapVisitor.visitSingularStringField(value: k, fieldNumber: 1)
       try mapVisitor.visitSingularMessageField(value: v, fieldNumber: 2)
     }

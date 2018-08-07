@@ -31,7 +31,7 @@ public class AudioEngine {
         let bufferPCM16 = AVAudioPCMBuffer(pcmFormat: self.desiredFormat, frameCapacity: AVAudioFrameCount(capacity))!
 
         var error: NSError? = nil
-        self.converter.convert(to: bufferPCM16, error: &error) { inNumPackets, outStatus in
+        self.converter.convert(to: bufferPCM16, error: &error) { _, outStatus in
             outStatus.pointee = .haveData
             return buffer
         }
@@ -45,7 +45,6 @@ public class AudioEngine {
         let data = Data(bytes: channel[0], count: capacity * 2)
         delegate.onMicrophoneInputAudio(audioData: data)
     }
-
 
     public func playAudio(data: Data) {
         player = try! AVAudioPlayer(data: data, fileTypeHint: AVFileType.mp3.rawValue)
