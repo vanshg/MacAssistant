@@ -2,16 +2,19 @@ language: objective-c
 osx_image: xcode9.1
 xcode_project: MacAssistant.xcodeproj
 
+sudo: true
+
 notifications:
   email: false
 
 before_install:
 - sudo gem install xcpretty
+- sudo npm install -g swizzy
 
 install:
   - ./install_swiftlint.sh
 
 script:
 - cd grpc-swift && make
-- swiftlint
 - cd - && xcodebuild -workspace MacAssistant.xcworkspace -scheme MacAssistant -configuration Debug | xcpretty
+- swiftlint | swizzy
