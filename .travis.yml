@@ -7,10 +7,11 @@ notifications:
 
 before_install:
 - sudo gem install xcpretty
-- sudo gem install cocoapods
-- pod install
-- pod update
+
+install:
+  - ./install_swiftlint.sh
 
 script:
 - cd grpc-swift && make
+- swiftlint
 - cd - && xcodebuild -workspace MacAssistant.xcworkspace -scheme MacAssistant -configuration Debug | xcpretty
