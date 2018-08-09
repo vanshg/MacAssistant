@@ -6,7 +6,7 @@
 // For information on using the generated types, please see the documenation:
 //   https://github.com/apple/swift-protobuf/
 
-// Copyright 2017 Google Inc.
+// Copyright 2018 Google Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -33,9 +33,241 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
+/// The top-level message sent by the client. Clients must send at least two, and
+/// typically numerous `AssistRequest` messages. The first message must
+/// contain a `config` message and must not contain `audio_in` data. All
+/// subsequent messages must contain `audio_in` data and must not contain a
+/// `config` message.
+public struct Google_Assistant_Embedded_V1alpha2_AssistRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Exactly one of these fields must be specified in each `AssistRequest`.
+  public var type: OneOf_Type? {
+    get {return _storage._type}
+    set {_uniqueStorage()._type = newValue}
+  }
+
+  /// The `config` message provides information to the recognizer that
+  /// specifies how to process the request.
+  /// The first `AssistRequest` message must contain a `config` message.
+  public var config: Google_Assistant_Embedded_V1alpha2_AssistConfig {
+    get {
+      if case .config(let v)? = _storage._type {return v}
+      return Google_Assistant_Embedded_V1alpha2_AssistConfig()
+    }
+    set {_uniqueStorage()._type = .config(newValue)}
+  }
+
+  /// The audio data to be recognized. Sequential chunks of audio data are sent
+  /// in sequential `AssistRequest` messages. The first `AssistRequest`
+  /// message must not contain `audio_in` data and all subsequent
+  /// `AssistRequest` messages must contain `audio_in` data. The audio bytes
+  /// must be encoded as specified in `AudioInConfig`.
+  /// Audio must be sent at approximately real-time (16000 samples per second).
+  /// An error will be returned if audio is sent significantly faster or
+  /// slower.
+  public var audioIn: Data {
+    get {
+      if case .audioIn(let v)? = _storage._type {return v}
+      return SwiftProtobuf.Internal.emptyData
+    }
+    set {_uniqueStorage()._type = .audioIn(newValue)}
+  }
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  /// Exactly one of these fields must be specified in each `AssistRequest`.
+  public enum OneOf_Type: Equatable {
+    /// The `config` message provides information to the recognizer that
+    /// specifies how to process the request.
+    /// The first `AssistRequest` message must contain a `config` message.
+    case config(Google_Assistant_Embedded_V1alpha2_AssistConfig)
+    /// The audio data to be recognized. Sequential chunks of audio data are sent
+    /// in sequential `AssistRequest` messages. The first `AssistRequest`
+    /// message must not contain `audio_in` data and all subsequent
+    /// `AssistRequest` messages must contain `audio_in` data. The audio bytes
+    /// must be encoded as specified in `AudioInConfig`.
+    /// Audio must be sent at approximately real-time (16000 samples per second).
+    /// An error will be returned if audio is sent significantly faster or
+    /// slower.
+    case audioIn(Data)
+
+  #if !swift(>=4.1)
+    public static func ==(lhs: Google_Assistant_Embedded_V1alpha2_AssistRequest.OneOf_Type, rhs: Google_Assistant_Embedded_V1alpha2_AssistRequest.OneOf_Type) -> Bool {
+      switch (lhs, rhs) {
+      case (.config(let l), .config(let r)): return l == r
+      case (.audioIn(let l), .audioIn(let r)): return l == r
+      default: return false
+      }
+    }
+  #endif
+  }
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+/// The top-level message received by the client. A series of one or more
+/// `AssistResponse` messages are streamed back to the client.
+public struct Google_Assistant_Embedded_V1alpha2_AssistResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// *Output-only* Indicates the type of event.
+  public var eventType: Google_Assistant_Embedded_V1alpha2_AssistResponse.EventType {
+    get {return _storage._eventType}
+    set {_uniqueStorage()._eventType = newValue}
+  }
+
+  /// *Output-only* The audio containing the Assistant's response to the query.
+  public var audioOut: Google_Assistant_Embedded_V1alpha2_AudioOut {
+    get {return _storage._audioOut ?? Google_Assistant_Embedded_V1alpha2_AudioOut()}
+    set {_uniqueStorage()._audioOut = newValue}
+  }
+  /// Returns true if `audioOut` has been explicitly set.
+  public var hasAudioOut: Bool {return _storage._audioOut != nil}
+  /// Clears the value of `audioOut`. Subsequent reads from it will return its default value.
+  public mutating func clearAudioOut() {_storage._audioOut = nil}
+
+  /// *Output-only* Contains the Assistant's visual response to the query.
+  public var screenOut: Google_Assistant_Embedded_V1alpha2_ScreenOut {
+    get {return _storage._screenOut ?? Google_Assistant_Embedded_V1alpha2_ScreenOut()}
+    set {_uniqueStorage()._screenOut = newValue}
+  }
+  /// Returns true if `screenOut` has been explicitly set.
+  public var hasScreenOut: Bool {return _storage._screenOut != nil}
+  /// Clears the value of `screenOut`. Subsequent reads from it will return its default value.
+  public mutating func clearScreenOut() {_storage._screenOut = nil}
+
+  /// *Output-only* Contains the action triggered by the query with the
+  /// appropriate payloads and semantic parsing.
+  public var deviceAction: Google_Assistant_Embedded_V1alpha2_DeviceAction {
+    get {return _storage._deviceAction ?? Google_Assistant_Embedded_V1alpha2_DeviceAction()}
+    set {_uniqueStorage()._deviceAction = newValue}
+  }
+  /// Returns true if `deviceAction` has been explicitly set.
+  public var hasDeviceAction: Bool {return _storage._deviceAction != nil}
+  /// Clears the value of `deviceAction`. Subsequent reads from it will return its default value.
+  public mutating func clearDeviceAction() {_storage._deviceAction = nil}
+
+  /// *Output-only* This repeated list contains zero or more speech recognition
+  /// results that correspond to consecutive portions of the audio currently
+  /// being processed, starting with the portion corresponding to the earliest
+  /// audio (and most stable portion) to the portion corresponding to the most
+  /// recent audio. The strings can be concatenated to view the full
+  /// in-progress response. When the speech recognition completes, this list
+  /// will contain one item with `stability` of `1.0`.
+  public var speechResults: [Google_Assistant_Embedded_V1alpha2_SpeechRecognitionResult] {
+    get {return _storage._speechResults}
+    set {_uniqueStorage()._speechResults = newValue}
+  }
+
+  /// *Output-only* Contains output related to the user's query.
+  public var dialogStateOut: Google_Assistant_Embedded_V1alpha2_DialogStateOut {
+    get {return _storage._dialogStateOut ?? Google_Assistant_Embedded_V1alpha2_DialogStateOut()}
+    set {_uniqueStorage()._dialogStateOut = newValue}
+  }
+  /// Returns true if `dialogStateOut` has been explicitly set.
+  public var hasDialogStateOut: Bool {return _storage._dialogStateOut != nil}
+  /// Clears the value of `dialogStateOut`. Subsequent reads from it will return its default value.
+  public mutating func clearDialogStateOut() {_storage._dialogStateOut = nil}
+
+  /// *Output-only* Debugging info for developer. Only returned if request set
+  /// `return_debug_info` to true.
+  public var debugInfo: Google_Assistant_Embedded_V1alpha2_DebugInfo {
+    get {return _storage._debugInfo ?? Google_Assistant_Embedded_V1alpha2_DebugInfo()}
+    set {_uniqueStorage()._debugInfo = newValue}
+  }
+  /// Returns true if `debugInfo` has been explicitly set.
+  public var hasDebugInfo: Bool {return _storage._debugInfo != nil}
+  /// Clears the value of `debugInfo`. Subsequent reads from it will return its default value.
+  public mutating func clearDebugInfo() {_storage._debugInfo = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  /// Indicates the type of event.
+  public enum EventType: SwiftProtobuf.Enum {
+    public typealias RawValue = Int
+
+    /// No event specified.
+    case unspecified // = 0
+
+    /// This event indicates that the server has detected the end of the user's
+    /// speech utterance and expects no additional speech. Therefore, the server
+    /// will not process additional audio (although it may subsequently return
+    /// additional results). The client should stop sending additional audio
+    /// data, half-close the gRPC connection, and wait for any additional results
+    /// until the server closes the gRPC connection.
+    case endOfUtterance // = 1
+    case UNRECOGNIZED(Int)
+
+    public init() {
+      self = .unspecified
+    }
+
+    public init?(rawValue: Int) {
+      switch rawValue {
+      case 0: self = .unspecified
+      case 1: self = .endOfUtterance
+      default: self = .UNRECOGNIZED(rawValue)
+      }
+    }
+
+    public var rawValue: Int {
+      switch self {
+      case .unspecified: return 0
+      case .endOfUtterance: return 1
+      case .UNRECOGNIZED(let i): return i
+      }
+    }
+
+  }
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+#if swift(>=4.2)
+
+extension Google_Assistant_Embedded_V1alpha2_AssistResponse.EventType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Google_Assistant_Embedded_V1alpha2_AssistResponse.EventType] = [
+    .unspecified,
+    .endOfUtterance,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+/// Debug info for developer. Only returned if request set `return_debug_info`
+/// to true.
+public struct Google_Assistant_Embedded_V1alpha2_DebugInfo {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The original JSON response from an Action-on-Google agent to Google server.
+  /// See
+  /// https://developers.google.com/actions/reference/rest/Shared.Types/AppResponse.
+  /// It will only be populated if the request maker owns the AoG project and the
+  /// AoG project is in preview mode.
+  public var aogAgentToAssistantJson: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 /// Specifies how to process the `AssistRequest` messages.
-public struct Google_Assistant_Embedded_V1alpha2_AssistConfig: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".AssistConfig"
+public struct Google_Assistant_Embedded_V1alpha2_AssistConfig {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var type: OneOf_Type? {
     get {return _storage._type}
@@ -72,6 +304,17 @@ public struct Google_Assistant_Embedded_V1alpha2_AssistConfig: SwiftProtobuf.Mes
   /// Clears the value of `audioOutConfig`. Subsequent reads from it will return its default value.
   public mutating func clearAudioOutConfig() {_storage._audioOutConfig = nil}
 
+  /// *Optional* Specifies the desired format to use when server returns a
+  /// visual screen response.
+  public var screenOutConfig: Google_Assistant_Embedded_V1alpha2_ScreenOutConfig {
+    get {return _storage._screenOutConfig ?? Google_Assistant_Embedded_V1alpha2_ScreenOutConfig()}
+    set {_uniqueStorage()._screenOutConfig = newValue}
+  }
+  /// Returns true if `screenOutConfig` has been explicitly set.
+  public var hasScreenOutConfig: Bool {return _storage._screenOutConfig != nil}
+  /// Clears the value of `screenOutConfig`. Subsequent reads from it will return its default value.
+  public mutating func clearScreenOutConfig() {_storage._screenOutConfig = nil}
+
   /// *Required* Represents the current dialog state.
   public var dialogStateIn: Google_Assistant_Embedded_V1alpha2_DialogStateIn {
     get {return _storage._dialogStateIn ?? Google_Assistant_Embedded_V1alpha2_DialogStateIn()}
@@ -92,6 +335,16 @@ public struct Google_Assistant_Embedded_V1alpha2_AssistConfig: SwiftProtobuf.Mes
   /// Clears the value of `deviceConfig`. Subsequent reads from it will return its default value.
   public mutating func clearDeviceConfig() {_storage._deviceConfig = nil}
 
+  /// *Optional* Debugging parameters for the whole `Assist` RPC.
+  public var debugConfig: Google_Assistant_Embedded_V1alpha2_DebugConfig {
+    get {return _storage._debugConfig ?? Google_Assistant_Embedded_V1alpha2_DebugConfig()}
+    set {_uniqueStorage()._debugConfig = newValue}
+  }
+  /// Returns true if `debugConfig` has been explicitly set.
+  public var hasDebugConfig: Bool {return _storage._debugConfig != nil}
+  /// Clears the value of `debugConfig`. Subsequent reads from it will return its default value.
+  public mutating func clearDebugConfig() {_storage._debugConfig = nil}
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public enum OneOf_Type: Equatable {
@@ -102,6 +355,7 @@ public struct Google_Assistant_Embedded_V1alpha2_AssistConfig: SwiftProtobuf.Mes
     /// text interface if audio input is not available.
     case textQuery(String)
 
+  #if !swift(>=4.1)
     public static func ==(lhs: Google_Assistant_Embedded_V1alpha2_AssistConfig.OneOf_Type, rhs: Google_Assistant_Embedded_V1alpha2_AssistConfig.OneOf_Type) -> Bool {
       switch (lhs, rhs) {
       case (.audioInConfig(let l), .audioInConfig(let r)): return l == r
@@ -109,65 +363,10 @@ public struct Google_Assistant_Embedded_V1alpha2_AssistConfig: SwiftProtobuf.Mes
       default: return false
       }
     }
+  #endif
   }
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1:
-          var v: Google_Assistant_Embedded_V1alpha2_AudioInConfig?
-          if let current = _storage._type {
-            try decoder.handleConflictingOneOf()
-            if case .audioInConfig(let m) = current {v = m}
-          }
-          try decoder.decodeSingularMessageField(value: &v)
-          if let v = v {_storage._type = .audioInConfig(v)}
-        case 2: try decoder.decodeSingularMessageField(value: &_storage._audioOutConfig)
-        case 3: try decoder.decodeSingularMessageField(value: &_storage._dialogStateIn)
-        case 4: try decoder.decodeSingularMessageField(value: &_storage._deviceConfig)
-        case 6:
-          if _storage._type != nil {try decoder.handleConflictingOneOf()}
-          var v: String?
-          try decoder.decodeSingularStringField(value: &v)
-          if let v = v {_storage._type = .textQuery(v)}
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if case .audioInConfig(let v)? = _storage._type {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-      if let v = _storage._audioOutConfig {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      }
-      if let v = _storage._dialogStateIn {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-      }
-      if let v = _storage._deviceConfig {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-      }
-      if case .textQuery(let v)? = _storage._type {
-        try visitor.visitSingularStringField(value: v, fieldNumber: 6)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 
   fileprivate var _storage = _StorageClass.defaultInstance
 }
@@ -175,8 +374,10 @@ public struct Google_Assistant_Embedded_V1alpha2_AssistConfig: SwiftProtobuf.Mes
 /// Specifies how to process the `audio_in` data that will be provided in
 /// subsequent requests. For recommended settings, see the Google Assistant SDK
 /// [best practices](https://developers.google.com/assistant/sdk/guides/service/python/best-practices/audio).
-public struct Google_Assistant_Embedded_V1alpha2_AudioInConfig: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".AudioInConfig"
+public struct Google_Assistant_Embedded_V1alpha2_AudioInConfig {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// *Required* Encoding of audio data sent in all `audio_in` messages.
   public var encoding: Google_Assistant_Embedded_V1alpha2_AudioInConfig.Encoding = .unspecified
@@ -191,7 +392,7 @@ public struct Google_Assistant_Embedded_V1alpha2_AudioInConfig: SwiftProtobuf.Me
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   /// Audio encoding of the data sent in the audio message.
-  /// Audio must be one-channel (mono). The only language supported is "en-US".
+  /// Audio must be one-channel (mono).
   public enum Encoding: SwiftProtobuf.Enum {
     public typealias RawValue = Int
 
@@ -237,40 +438,27 @@ public struct Google_Assistant_Embedded_V1alpha2_AudioInConfig: SwiftProtobuf.Me
   }
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularEnumField(value: &self.encoding)
-      case 2: try decoder.decodeSingularInt32Field(value: &self.sampleRateHertz)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.encoding != .unspecified {
-      try visitor.visitSingularEnumField(value: self.encoding, fieldNumber: 1)
-    }
-    if self.sampleRateHertz != 0 {
-      try visitor.visitSingularInt32Field(value: self.sampleRateHertz, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
+
+#if swift(>=4.2)
+
+extension Google_Assistant_Embedded_V1alpha2_AudioInConfig.Encoding: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Google_Assistant_Embedded_V1alpha2_AudioInConfig.Encoding] = [
+    .unspecified,
+    .linear16,
+    .flac,
+  ]
+}
+
+#endif  // swift(>=4.2)
 
 /// Specifies the desired format for the server to use when it returns
 /// `audio_out` messages.
-public struct Google_Assistant_Embedded_V1alpha2_AudioOutConfig: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".AudioOutConfig"
+public struct Google_Assistant_Embedded_V1alpha2_AudioOutConfig {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// *Required* The encoding of audio data to be returned in all `audio_out`
   /// messages.
@@ -334,43 +522,97 @@ public struct Google_Assistant_Embedded_V1alpha2_AudioOutConfig: SwiftProtobuf.M
   }
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularEnumField(value: &self.encoding)
-      case 2: try decoder.decodeSingularInt32Field(value: &self.sampleRateHertz)
-      case 3: try decoder.decodeSingularInt32Field(value: &self.volumePercentage)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.encoding != .unspecified {
-      try visitor.visitSingularEnumField(value: self.encoding, fieldNumber: 1)
-    }
-    if self.sampleRateHertz != 0 {
-      try visitor.visitSingularInt32Field(value: self.sampleRateHertz, fieldNumber: 2)
-    }
-    if self.volumePercentage != 0 {
-      try visitor.visitSingularInt32Field(value: self.volumePercentage, fieldNumber: 3)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
+#if swift(>=4.2)
+
+extension Google_Assistant_Embedded_V1alpha2_AudioOutConfig.Encoding: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Google_Assistant_Embedded_V1alpha2_AudioOutConfig.Encoding] = [
+    .unspecified,
+    .linear16,
+    .mp3,
+    .opusInOgg,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+/// Specifies the desired format for the server to use when it returns
+/// `screen_out` response.
+public struct Google_Assistant_Embedded_V1alpha2_ScreenOutConfig {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Current visual screen-mode for the device while issuing the query.
+  public var screenMode: Google_Assistant_Embedded_V1alpha2_ScreenOutConfig.ScreenMode = .unspecified
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  /// Possible modes for visual screen-output on the device.
+  public enum ScreenMode: SwiftProtobuf.Enum {
+    public typealias RawValue = Int
+
+    /// No video mode specified.
+    /// The Assistant may respond as if in `OFF` mode.
+    case unspecified // = 0
+
+    /// Screen is off (or has brightness or other settings set so low it is
+    /// not visible). The Assistant will typically not return a screen response
+    /// in this mode.
+    case off // = 1
+
+    /// The Assistant will typically return a partial-screen response in this
+    /// mode.
+    case playing // = 3
+    case UNRECOGNIZED(Int)
+
+    public init() {
+      self = .unspecified
+    }
+
+    public init?(rawValue: Int) {
+      switch rawValue {
+      case 0: self = .unspecified
+      case 1: self = .off
+      case 3: self = .playing
+      default: self = .UNRECOGNIZED(rawValue)
+      }
+    }
+
+    public var rawValue: Int {
+      switch self {
+      case .unspecified: return 0
+      case .off: return 1
+      case .playing: return 3
+      case .UNRECOGNIZED(let i): return i
+      }
+    }
+
+  }
+
+  public init() {}
+}
+
+#if swift(>=4.2)
+
+extension Google_Assistant_Embedded_V1alpha2_ScreenOutConfig.ScreenMode: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Google_Assistant_Embedded_V1alpha2_ScreenOutConfig.ScreenMode] = [
+    .unspecified,
+    .off,
+    .playing,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 /// Provides information about the current dialog state.
-public struct Google_Assistant_Embedded_V1alpha2_DialogStateIn: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".DialogStateIn"
+public struct Google_Assistant_Embedded_V1alpha2_DialogStateIn {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// *Required* This field must always be set to the
   /// [DialogStateOut.conversation_state][google.assistant.embedded.v1alpha2.DialogStateOut.conversation_state] value that was returned in the prior
@@ -383,9 +625,10 @@ public struct Google_Assistant_Embedded_V1alpha2_DialogStateIn: SwiftProtobuf.Me
   }
 
   /// *Required* Language of the request in
-  /// [IETF BCP 47 syntax](https://tools.ietf.org/html/bcp47). For example:
-  /// "en-US". If you have selected a language for this `device_id` using the
-  /// [Settings](https://developers.google.com/assistant/sdk/guides/assistant-settings)
+  /// [IETF BCP 47 syntax](https://tools.ietf.org/html/bcp47) (for example,
+  /// "en-US"). See [Language Support](https://developers.google.com/assistant/sdk/reference/rpc/languages)
+  /// for more information. If you have selected a language for this `device_id`
+  /// using the [Settings](https://developers.google.com/assistant/sdk/reference/assistant-app/assistant-settings)
   /// menu in your phone's Google Assistant app, that selection will override
   /// this value.
   public var languageCode: String {
@@ -403,54 +646,62 @@ public struct Google_Assistant_Embedded_V1alpha2_DialogStateIn: SwiftProtobuf.Me
   /// Clears the value of `deviceLocation`. Subsequent reads from it will return its default value.
   public mutating func clearDeviceLocation() {_storage._deviceLocation = nil}
 
+  /// *Optional* If true, the server will treat the request as a new conversation
+  /// and not use state from the prior request. Set this field to true when the
+  /// conversation should be restarted, such as after a device reboot, or after a
+  /// significant lapse of time since the prior query.
+  public var isNewConversation: Bool {
+    get {return _storage._isNewConversation}
+    set {_uniqueStorage()._isNewConversation = newValue}
+  }
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularBytesField(value: &_storage._conversationState)
-        case 2: try decoder.decodeSingularStringField(value: &_storage._languageCode)
-        case 5: try decoder.decodeSingularMessageField(value: &_storage._deviceLocation)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if !_storage._conversationState.isEmpty {
-        try visitor.visitSingularBytesField(value: _storage._conversationState, fieldNumber: 1)
-      }
-      if !_storage._languageCode.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._languageCode, fieldNumber: 2)
-      }
-      if let v = _storage._deviceLocation {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
   fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+/// *Required* Fields that identify the device to the Assistant.
+///
+/// See also:
+///
+/// *   [Register a Device - REST
+/// API](https://developers.google.com/assistant/sdk/reference/device-registration/register-device-manual)
+/// *   [Device Model and Instance
+/// Schemas](https://developers.google.com/assistant/sdk/reference/device-registration/model-and-instance-schemas)
+/// *   [Device
+/// Proto](https://developers.google.com/assistant/sdk/reference/rpc/google.assistant.devices.v1alpha2#device)
+public struct Google_Assistant_Embedded_V1alpha2_DeviceConfig {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// *Required* Unique identifier for the device. The id length must be 128
+  /// characters or less. Example: DBCDW098234. This MUST match the device_id
+  /// returned from device registration. This device_id is used to match against
+  /// the user's registered devices to lookup the supported traits and
+  /// capabilities of this device. This information should not change across
+  /// device reboots. However, it should not be saved across
+  /// factory-default resets.
+  public var deviceID: String = String()
+
+  /// *Required* Unique identifier for the device model. The combination of
+  /// device_model_id and device_id must have been previously associated through
+  /// device registration.
+  public var deviceModelID: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
 }
 
 /// The audio containing the Assistant's response to the query. Sequential chunks
 /// of audio data are received in sequential `AssistResponse` messages.
-public struct Google_Assistant_Embedded_V1alpha2_AudioOut: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".AudioOut"
+public struct Google_Assistant_Embedded_V1alpha2_AudioOut {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// *Output-only* The audio data containing the Assistant's response to the
   /// query. Sequential chunks of audio data are received in sequential
@@ -460,36 +711,122 @@ public struct Google_Assistant_Embedded_V1alpha2_AudioOut: SwiftProtobuf.Message
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
+}
 
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularBytesField(value: &self.audioData)
-      default: break
+/// The Assistant's visual output response to query. Enabled by
+/// `screen_out_config`.
+public struct Google_Assistant_Embedded_V1alpha2_ScreenOut {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// *Output-only* The format of the provided screen data.
+  public var format: Google_Assistant_Embedded_V1alpha2_ScreenOut.Format = .unspecified
+
+  /// *Output-only* The raw screen data to be displayed as the result of the
+  /// Assistant query.
+  public var data: Data = SwiftProtobuf.Internal.emptyData
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  /// Possible formats of the screen data.
+  public enum Format: SwiftProtobuf.Enum {
+    public typealias RawValue = Int
+
+    /// No format specified.
+    case unspecified // = 0
+
+    /// Data will contain a fully-formed HTML5 layout encoded in UTF-8, e.g.
+    /// `<html><body><div>...</div></body></html>`. It is intended to be rendered
+    /// along with the audio response. Note that HTML5 doctype should be included
+    /// in the actual HTML data.
+    case html // = 1
+    case UNRECOGNIZED(Int)
+
+    public init() {
+      self = .unspecified
+    }
+
+    public init?(rawValue: Int) {
+      switch rawValue {
+      case 0: self = .unspecified
+      case 1: self = .html
+      default: self = .UNRECOGNIZED(rawValue)
       }
     }
+
+    public var rawValue: Int {
+      switch self {
+      case .unspecified: return 0
+      case .html: return 1
+      case .UNRECOGNIZED(let i): return i
+      }
+    }
+
   }
 
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.audioData.isEmpty {
-      try visitor.visitSingularBytesField(value: self.audioData, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
+  public init() {}
+}
+
+#if swift(>=4.2)
+
+extension Google_Assistant_Embedded_V1alpha2_ScreenOut.Format: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Google_Assistant_Embedded_V1alpha2_ScreenOut.Format] = [
+    .unspecified,
+    .html,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+/// The response returned to the device if the user has triggered a Device
+/// Action. For example, a device which supports the query *Turn on the light*
+/// would receive a `DeviceAction` with a JSON payload containing the semantics
+/// of the request.
+public struct Google_Assistant_Embedded_V1alpha2_DeviceAction {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// JSON containing the device command response generated from the triggered
+  /// Device Action grammar. The format is given by the
+  /// `action.devices.EXECUTE` intent for a given
+  /// [trait](https://developers.google.com/assistant/sdk/reference/traits/).
+  public var deviceRequestJson: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+/// The estimated transcription of a phrase the user has spoken. This could be
+/// a single segment or the full guess of the user's spoken query.
+public struct Google_Assistant_Embedded_V1alpha2_SpeechRecognitionResult {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// *Output-only* Transcript text representing the words that the user spoke.
+  public var transcript: String = String()
+
+  /// *Output-only* An estimate of the likelihood that the Assistant will not
+  /// change its guess about this result. Values range from 0.0 (completely
+  /// unstable) to 1.0 (completely stable and final). The default of 0.0 is a
+  /// sentinel value indicating `stability` was not set.
+  public var stability: Float = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
 }
 
 /// The dialog state resulting from the user's query. Multiple of these messages
 /// may be received.
-public struct Google_Assistant_Embedded_V1alpha2_DialogStateOut: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".DialogStateOut"
+public struct Google_Assistant_Embedded_V1alpha2_DialogStateOut {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   /// *Output-only* Supplemental display text from the Assistant. This could be
   /// the same as the speech spoken in `AssistResponse.audio_out` or it could
@@ -564,450 +901,35 @@ public struct Google_Assistant_Embedded_V1alpha2_DialogStateOut: SwiftProtobuf.M
   }
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.supplementalDisplayText)
-      case 2: try decoder.decodeSingularBytesField(value: &self.conversationState)
-      case 3: try decoder.decodeSingularEnumField(value: &self.microphoneMode)
-      case 4: try decoder.decodeSingularInt32Field(value: &self.volumePercentage)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.supplementalDisplayText.isEmpty {
-      try visitor.visitSingularStringField(value: self.supplementalDisplayText, fieldNumber: 1)
-    }
-    if !self.conversationState.isEmpty {
-      try visitor.visitSingularBytesField(value: self.conversationState, fieldNumber: 2)
-    }
-    if self.microphoneMode != .unspecified {
-      try visitor.visitSingularEnumField(value: self.microphoneMode, fieldNumber: 3)
-    }
-    if self.volumePercentage != 0 {
-      try visitor.visitSingularInt32Field(value: self.volumePercentage, fieldNumber: 4)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
-/// The top-level message sent by the client. Clients must send at least two, and
-/// typically numerous `AssistRequest` messages. The first message must
-/// contain a `config` message and must not contain `audio_in` data. All
-/// subsequent messages must contain `audio_in` data and must not contain a
-/// `config` message.
-public struct Google_Assistant_Embedded_V1alpha2_AssistRequest: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".AssistRequest"
+#if swift(>=4.2)
 
-  /// Exactly one of these fields must be specified in each `AssistRequest`.
-  public var type: OneOf_Type? {
-    get {return _storage._type}
-    set {_uniqueStorage()._type = newValue}
-  }
-
-  /// The `config` message provides information to the recognizer that
-  /// specifies how to process the request.
-  /// The first `AssistRequest` message must contain a `config` message.
-  public var config: Google_Assistant_Embedded_V1alpha2_AssistConfig {
-    get {
-      if case .config(let v)? = _storage._type {return v}
-      return Google_Assistant_Embedded_V1alpha2_AssistConfig()
-    }
-    set {_uniqueStorage()._type = .config(newValue)}
-  }
-
-  /// The audio data to be recognized. Sequential chunks of audio data are sent
-  /// in sequential `AssistRequest` messages. The first `AssistRequest`
-  /// message must not contain `audio_in` data and all subsequent
-  /// `AssistRequest` messages must contain `audio_in` data. The audio bytes
-  /// must be encoded as specified in `AudioInConfig`.
-  /// Audio must be sent at approximately real-time (16000 samples per second).
-  /// An error will be returned if audio is sent significantly faster or
-  /// slower.
-  public var audioIn: Data {
-    get {
-      if case .audioIn(let v)? = _storage._type {return v}
-      return SwiftProtobuf.Internal.emptyData
-    }
-    set {_uniqueStorage()._type = .audioIn(newValue)}
-  }
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  /// Exactly one of these fields must be specified in each `AssistRequest`.
-  public enum OneOf_Type: Equatable {
-    /// The `config` message provides information to the recognizer that
-    /// specifies how to process the request.
-    /// The first `AssistRequest` message must contain a `config` message.
-    case config(Google_Assistant_Embedded_V1alpha2_AssistConfig)
-    /// The audio data to be recognized. Sequential chunks of audio data are sent
-    /// in sequential `AssistRequest` messages. The first `AssistRequest`
-    /// message must not contain `audio_in` data and all subsequent
-    /// `AssistRequest` messages must contain `audio_in` data. The audio bytes
-    /// must be encoded as specified in `AudioInConfig`.
-    /// Audio must be sent at approximately real-time (16000 samples per second).
-    /// An error will be returned if audio is sent significantly faster or
-    /// slower.
-    case audioIn(Data)
-
-    public static func ==(lhs: Google_Assistant_Embedded_V1alpha2_AssistRequest.OneOf_Type, rhs: Google_Assistant_Embedded_V1alpha2_AssistRequest.OneOf_Type) -> Bool {
-      switch (lhs, rhs) {
-      case (.config(let l), .config(let r)): return l == r
-      case (.audioIn(let l), .audioIn(let r)): return l == r
-      default: return false
-      }
-    }
-  }
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1:
-          var v: Google_Assistant_Embedded_V1alpha2_AssistConfig?
-          if let current = _storage._type {
-            try decoder.handleConflictingOneOf()
-            if case .config(let m) = current {v = m}
-          }
-          try decoder.decodeSingularMessageField(value: &v)
-          if let v = v {_storage._type = .config(v)}
-        case 2:
-          if _storage._type != nil {try decoder.handleConflictingOneOf()}
-          var v: Data?
-          try decoder.decodeSingularBytesField(value: &v)
-          if let v = v {_storage._type = .audioIn(v)}
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      switch _storage._type {
-      case .config(let v)?:
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      case .audioIn(let v)?:
-        try visitor.visitSingularBytesField(value: v, fieldNumber: 2)
-      case nil: break
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
+extension Google_Assistant_Embedded_V1alpha2_DialogStateOut.MicrophoneMode: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Google_Assistant_Embedded_V1alpha2_DialogStateOut.MicrophoneMode] = [
+    .unspecified,
+    .closeMicrophone,
+    .dialogFollowOn,
+  ]
 }
 
-/// The top-level message received by the client. A series of one or more
-/// `AssistResponse` messages are streamed back to the client.
-public struct Google_Assistant_Embedded_V1alpha2_AssistResponse: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".AssistResponse"
+#endif  // swift(>=4.2)
 
-  /// *Output-only* Indicates the type of event.
-  public var eventType: Google_Assistant_Embedded_V1alpha2_AssistResponse.EventType {
-    get {return _storage._eventType}
-    set {_uniqueStorage()._eventType = newValue}
-  }
+/// Debugging parameters for the current request.
+public struct Google_Assistant_Embedded_V1alpha2_DebugConfig {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
-  /// *Output-only* The audio containing the Assistant's response to the query.
-  public var audioOut: Google_Assistant_Embedded_V1alpha2_AudioOut {
-    get {return _storage._audioOut ?? Google_Assistant_Embedded_V1alpha2_AudioOut()}
-    set {_uniqueStorage()._audioOut = newValue}
-  }
-  /// Returns true if `audioOut` has been explicitly set.
-  public var hasAudioOut: Bool {return _storage._audioOut != nil}
-  /// Clears the value of `audioOut`. Subsequent reads from it will return its default value.
-  public mutating func clearAudioOut() {_storage._audioOut = nil}
-
-  /// *Output-only* Contains the action triggered by the query with the
-  /// appropriate payloads and semantic parsing.
-  public var deviceAction: Google_Assistant_Embedded_V1alpha2_DeviceAction {
-    get {return _storage._deviceAction ?? Google_Assistant_Embedded_V1alpha2_DeviceAction()}
-    set {_uniqueStorage()._deviceAction = newValue}
-  }
-  /// Returns true if `deviceAction` has been explicitly set.
-  public var hasDeviceAction: Bool {return _storage._deviceAction != nil}
-  /// Clears the value of `deviceAction`. Subsequent reads from it will return its default value.
-  public mutating func clearDeviceAction() {_storage._deviceAction = nil}
-
-  /// *Output-only* This repeated list contains zero or more speech recognition
-  /// results that correspond to consecutive portions of the audio currently
-  /// being processed, starting with the portion corresponding to the earliest
-  /// audio (and most stable portion) to the portion corresponding to the most
-  /// recent audio. The strings can be concatenated to view the full
-  /// in-progress response. When the speech recognition completes, this list
-  /// will contain one item with `stability` of `1.0`.
-  public var speechResults: [Google_Assistant_Embedded_V1alpha2_SpeechRecognitionResult] {
-    get {return _storage._speechResults}
-    set {_uniqueStorage()._speechResults = newValue}
-  }
-
-  /// *Output-only* Contains output related to the user's query.
-  public var dialogStateOut: Google_Assistant_Embedded_V1alpha2_DialogStateOut {
-    get {return _storage._dialogStateOut ?? Google_Assistant_Embedded_V1alpha2_DialogStateOut()}
-    set {_uniqueStorage()._dialogStateOut = newValue}
-  }
-  /// Returns true if `dialogStateOut` has been explicitly set.
-  public var hasDialogStateOut: Bool {return _storage._dialogStateOut != nil}
-  /// Clears the value of `dialogStateOut`. Subsequent reads from it will return its default value.
-  public mutating func clearDialogStateOut() {_storage._dialogStateOut = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  /// Indicates the type of event.
-  public enum EventType: SwiftProtobuf.Enum {
-    public typealias RawValue = Int
-
-    /// No event specified.
-    case unspecified // = 0
-
-    /// This event indicates that the server has detected the end of the user's
-    /// speech utterance and expects no additional speech. Therefore, the server
-    /// will not process additional audio (although it may subsequently return
-    /// additional results). The client should stop sending additional audio
-    /// data, half-close the gRPC connection, and wait for any additional results
-    /// until the server closes the gRPC connection.
-    case endOfUtterance // = 1
-    case UNRECOGNIZED(Int)
-
-    public init() {
-      self = .unspecified
-    }
-
-    public init?(rawValue: Int) {
-      switch rawValue {
-      case 0: self = .unspecified
-      case 1: self = .endOfUtterance
-      default: self = .UNRECOGNIZED(rawValue)
-      }
-    }
-
-    public var rawValue: Int {
-      switch self {
-      case .unspecified: return 0
-      case .endOfUtterance: return 1
-      case .UNRECOGNIZED(let i): return i
-      }
-    }
-
-  }
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularEnumField(value: &_storage._eventType)
-        case 2: try decoder.decodeRepeatedMessageField(value: &_storage._speechResults)
-        case 3: try decoder.decodeSingularMessageField(value: &_storage._audioOut)
-        case 5: try decoder.decodeSingularMessageField(value: &_storage._dialogStateOut)
-        case 6: try decoder.decodeSingularMessageField(value: &_storage._deviceAction)
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if _storage._eventType != .unspecified {
-        try visitor.visitSingularEnumField(value: _storage._eventType, fieldNumber: 1)
-      }
-      if !_storage._speechResults.isEmpty {
-        try visitor.visitRepeatedMessageField(value: _storage._speechResults, fieldNumber: 2)
-      }
-      if let v = _storage._audioOut {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-      }
-      if let v = _storage._dialogStateOut {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-      }
-      if let v = _storage._deviceAction {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-/// The estimated transcription of a phrase the user has spoken. This could be
-/// a single segment or the full guess of the user's spoken query.
-public struct Google_Assistant_Embedded_V1alpha2_SpeechRecognitionResult: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".SpeechRecognitionResult"
-
-  /// *Output-only* Transcript text representing the words that the user spoke.
-  public var transcript: String = String()
-
-  /// *Output-only* An estimate of the likelihood that the Assistant will not
-  /// change its guess about this result. Values range from 0.0 (completely
-  /// unstable) to 1.0 (completely stable and final). The default of 0.0 is a
-  /// sentinel value indicating `stability` was not set.
-  public var stability: Float = 0
+  /// When this field is set to true, the `debug_info` field in `AssistResponse`
+  /// may be populated. However it will significantly increase latency of
+  /// responses. Do not set this field true in production code.
+  public var returnDebugInfo: Bool = false
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.transcript)
-      case 2: try decoder.decodeSingularFloatField(value: &self.stability)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.transcript.isEmpty {
-      try visitor.visitSingularStringField(value: self.transcript, fieldNumber: 1)
-    }
-    if self.stability != 0 {
-      try visitor.visitSingularFloatField(value: self.stability, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-}
-
-/// *Required* Fields that identify the device to the Assistant.
-///
-/// See also:
-///
-/// *   [Register a Device - REST API](https://developers.google.com/assistant/sdk/reference/device-registration/register-device-manual)
-/// *   [Device Model and Instance Schemas](https://developers.google.com/assistant/sdk/reference/device-registration/model-and-instance-schemas)
-/// *   [Device Proto](https://developers.google.com/assistant/sdk/reference/rpc/google.assistant.devices.v1alpha2#device)
-public struct Google_Assistant_Embedded_V1alpha2_DeviceConfig: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".DeviceConfig"
-
-  /// *Required* Unique identifier for the device. The id length must be 128
-  /// characters or less. Example: DBCDW098234. This MUST match the device_id
-  /// returned from device registration. This device_id is used to match against
-  /// the user's registered devices to lookup the supported traits and
-  /// capabilities of this device. This information should not change across
-  /// device reboots. However, it should not be saved across
-  /// factory-default resets.
-  public var deviceID: String = String()
-
-  /// *Required* Unique identifier for the device model. The combination of
-  /// device_model_id and device_id must have been previously associated through
-  /// device registration.
-  public var deviceModelID: String = String()
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.deviceID)
-      case 3: try decoder.decodeSingularStringField(value: &self.deviceModelID)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.deviceID.isEmpty {
-      try visitor.visitSingularStringField(value: self.deviceID, fieldNumber: 1)
-    }
-    if !self.deviceModelID.isEmpty {
-      try visitor.visitSingularStringField(value: self.deviceModelID, fieldNumber: 3)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-}
-
-/// The response returned to the device if the user has triggered a Device
-/// Action. For example, a device which supports the query *Turn on the light*
-/// would receive a `DeviceAction` with a JSON payload containing the semantics
-/// of the request.
-public struct Google_Assistant_Embedded_V1alpha2_DeviceAction: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".DeviceAction"
-
-  /// JSON containing the device command response generated from the triggered
-  /// Device Action grammar. The format is given by the
-  /// `action.devices.EXECUTE` intent for a given
-  /// [trait](https://developers.google.com/assistant/sdk/reference/traits/).
-  public var deviceRequestJson: String = String()
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.deviceRequestJson)
-      default: break
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.deviceRequestJson.isEmpty {
-      try visitor.visitSingularStringField(value: self.deviceRequestJson, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 }
 
 /// There are three sources of locations. They are used with this precedence:
@@ -1018,8 +940,10 @@ public struct Google_Assistant_Embedded_V1alpha2_DeviceAction: SwiftProtobuf.Mes
 ///    device. This location is used if `DeviceLocation` is not specified.
 /// 3. Inferred location based on IP address. This is used only if neither of the
 ///    above are specified.
-public struct Google_Assistant_Embedded_V1alpha2_DeviceLocation: SwiftProtobuf.Message {
-  public static let protoMessageName: String = _protobuf_package + ".DeviceLocation"
+public struct Google_Assistant_Embedded_V1alpha2_DeviceLocation {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
   public var type: OneOf_Type? {
     get {return _storage._type}
@@ -1041,50 +965,16 @@ public struct Google_Assistant_Embedded_V1alpha2_DeviceLocation: SwiftProtobuf.M
     /// Latitude and longitude of device.
     case coordinates(Google_Type_LatLng)
 
+  #if !swift(>=4.1)
     public static func ==(lhs: Google_Assistant_Embedded_V1alpha2_DeviceLocation.OneOf_Type, rhs: Google_Assistant_Embedded_V1alpha2_DeviceLocation.OneOf_Type) -> Bool {
       switch (lhs, rhs) {
       case (.coordinates(let l), .coordinates(let r)): return l == r
       }
     }
+  #endif
   }
 
   public init() {}
-
-  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
-  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
-  /// initializers are defined in the SwiftProtobuf library. See the Message and
-  /// Message+*Additions` files.
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1:
-          var v: Google_Type_LatLng?
-          if let current = _storage._type {
-            try decoder.handleConflictingOneOf()
-            if case .coordinates(let m) = current {v = m}
-          }
-          try decoder.decodeSingularMessageField(value: &v)
-          if let v = v {_storage._type = .coordinates(v)}
-        default: break
-        }
-      }
-    }
-  }
-
-  /// Used by the encoding methods of the SwiftProtobuf library, not generally
-  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
-  /// other serializer methods are defined in the SwiftProtobuf library. See the
-  /// `Message` and `Message+*Additions` files.
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if case .coordinates(let v)? = _storage._type {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 
   fileprivate var _storage = _StorageClass.defaultInstance
 }
@@ -1093,187 +983,8 @@ public struct Google_Assistant_Embedded_V1alpha2_DeviceLocation: SwiftProtobuf.M
 
 fileprivate let _protobuf_package = "google.assistant.embedded.v1alpha2"
 
-extension Google_Assistant_Embedded_V1alpha2_AssistConfig: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "audio_in_config"),
-    6: .standard(proto: "text_query"),
-    2: .standard(proto: "audio_out_config"),
-    3: .standard(proto: "dialog_state_in"),
-    4: .standard(proto: "device_config"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _type: Google_Assistant_Embedded_V1alpha2_AssistConfig.OneOf_Type?
-    var _audioOutConfig: Google_Assistant_Embedded_V1alpha2_AudioOutConfig? = nil
-    var _dialogStateIn: Google_Assistant_Embedded_V1alpha2_DialogStateIn? = nil
-    var _deviceConfig: Google_Assistant_Embedded_V1alpha2_DeviceConfig? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _type = source._type
-      _audioOutConfig = source._audioOutConfig
-      _dialogStateIn = source._dialogStateIn
-      _deviceConfig = source._deviceConfig
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
-  public func _protobuf_generated_isEqualTo(other: Google_Assistant_Embedded_V1alpha2_AssistConfig) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_storage, other_storage) in
-        if _storage._type != other_storage._type {return false}
-        if _storage._audioOutConfig != other_storage._audioOutConfig {return false}
-        if _storage._dialogStateIn != other_storage._dialogStateIn {return false}
-        if _storage._deviceConfig != other_storage._deviceConfig {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Google_Assistant_Embedded_V1alpha2_AudioInConfig: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "encoding"),
-    2: .standard(proto: "sample_rate_hertz"),
-  ]
-
-  public func _protobuf_generated_isEqualTo(other: Google_Assistant_Embedded_V1alpha2_AudioInConfig) -> Bool {
-    if self.encoding != other.encoding {return false}
-    if self.sampleRateHertz != other.sampleRateHertz {return false}
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Google_Assistant_Embedded_V1alpha2_AudioInConfig.Encoding: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "ENCODING_UNSPECIFIED"),
-    1: .same(proto: "LINEAR16"),
-    2: .same(proto: "FLAC"),
-  ]
-}
-
-extension Google_Assistant_Embedded_V1alpha2_AudioOutConfig: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "encoding"),
-    2: .standard(proto: "sample_rate_hertz"),
-    3: .standard(proto: "volume_percentage"),
-  ]
-
-  public func _protobuf_generated_isEqualTo(other: Google_Assistant_Embedded_V1alpha2_AudioOutConfig) -> Bool {
-    if self.encoding != other.encoding {return false}
-    if self.sampleRateHertz != other.sampleRateHertz {return false}
-    if self.volumePercentage != other.volumePercentage {return false}
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Google_Assistant_Embedded_V1alpha2_AudioOutConfig.Encoding: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "ENCODING_UNSPECIFIED"),
-    1: .same(proto: "LINEAR16"),
-    2: .same(proto: "MP3"),
-    3: .same(proto: "OPUS_IN_OGG"),
-  ]
-}
-
-extension Google_Assistant_Embedded_V1alpha2_DialogStateIn: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "conversation_state"),
-    2: .standard(proto: "language_code"),
-    5: .standard(proto: "device_location"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _conversationState: Data = SwiftProtobuf.Internal.emptyData
-    var _languageCode: String = String()
-    var _deviceLocation: Google_Assistant_Embedded_V1alpha2_DeviceLocation? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _conversationState = source._conversationState
-      _languageCode = source._languageCode
-      _deviceLocation = source._deviceLocation
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
-  public func _protobuf_generated_isEqualTo(other: Google_Assistant_Embedded_V1alpha2_DialogStateIn) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_storage, other_storage) in
-        if _storage._conversationState != other_storage._conversationState {return false}
-        if _storage._languageCode != other_storage._languageCode {return false}
-        if _storage._deviceLocation != other_storage._deviceLocation {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Google_Assistant_Embedded_V1alpha2_AudioOut: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "audio_data"),
-  ]
-
-  public func _protobuf_generated_isEqualTo(other: Google_Assistant_Embedded_V1alpha2_AudioOut) -> Bool {
-    if self.audioData != other.audioData {return false}
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Google_Assistant_Embedded_V1alpha2_DialogStateOut: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "supplemental_display_text"),
-    2: .standard(proto: "conversation_state"),
-    3: .standard(proto: "microphone_mode"),
-    4: .standard(proto: "volume_percentage"),
-  ]
-
-  public func _protobuf_generated_isEqualTo(other: Google_Assistant_Embedded_V1alpha2_DialogStateOut) -> Bool {
-    if self.supplementalDisplayText != other.supplementalDisplayText {return false}
-    if self.conversationState != other.conversationState {return false}
-    if self.microphoneMode != other.microphoneMode {return false}
-    if self.volumePercentage != other.volumePercentage {return false}
-    if unknownFields != other.unknownFields {return false}
-    return true
-  }
-}
-
-extension Google_Assistant_Embedded_V1alpha2_DialogStateOut.MicrophoneMode: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "MICROPHONE_MODE_UNSPECIFIED"),
-    1: .same(proto: "CLOSE_MICROPHONE"),
-    2: .same(proto: "DIALOG_FOLLOW_ON"),
-  ]
-}
-
-extension Google_Assistant_Embedded_V1alpha2_AssistRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Google_Assistant_Embedded_V1alpha2_AssistRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".AssistRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "config"),
     2: .standard(proto: "audio_in"),
@@ -1298,9 +1009,48 @@ extension Google_Assistant_Embedded_V1alpha2_AssistRequest: SwiftProtobuf._Messa
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1:
+          var v: Google_Assistant_Embedded_V1alpha2_AssistConfig?
+          if let current = _storage._type {
+            try decoder.handleConflictingOneOf()
+            if case .config(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._type = .config(v)}
+        case 2:
+          if _storage._type != nil {try decoder.handleConflictingOneOf()}
+          var v: Data?
+          try decoder.decodeSingularBytesField(value: &v)
+          if let v = v {_storage._type = .audioIn(v)}
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      switch _storage._type {
+      case .config(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      case .audioIn(let v)?:
+        try visitor.visitSingularBytesField(value: v, fieldNumber: 2)
+      case nil: break
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Google_Assistant_Embedded_V1alpha2_AssistRequest) -> Bool {
     if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_storage, other_storage) in
+      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let other_storage = _args.1
         if _storage._type != other_storage._type {return false}
         return true
       }
@@ -1311,21 +1061,26 @@ extension Google_Assistant_Embedded_V1alpha2_AssistRequest: SwiftProtobuf._Messa
   }
 }
 
-extension Google_Assistant_Embedded_V1alpha2_AssistResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Google_Assistant_Embedded_V1alpha2_AssistResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".AssistResponse"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "event_type"),
     3: .standard(proto: "audio_out"),
+    4: .standard(proto: "screen_out"),
     6: .standard(proto: "device_action"),
     2: .standard(proto: "speech_results"),
     5: .standard(proto: "dialog_state_out"),
+    8: .standard(proto: "debug_info"),
   ]
 
   fileprivate class _StorageClass {
     var _eventType: Google_Assistant_Embedded_V1alpha2_AssistResponse.EventType = .unspecified
     var _audioOut: Google_Assistant_Embedded_V1alpha2_AudioOut? = nil
+    var _screenOut: Google_Assistant_Embedded_V1alpha2_ScreenOut? = nil
     var _deviceAction: Google_Assistant_Embedded_V1alpha2_DeviceAction? = nil
     var _speechResults: [Google_Assistant_Embedded_V1alpha2_SpeechRecognitionResult] = []
     var _dialogStateOut: Google_Assistant_Embedded_V1alpha2_DialogStateOut? = nil
+    var _debugInfo: Google_Assistant_Embedded_V1alpha2_DebugInfo? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1334,9 +1089,11 @@ extension Google_Assistant_Embedded_V1alpha2_AssistResponse: SwiftProtobuf._Mess
     init(copying source: _StorageClass) {
       _eventType = source._eventType
       _audioOut = source._audioOut
+      _screenOut = source._screenOut
       _deviceAction = source._deviceAction
       _speechResults = source._speechResults
       _dialogStateOut = source._dialogStateOut
+      _debugInfo = source._debugInfo
     }
   }
 
@@ -1347,14 +1104,63 @@ extension Google_Assistant_Embedded_V1alpha2_AssistResponse: SwiftProtobuf._Mess
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularEnumField(value: &_storage._eventType)
+        case 2: try decoder.decodeRepeatedMessageField(value: &_storage._speechResults)
+        case 3: try decoder.decodeSingularMessageField(value: &_storage._audioOut)
+        case 4: try decoder.decodeSingularMessageField(value: &_storage._screenOut)
+        case 5: try decoder.decodeSingularMessageField(value: &_storage._dialogStateOut)
+        case 6: try decoder.decodeSingularMessageField(value: &_storage._deviceAction)
+        case 8: try decoder.decodeSingularMessageField(value: &_storage._debugInfo)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if _storage._eventType != .unspecified {
+        try visitor.visitSingularEnumField(value: _storage._eventType, fieldNumber: 1)
+      }
+      if !_storage._speechResults.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._speechResults, fieldNumber: 2)
+      }
+      if let v = _storage._audioOut {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      }
+      if let v = _storage._screenOut {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+      }
+      if let v = _storage._dialogStateOut {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+      }
+      if let v = _storage._deviceAction {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+      }
+      if let v = _storage._debugInfo {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Google_Assistant_Embedded_V1alpha2_AssistResponse) -> Bool {
     if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_storage, other_storage) in
+      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let other_storage = _args.1
         if _storage._eventType != other_storage._eventType {return false}
         if _storage._audioOut != other_storage._audioOut {return false}
+        if _storage._screenOut != other_storage._screenOut {return false}
         if _storage._deviceAction != other_storage._deviceAction {return false}
         if _storage._speechResults != other_storage._speechResults {return false}
         if _storage._dialogStateOut != other_storage._dialogStateOut {return false}
+        if _storage._debugInfo != other_storage._debugInfo {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -1371,25 +1177,393 @@ extension Google_Assistant_Embedded_V1alpha2_AssistResponse.EventType: SwiftProt
   ]
 }
 
-extension Google_Assistant_Embedded_V1alpha2_SpeechRecognitionResult: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Google_Assistant_Embedded_V1alpha2_DebugInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".DebugInfo"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "transcript"),
-    2: .same(proto: "stability"),
+    1: .standard(proto: "aog_agent_to_assistant_json"),
   ]
 
-  public func _protobuf_generated_isEqualTo(other: Google_Assistant_Embedded_V1alpha2_SpeechRecognitionResult) -> Bool {
-    if self.transcript != other.transcript {return false}
-    if self.stability != other.stability {return false}
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.aogAgentToAssistantJson)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.aogAgentToAssistantJson.isEmpty {
+      try visitor.visitSingularStringField(value: self.aogAgentToAssistantJson, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Google_Assistant_Embedded_V1alpha2_DebugInfo) -> Bool {
+    if self.aogAgentToAssistantJson != other.aogAgentToAssistantJson {return false}
     if unknownFields != other.unknownFields {return false}
     return true
   }
 }
 
-extension Google_Assistant_Embedded_V1alpha2_DeviceConfig: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Google_Assistant_Embedded_V1alpha2_AssistConfig: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".AssistConfig"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "audio_in_config"),
+    6: .standard(proto: "text_query"),
+    2: .standard(proto: "audio_out_config"),
+    8: .standard(proto: "screen_out_config"),
+    3: .standard(proto: "dialog_state_in"),
+    4: .standard(proto: "device_config"),
+    5: .standard(proto: "debug_config"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _type: Google_Assistant_Embedded_V1alpha2_AssistConfig.OneOf_Type?
+    var _audioOutConfig: Google_Assistant_Embedded_V1alpha2_AudioOutConfig? = nil
+    var _screenOutConfig: Google_Assistant_Embedded_V1alpha2_ScreenOutConfig? = nil
+    var _dialogStateIn: Google_Assistant_Embedded_V1alpha2_DialogStateIn? = nil
+    var _deviceConfig: Google_Assistant_Embedded_V1alpha2_DeviceConfig? = nil
+    var _debugConfig: Google_Assistant_Embedded_V1alpha2_DebugConfig? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _type = source._type
+      _audioOutConfig = source._audioOutConfig
+      _screenOutConfig = source._screenOutConfig
+      _dialogStateIn = source._dialogStateIn
+      _deviceConfig = source._deviceConfig
+      _debugConfig = source._debugConfig
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1:
+          var v: Google_Assistant_Embedded_V1alpha2_AudioInConfig?
+          if let current = _storage._type {
+            try decoder.handleConflictingOneOf()
+            if case .audioInConfig(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._type = .audioInConfig(v)}
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._audioOutConfig)
+        case 3: try decoder.decodeSingularMessageField(value: &_storage._dialogStateIn)
+        case 4: try decoder.decodeSingularMessageField(value: &_storage._deviceConfig)
+        case 5: try decoder.decodeSingularMessageField(value: &_storage._debugConfig)
+        case 6:
+          if _storage._type != nil {try decoder.handleConflictingOneOf()}
+          var v: String?
+          try decoder.decodeSingularStringField(value: &v)
+          if let v = v {_storage._type = .textQuery(v)}
+        case 8: try decoder.decodeSingularMessageField(value: &_storage._screenOutConfig)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if case .audioInConfig(let v)? = _storage._type {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if let v = _storage._audioOutConfig {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+      if let v = _storage._dialogStateIn {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      }
+      if let v = _storage._deviceConfig {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+      }
+      if let v = _storage._debugConfig {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+      }
+      if case .textQuery(let v)? = _storage._type {
+        try visitor.visitSingularStringField(value: v, fieldNumber: 6)
+      }
+      if let v = _storage._screenOutConfig {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Google_Assistant_Embedded_V1alpha2_AssistConfig) -> Bool {
+    if _storage !== other._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let other_storage = _args.1
+        if _storage._type != other_storage._type {return false}
+        if _storage._audioOutConfig != other_storage._audioOutConfig {return false}
+        if _storage._screenOutConfig != other_storage._screenOutConfig {return false}
+        if _storage._dialogStateIn != other_storage._dialogStateIn {return false}
+        if _storage._deviceConfig != other_storage._deviceConfig {return false}
+        if _storage._debugConfig != other_storage._debugConfig {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Google_Assistant_Embedded_V1alpha2_AudioInConfig: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".AudioInConfig"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "encoding"),
+    2: .standard(proto: "sample_rate_hertz"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularEnumField(value: &self.encoding)
+      case 2: try decoder.decodeSingularInt32Field(value: &self.sampleRateHertz)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.encoding != .unspecified {
+      try visitor.visitSingularEnumField(value: self.encoding, fieldNumber: 1)
+    }
+    if self.sampleRateHertz != 0 {
+      try visitor.visitSingularInt32Field(value: self.sampleRateHertz, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Google_Assistant_Embedded_V1alpha2_AudioInConfig) -> Bool {
+    if self.encoding != other.encoding {return false}
+    if self.sampleRateHertz != other.sampleRateHertz {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Google_Assistant_Embedded_V1alpha2_AudioInConfig.Encoding: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "ENCODING_UNSPECIFIED"),
+    1: .same(proto: "LINEAR16"),
+    2: .same(proto: "FLAC"),
+  ]
+}
+
+extension Google_Assistant_Embedded_V1alpha2_AudioOutConfig: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".AudioOutConfig"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "encoding"),
+    2: .standard(proto: "sample_rate_hertz"),
+    3: .standard(proto: "volume_percentage"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularEnumField(value: &self.encoding)
+      case 2: try decoder.decodeSingularInt32Field(value: &self.sampleRateHertz)
+      case 3: try decoder.decodeSingularInt32Field(value: &self.volumePercentage)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.encoding != .unspecified {
+      try visitor.visitSingularEnumField(value: self.encoding, fieldNumber: 1)
+    }
+    if self.sampleRateHertz != 0 {
+      try visitor.visitSingularInt32Field(value: self.sampleRateHertz, fieldNumber: 2)
+    }
+    if self.volumePercentage != 0 {
+      try visitor.visitSingularInt32Field(value: self.volumePercentage, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Google_Assistant_Embedded_V1alpha2_AudioOutConfig) -> Bool {
+    if self.encoding != other.encoding {return false}
+    if self.sampleRateHertz != other.sampleRateHertz {return false}
+    if self.volumePercentage != other.volumePercentage {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Google_Assistant_Embedded_V1alpha2_AudioOutConfig.Encoding: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "ENCODING_UNSPECIFIED"),
+    1: .same(proto: "LINEAR16"),
+    2: .same(proto: "MP3"),
+    3: .same(proto: "OPUS_IN_OGG"),
+  ]
+}
+
+extension Google_Assistant_Embedded_V1alpha2_ScreenOutConfig: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ScreenOutConfig"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "screen_mode"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularEnumField(value: &self.screenMode)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.screenMode != .unspecified {
+      try visitor.visitSingularEnumField(value: self.screenMode, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Google_Assistant_Embedded_V1alpha2_ScreenOutConfig) -> Bool {
+    if self.screenMode != other.screenMode {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Google_Assistant_Embedded_V1alpha2_ScreenOutConfig.ScreenMode: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "SCREEN_MODE_UNSPECIFIED"),
+    1: .same(proto: "OFF"),
+    3: .same(proto: "PLAYING"),
+  ]
+}
+
+extension Google_Assistant_Embedded_V1alpha2_DialogStateIn: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".DialogStateIn"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "conversation_state"),
+    2: .standard(proto: "language_code"),
+    5: .standard(proto: "device_location"),
+    7: .standard(proto: "is_new_conversation"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _conversationState: Data = SwiftProtobuf.Internal.emptyData
+    var _languageCode: String = String()
+    var _deviceLocation: Google_Assistant_Embedded_V1alpha2_DeviceLocation? = nil
+    var _isNewConversation: Bool = false
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _conversationState = source._conversationState
+      _languageCode = source._languageCode
+      _deviceLocation = source._deviceLocation
+      _isNewConversation = source._isNewConversation
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularBytesField(value: &_storage._conversationState)
+        case 2: try decoder.decodeSingularStringField(value: &_storage._languageCode)
+        case 5: try decoder.decodeSingularMessageField(value: &_storage._deviceLocation)
+        case 7: try decoder.decodeSingularBoolField(value: &_storage._isNewConversation)
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if !_storage._conversationState.isEmpty {
+        try visitor.visitSingularBytesField(value: _storage._conversationState, fieldNumber: 1)
+      }
+      if !_storage._languageCode.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._languageCode, fieldNumber: 2)
+      }
+      if let v = _storage._deviceLocation {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+      }
+      if _storage._isNewConversation != false {
+        try visitor.visitSingularBoolField(value: _storage._isNewConversation, fieldNumber: 7)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Google_Assistant_Embedded_V1alpha2_DialogStateIn) -> Bool {
+    if _storage !== other._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let other_storage = _args.1
+        if _storage._conversationState != other_storage._conversationState {return false}
+        if _storage._languageCode != other_storage._languageCode {return false}
+        if _storage._deviceLocation != other_storage._deviceLocation {return false}
+        if _storage._isNewConversation != other_storage._isNewConversation {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Google_Assistant_Embedded_V1alpha2_DeviceConfig: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".DeviceConfig"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "device_id"),
     3: .standard(proto: "device_model_id"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.deviceID)
+      case 3: try decoder.decodeSingularStringField(value: &self.deviceModelID)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.deviceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.deviceID, fieldNumber: 1)
+    }
+    if !self.deviceModelID.isEmpty {
+      try visitor.visitSingularStringField(value: self.deviceModelID, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Google_Assistant_Embedded_V1alpha2_DeviceConfig) -> Bool {
     if self.deviceID != other.deviceID {return false}
@@ -1399,10 +1573,98 @@ extension Google_Assistant_Embedded_V1alpha2_DeviceConfig: SwiftProtobuf._Messag
   }
 }
 
-extension Google_Assistant_Embedded_V1alpha2_DeviceAction: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Google_Assistant_Embedded_V1alpha2_AudioOut: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".AudioOut"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "audio_data"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularBytesField(value: &self.audioData)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.audioData.isEmpty {
+      try visitor.visitSingularBytesField(value: self.audioData, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Google_Assistant_Embedded_V1alpha2_AudioOut) -> Bool {
+    if self.audioData != other.audioData {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Google_Assistant_Embedded_V1alpha2_ScreenOut: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ScreenOut"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "format"),
+    2: .same(proto: "data"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularEnumField(value: &self.format)
+      case 2: try decoder.decodeSingularBytesField(value: &self.data)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.format != .unspecified {
+      try visitor.visitSingularEnumField(value: self.format, fieldNumber: 1)
+    }
+    if !self.data.isEmpty {
+      try visitor.visitSingularBytesField(value: self.data, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Google_Assistant_Embedded_V1alpha2_ScreenOut) -> Bool {
+    if self.format != other.format {return false}
+    if self.data != other.data {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Google_Assistant_Embedded_V1alpha2_ScreenOut.Format: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "FORMAT_UNSPECIFIED"),
+    1: .same(proto: "HTML"),
+  ]
+}
+
+extension Google_Assistant_Embedded_V1alpha2_DeviceAction: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".DeviceAction"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "device_request_json"),
   ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.deviceRequestJson)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.deviceRequestJson.isEmpty {
+      try visitor.visitSingularStringField(value: self.deviceRequestJson, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
 
   public func _protobuf_generated_isEqualTo(other: Google_Assistant_Embedded_V1alpha2_DeviceAction) -> Bool {
     if self.deviceRequestJson != other.deviceRequestJson {return false}
@@ -1411,7 +1673,127 @@ extension Google_Assistant_Embedded_V1alpha2_DeviceAction: SwiftProtobuf._Messag
   }
 }
 
-extension Google_Assistant_Embedded_V1alpha2_DeviceLocation: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Google_Assistant_Embedded_V1alpha2_SpeechRecognitionResult: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".SpeechRecognitionResult"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "transcript"),
+    2: .same(proto: "stability"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.transcript)
+      case 2: try decoder.decodeSingularFloatField(value: &self.stability)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.transcript.isEmpty {
+      try visitor.visitSingularStringField(value: self.transcript, fieldNumber: 1)
+    }
+    if self.stability != 0 {
+      try visitor.visitSingularFloatField(value: self.stability, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Google_Assistant_Embedded_V1alpha2_SpeechRecognitionResult) -> Bool {
+    if self.transcript != other.transcript {return false}
+    if self.stability != other.stability {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Google_Assistant_Embedded_V1alpha2_DialogStateOut: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".DialogStateOut"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "supplemental_display_text"),
+    2: .standard(proto: "conversation_state"),
+    3: .standard(proto: "microphone_mode"),
+    4: .standard(proto: "volume_percentage"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.supplementalDisplayText)
+      case 2: try decoder.decodeSingularBytesField(value: &self.conversationState)
+      case 3: try decoder.decodeSingularEnumField(value: &self.microphoneMode)
+      case 4: try decoder.decodeSingularInt32Field(value: &self.volumePercentage)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.supplementalDisplayText.isEmpty {
+      try visitor.visitSingularStringField(value: self.supplementalDisplayText, fieldNumber: 1)
+    }
+    if !self.conversationState.isEmpty {
+      try visitor.visitSingularBytesField(value: self.conversationState, fieldNumber: 2)
+    }
+    if self.microphoneMode != .unspecified {
+      try visitor.visitSingularEnumField(value: self.microphoneMode, fieldNumber: 3)
+    }
+    if self.volumePercentage != 0 {
+      try visitor.visitSingularInt32Field(value: self.volumePercentage, fieldNumber: 4)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Google_Assistant_Embedded_V1alpha2_DialogStateOut) -> Bool {
+    if self.supplementalDisplayText != other.supplementalDisplayText {return false}
+    if self.conversationState != other.conversationState {return false}
+    if self.microphoneMode != other.microphoneMode {return false}
+    if self.volumePercentage != other.volumePercentage {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Google_Assistant_Embedded_V1alpha2_DialogStateOut.MicrophoneMode: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "MICROPHONE_MODE_UNSPECIFIED"),
+    1: .same(proto: "CLOSE_MICROPHONE"),
+    2: .same(proto: "DIALOG_FOLLOW_ON"),
+  ]
+}
+
+extension Google_Assistant_Embedded_V1alpha2_DebugConfig: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".DebugConfig"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    6: .standard(proto: "return_debug_info"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 6: try decoder.decodeSingularBoolField(value: &self.returnDebugInfo)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.returnDebugInfo != false {
+      try visitor.visitSingularBoolField(value: self.returnDebugInfo, fieldNumber: 6)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public func _protobuf_generated_isEqualTo(other: Google_Assistant_Embedded_V1alpha2_DebugConfig) -> Bool {
+    if self.returnDebugInfo != other.returnDebugInfo {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Google_Assistant_Embedded_V1alpha2_DeviceLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".DeviceLocation"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "coordinates"),
   ]
@@ -1435,9 +1817,39 @@ extension Google_Assistant_Embedded_V1alpha2_DeviceLocation: SwiftProtobuf._Mess
     return _storage
   }
 
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1:
+          var v: Google_Type_LatLng?
+          if let current = _storage._type {
+            try decoder.handleConflictingOneOf()
+            if case .coordinates(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._type = .coordinates(v)}
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if case .coordinates(let v)? = _storage._type {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
   public func _protobuf_generated_isEqualTo(other: Google_Assistant_Embedded_V1alpha2_DeviceLocation) -> Bool {
     if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_storage, other_storage) in
+      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let other_storage = _args.1
         if _storage._type != other_storage._type {return false}
         return true
       }

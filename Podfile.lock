@@ -1,33 +1,69 @@
 PODS:
-  - Alamofire (4.5.1)
-  - AudioKit (4.0.4):
-    - AudioKit/UI (= 4.0.4)
-  - AudioKit/UI (4.0.4)
-  - KeyHolder (2.0.1):
-    - Magnet (~> 2.0)
+  - Alamofire (4.7.3)
+  - AudioKit (4.3):
+    - AudioKit/UI (= 4.3)
+  - AudioKit/UI (4.3)
+  - BoringSSL (10.0.5):
+    - BoringSSL/Implementation (= 10.0.5)
+    - BoringSSL/Interface (= 10.0.5)
+  - BoringSSL/Implementation (10.0.5):
+    - BoringSSL/Interface (= 10.0.5)
+  - BoringSSL/Interface (10.0.5)
+  - gRPC-Core (1.11.0):
+    - gRPC-Core/Implementation (= 1.11.0)
+    - gRPC-Core/Interface (= 1.11.0)
+  - gRPC-Core/Implementation (1.11.0):
+    - BoringSSL (~> 10.0)
+    - gRPC-Core/Interface (= 1.11.0)
+    - nanopb (~> 0.3)
+  - gRPC-Core/Interface (1.11.0)
   - Log (1.0)
-  - Magnet (2.0.1)
-  - SwiftProtobuf (1.0.1)
-  - SwiftyJSON (4.0.0)
+  - nanopb (0.3.8):
+    - nanopb/decode (= 0.3.8)
+    - nanopb/encode (= 0.3.8)
+  - nanopb/decode (0.3.8)
+  - nanopb/encode (0.3.8)
+  - SwiftGRPC (0.4.3):
+    - BoringSSL (~> 10.0)
+    - gRPC-Core (~> 1.11.0)
+    - SwiftProtobuf (~> 1.0.3)
+  - SwiftProtobuf (1.0.3)
+  - SwiftyJSON (4.1.0)
+  - SwiftyUserDefaults (4.0.0-alpha.1)
 
 DEPENDENCIES:
-  - Alamofire (~> 4.5)
+  - Alamofire (~> 4.7)
   - AudioKit (~> 4.0)
-  - KeyHolder (~> 2.0)
-  - Log
-  - Magnet (~> 2.0)
-  - SwiftProtobuf (~> 1.0)
+  - Log (~> 1.0)
+  - SwiftGRPC (~> 0.4.3)
   - SwiftyJSON (~> 4.0)
+  - SwiftyUserDefaults (= 4.0.0-alpha.1)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - AudioKit
+    - BoringSSL
+    - gRPC-Core
+    - Log
+    - nanopb
+    - SwiftGRPC
+    - SwiftProtobuf
+    - SwiftyJSON
+    - SwiftyUserDefaults
 
 SPEC CHECKSUMS:
-  Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
-  AudioKit: 647145c0462dc9dc8a8582998cd6db5f2e1ea848
-  KeyHolder: 33180865d66f40088758915f30ba7017e96ca264
+  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
+  AudioKit: 95bd2427c1afa7954d71b0c6195a09b87b7448bc
+  BoringSSL: cf3f1793eb6e3c445c4d150456341f149c268a35
+  gRPC-Core: 164639cd8ae18ca8b65477fafb2efbaecf4f181a
   Log: 5e368c9528db07517d18d2d04ff5fe2b6f5a1e21
-  Magnet: d4a1767953d02c2141f5b572ea483244fe0878d5
-  SwiftProtobuf: 78b2f4f3b282cad8cedf855358ec5c1921aaf633
-  SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
+  nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  SwiftGRPC: e582ede5791867075513a3757faa41be215b7e5a
+  SwiftProtobuf: 5ccc0e4054e37c75800e5744acb2aa80bb72b39c
+  SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
+  SwiftyUserDefaults: cebe0ff9472f52699772a514b6f7155861d8069b
 
-PODFILE CHECKSUM: 0a9d0665f25bf57bee65c5de5ff1927e07abb3b6
+PODFILE CHECKSUM: b1600d0a96d772eaff7f466d729d702b35c3f2c7
 
-COCOAPODS: 1.4.0.beta.2
+COCOAPODS: 1.5.3

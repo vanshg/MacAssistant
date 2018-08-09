@@ -2,150 +2,69 @@
 //  AppDelegate.swift
 //  MacAssistant
 //
-//  Created by Vansh on 4/27/17.
-//  Copyright © 2017 vanshgandhi. All rights reserved.
+//  Created by Vansh Gandhi on 7/25/18.
+//  Copyright © 2018 Vansh Gandhi. All rights reserved.
 //
 
 import Cocoa
-import gRPC
-import Magnet
-import AVFoundation
+import AudioKit
+import SwiftGRPC
 import Log
+import AudioKit
+import SwiftyUserDefaults
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate, NSSpeechRecognizerDelegate {
-    
-    let Log = Logger()
-    
-    lazy var loadingViewController = NSViewController(nibName: NSNib.Name(rawValue: "LoadingView"), bundle: nil)
-    lazy var assistantViewController = AssistantViewController(nibName: NSNib.Name(rawValue: "AssistantView"), bundle: nil)
-    lazy var loginViewController = LoginViewController(nibName: NSNib.Name(rawValue: "LoginView"), bundle: nil)
-    
-    let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
-    let popover = NSPopover()
-    let userDefaults = UserDefaults.standard
-    let authenticator = Authenticator()
-    
-    var isLoggedIn: Bool {
-        get { return userDefaults.bool(forKey: Constants.LOGGED_IN_KEY) }
-        set { userDefaults.set(newValue, forKey: Constants.LOGGED_IN_KEY) }
-    }
-    
-    internal func applicationWillFinishLaunching(_ notification: Notification) {
-        popover.contentViewController = loadingViewController
-        userDefaults.addObserver(self, forKeyPath: Constants.LOGGED_IN_KEY, options: NSKeyValueObservingOptions.new, context: nil)
-        Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { _ in
-            self.authenticator.refreshTokenIfNecessary() { self.setAppropriateViewController(forLoginStatus: $0) }
-        }.fire()
-    }
+class AppDelegate: NSObject, NSApplicationDelegate, LoginSuccessDelegate {
 
-    internal func applicationDidFinishLaunching(_ aNotification: Notification) {
-        let icon = #imageLiteral(resourceName: "statusIcon")
-        icon.isTemplate = true
-        statusItem.image = icon
-        statusItem.action = #selector(statusIconClicked)
-        registerHotkey()
-        setupHotword(false) // Hotword activation
-    }
+    let Log = Logger()
+    let assistant = Assistant()
+    var audioEngine: AudioEngine!
+    var streamCall: AssistCall!
+    let authenticator = Authenticator.instance
     
-    func registerHotkey() {
-        Log.info("Registering hotkey")
-        guard let keyCombo = KeyCombo(doubledCocoaModifiers: .command) else { return }
-        let hotKey = HotKey(identifier: "CommandDoubleTapped",
-                             keyCombo: keyCombo,
-                             target: self,
-                             action: #selector(AppDelegate.hotkeyPressed))
-         hotKey.register() 
-    }
-    
-    func setupHotword(_ enable: Bool = true) {
-        if enable {
-            let hotwordDetector = NSSpeechRecognizer()
-            hotwordDetector?.commands = ["okay mac"]
-            hotwordDetector?.blocksOtherRecognizers = true
-            hotwordDetector?.listensInForegroundOnly = false
-            hotwordDetector?.delegate = self
-            hotwordDetector?.startListening()
-        }
-    }
-    
-    @objc func hotkeyPressed(sender: AnyObject?) {
-        Log.info("Hotkey pressed")
-        if !popover.isShown {
-            showPopover(sender: sender)
-            if isLoggedIn {
-                (popover.contentViewController as? AssistantViewController)?.startListening()
-            }
-        } else if let controller = popover.contentViewController as? AssistantViewController {
-            if isLoggedIn {
-                if controller.isListening {
-                    controller.stopListening()
-                } else {
-                    controller.startListening()
-                }
-            }
-        }
-    }
-    
-    func speechRecognizer(_ sender: NSSpeechRecognizer, didRecognizeCommand command: String) {
-        if !popover.isShown {
-            showPopover(sender: sender)
-        }
-        if isLoggedIn, let controller = popover.contentViewController as? AssistantViewController {
-            if !controller.isListening {
-                controller.startListening()
-            }
-        }
-    }
-    
-    @objc func statusIconClicked(sender: AnyObject?) {
-        togglePopover(sender: sender)
-    }
-    
-    func showPopover(sender: AnyObject?) {
-        Log.info("Showing popover")
-        if let button = statusItem.button {
-            popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
-        }
-    }
-    
-    func closePopover(sender: AnyObject?) {
-        Log.info("Closing popover")
-        if let controller = popover.contentViewController as? AssistantViewController {
-            controller.stopListening()
-        }
-        popover.performClose(sender)
-    }
-    
-    func togglePopover(sender: AnyObject?) {
-        if popover.isShown { closePopover(sender: sender) }
-        else { showPopover(sender: sender) }
+    let sb = NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"), bundle: nil)
+    let assitantWindowControllerID = NSStoryboard.SceneIdentifier(rawValue: "AssistantWindowControllerID")
+    let loginWindowControllerID = NSStoryboard.SceneIdentifier(rawValue: "LoginWindowControllerID")
+    let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
+
+
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
+        statusItem.image = #imageLiteral(resourceName: "statusIcon")
+        statusItem.action = #selector(showAppropriateWindow)
+        showAppropriateWindow()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
-        HotKeyCenter.shared.unregisterAll()
+        
     }
-
-    // Observing the loggedIn key value pair
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if let loggedIn = change?[.newKey] as? Bool {
-            setAppropriateViewController(forLoginStatus: loggedIn)
-            if !loggedIn {
-                logout()
-            }
+    
+    @objc func showAppropriateWindow() {
+        if Defaults[.isLoggedIn] {
+            showAssistant()
+        } else {
+            showLogin()
         }
     }
     
-    func setAppropriateViewController(forLoginStatus loggedIn: Bool) {
-        popover.contentViewController = loggedIn ?
-            assistantViewController :
-            loginViewController
+    func showAssistant() {
+        let awc = sb.instantiateController(withIdentifier: assitantWindowControllerID) as! AssistantWindowController
+        awc.showWindow(nil)
+    }
+    
+    func showLogin() {
+        let lwc = sb.instantiateController(withIdentifier: loginWindowControllerID) as? LoginWindowController
+        let lvc = lwc?.contentViewController as? LoginViewController
+        lvc?.loginSuccessDelegate = self
+        lwc?.showWindow(nil)
+    }
+    
+    func onLoginSuccess() {
+        Log.debug("login success")
+        showAppropriateWindow()
     }
     
     func logout() {
         self.Log.info("Logging out")
-        userDefaults.removeObject(forKey: Constants.AUTH_TOKEN_KEY)
-        userDefaults.removeObject(forKey: Constants.REFRESH_TOKEN_KEY)
-        userDefaults.removeObject(forKey: Constants.EXPIRES_IN_KEY)
+        authenticator.logout()
     }
 }

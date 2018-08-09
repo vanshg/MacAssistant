@@ -2,51 +2,59 @@
 //  LoginViewController.swift
 //  MacAssistant
 //
-//  Created by Vansh on 4/27/17.
-//  Copyright © 2017 vanshgandhi. All rights reserved.
+//  Created by Vansh Gandhi on 8/2/18.
+//  Copyright © 2018 Vansh Gandhi. All rights reserved.
 //
 
 import Cocoa
 import WebKit
+import Log
+import SwiftyUserDefaults
 
 class LoginViewController: NSViewController, WKNavigationDelegate {
 
     @IBOutlet weak var webView: WKWebView!
-    private let authenticator = Authenticator()
+    private let Log = Logger()
+    private let authenticator = Authenticator.instance
+    var loginSuccessDelegate: LoginSuccessDelegate?
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        loadLoginUrl()
         webView.navigationDelegate = self
-        // Do any additional setup after loading the view.
+        loadLoginUrl()
     }
 
-    override var representedObject: Any? {
-        didSet {
-        // Update the view, if already loaded.
-        }
-    }
-    
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         if let url = navigationAction.request.url?.absoluteString {
             if url.hasPrefix("http://localhost") { // TODO: Un-hardcode this
                 decisionHandler(.cancel)
                 if let index = url.index(of: "=") {
                     let code = String(url[url.index(index, offsetBy: 1)...])
-                    authenticator.authenticate(code: code)
+                    authenticator.authenticate(code: code) { err in
+                        if let err = err {
+                            self.Log.error("Error: \(err)")
+                        } else {
+                            self.loadNextScreen()
+                        }
+                    }
                 }
-                loadLoginUrl() // To reset the WebView if user later logs out
-                
-                // TODO: Completely dismiss this viewcontroller on authentication
-                
                 return
             }
+        } else {
+            Log.debug("invalid login url")
         }
         decisionHandler(.allow)
     }
     
     func loadLoginUrl() {
-        webView.load(URLRequest(url: URL(string: authenticator.loginUrl)!))
+        if let url = URL(string: authenticator.loginUrl) {
+            webView.load(URLRequest(url: url))
+        } else {
+            Log.debug("invalid loginUrl: \(authenticator.loginUrl)")
+        }
+    }
+    
+    func loadNextScreen() {
+        view.window?.close()
+        loginSuccessDelegate?.onLoginSuccess()
     }
 }
-

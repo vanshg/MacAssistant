@@ -17,3 +17,4 @@ xcuserdata/
 google_oauth*.json
 MacAssistant/swiftgrpc.log
 *.log
+.DS_Store

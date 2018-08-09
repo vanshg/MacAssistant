@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 
@@ -22,10 +22,10 @@
 
 - (void)start;
 - (void)stop;
-- (BOOL)isPlaying;
-- (BOOL)isSetUp;
+@property (readonly) BOOL isPlaying;
+@property (readonly) BOOL isSetUp;
 
-@property double rampTime;
+@property double rampDuration;
 
 -(AUImplementorValueProvider)getter;
 -(AUImplementorValueObserver)setter;
@@ -81,18 +81,18 @@
 }\
 
 #define standardSetup(str) \
-    self.rampTime = AKSettings.rampTime; \
+    self.rampDuration = AKSettings.rampDuration; \
     self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate \
-                                                                        channels:AKSettings.numberOfChannels]; \
+                                                                        channels:AKSettings.channelCount]; \
     _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate); \
     _inputBus.init(self.defaultFormat, 8); \
     self.inputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self \
                                                                 busType:AUAudioUnitBusTypeInput \
                                                                  busses:@[_inputBus.bus]];
 #define standardGeneratorSetup(str) \
-    self.rampTime = AKSettings.rampTime; \
+    self.rampDuration = AKSettings.rampDuration; \
     self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate \
-                                                                        channels:AKSettings.numberOfChannels]; \
+                                                                        channels:AKSettings.channelCount]; \
     _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate); \
     _outputBusBuffer.init(self.defaultFormat, 2); \
     self.outputBus = _outputBusBuffer.bus; \

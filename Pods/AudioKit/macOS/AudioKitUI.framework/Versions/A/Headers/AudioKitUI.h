@@ -2,8 +2,8 @@
 //  AudioKitUI.h
 //  AudioKitUI
 //
-//  Created by Stéphane Peter on 8/23/17.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Created by Stéphane Peter, revision history on GitHub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
