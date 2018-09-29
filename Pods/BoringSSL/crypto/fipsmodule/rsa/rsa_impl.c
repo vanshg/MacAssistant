@@ -862,7 +862,7 @@ static int mod_exp(BIGNUM *r0, const BIGNUM *I, RSA *rsa, BN_CTX *ctx) {
       !BN_mod_exp_mont_consttime(r0, r1, dmp1, p, ctx, mont_p) ||
       // Compute r0 = r0 - m1 mod p. |p| is the larger prime, so |m1| is already
       // fully reduced mod |p|.
-      !bn_mod_sub_quick_ctx(r0, r0, m1, p, ctx) ||
+      !bn_mod_sub_consttime(r0, r0, m1, p, ctx) ||
       // r0 = r0 * iqmp mod p. We use Montgomery multiplication to compute this
       // in constant time. |inv_small_mod_large_mont| is in Montgomery form and
       // r0 is not, so the result is taken out of Montgomery form.
@@ -873,8 +873,8 @@ static int mod_exp(BIGNUM *r0, const BIGNUM *I, RSA *rsa, BN_CTX *ctx) {
       // so it is correct mod q. Finally, the result is bounded by [m1, n + m1),
       // and the result is at least |m1|, so this must be the unique answer in
       // [0, n).
-      !bn_mul_fixed(r0, r0, q, ctx) ||
-      !bn_uadd_fixed(r0, r0, m1) ||
+      !bn_mul_consttime(r0, r0, q, ctx) ||
+      !bn_uadd_consttime(r0, r0, m1) ||
       // The result should be bounded by |n|, but fixed-width operations may
       // bound the width slightly higher, so fix it.
       !bn_resize_words(r0, n->width)) {
@@ -924,25 +924,20 @@ const BN_ULONG kBoringSSLRSASqrtTwo[] = {
 };
 const size_t kBoringSSLRSASqrtTwoLen = OPENSSL_ARRAY_SIZE(kBoringSSLRSASqrtTwo);
 
-int rsa_greater_than_pow2(const BIGNUM *b, int n) {
-  if (BN_is_negative(b) || n == INT_MAX) {
-    return 0;
-  }
-
-  int b_bits = BN_num_bits(b);
-  return b_bits > n + 1 || (b_bits == n + 1 && !BN_is_pow2(b));
-}
-
 // generate_prime sets |out| to a prime with length |bits| such that |out|-1 is
 // relatively prime to |e|. If |p| is non-NULL, |out| will also not be close to
-// |p|.
+// |p|. |sqrt2| must be ⌊2^(bits-1)×√2⌋ (or a slightly overestimate for large
+// sizes), and |pow2_bits_100| must be 2^(bits-100).
 static int generate_prime(BIGNUM *out, int bits, const BIGNUM *e,
-                          const BIGNUM *p, const BIGNUM *sqrt2, BN_CTX *ctx,
+                          const BIGNUM *p, const BIGNUM *sqrt2,
+                          const BIGNUM *pow2_bits_100, BN_CTX *ctx,
                           BN_GENCB *cb) {
   if (bits < 128 || (bits % BN_BITS2) != 0) {
     OPENSSL_PUT_ERROR(RSA, ERR_R_INTERNAL_ERROR);
     return 0;
   }
+  assert(BN_is_pow2(pow2_bits_100));
+  assert(BN_is_bit_set(pow2_bits_100, bits - 100));
 
   // See FIPS 186-4 appendix B.3.3, steps 4 and 5. Note |bits| here is nlen/2.
 
@@ -973,11 +968,10 @@ static int generate_prime(BIGNUM *out, int bits, const BIGNUM *e,
 
     if (p != NULL) {
       // If |p| and |out| are too close, try again (step 5.4).
-      if (!BN_sub(tmp, out, p)) {
+      if (!bn_abs_sub_consttime(tmp, out, p, ctx)) {
         goto err;
       }
-      BN_set_negative(tmp, 0);
-      if (!rsa_greater_than_pow2(tmp, bits - 100)) {
+      if (BN_cmp(tmp, pow2_bits_100) <= 0) {
         continue;
       }
     }
@@ -993,21 +987,26 @@ static int generate_prime(BIGNUM *out, int bits, const BIGNUM *e,
       continue;
     }
 
-    // Check gcd(out-1, e) is one (steps 4.5 and 5.6).
-    if (!BN_sub(tmp, out, BN_value_one()) ||
-        !BN_gcd(tmp, tmp, e, ctx)) {
-      goto err;
-    }
-    if (BN_is_one(tmp)) {
-      // Test |out| for primality (steps 4.5.1 and 5.6.1).
-      int is_probable_prime;
-      if (!BN_primality_test(&is_probable_prime, out, BN_prime_checks, ctx, 1,
-                             cb)) {
+    // RSA key generation's bottleneck is discarding composites. If it fails
+    // trial division, do not bother computing a GCD or performing Rabin-Miller.
+    if (!bn_odd_number_is_obviously_composite(out)) {
+      // Check gcd(out-1, e) is one (steps 4.5 and 5.6).
+      int relatively_prime;
+      if (!BN_sub(tmp, out, BN_value_one()) ||
+          !bn_is_relatively_prime(&relatively_prime, tmp, e, ctx)) {
         goto err;
       }
-      if (is_probable_prime) {
-        ret = 1;
-        goto err;
+      if (relatively_prime) {
+        // Test |out| for primality (steps 4.5.1 and 5.6.1).
+        int is_probable_prime;
+        if (!BN_primality_test(&is_probable_prime, out, BN_prime_checks, ctx, 0,
+                               cb)) {
+          goto err;
+        }
+        if (is_probable_prime) {
+          ret = 1;
+          goto err;
+        }
       }
     }
 
@@ -1043,7 +1042,19 @@ int RSA_generate_key_ex(RSA *rsa, int bits, BIGNUM *e_value, BN_GENCB *cb) {
     return 0;
   }
 
+  // Reject excessively large public exponents. Windows CryptoAPI and Go don't
+  // support values larger than 32 bits, so match their limits for generating
+  // keys. (|check_modulus_and_exponent_sizes| uses a slightly more conservative
+  // value, but we don't need to support generating such keys.)
+  // https://github.com/golang/go/issues/3161
+  // https://msdn.microsoft.com/en-us/library/aa387685(VS.85).aspx
+  if (BN_num_bits(e_value) > 32) {
+    OPENSSL_PUT_ERROR(RSA, RSA_R_BAD_E_VALUE);
+    return 0;
+  }
+
   int ret = 0;
+  int prime_bits = bits / 2;
   BN_CTX *ctx = BN_CTX_new();
   if (ctx == NULL) {
     goto bn_err;
@@ -1052,10 +1063,13 @@ int RSA_generate_key_ex(RSA *rsa, int bits, BIGNUM *e_value, BN_GENCB *cb) {
   BIGNUM *totient = BN_CTX_get(ctx);
   BIGNUM *pm1 = BN_CTX_get(ctx);
   BIGNUM *qm1 = BN_CTX_get(ctx);
-  BIGNUM *gcd = BN_CTX_get(ctx);
   BIGNUM *sqrt2 = BN_CTX_get(ctx);
-  if (totient == NULL || pm1 == NULL || qm1 == NULL || gcd == NULL ||
-      sqrt2 == NULL) {
+  BIGNUM *pow2_prime_bits_100 = BN_CTX_get(ctx);
+  BIGNUM *pow2_prime_bits = BN_CTX_get(ctx);
+  if (totient == NULL || pm1 == NULL || qm1 == NULL || sqrt2 == NULL ||
+      pow2_prime_bits_100 == NULL || pow2_prime_bits == NULL ||
+      !BN_set_bit(pow2_prime_bits_100, prime_bits - 100) ||
+      !BN_set_bit(pow2_prime_bits, prime_bits)) {
     goto bn_err;
   }
 
@@ -1073,8 +1087,6 @@ int RSA_generate_key_ex(RSA *rsa, int bits, BIGNUM *e_value, BN_GENCB *cb) {
   if (!BN_copy(rsa->e, e_value)) {
     goto bn_err;
   }
-
-  int prime_bits = bits / 2;
 
   // Compute sqrt2 >= ⌊2^(prime_bits-1)×√2⌋.
   if (!bn_set_words(sqrt2, kBoringSSLRSASqrtTwo, kBoringSSLRSASqrtTwoLen)) {
@@ -1101,9 +1113,11 @@ int RSA_generate_key_ex(RSA *rsa, int bits, BIGNUM *e_value, BN_GENCB *cb) {
   do {
     // Generate p and q, each of size |prime_bits|, using the steps outlined in
     // appendix FIPS 186-4 appendix B.3.3.
-    if (!generate_prime(rsa->p, prime_bits, rsa->e, NULL, sqrt2, ctx, cb) ||
+    if (!generate_prime(rsa->p, prime_bits, rsa->e, NULL, sqrt2,
+                        pow2_prime_bits_100, ctx, cb) ||
         !BN_GENCB_call(cb, 3, 0) ||
-        !generate_prime(rsa->q, prime_bits, rsa->e, rsa->p, sqrt2, ctx, cb) ||
+        !generate_prime(rsa->q, prime_bits, rsa->e, rsa->p, sqrt2,
+                        pow2_prime_bits_100, ctx, cb) ||
         !BN_GENCB_call(cb, 3, 1)) {
       goto bn_err;
     }
@@ -1121,27 +1135,27 @@ int RSA_generate_key_ex(RSA *rsa, int bits, BIGNUM *e_value, BN_GENCB *cb) {
     // q-1. However, we do operations with Chinese Remainder Theorem, so we only
     // use d (mod p-1) and d (mod q-1) as exponents. Using a minimal totient
     // does not affect those two values.
-    if (!BN_sub(pm1, rsa->p, BN_value_one()) ||
-        !BN_sub(qm1, rsa->q, BN_value_one()) ||
-        !BN_mul(totient, pm1, qm1, ctx) ||
-        !BN_gcd(gcd, pm1, qm1, ctx) ||
-        !BN_div(totient, NULL, totient, gcd, ctx) ||
-        !BN_mod_inverse(rsa->d, rsa->e, totient, ctx)) {
+    int no_inverse;
+    if (!bn_usub_consttime(pm1, rsa->p, BN_value_one()) ||
+        !bn_usub_consttime(qm1, rsa->q, BN_value_one()) ||
+        !bn_lcm_consttime(totient, pm1, qm1, ctx) ||
+        !bn_mod_inverse_consttime(rsa->d, &no_inverse, rsa->e, totient, ctx)) {
       goto bn_err;
     }
 
-    // Check that |rsa->d| > 2^|prime_bits| and try again if it fails. See
-    // appendix B.3.1's guidance on values for d.
-  } while (!rsa_greater_than_pow2(rsa->d, prime_bits));
+    // Retry if |rsa->d| <= 2^|prime_bits|. See appendix B.3.1's guidance on
+    // values for d.
+  } while (BN_cmp(rsa->d, pow2_prime_bits) <= 0);
 
   if (// Calculate n.
-      !BN_mul(rsa->n, rsa->p, rsa->q, ctx) ||
+      !bn_mul_consttime(rsa->n, rsa->p, rsa->q, ctx) ||
       // Calculate d mod (p-1).
-      !BN_mod(rsa->dmp1, rsa->d, pm1, ctx) ||
+      !bn_div_consttime(NULL, rsa->dmp1, rsa->d, pm1, ctx) ||
       // Calculate d mod (q-1)
-      !BN_mod(rsa->dmq1, rsa->d, qm1, ctx)) {
+      !bn_div_consttime(NULL, rsa->dmq1, rsa->d, qm1, ctx)) {
     goto bn_err;
   }
+  bn_set_minimal_width(rsa->n);
 
   // Sanity-check that |rsa->n| has the specified size. This is implied by
   // |generate_prime|'s bounds.

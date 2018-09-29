@@ -285,10 +285,8 @@ void bn_sqr_comba4(BN_ULONG r[8], const BN_ULONG a[4]);
 int bn_less_than_words(const BN_ULONG *a, const BN_ULONG *b, size_t len);
 
 // bn_in_range_words returns one if |min_inclusive| <= |a| < |max_exclusive|,
-// where |a| and |max_exclusive| both are |len| words long. This function leaks
-// which of [0, min_inclusive), [min_inclusive, max_exclusive), and
-// [max_exclusive, 2^(BN_BITS2*len)) contains |a|, but otherwise the value of
-// |a| is secret.
+// where |a| and |max_exclusive| both are |len| words long. |a| and
+// |max_exclusive| are treated as secret.
 int bn_in_range_words(const BN_ULONG *a, BN_ULONG min_inclusive,
                       const BN_ULONG *max_exclusive, size_t len);
 
@@ -302,6 +300,27 @@ int bn_in_range_words(const BN_ULONG *a, BN_ULONG min_inclusive,
 int bn_rand_range_words(BN_ULONG *out, BN_ULONG min_inclusive,
                         const BN_ULONG *max_exclusive, size_t len,
                         const uint8_t additional_data[32]);
+
+// bn_range_secret_range behaves like |BN_rand_range_ex|, but treats
+// |max_exclusive| as secret. Because of this constraint, the distribution of
+// values returned is more complex.
+//
+// Rather than repeatedly generating values until one is in range, which would
+// leak information, it generates one value. If the value is in range, it sets
+// |*out_is_uniform| to one. Otherwise, it sets |*out_is_uniform| to zero,
+// fixing up the value to force it in range.
+//
+// The subset of calls to |bn_rand_secret_range| which set |*out_is_uniform| to
+// one are uniformly distributed in the target range. Calls overall are not.
+// This function is intended for use in situations where the extra values are
+// still usable and where the number of iterations needed to reach the target
+// number of uniform outputs may be blinded for negligible probabilities of
+// timing leaks.
+//
+// Although this function treats |max_exclusive| as secret, it treats the number
+// of bits in |max_exclusive| as public.
+int bn_rand_secret_range(BIGNUM *r, int *out_is_uniform, BN_ULONG min_inclusive,
+                         const BIGNUM *max_exclusive);
 
 int bn_mul_mont(BN_ULONG *rp, const BN_ULONG *ap, const BN_ULONG *bp,
                 const BN_ULONG *np, const BN_ULONG *n0, int num);
@@ -323,18 +342,6 @@ int bn_mod_exp_base_2_consttime(BIGNUM *r, unsigned p, const BIGNUM *n,
 #error "Either BN_ULLONG or BN_UMULT_LOHI must be defined on every platform."
 #endif
 
-// bn_mod_inverse_prime sets |out| to the modular inverse of |a| modulo |p|,
-// computed with Fermat's Little Theorem. It returns one on success and zero on
-// error. If |mont_p| is NULL, one will be computed temporarily.
-int bn_mod_inverse_prime(BIGNUM *out, const BIGNUM *a, const BIGNUM *p,
-                         BN_CTX *ctx, const BN_MONT_CTX *mont_p);
-
-// bn_mod_inverse_secret_prime behaves like |bn_mod_inverse_prime| but uses
-// |BN_mod_exp_mont_consttime| instead of |BN_mod_exp_mont| in hopes of
-// protecting the exponent.
-int bn_mod_inverse_secret_prime(BIGNUM *out, const BIGNUM *a, const BIGNUM *p,
-                                BN_CTX *ctx, const BN_MONT_CTX *mont_p);
-
 // bn_jacobi returns the Jacobi symbol of |a| and |b| (which is -1, 0 or 1), or
 // -2 on error.
 int bn_jacobi(const BIGNUM *a, const BIGNUM *b, BN_CTX *ctx);
@@ -352,8 +359,24 @@ int bn_one_to_montgomery(BIGNUM *r, const BN_MONT_CTX *mont, BN_CTX *ctx);
 // value for |mont| and zero otherwise.
 int bn_less_than_montgomery_R(const BIGNUM *bn, const BN_MONT_CTX *mont);
 
+// bn_mod_u16_consttime returns |bn| mod |d|, ignoring |bn|'s sign bit. It runs
+// in time independent of the value of |bn|, but it treats |d| as public.
+OPENSSL_EXPORT uint16_t bn_mod_u16_consttime(const BIGNUM *bn, uint16_t d);
 
-// Fixed-width arithmetic.
+// bn_odd_number_is_obviously_composite returns one if |bn| is divisible by one
+// of the first several odd primes and zero otherwise.
+int bn_odd_number_is_obviously_composite(const BIGNUM *bn);
+
+// bn_rshift1_words sets |r| to |a| >> 1, where both arrays are |num| bits wide.
+void bn_rshift1_words(BN_ULONG *r, const BN_ULONG *a, size_t num);
+
+// bn_rshift_secret_shift behaves like |BN_rshift| but runs in time independent
+// of both |a| and |n|.
+OPENSSL_EXPORT int bn_rshift_secret_shift(BIGNUM *r, const BIGNUM *a,
+                                          unsigned n, BN_CTX *ctx);
+
+
+// Constant-time non-modular arithmetic.
 //
 // The following functions implement non-modular arithmetic in constant-time
 // and pessimally set |r->width| to the largest possible word size.
@@ -362,41 +385,95 @@ int bn_less_than_montgomery_R(const BIGNUM *bn, const BN_MONT_CTX *mont);
 // to increase without bound. The corresponding public API functions minimize
 // their outputs to avoid regressing calculator consumers.
 
-// bn_uadd_fixed behaves like |BN_uadd|, but it pessimally sets
+// bn_uadd_consttime behaves like |BN_uadd|, but it pessimally sets
 // |r->width| = |a->width| + |b->width| + 1.
-int bn_uadd_fixed(BIGNUM *r, const BIGNUM *a, const BIGNUM *b);
+int bn_uadd_consttime(BIGNUM *r, const BIGNUM *a, const BIGNUM *b);
 
-// bn_mul_fixed behaves like |BN_mul|, but it rejects negative inputs and
+// bn_usub_consttime behaves like |BN_usub|, but it pessimally sets
+// |r->width| = |a->width|.
+int bn_usub_consttime(BIGNUM *r, const BIGNUM *a, const BIGNUM *b);
+
+// bn_abs_sub_consttime sets |r| to the absolute value of |a| - |b|, treating
+// both inputs as secret. It returns one on success and zero on error.
+OPENSSL_EXPORT int bn_abs_sub_consttime(BIGNUM *r, const BIGNUM *a,
+                                        const BIGNUM *b, BN_CTX *ctx);
+
+// bn_mul_consttime behaves like |BN_mul|, but it rejects negative inputs and
 // pessimally sets |r->width| to |a->width| + |b->width|, to avoid leaking
 // information about |a| and |b|.
-int bn_mul_fixed(BIGNUM *r, const BIGNUM *a, const BIGNUM *b, BN_CTX *ctx);
+int bn_mul_consttime(BIGNUM *r, const BIGNUM *a, const BIGNUM *b, BN_CTX *ctx);
 
-// bn_sqrt_fixed behaves like |BN_sqrt|, but it pessimally sets |r->width| to
-// 2*|a->width|, to avoid leaking information about |a| and |b|.
-int bn_sqr_fixed(BIGNUM *r, const BIGNUM *a, BN_CTX *ctx);
+// bn_sqrt_consttime behaves like |BN_sqrt|, but it pessimally sets |r->width|
+// to 2*|a->width|, to avoid leaking information about |a| and |b|.
+int bn_sqr_consttime(BIGNUM *r, const BIGNUM *a, BN_CTX *ctx);
+
+// bn_div_consttime behaves like |BN_div|, but it rejects negative inputs and
+// treats both inputs, including their magnitudes, as secret. It is, as a
+// result, much slower than |BN_div| and should only be used for rare operations
+// where Montgomery reduction is not available.
+//
+// Note that |quotient->width| will be set pessimally to |numerator->width|.
+OPENSSL_EXPORT int bn_div_consttime(BIGNUM *quotient, BIGNUM *remainder,
+                                    const BIGNUM *numerator,
+                                    const BIGNUM *divisor, BN_CTX *ctx);
+
+// bn_is_relatively_prime checks whether GCD(|x|, |y|) is one. On success, it
+// returns one and sets |*out_relatively_prime| to one if the GCD was one and
+// zero otherwise. On error, it returns zero.
+OPENSSL_EXPORT int bn_is_relatively_prime(int *out_relatively_prime,
+                                          const BIGNUM *x, const BIGNUM *y,
+                                          BN_CTX *ctx);
+
+// bn_lcm_consttime sets |r| to LCM(|a|, |b|). It returns one and success and
+// zero on error. |a| and |b| are both treated as secret.
+OPENSSL_EXPORT int bn_lcm_consttime(BIGNUM *r, const BIGNUM *a, const BIGNUM *b,
+                                    BN_CTX *ctx);
 
 
 // Constant-time modular arithmetic.
 //
-// The following functions implement basic constant-time modular arithemtic on
-// word arrays.
+// The following functions implement basic constant-time modular arithmetic.
 
-// bn_mod_add_quick_ctx acts like |BN_mod_add_quick| but takes a |BN_CTX|.
-int bn_mod_add_quick_ctx(BIGNUM *r, const BIGNUM *a, const BIGNUM *b,
+// bn_mod_add_consttime acts like |BN_mod_add_quick| but takes a |BN_CTX|.
+int bn_mod_add_consttime(BIGNUM *r, const BIGNUM *a, const BIGNUM *b,
                          const BIGNUM *m, BN_CTX *ctx);
 
-// bn_mod_sub_quick_ctx acts like |BN_mod_sub_quick| but takes a |BN_CTX|.
-int bn_mod_sub_quick_ctx(BIGNUM *r, const BIGNUM *a, const BIGNUM *b,
+// bn_mod_sub_consttime acts like |BN_mod_sub_quick| but takes a |BN_CTX|.
+int bn_mod_sub_consttime(BIGNUM *r, const BIGNUM *a, const BIGNUM *b,
                          const BIGNUM *m, BN_CTX *ctx);
 
-// bn_mod_lshift1_quick_ctx acts like |BN_mod_lshift1_quick| but takes a
+// bn_mod_lshift1_consttime acts like |BN_mod_lshift1_quick| but takes a
 // |BN_CTX|.
-int bn_mod_lshift1_quick_ctx(BIGNUM *r, const BIGNUM *a, const BIGNUM *m,
+int bn_mod_lshift1_consttime(BIGNUM *r, const BIGNUM *a, const BIGNUM *m,
                              BN_CTX *ctx);
 
-// bn_mod_lshift_quick_ctx acts like |BN_mod_lshift_quick| but takes a |BN_CTX|.
-int bn_mod_lshift_quick_ctx(BIGNUM *r, const BIGNUM *a, int n, const BIGNUM *m,
+// bn_mod_lshift_consttime acts like |BN_mod_lshift_quick| but takes a |BN_CTX|.
+int bn_mod_lshift_consttime(BIGNUM *r, const BIGNUM *a, int n, const BIGNUM *m,
                             BN_CTX *ctx);
+
+// bn_mod_inverse_consttime sets |r| to |a|^-1, mod |n|. |a| must be non-
+// negative and less than |n|. It returns one on success and zero on error. On
+// failure, if the failure was caused by |a| having no inverse mod |n| then
+// |*out_no_inverse| will be set to one; otherwise it will be set to zero.
+//
+// This function treats both |a| and |n| as secret, provided they are both non-
+// zero and the inverse exists. It should only be used for even moduli where
+// none of the less general implementations are applicable.
+OPENSSL_EXPORT int bn_mod_inverse_consttime(BIGNUM *r, int *out_no_inverse,
+                                            const BIGNUM *a, const BIGNUM *n,
+                                            BN_CTX *ctx);
+
+// bn_mod_inverse_prime sets |out| to the modular inverse of |a| modulo |p|,
+// computed with Fermat's Little Theorem. It returns one on success and zero on
+// error. If |mont_p| is NULL, one will be computed temporarily.
+int bn_mod_inverse_prime(BIGNUM *out, const BIGNUM *a, const BIGNUM *p,
+                         BN_CTX *ctx, const BN_MONT_CTX *mont_p);
+
+// bn_mod_inverse_secret_prime behaves like |bn_mod_inverse_prime| but uses
+// |BN_mod_exp_mont_consttime| instead of |BN_mod_exp_mont| in hopes of
+// protecting the exponent.
+int bn_mod_inverse_secret_prime(BIGNUM *out, const BIGNUM *a, const BIGNUM *p,
+                                BN_CTX *ctx, const BN_MONT_CTX *mont_p);
 
 
 // Low-level operations for small numbers.

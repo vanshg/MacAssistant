@@ -237,7 +237,8 @@ OPENSSL_EXPORT BIGNUM *BN_bin2bn(const uint8_t *in, size_t len, BIGNUM *ret);
 
 // BN_bn2bin serialises the absolute value of |in| to |out| as a big-endian
 // integer, which must have |BN_num_bytes| of space available. It returns the
-// number of bytes written.
+// number of bytes written. Note this function leaks the magnitude of |in|. If
+// |in| is secret, use |BN_bn2bin_padded| instead.
 OPENSSL_EXPORT size_t BN_bn2bin(const BIGNUM *in, uint8_t *out);
 
 // BN_le2bn sets |*ret| to the value of |len| bytes from |in|, interpreted as
@@ -493,7 +494,12 @@ OPENSSL_EXPORT int BN_clear_bit(BIGNUM *a, int n);
 OPENSSL_EXPORT int BN_is_bit_set(const BIGNUM *a, int n);
 
 // BN_mask_bits truncates |a| so that it is only |n| bits long. It returns one
-// on success or zero if |n| is greater than the length of |a| already.
+// on success or zero if |n| is negative.
+//
+// This differs from OpenSSL which additionally returns zero if |a|'s word
+// length is less than or equal to |n|, rounded down to a number of words. Note
+// word size is platform-dependent, so this behavior is also difficult to rely
+// on in OpenSSL and not very useful.
 OPENSSL_EXPORT int BN_mask_bits(BIGNUM *a, int n);
 
 // BN_count_low_zero_bits returns the number of low-order zero bits in |bn|, or
@@ -700,7 +706,7 @@ enum bn_primality_result_t {
 // than the number-field sieve security level of |w| is used. It returns one on
 // success and zero on failure. If |cb| is not NULL, then it is called during
 // each iteration of the primality test.
-int BN_enhanced_miller_rabin_primality_test(
+OPENSSL_EXPORT int BN_enhanced_miller_rabin_primality_test(
     enum bn_primality_result_t *out_result, const BIGNUM *w, int iterations,
     BN_CTX *ctx, BN_GENCB *cb);
 
@@ -773,6 +779,10 @@ OPENSSL_EXPORT BIGNUM *BN_mod_inverse(BIGNUM *out, const BIGNUM *a,
 // value) to protect it against side-channel attacks. On failure, if the failure
 // was caused by |a| having no inverse mod |n| then |*out_no_inverse| will be
 // set to one; otherwise it will be set to zero.
+//
+// Note this function may incorrectly report |a| has no inverse if the random
+// blinding value has no inverse. It should only be used when |n| has few
+// non-invertible elements, such as an RSA modulus.
 int BN_mod_inverse_blinded(BIGNUM *out, int *out_no_inverse, const BIGNUM *a,
                            const BN_MONT_CTX *mont, BN_CTX *ctx);
 
