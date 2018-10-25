@@ -26,6 +26,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, LoginSuccessDelegate {
     let assitantWindowControllerID = NSStoryboard.SceneIdentifier(rawValue: "AssistantWindowControllerID")
     let loginWindowControllerID = NSStoryboard.SceneIdentifier(rawValue: "LoginWindowControllerID")
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
+    var awc: AssistantWindowController!
+    var created = false
 
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -47,7 +49,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, LoginSuccessDelegate {
     }
     
     func showAssistant() {
-        let awc = sb.instantiateController(withIdentifier: assitantWindowControllerID) as! AssistantWindowController
+        if !created{
+            awc = sb.instantiateController(withIdentifier: assitantWindowControllerID) as! AssistantWindowController
+            created = true
+        }
         awc.showWindow(nil)
     }
     

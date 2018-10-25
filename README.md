@@ -38,7 +38,7 @@ Once cloned, `cd` into the `grpc-swift` directory, and run `make`.
 
 You should then be able to open the `MacAssistant.xcworkspace` file (not `xcproject`!)
 
-You will also need OAuth credentials from the [Google Developer Console](https://console.developers.google.com). In order to get them, you'll need to create a new project and enable the Google Assistant API for that project. Then, generate an OAuth credential, and select the application type of `Other UI`. State that you will be using `User Data`, and then download the json file. Finally, rename the file to `google_oauth.json` and place it in your project (*/MacAssistant/google_oauth.json*).
+You will also need OAuth credentials from the [Google Developer Console](https://console.developers.google.com). In order to get them, you'll need to create a new project and enable the Google Assistant API for that project. Then, generate an OAuth credential, and select the application type of `Other UI`. State that you will be using `User Data`, and then download the json file. Finally, rename the file to `google_oauth.json` and place it in your project (*/MacAssistant/Config/google_oauth.json*).
 
 ## Use your own OAuth Credentials
 Follow the final step of the Build Instructions to get your `google_oauth.json`. Then download [MacAssistant](https://github.com/vanshg/MacAssistant/releases/download/0.2/MacAssistant.zip), unzip the file, and right click the app to `Show Package Contents`. Next, go to `Contents`, `Resources`, and replace the `google_oauth.json` file with your own.
