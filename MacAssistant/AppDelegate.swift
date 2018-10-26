@@ -26,9 +26,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, LoginSuccessDelegate {
     let assitantWindowControllerID = NSStoryboard.SceneIdentifier(rawValue: "AssistantWindowControllerID")
     let loginWindowControllerID = NSStoryboard.SceneIdentifier(rawValue: "LoginWindowControllerID")
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
-    var awc: AssistantWindowController!
-    var created = false
-
+    lazy var awc: AssistantWindowController = sb.instantiateController(withIdentifier: assitantWindowControllerID) as! AssistantWindowController
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         statusItem.image = #imageLiteral(resourceName: "statusIcon")
@@ -49,10 +47,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, LoginSuccessDelegate {
     }
     
     func showAssistant() {
-        if !created{
-            awc = sb.instantiateController(withIdentifier: assitantWindowControllerID) as! AssistantWindowController
-            created = true
-        }
         awc.showWindow(nil)
     }
     

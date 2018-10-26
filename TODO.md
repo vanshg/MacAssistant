@@ -1,5 +1,4 @@
 # TODO
-- Prevent window from opening multiple times
 - Wire up microphone button
 - Add Settings menu
 - Add hotkey
