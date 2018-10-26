@@ -27,7 +27,7 @@ class AssistantViewController: NSViewController, AssistantDelegate, AudioDelegat
     
     override func viewDidLoad() {
         conversationCollectionView.dataSource = self
-        let conversationItemNib = NSNib(nibNamed: NSNib.Name(rawValue: "ConversationItem"), bundle: nil)
+        let conversationItemNib = NSNib(nibNamed: "ConversationItem", bundle: nil)
         conversationCollectionView.register(conversationItemNib, forItemWithIdentifier: conversationItemIdentifier)
     }
 

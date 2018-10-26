@@ -22,7 +22,8 @@ public class AudioEngine {
 
     public init(delegate: AudioDelegate) {
         self.delegate = delegate
-        AudioKit.output = AKBooster(mic, gain: 0)
+        AudioKit.output = AKMixer()
+//            AKBooster(mic, gain: 0)
         mic.avAudioNode.installTap(onBus: 0, bufferSize: AVAudioFrameCount(AudioConstants.NATIVE_SAMPLES_PER_FRAME), format: nil, block: onTap)
     }
 

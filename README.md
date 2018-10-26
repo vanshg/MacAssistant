@@ -8,7 +8,7 @@ A project that integrates the Google Assistant into macOS, using the Google Assi
 
 *Google Assistant “is now on over 500 million devices”  - Scott Huffman @ Google I/O 2018*
 
-MacAssistant can bring that number to 200 million
+MacAssistant can bring that number to 600 million
 
 ![](images/1.png)
 ![](images/2.png)
