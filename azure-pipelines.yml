@@ -1,0 +1,41 @@
+# Xcode
+# Build, test, and archive an Xcode workspace on macOS.
+# Add steps that install certificates, test, sign, and distribute an app, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/xcode
+
+pool:
+  vmImage: 'macOS 10.13'
+
+steps:
+- bash: sudo gem install cocoapods --pre && pod install --repo-update
+  displayName: Installing cocoa pods  
+  name: install_cocoa_Pods  
+  workingDirectory: './'  
+  continueOnError: false 
+- bash: make 
+  displayName: Make grpc swift  
+  name: make_grpc_swift  
+  workingDirectory: './grpc-swift/' 
+  continueOnError: false 
+- bash: touch google_oauth.json
+  displayName: Create Google Oauth JSON
+  name: create_oauth
+  workingDirectory: './MacAssistant/Config/'
+  continueOnError: false
+- bash: sudo xcode-select -switch /Applications/Xcode_10.app && xcodebuild -workspace MacAssistant.xcworkspace -scheme MacAssistant -configuration Debug 
+  displayName: Xcode Build
+  name: xcode_build
+  workingDirectory: './'
+  continueOnError: false
+
+# CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED="NO" CODE_SIGN_ENTITLEMENTS="" CODE_SIGNING_ALLOWED="NO"
+
+# - task: Xcode@5
+#   inputs:
+#     actions: 'build'
+#     scheme: 'MacAssistant'
+#     sdk: 'macosx'
+#     signingOption: 'auto'
+#     configuration: 'Debug'
+#     xcWorkspacePath: './MacAssistant.xcworkspace'
+#     xcodeVersion: '10'
