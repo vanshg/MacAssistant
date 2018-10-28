@@ -314,7 +314,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-MacAssistant/Pods-MacAssistant-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-MacAssistant/Pods-MacAssistant-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
 				"${BUILT_PRODUCTS_DIR}/Log/Log.framework",
@@ -339,7 +339,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MacAssistant/Pods-MacAssistant-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MacAssistant/Pods-MacAssistant-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C7E9E81A23AFF389BD5A7991 /* [CP] Check Pods Manifest.lock */ = {
@@ -525,7 +525,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = DU7NX744DX;
+				DEVELOPMENT_TEAM = 6Z2BR3YV36;
 				INFOPLIST_FILE = MacAssistant/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -547,7 +547,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = DU7NX744DX;
+				DEVELOPMENT_TEAM = 6Z2BR3YV36;
 				INFOPLIST_FILE = MacAssistant/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

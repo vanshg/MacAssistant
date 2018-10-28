@@ -1,6 +1,7 @@
 # MacAssistant
 
-[![Github All Releases](https://img.shields.io/github/downloads/vanshg/MacAssistant/total.svg)](https://github.com/vanshg/MacAssistant/releases) [![Travis](https://img.shields.io/badge/Swift-3.1-blue.svg)](https://github.com/vanshg/MacAssistant) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/vanshg/MacAssistant/master/LICENSE) [![Twitter](https://img.shields.io/twitter/url/https/github.com/vanshg/MacAssistant.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=%5Bobject%20Object%5D)
+[![Github All Releases](https://img.shields.io/github/downloads/vanshg/MacAssistant/total.svg)](https://github.com/vanshg/MacAssistant/releases) [![Travis](https://img.shields.io/badge/Swift-4.2-blue.svg)](https://github.com/vanshg/MacAssistant) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/vanshg/MacAssistant/master/LICENSE) [![Twitter](https://img.shields.io/twitter/url/https/github.com/vanshg/MacAssistant.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=%5Bobject%20Object%5D)
+[![Build Status](https://dev.azure.com/sahilmgandhi/Mac%20Assistant%20CI/_apis/build/status/sahilmgandhi.MacAssistant)](https://dev.azure.com/sahilmgandhi/Mac%20Assistant%20CI/_build/latest?definitionId=1)
 
 ***NOTE: I've currently hit the API limit. In the meantime, you can use your own OAuth credentials by following the instructions [here](https://github.com/vanshg/MacAssistant#Use-your-own-OAuth-Credentials).***
 
@@ -30,7 +31,7 @@ MacAssistant is currently in Beta.
 *"Does the president of the United States have any children?"*
 
 ## Build Instructions
-MacAssistant is built using Swift 4 and Xcode 9.1
+MacAssistant is built using Swift 4.2 and Xcode 10
 
 Clone the project using `git clone --recursive https://github.com/vanshg/MacAssistant.git` (This project relies on some submodules to work)
 

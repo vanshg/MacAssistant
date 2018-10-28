@@ -7,7 +7,7 @@ pool:
   vmImage: 'macOS 10.13'
 
 steps:
-- bash: pod install --repo-update
+- bash: sudo gem install cocoapods --pre && pod install --repo-update
   displayName: Installing cocoa pods  
   name: install_cocoa_Pods  
   workingDirectory: './'  
@@ -22,7 +22,7 @@ steps:
   name: create_oauth
   workingDirectory: './MacAssistant/Config/'
   continueOnError: false
-- bash: xcodebuild -workspace MacAssistant.xcworkspace -scheme MacAssistant -configuration Debug
+- bash: sudo xcode-select -switch /Applications/Xcode_10.app && xcodebuild -workspace MacAssistant.xcworkspace -scheme MacAssistant -configuration Debug CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED="NO" CODE_SIGN_ENTITLEMENTS="" CODE_SIGNING_ALLOWED="NO"
   displayName: Xcode Build
   name: xcode_build
   workingDirectory: './'
