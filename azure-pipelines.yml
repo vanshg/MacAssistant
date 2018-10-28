@@ -7,16 +7,11 @@ pool:
   vmImage: 'macOS 10.13'
 
 steps:
-- bash: pod install --repo-update
+- bash: sudo gem install cocoapods --pre && pod install --repo-update
   displayName: Installing cocoa pods  
   name: install_cocoa_Pods  
   workingDirectory: './'  
   continueOnError: false 
-# - bash: make 
-#   displayName: Make grpc swift  
-#   name: make_grpc_swift  
-#   workingDirectory: './grpc-swift/' 
-#   continueOnError: false 
 - bash: touch google_oauth.json
   displayName: Create Google Oauth JSON
   name: create_oauth
@@ -27,9 +22,11 @@ steps:
     actions: 'build'
     scheme: 'MacAssistant'
     sdk: 'macosx'
+    signingOption: 'auto'
     configuration: 'Debug'
     xcWorkspacePath: './MacAssistant.xcworkspace'
     xcodeVersion: '10'
+
 
 # - bash: sudo xcode-select -switch /Applications/Xcode_10.app && xcodebuild -workspace MacAssistant.xcworkspace -scheme MacAssistant -configuration Debug 
 #   displayName: Xcode Build
