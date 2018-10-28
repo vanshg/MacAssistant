@@ -26,7 +26,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, LoginSuccessDelegate {
     let assitantWindowControllerID = "AssistantWindowControllerID"
     let loginWindowControllerID = "LoginWindowControllerID"
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
-    lazy var awc: AssistantWindowController = sb.instantiateController(withIdentifier: assitantWindowControllerID) as! AssistantWindowController
+    lazy var awc = sb.instantiateController(withIdentifier: assitantWindowControllerID) as! AssistantWindowController
+    lazy var lwc = sb.instantiateController(withIdentifier: loginWindowControllerID) as! LoginWindowController
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         statusItem.image = #imageLiteral(resourceName: "statusIcon")
@@ -51,10 +52,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, LoginSuccessDelegate {
     }
     
     func showLogin() {
-        let lwc = sb.instantiateController(withIdentifier: loginWindowControllerID) as? LoginWindowController
-        let lvc = lwc?.contentViewController as? LoginViewController
-        lvc?.loginSuccessDelegate = self
-        lwc?.showWindow(nil)
+        let lvc = lwc.contentViewController as! LoginViewController
+        lvc.loginSuccessDelegate = self
+        lwc.showWindow(nil)
     }
     
     func onLoginSuccess() {

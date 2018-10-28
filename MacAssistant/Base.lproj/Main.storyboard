@@ -707,7 +707,7 @@
         <scene sceneID="52N-1d-1jq">
             <objects>
                 <windowController storyboardIdentifier="AssistantWindowControllerID" showSeguePresentationStyle="single" id="EGQ-Cg-od3" customClass="AssistantWindowController" customModule="MacAssistant" customModuleProvider="target" sceneMemberID="viewController">
-                    <window key="window" title="Assistant" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hasShadow="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="documentWindow" frameAutosaveName="" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="m1g-L8-9u4" customClass="NSPanel">
+                    <window key="window" title="MacAssistant" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="documentWindow" frameAutosaveName="" titlebarAppearsTransparent="YES" id="m1g-L8-9u4" customClass="NSPanel">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES" nonactivatingPanel="YES" HUD="YES" fullSizeContentView="YES"/>
                         <windowCollectionBehavior key="collectionBehavior" canJoinAllSpaces="YES" transient="YES"/>
                         <windowPositionMask key="initialPositionMask" rightStrut="YES" topStrut="YES"/>
@@ -736,12 +736,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="345" height="480"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RW5-d5-zZc">
+                            <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RW5-d5-zZc">
                                 <rect key="frame" x="83" y="463" width="180" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="What do you need help with?" id="RAF-HE-ZYc">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <scrollView wantsLayer="YES" placeholderIntrinsicWidth="305" placeholderIntrinsicHeight="410" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="PrH-v6-qOv">
@@ -780,6 +780,9 @@
                                     <behavior key="behavior" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="onMicClicked:" target="iq7-pe-nnz" id="YHX-7a-hwb"/>
+                                </connections>
                             </button>
                             <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="08b-OM-Y7I">
                                 <rect key="frame" x="18" y="20" width="268" height="22"/>
