@@ -1,0 +1,23 @@
+pool:
+  vmImage: 'macOS 10.13'
+
+steps:
+- bash: sudo gem install cocoapods --pre && pod install --repo-update
+  displayName: Install CocoaPods  
+  name: install_cocoa_pods  
+  workingDirectory: './'  
+  continueOnError: false 
+- bash: touch google_oauth.json
+  displayName: Create Google Oauth JSON
+  name: create_oauth
+  workingDirectory: './MacAssistant/Config/'
+  continueOnError: false
+- task: Xcode@5
+  inputs:
+    actions: 'build'
+    scheme: 'MacAssistant'
+    sdk: 'macosx'
+    signingOption: 'auto'
+    configuration: 'Debug'
+    xcWorkspacePath: './MacAssistant.xcworkspace'
+    xcodeVersion: '10'

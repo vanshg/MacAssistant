@@ -1,7 +1,8 @@
 # MacAssistant
 
 [![Github All Releases](https://img.shields.io/github/downloads/vanshg/MacAssistant/total.svg)](https://github.com/vanshg/MacAssistant/releases) [![Travis](https://img.shields.io/badge/Swift-4.2-blue.svg)](https://github.com/vanshg/MacAssistant) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/vanshg/MacAssistant/master/LICENSE) [![Twitter](https://img.shields.io/twitter/url/https/github.com/vanshg/MacAssistant.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=%5Bobject%20Object%5D)
-[![Build Status](https://dev.azure.com/sahilmgandhi/Mac%20Assistant%20CI/_apis/build/status/sahilmgandhi.MacAssistant)](https://dev.azure.com/sahilmgandhi/Mac%20Assistant%20CI/_build/latest?definitionId=1)
+[![Build Status](https://dev.azure.com/MacAssistant/MacAssistant%20CI/_apis/build/status/sahilmgandhi.MacAssistant)](https://dev.azure.com/MacAssistant/MacAssistant%20CI/_build/latest?definitionId=1)
+
 
 ***NOTE: I've currently hit the API limit. In the meantime, you can use your own OAuth credentials by following the instructions [here](https://github.com/vanshg/MacAssistant#Use-your-own-OAuth-Credentials).***
 
