@@ -69,6 +69,7 @@ public class Assistant {
     }
 
     func sendTextQuery(text: String, delegate: AssistantDelegate) {
+        Log.debug("sending text query")
         var request = AssistRequest()
         var config = AssistConfig()
         config.audioOutConfig = getAudioOutConfig()

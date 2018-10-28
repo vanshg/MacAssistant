@@ -4,6 +4,8 @@
 
 ***NOTE: I've currently hit the API limit. In the meantime, you can use your own OAuth credentials by following the instructions [here](https://github.com/vanshg/MacAssistant#Use-your-own-OAuth-Credentials).***
 
+***NOTE: If you're using a new MacBook and the app crashes, try going to Audio MIDI Setup, and changing your format to 44.1K if it isn't already***
+
 A project that integrates the Google Assistant into macOS, using the Google Assistant SDK.
 
 *Google Assistant “is now on over 500 million devices”  - Scott Huffman @ Google I/O 2018*
