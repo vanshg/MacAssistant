@@ -92,6 +92,20 @@ public class Assistant {
         }
     }
 
+    private func sendRequest(streamCall: AssistCall, request: AssistRequest, delegate: AssistantDelegate) throws {
+        try streamCall.send(request) { err in
+            if let error = err {
+                delegate.onError(error: error)
+            }
+        }
+    }
+    
+    private func closeSend(streamCall: AssistCall) throws {
+        try streamCall.closeSend() {
+            self.Log.debug("Closed sending channel")
+        }
+    }
+    
     private func continuouslyReceive(streamCall: AssistCall, delegate: AssistantDelegate) throws {
         let audioOutData = NSMutableData()
         DispatchQueue.main.async {
@@ -103,23 +117,23 @@ public class Assistant {
                             let dialogStateOut = response.dialogStateOut
                             Defaults[.conversationState] = dialogStateOut.conversationState
                             delegate.onDisplayText(text: dialogStateOut.supplementalDisplayText)
-
+                            
                             if dialogStateOut.volumePercentage != 0 {
                                 self.Log.debug("Set volume")
                                 // TODO: set computer's volume percentage
                             }
-
+                            
                             if dialogStateOut.microphoneMode == .dialogFollowOn {
                                 delegate.onFollowUpRequired()
                             }
                         }
-
+                        
                         if response.hasScreenOut {
                             let screenOut = response.screenOut
                             assert(screenOut.format == .html)
                             delegate.onScreenOut(htmlData: String(data: screenOut.data, encoding: .utf8)!)
                         }
-
+                        
                         if response.speechResults.count > 0 {
                             var transcript = ""
                             for speechResult in response.speechResults {
@@ -127,11 +141,11 @@ public class Assistant {
                             }
                             delegate.onTranscriptUpdate(transcript: transcript)
                         }
-
+                        
                         if response.hasAudioOut {
                             audioOutData.append(response.audioOut.audioData)
                         }
-
+                        
                         if response.eventType == .endOfUtterance {
                             self.Log.debug("Got end of utterance")
                             try self.closeSend(streamCall: streamCall)
@@ -141,28 +155,14 @@ public class Assistant {
                         delegate.onDoneListening()
                         break // If no error, but response was nil, we are done receiving
                     }
-
+                    
                 } catch {
                     delegate.onError(error: error)
                 }
             }
-
+            
             if audioOutData.length > 0 {
                 delegate.onAudioOut(audio: audioOutData as Data)
-            }
-        }
-    }
-
-    private func closeSend(streamCall: AssistCall) throws {
-        try streamCall.closeSend() {
-            self.Log.debug("Closed sending channel")
-        }
-    }
-
-    private func sendRequest(streamCall: AssistCall, request: AssistRequest, delegate: AssistantDelegate) throws {
-        try streamCall.send(request) { err in
-            if let error = err {
-                delegate.onError(error: error)
             }
         }
     }

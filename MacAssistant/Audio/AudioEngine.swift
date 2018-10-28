@@ -7,7 +7,9 @@ import Foundation
 import AudioKit
 import Log
 
-public class AudioEngine {
+typealias AudioPlayerHandler = (Bool) -> Void
+
+public class AudioEngine: NSObject, AVAudioPlayerDelegate {
 
     let Log = Logger()
     let sampleRate = Double(AudioConstants.GOOGLE_SAMPLE_RATE)
@@ -16,13 +18,19 @@ public class AudioEngine {
     lazy var converter = AVAudioConverter(from: AudioKit.format, to: desiredFormat)!
     let mic = AKMicrophone()
     var delegate: AudioDelegate!
-    var player: AVAudioPlayer!
-
-    private init() {}
+    var player: AVAudioPlayer?
+    var isRecording: Bool {
+        get {
+            return AudioKit.engine.isRunning
+        }
+    }
+    var audioFinishedPlayingHandler: AudioPlayerHandler? = nil
 
     public init(delegate: AudioDelegate) {
+        super.init()
         self.delegate = delegate
-        AudioKit.output = AKBooster(mic, gain: 0)
+//        AudioKit.output = AKBooster(mic, gain: 0)
+        AudioKit.output = AKMixer()
         mic.avAudioNode.installTap(onBus: 0, bufferSize: AVAudioFrameCount(AudioConstants.NATIVE_SAMPLES_PER_FRAME), format: nil, block: onTap)
     }
 
@@ -47,19 +55,32 @@ public class AudioEngine {
     }
 
 
-    public func playAudio(data: Data) {
-        player = try! AVAudioPlayer(data: data, fileTypeHint: AVFileType.mp3.rawValue)
-        player.play()
+    public func playAudio(data: Data, completionHandler: @escaping (Bool) -> Void) {
+        player?.delegate = nil // Resets any old delegates that were set for previous audio plays
+        audioFinishedPlayingHandler = completionHandler
+        player = try? AVAudioPlayer(data: data, fileTypeHint: AVFileType.mp3.rawValue)
+        player?.delegate = self
+        player?.play()
+    }
+    
+    public func stopPlayingAudio() {
+        if (player?.isPlaying ?? false) {
+            player?.stop()
+        }
     }
 
     public func startRecording() {
         Log.debug("Start recording")
-        try! AudioKit.start()
+        try? AudioKit.start()
     }
 
     public func stopRecording() {
         Log.debug("Stop recording")
-        try! AudioKit.stop()
+        try? AudioKit.stop()
+    }
+    
+    public func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        audioFinishedPlayingHandler?(flag)
     }
 
 }
