@@ -118,6 +118,7 @@ class AssistantViewController: NSViewController, AssistantDelegate, AudioDelegat
             
             // Regardless of audio error, still follow up
             if self.followUpRequired {
+                self.followUpRequired = false
                 if self.micWasUsed {
                     self.onMicClicked(nil)
                 } // else, use text input

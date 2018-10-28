@@ -36,7 +36,9 @@ public class Authenticator {
 
         Timer.scheduledTimer(withTimeInterval: 600, repeats: true) { _ in
             // First run is at time 0 (aka, when the app first starts up)
-            self.refreshTokenIfNecessary()
+            if Defaults[.isLoggedIn] {
+                self.refreshTokenIfNecessary()
+            }
         }.fire()
     }
 
