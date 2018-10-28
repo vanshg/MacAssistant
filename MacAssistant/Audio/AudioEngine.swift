@@ -29,8 +29,7 @@ public class AudioEngine: NSObject, AVAudioPlayerDelegate {
     public init(delegate: AudioDelegate) {
         super.init()
         self.delegate = delegate
-//        AudioKit.output = AKBooster(mic, gain: 0)
-        AudioKit.output = AKMixer()
+        AudioKit.output = AKBooster(mic, gain: 0)
         mic.avAudioNode.installTap(onBus: 0, bufferSize: AVAudioFrameCount(AudioConstants.NATIVE_SAMPLES_PER_FRAME), format: nil, block: onTap)
     }
 
@@ -82,5 +81,4 @@ public class AudioEngine: NSObject, AVAudioPlayerDelegate {
     public func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         audioFinishedPlayingHandler?(flag)
     }
-
 }

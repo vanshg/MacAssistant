@@ -34,7 +34,7 @@ class AssistantViewController: NSViewController, AssistantDelegate, AudioDelegat
     }
 
     @IBAction func onEnterClicked(_ sender: Any) {
-        let query = keyboardInputField.stringValue
+        let query = keyboardInputField.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
         if query.isNotEmpty {
             micWasUsed = false
             conversation.append(ConversationEntry(isFromUser: true, text: query))
@@ -47,6 +47,7 @@ class AssistantViewController: NSViewController, AssistantDelegate, AudioDelegat
     @IBAction func onMicClicked(_ sender: Any?) {
         micWasUsed = true
         audioEngine.stopPlayingAudio()
+        currentAssistantCall = assistant.initiateSpokenRequest(delegate: self)
         audioEngine.startRecording()
     }
     
@@ -86,6 +87,7 @@ class AssistantViewController: NSViewController, AssistantDelegate, AudioDelegat
     
     func onDoneListening() {
         audioEngine.stopRecording()
+        // TODO: Set currentStreamCall to nil?
     }
     
     // Received text to display
