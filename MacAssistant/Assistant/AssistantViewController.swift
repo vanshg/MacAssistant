@@ -16,7 +16,7 @@ class AssistantViewController: NSViewController, AssistantDelegate, AudioDelegat
     let Log = Logger()
     let assistant = Assistant()
     var conversation: [ConversationEntry] = []
-    var currentAssistantCall: AssistCall?
+    var currentAssistantCall: AssistCallContainer?
     var followUpRequired = false
     var micWasUsed = false
     lazy var audioEngine = AudioEngine(delegate: self)
@@ -47,8 +47,10 @@ class AssistantViewController: NSViewController, AssistantDelegate, AudioDelegat
     @IBAction func onMicClicked(_ sender: Any?) {
         micWasUsed = true
         audioEngine.stopPlayingAudio()
-        currentAssistantCall = assistant.initiateSpokenRequest(delegate: self)
+        currentAssistantCall = AssistCallContainer(call: assistant.initiateSpokenRequest(delegate: self))
         audioEngine.startRecording()
+        conversation.append(ConversationEntry(isFromUser: true, text: "..."))
+        conversationCollectionView.reloadData()
     }
     
     // TODO: Link this up with the Mic Graph (Another TODO: Get the Mic Waveform working)
@@ -87,6 +89,7 @@ class AssistantViewController: NSViewController, AssistantDelegate, AudioDelegat
     
     func onDoneListening() {
         audioEngine.stopRecording()
+        currentAssistantCall?.doneSpeaking = true
         // TODO: Set currentStreamCall to nil?
     }
     
@@ -102,6 +105,8 @@ class AssistantViewController: NSViewController, AssistantDelegate, AudioDelegat
     
     func onTranscriptUpdate(transcript: String) {
         Log.debug("Transcript update: \(transcript)")
+        conversation[conversation.count - 1].text = transcript
+        conversationCollectionView.reloadData()
     }
     
     func onAudioOut(audio: Data) {
@@ -132,7 +137,19 @@ class AssistantViewController: NSViewController, AssistantDelegate, AudioDelegat
     // Called from AudioEngine (delegate method)
     func onMicrophoneInputAudio(audioData: Data) {
         if let call = currentAssistantCall {
-            assistant.sendAudioChunk(streamCall: call, audio: audioData, delegate: self)
+            // We don't want to continue sending data to servers once endOfUtterance has been received
+            if !call.doneSpeaking {
+                assistant.sendAudioChunk(streamCall: call.call, audio: audioData, delegate: self)
+            }
         }
+    }
+}
+
+class AssistCallContainer {
+    let call: AssistCall!
+    var doneSpeaking = false
+    
+    public init(call: AssistCall!) {
+        self.call = call
     }
 }

@@ -35,7 +35,7 @@ typealias DebugConfig = Google_Assistant_Embedded_V1alpha2_DebugConfig
 public class Assistant {
 
     private let Log = Logger()
-    private let DEBUG = false
+    private let DEBUG = true
     private let ASSISTANT_API_ENDPOINT = "embeddedassistant.googleapis.com"
     private var service: AssistantServiceClient
 
@@ -153,7 +153,7 @@ public class Assistant {
                             delegate.onDoneListening()
                         }
                     } else {
-                        delegate.onDoneListening()
+//                        delegate.onDoneListening()
                         break // If no error, but response was nil, we are done receiving
                     }
                     

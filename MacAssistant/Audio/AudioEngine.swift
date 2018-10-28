@@ -31,6 +31,7 @@ public class AudioEngine: NSObject, AVAudioPlayerDelegate {
         self.delegate = delegate
         AudioKit.output = AKBooster(mic, gain: 0)
         mic.avAudioNode.installTap(onBus: 0, bufferSize: AVAudioFrameCount(AudioConstants.NATIVE_SAMPLES_PER_FRAME), format: nil, block: onTap)
+        try! AudioKit.start()
     }
 
     func onTap(buffer: AVAudioPCMBuffer, time: AVAudioTime) {
@@ -70,12 +71,12 @@ public class AudioEngine: NSObject, AVAudioPlayerDelegate {
 
     public func startRecording() {
         Log.debug("Start recording")
-        try? AudioKit.start()
+        mic.start()
     }
 
     public func stopRecording() {
         Log.debug("Stop recording")
-        try? AudioKit.stop()
+        mic.stop()
     }
     
     public func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {

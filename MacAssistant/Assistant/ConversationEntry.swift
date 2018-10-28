@@ -11,6 +11,7 @@ import Foundation
 class ConversationEntry {
     var isFromUser: Bool
     var text: String
+    
     init(isFromUser: Bool, text: String) {
         self.isFromUser = isFromUser
         self.text = text
