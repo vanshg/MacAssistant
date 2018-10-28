@@ -12,11 +12,11 @@ steps:
   name: install_cocoa_Pods  
   workingDirectory: './'  
   continueOnError: false 
-- bash: make 
-  displayName: Make grpc swift  
-  name: make_grpc_swift  
-  workingDirectory: './grpc-swift/' 
-  continueOnError: false 
+# - bash: make 
+#   displayName: Make grpc swift  
+#   name: make_grpc_swift  
+#   workingDirectory: './grpc-swift/' 
+#   continueOnError: false 
 - bash: touch google_oauth.json
   displayName: Create Google Oauth JSON
   name: create_oauth
