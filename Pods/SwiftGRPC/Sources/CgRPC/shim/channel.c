@@ -39,6 +39,8 @@ cgrpc_channel *cgrpc_channel_create(const char *address,
 
 cgrpc_channel *cgrpc_channel_create_secure(const char *address,
                                            const char *pem_root_certs,
+                                           const char *client_certs,
+                                           const char *client_private_key,
                                            grpc_arg *args,
                                            int num_args) {
   cgrpc_channel *c = (cgrpc_channel *) malloc(sizeof (cgrpc_channel));
@@ -47,8 +49,32 @@ cgrpc_channel *cgrpc_channel_create_secure(const char *address,
   channel_args.args = args;
   channel_args.num_args = num_args;
 
-  grpc_channel_credentials *creds = grpc_ssl_credentials_create(pem_root_certs, NULL, NULL);
+  grpc_ssl_pem_key_cert_pair client_credentials;
+  grpc_ssl_pem_key_cert_pair *client_credentials_pointer = NULL;
+  if (client_certs != NULL && client_private_key != NULL) {
+    client_credentials.cert_chain = client_certs;
+    client_credentials.private_key = client_private_key;
+    client_credentials_pointer = &client_credentials;
+  }
+  grpc_channel_credentials *creds = grpc_ssl_credentials_create(pem_root_certs, client_credentials_pointer, NULL);
+
   c->channel = grpc_secure_channel_create(creds, address, &channel_args, NULL);
+  c->completion_queue = grpc_completion_queue_create_for_next(NULL);
+  return c;
+}
+
+cgrpc_channel *cgrpc_channel_create_google(const char *address,
+                                           grpc_arg *args,
+                                           int num_args) {
+  cgrpc_channel *c = (cgrpc_channel *) malloc(sizeof (cgrpc_channel));
+
+  grpc_channel_args channel_args;
+  channel_args.args = args;
+  channel_args.num_args = num_args;
+
+  grpc_channel_credentials *google_creds = grpc_google_default_credentials_create();
+
+  c->channel = grpc_secure_channel_create(google_creds, address, &channel_args, NULL);
   c->completion_queue = grpc_completion_queue_create_for_next(NULL);
   return c;
 }
@@ -91,4 +117,9 @@ cgrpc_completion_queue *cgrpc_channel_completion_queue(cgrpc_channel *channel) {
 
 grpc_connectivity_state cgrpc_channel_check_connectivity_state(cgrpc_channel *channel, int try_to_connect) {
   return grpc_channel_check_connectivity_state(channel->channel, try_to_connect);
+}
+
+void cgrpc_channel_watch_connectivity_state(cgrpc_channel *channel, cgrpc_completion_queue *completion_queue, grpc_connectivity_state last_observed_state, double deadline, void *tag) {
+  gpr_timespec deadline_seconds = cgrpc_deadline_in_seconds_from_now(deadline);
+  return grpc_channel_watch_connectivity_state(channel->channel, last_observed_state, deadline_seconds, completion_queue, tag);
 }

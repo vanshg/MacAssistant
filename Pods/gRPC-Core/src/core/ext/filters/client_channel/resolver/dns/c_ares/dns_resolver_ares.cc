@@ -135,6 +135,7 @@ AresDnsResolver::AresDnsResolver(const ResolverArgs& args)
   if (path[0] == '/') ++path;
   name_to_resolve_ = gpr_strdup(path);
   // Get DNS server from URI authority.
+  dns_server_ = nullptr;
   if (0 != strcmp(args.uri->authority, "")) {
     dns_server_ = gpr_strdup(args.uri->authority);
   }
@@ -362,6 +363,15 @@ void AresDnsResolver::OnResolvedLocked(void* arg, grpc_error* error) {
 }
 
 void AresDnsResolver::MaybeStartResolvingLocked() {
+  // If there is an existing timer, the time it fires is the earliest time we
+  // can start the next resolution.
+  if (have_next_resolution_timer_) {
+    // TODO(dgq): remove the following two lines once Pick First stops
+    // discarding subchannels after selecting.
+    ++resolved_version_;
+    MaybeFinishNextLocked();
+    return;
+  }
   if (last_resolution_timestamp_ >= 0) {
     const grpc_millis earliest_next_resolution =
         last_resolution_timestamp_ + min_time_between_resolutions_;
@@ -374,17 +384,15 @@ void AresDnsResolver::MaybeStartResolvingLocked() {
               "In cooldown from last resolution (from %" PRIdPTR
               " ms ago). Will resolve again in %" PRIdPTR " ms",
               last_resolution_ago, ms_until_next_resolution);
-      if (!have_next_resolution_timer_) {
-        have_next_resolution_timer_ = true;
-        // TODO(roth): We currently deal with this ref manually.  Once the
-        // new closure API is done, find a way to track this ref with the timer
-        // callback as part of the type system.
-        RefCountedPtr<Resolver> self =
-            Ref(DEBUG_LOCATION, "next_resolution_timer_cooldown");
-        self.release();
-        grpc_timer_init(&next_resolution_timer_, ms_until_next_resolution,
-                        &on_next_resolution_);
-      }
+      have_next_resolution_timer_ = true;
+      // TODO(roth): We currently deal with this ref manually.  Once the
+      // new closure API is done, find a way to track this ref with the timer
+      // callback as part of the type system.
+      RefCountedPtr<Resolver> self =
+          Ref(DEBUG_LOCATION, "next_resolution_timer_cooldown");
+      self.release();
+      grpc_timer_init(&next_resolution_timer_, ms_until_next_resolution,
+                      &on_next_resolution_);
       // TODO(dgq): remove the following two lines once Pick First stops
       // discarding subchannels after selecting.
       ++resolved_version_;
@@ -396,6 +404,7 @@ void AresDnsResolver::MaybeStartResolvingLocked() {
 }
 
 void AresDnsResolver::StartResolvingLocked() {
+  gpr_log(GPR_DEBUG, "Start resolving.");
   // TODO(roth): We currently deal with this ref manually.  Once the
   // new closure API is done, find a way to track this ref with the timer
   // callback as part of the type system.

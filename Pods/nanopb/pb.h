@@ -46,7 +46,7 @@
 
 /* Version of the nanopb library. Just in case you want to check it in
  * your own program. */
-#define NANOPB_VERSION nanopb-0.3.8
+#define NANOPB_VERSION nanopb-0.3.9.1
 
 /* Include all the system headers needed by nanopb. You will need the
  * definitions of the following:
@@ -251,8 +251,10 @@ PB_PACKED_STRUCT_END
  * If you get errors here, it probably means that your stdint.h is not
  * correct for your platform.
  */
+#ifndef PB_WITHOUT_64BIT
 PB_STATIC_ASSERT(sizeof(int64_t) == 2 * sizeof(int32_t), INT64_T_WRONG_SIZE)
 PB_STATIC_ASSERT(sizeof(uint64_t) == 2 * sizeof(uint32_t), UINT64_T_WRONG_SIZE)
+#endif
 
 /* This structure is used for 'bytes' arrays.
  * It has the number of bytes in the beginning, and after that an array.
@@ -524,6 +526,14 @@ struct pb_extension_s {
         PB_ ## rules ## _ ## allocation(tag, message, field, \
         PB_DATAOFFSET_ ## placement(message, field, prevfield), \
         PB_LTYPE_MAP_ ## type, ptr)
+
+/* Field description for repeated static fixed count fields.*/
+#define PB_REPEATED_FIXED_COUNT(tag, type, placement, message, field, prevfield, ptr) \
+    {tag, PB_ATYPE_STATIC | PB_HTYPE_REPEATED | PB_LTYPE_MAP_ ## type, \
+    PB_DATAOFFSET_ ## placement(message, field, prevfield), \
+    0, \
+    pb_membersize(message, field[0]), \
+    pb_arraysize(message, field), ptr}
 
 /* Field description for oneof fields. This requires taking into account the
  * union name also, that's why a separate set of macros is needed.

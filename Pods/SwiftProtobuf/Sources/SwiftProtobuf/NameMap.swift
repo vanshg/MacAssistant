@@ -38,7 +38,7 @@ private func toJsonFieldName(_ s: String) -> String {
             result.append(String(c))
         }
     }
-    return result;
+    return result
 }
 
 /// Allocate static memory buffers to intern UTF-8
@@ -50,13 +50,7 @@ fileprivate class InternPool {
   func intern(utf8: String.UTF8View) -> UnsafeBufferPointer<UInt8> {
     let bytePointer = UnsafeMutablePointer<UInt8>.allocate(capacity: utf8.count)
     let mutable = UnsafeMutableBufferPointer<UInt8>(start: bytePointer, count: utf8.count)
-    #if swift(>=3.1)
-      _ = mutable.initialize(from: utf8)
-    #else
-      for (utf8Index, mutableIndex) in zip(utf8.indices, mutable.indices) {
-        mutable[mutableIndex] = utf8[utf8Index]
-      }
-    #endif
+    _ = mutable.initialize(from: utf8)
     let immutable = UnsafeBufferPointer<UInt8>(start: bytePointer, count: utf8.count)
     interned.append(immutable)
     return immutable
@@ -74,9 +68,11 @@ fileprivate class InternPool {
   }
 }
 
+#if !swift(>=4.2)
 // Constants for FNV hash http://tools.ietf.org/html/draft-eastlake-fnv-03
 private let i_2166136261 = Int(bitPattern: 2166136261)
 private let i_16777619 = Int(16777619)
+#endif
 
 /// An immutable bidirectional mapping between field/enum-case names
 /// and numbers, used to record field names for text-based
@@ -133,6 +129,13 @@ public struct _NameMap: ExpressibleByDictionaryLiteral {
       }
     }
 
+  #if swift(>=4.2)
+    public func hash(into hasher: inout Hasher) {
+      for byte in utf8Buffer {
+        hasher.combine(byte)
+      }
+    }
+  #else  // swift(>=4.2)
     public var hashValue: Int {
       var h = i_2166136261
       for byte in utf8Buffer {
@@ -140,6 +143,7 @@ public struct _NameMap: ExpressibleByDictionaryLiteral {
       }
       return h
     }
+  #endif  // swift(>=4.2)
 
     public static func ==(lhs: Name, rhs: Name) -> Bool {
       if lhs.utf8Buffer.count != rhs.utf8Buffer.count {

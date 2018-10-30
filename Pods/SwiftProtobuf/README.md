@@ -90,7 +90,7 @@ your project as explained below.
 
 To use Swift with Protocol buffers, you'll need:
 
-* A Swift 3.0.1 or later compiler (Xcode 8.1 or later).  Support is included
+* A Swift 3.1 or later compiler (Xcode 8.3.3 or later).  Support is included
 for the Swift Package Manager; or using the included Xcode project. The Swift
 protobuf project is being developed and tested against the latest release
 version of Swift available from [Swift.org](https://swift.org)
@@ -101,7 +101,7 @@ The SwiftProtobuf tests need a version of protoc which supports the
 `swift_prefix` option (introduced in protoc 3.2.0).
 It may work with earlier versions of protoc.
 You can get recent versions from
-[Google's github repository](https://github.com/google/protobuf).
+[Google's github repository](https://github.com/protocolbuffers/protobuf).
 
 ## Building and Installing the Code Generator Plugin
 
@@ -182,7 +182,7 @@ you used to build the plugin above:
 
 ```swift
 dependencies: [
-        .Package(url: "https://github.com/apple/swift-protobuf.git", Version(1,0,0))
+        .package(url: "https://github.com/apple/swift-protobuf.git", from: "1.1.0")
 ]
 ```
 

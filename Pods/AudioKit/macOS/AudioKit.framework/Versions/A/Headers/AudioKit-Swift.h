@@ -1773,6 +1773,9 @@ SWIFT_CLASS("_TtC8AudioKit20AKDynaRageCompressor")
 - (nonnull instancetype)initWithAvAudioNode:(AVAudioNode * _Nonnull)avAudioNode attach:(BOOL)attach SWIFT_UNAVAILABLE;
 @end
 
+@class AVAudioPlayerNode;
+@class AVAudioMixerNode;
+@class AVAudioFormat;
 
 /// AKPlayer is meant to be a simple yet powerful audio player that just works. It supports
 /// scheduling of sounds, looping, fading, time-stretching, pitch-shifting and reversing.
@@ -1805,13 +1808,71 @@ SWIFT_CLASS("_TtC8AudioKit20AKDynaRageCompressor")
 /// \endcodePlease note that pre macOS 10.13 / iOS 11 the completionHandler isn’t sample accurate. It’s pretty close though.
 SWIFT_CLASS("_TtC8AudioKit8AKPlayer")
 @interface AKPlayer : AKNode
+/// The underlying player node
+@property (nonatomic, readonly, strong) AVAudioPlayerNode * _Nonnull playerNode;
+/// The main output
+@property (nonatomic, readonly, strong) AVAudioMixerNode * _Nonnull mixer;
+/// The underlying gain booster which controls fades as well. Created on demand.
+@property (nonatomic, strong) AKBooster * _Nullable faderNode;
+/// Completion handler to be called when Audio is done playing. The handler won’t be called if
+/// stop() is called while playing or when looping from a buffer.
+@property (nonatomic, copy) void (^ _Nullable completionHandler)(void);
+/// Used with buffering players
+@property (nonatomic, strong) AVAudioPCMBuffer * _Nullable buffer;
+/// The internal audio file
+@property (nonatomic, readonly, strong) AVAudioFile * _Nullable audioFile;
+/// The duration of the loaded audio file
+@property (nonatomic, readonly) double duration;
+/// Volume 0.0 -> 1.0, default 1.0
+@property (nonatomic) double volume;
+/// Amplification Factor, in the range of 0.0002 to ~
+@property (nonatomic) double gain;
+/// Left/Right balance -1.0 -> 1.0, default 0.0
+@property (nonatomic) double pan;
+@property (nonatomic) enum RampType rampType;
+/// Get or set the start time of the player.
+@property (nonatomic) double startTime;
+/// Get or set the end time of the player.
+@property (nonatomic) double endTime;
+///
+/// returns:
+/// The total frame count that is being playing.
+/// Differs from the audioFile.length as this will be updated with the edited amount
+/// of frames based on startTime and endTime
+@property (nonatomic, readonly) AVAudioFrameCount frameCount;
+///
+/// returns:
+/// The current frame while playing
+@property (nonatomic, readonly) AVAudioFramePosition currentFrame;
+///
+/// returns:
+/// Current time of the player in seconds while playing.
+@property (nonatomic, readonly) double currentTime;
+@property (nonatomic, readonly, strong) AVAudioFormat * _Nullable processingFormat;
+/// true if the player is buffering audio rather than playing from disk
+@property (nonatomic, readonly) BOOL isBuffered;
+/// Will automatically normalize on buffer updates if enabled
+@property (nonatomic) BOOL isNormalized;
+@property (nonatomic) BOOL isLooping;
+@property (nonatomic, readonly) BOOL isPaused;
+/// Reversing the audio will set the player to buffering
+@property (nonatomic) BOOL isReversed;
+@property (nonatomic, readonly) BOOL isPlaying;
+/// true if any fades have been set
+@property (nonatomic, readonly) BOOL isFaded;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+/// Create a player from a URL
+- (nullable instancetype)initWithUrl:(NSURL * _Nonnull)url;
+/// Create a player from an AVAudioFile (or AKAudioFile)
+- (nonnull instancetype)initWithAudioFile:(AVAudioFile * _Nonnull)audioFile;
 /// Replace the contents of the player with this url
 - (BOOL)loadWithUrl:(NSURL * _Nonnull)url error:(NSError * _Nullable * _Nullable)error;
 - (void)loadWithAudioFile:(AVAudioFile * _Nonnull)audioFile;
 /// Mostly applicable to buffered players, this loads the buffer and gets it ready to play.
 /// Otherwise it just sets the startTime and endTime
 - (void)prerollFrom:(double)startingTime to:(double)endingTime;
+/// Disconnect the node and release resources
+- (void)detach;
 - (nonnull instancetype)initWithAvAudioUnit:(AVAudioUnit * _Nonnull)avAudioUnit attach:(BOOL)attach SWIFT_UNAVAILABLE;
 - (nonnull instancetype)initWithAvAudioNode:(AVAudioNode * _Nonnull)avAudioNode attach:(BOOL)attach SWIFT_UNAVAILABLE;
 @end
@@ -1821,6 +1882,7 @@ SWIFT_CLASS("_TtC8AudioKit15AKDynamicPlayer")
 @interface AKDynamicPlayer : AKPlayer
 /// Stop playback and cancel any pending scheduled playback or completion events
 - (void)stop;
+- (void)detach;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -4289,8 +4351,6 @@ SWIFT_CLASS("_TtC8AudioKit9AKSampler")
 /// isLegato (boolean, 0.0 for false or 1.0 for true)
 @property (nonatomic) BOOL isLegato;
 /// Initialize this sampler node
-/// \param input AKNode whose output will be processed (not used)
-///
 /// \param masterVolume 0.0 - 1.0
 ///
 /// \param pitchBend semitones, signed
@@ -4329,7 +4389,7 @@ SWIFT_CLASS("_TtC8AudioKit9AKSampler")
 ///
 /// \param isLegato (mono mode onl) if true, legato notes will not retrigger
 ///
-- (nonnull instancetype)init:(AKNode * _Nullable)input masterVolume:(double)masterVolume pitchBend:(double)pitchBend vibratoDepth:(double)vibratoDepth filterCutoff:(double)filterCutoff filterStrength:(double)filterStrength filterResonance:(double)filterResonance attackDuration:(double)attackDuration decayDuration:(double)decayDuration sustainLevel:(double)sustainLevel releaseDuration:(double)releaseDuration filterEnable:(BOOL)filterEnable filterAttackDuration:(double)filterAttackDuration filterDecayDuration:(double)filterDecayDuration filterSustainLevel:(double)filterSustainLevel filterReleaseDuration:(double)filterReleaseDuration glideRate:(double)glideRate loopThruRelease:(BOOL)loopThruRelease isMonophonic:(BOOL)isMonophonic isLegato:(BOOL)isLegato OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithMasterVolume:(double)masterVolume pitchBend:(double)pitchBend vibratoDepth:(double)vibratoDepth filterCutoff:(double)filterCutoff filterStrength:(double)filterStrength filterResonance:(double)filterResonance attackDuration:(double)attackDuration decayDuration:(double)decayDuration sustainLevel:(double)sustainLevel releaseDuration:(double)releaseDuration filterEnable:(BOOL)filterEnable filterAttackDuration:(double)filterAttackDuration filterDecayDuration:(double)filterDecayDuration filterSustainLevel:(double)filterSustainLevel filterReleaseDuration:(double)filterReleaseDuration glideRate:(double)glideRate loopThruRelease:(BOOL)loopThruRelease isMonophonic:(BOOL)isMonophonic isLegato:(BOOL)isLegato OBJC_DESIGNATED_INITIALIZER;
 - (void)loadAKAudioFileFrom:(AKSampleDescriptor)sampleDescriptor file:(AKAudioFile * _Nonnull)file;
 - (void)stopAllVoices;
 - (void)restartVoices;
@@ -4359,7 +4419,6 @@ SWIFT_CLASS("_TtC8AudioKit18AKSamplerAudioUnit")
 @property (nonatomic, readonly) BOOL canProcessInPlace;
 @end
 
-@class AVAudioFormat;
 enum BufferLength : NSInteger;
 
 /// Global settings for AudioKit

@@ -166,6 +166,12 @@ cgrpc_channel *cgrpc_channel_create(const char *address,
                                     int num_args);
 cgrpc_channel *cgrpc_channel_create_secure(const char *address,
                                            const char *pem_root_certs,
+                                           const char *client_certs,
+                                           const char *client_key,
+                                           grpc_arg *args,
+                                           int num_args);
+
+cgrpc_channel *cgrpc_channel_create_google(const char *address,
                                            grpc_arg *args,
                                            int num_args);
 
@@ -178,18 +184,26 @@ cgrpc_completion_queue *cgrpc_channel_completion_queue(cgrpc_channel *channel);
 
 grpc_connectivity_state cgrpc_channel_check_connectivity_state(
     cgrpc_channel *channel, int try_to_connect);
+void cgrpc_channel_watch_connectivity_state(cgrpc_channel *channel,
+                                            cgrpc_completion_queue *completion_queue,
+                                            grpc_connectivity_state last_observed_state,
+                                            double deadline,
+                                            void *tag);
 
 // server support
 cgrpc_server *cgrpc_server_create(const char *address);
 cgrpc_server *cgrpc_server_create_secure(const char *address,
                                          const char *private_key,
-                                         const char *cert_chain);
+                                         const char *cert_chain,
+                                         const char *root_certs,
+                                         int force_client_auth);
 void cgrpc_server_stop(cgrpc_server *server);
 void cgrpc_server_destroy(cgrpc_server *s);
 void cgrpc_server_start(cgrpc_server *s);
 cgrpc_completion_queue *cgrpc_server_get_completion_queue(cgrpc_server *s);
 
 // completion queues
+cgrpc_completion_queue *cgrpc_completion_queue_create_for_next(void);
 grpc_event cgrpc_completion_queue_get_next_event(cgrpc_completion_queue *cq,
                                                  double timeout);
 void cgrpc_completion_queue_drain(cgrpc_completion_queue *cq);
