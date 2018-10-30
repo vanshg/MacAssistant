@@ -31,6 +31,6 @@
 	<key>LSUIElement</key>
 	<true/>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>$(PRODUCT_NAME) microphone use</string>
+	<string>Let $(PRODUCT_NAME) access your mic so you can talk to Google Assistant</string>
 </dict>
 </plist>

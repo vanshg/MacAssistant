@@ -109,7 +109,7 @@ public class Assistant {
     
     private func continuouslyReceive(streamCall: AssistCall, delegate: AssistantDelegate) throws {
         let audioOutData = NSMutableData()
-        DispatchQueue.main.async {
+        DispatchQueue.global().async {
             while true {
                 do {
                     let response = try streamCall.receive()

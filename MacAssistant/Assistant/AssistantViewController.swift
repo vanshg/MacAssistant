@@ -39,6 +39,8 @@ class AssistantViewController: NSViewController, AssistantDelegate, AudioDelegat
             micWasUsed = false
             conversation.append(ConversationEntry(isFromUser: true, text: query))
             conversationCollectionView.reloadData()
+            let lastIndexPath = Set([IndexPath(item: conversation.count-1, section: 0)])
+            conversationCollectionView.scrollToItems(at: lastIndexPath, scrollPosition: .bottom)
             assistant.sendTextQuery(text: query, delegate: self)
             keyboardInputField.stringValue = ""
         }
@@ -96,7 +98,7 @@ class AssistantViewController: NSViewController, AssistantDelegate, AudioDelegat
     // Received text to display
     func onDisplayText(text: String) {
         conversation.append(ConversationEntry(isFromUser: false, text: text))
-        conversationCollectionView.reloadData()
+        conversationCollectionView.reloadBackground()
     }
     
     func onScreenOut(htmlData: String) {
@@ -106,7 +108,7 @@ class AssistantViewController: NSViewController, AssistantDelegate, AudioDelegat
     func onTranscriptUpdate(transcript: String) {
         Log.debug("Transcript update: \(transcript)")
         conversation[conversation.count - 1].text = transcript
-        conversationCollectionView.reloadData()
+        conversationCollectionView.reloadBackground()
     }
     
     func onAudioOut(audio: Data) {
@@ -142,6 +144,14 @@ class AssistantViewController: NSViewController, AssistantDelegate, AudioDelegat
             if !call.doneSpeaking {
                 assistant.sendAudioChunk(streamCall: call.call, audio: audioData, delegate: self)
             }
+        }
+    }
+}
+
+extension NSCollectionView {
+    public func reloadBackground() {
+        DispatchQueue.main.async {
+            self.reloadData()
         }
     }
 }

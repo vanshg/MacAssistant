@@ -12,7 +12,13 @@ class ConversationItem: NSCollectionViewItem {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        textField?.stringValue = "Hello"
+        textField?.stringValue = "..."
+    }
+    
+    public func loadData(data: ConversationEntry) {
+        let alignment = data.isFromUser ? NSTextAlignment.right : NSTextAlignment.left
+        textField?.stringValue = data.text
+        textField?.alignment = alignment
     }
     
 }
