@@ -16,7 +16,7 @@ public class AudioEngine: NSObject, AVAudioPlayerDelegate {
     lazy var sampleRateRatio = AKSettings.sampleRate / sampleRate
     lazy var desiredFormat = AVAudioFormat(commonFormat: .pcmFormatInt16, sampleRate: self.sampleRate, channels: 1, interleaved: false)!
     lazy var converter = AVAudioConverter(from: AudioKit.format, to: desiredFormat)!
-    let mic = AKMicrophone()
+    var mic: AKMicrophone!
     var delegate: AudioDelegate!
     var player: AVAudioPlayer?
     var isRecording: Bool {
@@ -29,6 +29,9 @@ public class AudioEngine: NSObject, AVAudioPlayerDelegate {
     public init(delegate: AudioDelegate) {
         super.init()
         self.delegate = delegate
+        AKSettings.sampleRate = AudioKit.engine.inputNode.inputFormat(forBus: 0).sampleRate // 
+        print(AKSettings.sampleRate)
+        mic = AKMicrophone()
         AudioKit.output = AKBooster(mic, gain: 0)
         mic.avAudioNode.installTap(onBus: 0, bufferSize: AVAudioFrameCount(AudioConstants.NATIVE_SAMPLES_PER_FRAME), format: nil, block: onTap)
         try! AudioKit.start()
