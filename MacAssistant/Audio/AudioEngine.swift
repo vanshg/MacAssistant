@@ -29,7 +29,7 @@ public class AudioEngine: NSObject, AVAudioPlayerDelegate {
     public init(delegate: AudioDelegate) {
         super.init()
         self.delegate = delegate
-        AKSettings.sampleRate = AudioKit.engine.inputNode.inputFormat(forBus: 0).sampleRate // 
+        AKSettings.sampleRate = AudioConstants.NATIVE_SAMPLE_RATE
         print(AKSettings.sampleRate)
         mic = AKMicrophone()
         AudioKit.output = AKBooster(mic, gain: 0)

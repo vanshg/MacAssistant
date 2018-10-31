@@ -4,9 +4,10 @@
 //
 
 import Foundation
+import AudioKit
 
 struct AudioConstants {
-    public static let NATIVE_SAMPLE_RATE = 44100 // TODO: See if this value works on all Macs
+    public static let NATIVE_SAMPLE_RATE = AudioKit.engine.inputNode.inputFormat(forBus: 0).sampleRate
     public static let GOOGLE_SAMPLE_RATE = Int32(16000) // Hertz
     public static let FRAME_TIME = 0.1 // Seconds
     public static let GOOGLE_SAMPLES_PER_FRAME = Double(GOOGLE_SAMPLE_RATE) * FRAME_TIME
