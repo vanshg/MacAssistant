@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="GeneralPreferenceViewController" customModule="MacAssistant" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="c22-O7-iKe" id="ZQe-UH-LCX"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="142"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="onC-Ni-d5u">
+                    <rect key="frame" x="18" y="62" width="185" height="18"/>
+                    <buttonCell key="cell" type="check" title="Speak Assistant responses" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="QzM-0T-62x">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="eH8-eq-jEb" name="value" keyPath="values.shouldSpeakResponses" id="fNN-Om-iYa"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="juU-mP-Kfm">
+                    <rect key="frame" x="18" y="18" width="292" height="18"/>
+                    <buttonCell key="cell" type="check" title="Start listening when menu bar icon is clicked" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="DD7-8j-zGf">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="eH8-eq-jEb" name="value" keyPath="values.shouldListenOnMenuClick" id="n0o-TF-7bP"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dmW-Hc-Uft">
+                    <rect key="frame" x="18" y="102" width="142" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="138" id="Uvq-wl-SrS"/>
+                    </constraints>
+                    <buttonCell key="cell" type="check" title="Play prompt noises" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="HTL-6O-Se9">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="eH8-eq-jEb" name="value" keyPath="values.shouldPlayPrompts" id="sb0-9M-O6N"/>
+                    </connections>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstItem="dmW-Hc-Uft" firstAttribute="leading" secondItem="onC-Ni-d5u" secondAttribute="leading" id="Ez5-qC-6xK"/>
+                <constraint firstItem="juU-mP-Kfm" firstAttribute="top" secondItem="onC-Ni-d5u" secondAttribute="bottom" constant="30" id="OR3-Dz-eP3"/>
+                <constraint firstItem="dmW-Hc-Uft" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="20" symbolic="YES" id="UEE-pB-tIj"/>
+                <constraint firstItem="onC-Ni-d5u" firstAttribute="top" secondItem="dmW-Hc-Uft" secondAttribute="bottom" constant="26" id="Yvj-6M-3Pd"/>
+                <constraint firstAttribute="bottom" secondItem="juU-mP-Kfm" secondAttribute="bottom" constant="20" symbolic="YES" id="btE-eO-mBf"/>
+                <constraint firstItem="onC-Ni-d5u" firstAttribute="centerY" secondItem="c22-O7-iKe" secondAttribute="centerY" id="cVF-xh-PTx"/>
+                <constraint firstItem="onC-Ni-d5u" firstAttribute="leading" secondItem="juU-mP-Kfm" secondAttribute="leading" id="ish-9P-fYl"/>
+                <constraint firstItem="dmW-Hc-Uft" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" symbolic="YES" id="nKz-Vp-bkT"/>
+            </constraints>
+            <point key="canvasLocation" x="139" y="89"/>
+        </customView>
+        <userDefaultsController representsSharedInstance="YES" id="eH8-eq-jEb"/>
+    </objects>
+</document>

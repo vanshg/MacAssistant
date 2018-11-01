@@ -7,12 +7,15 @@
 //
 
 import Cocoa
+import SwiftyUserDefaults
 
 class AssistantWindowController: NSWindowController {
     override func windowDidLoad() {
-        window?.isMovable = false
-        window?.level = .floating
+        window?.isMovable = Defaults[.allowWindowMovement]
         window?.makeKeyAndOrderFront(nil)
-        window?.orderFrontRegardless()
+        if !Defaults[.allowWindowLoseFocus] {
+            window?.level = .floating
+            window?.orderFrontRegardless()
+        }
     }
 }

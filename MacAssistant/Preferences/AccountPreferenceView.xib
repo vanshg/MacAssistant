@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="GeneralPreferenceViewController" customModule="MacAssistant" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="c22-O7-iKe" id="ZQe-UH-LCX"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TZe-de-DGE">
+                    <rect key="frame" x="194" y="13" width="93" height="32"/>
+                    <buttonCell key="cell" type="push" title="Sign Out" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="RO9-8k-UBn">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0eZ-eY-kJv">
+                    <rect key="frame" x="41" y="236" width="206" height="18"/>
+                    <buttonCell key="cell" type="check" title="Use custom OAuth credentials" bezelStyle="regularSquare" imagePosition="left" inset="2" id="jcV-7W-4Za">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="EQQ-46-b2o" name="value" keyPath="values.shouldUseCustomOAuth" id="c4R-a7-CYr"/>
+                    </connections>
+                </button>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="fhb-tO-rxe">
+                    <rect key="frame" x="43" y="83" width="394" height="139"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="139" id="KbL-Mb-HUA"/>
+                    </constraints>
+                    <textFieldCell key="cell" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="Paste your Google OAuth file here" drawsBackground="YES" id="Rnm-er-Iq2">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="EQQ-46-b2o" name="value" keyPath="values.customOAuthJSON" id="sZA-R1-gNs">
+                            <dictionary key="options">
+                                <string key="NSNullPlaceholder">Paste your Google OAuth file here</string>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstItem="fhb-tO-rxe" firstAttribute="centerX" secondItem="TZe-de-DGE" secondAttribute="centerX" id="9GF-hk-o0G"/>
+                <constraint firstItem="0eZ-eY-kJv" firstAttribute="leading" secondItem="fhb-tO-rxe" secondAttribute="leading" id="EPx-Ov-i1T"/>
+                <constraint firstItem="fhb-tO-rxe" firstAttribute="top" secondItem="0eZ-eY-kJv" secondAttribute="bottom" constant="16" id="N4r-Gy-Iyy"/>
+                <constraint firstItem="TZe-de-DGE" firstAttribute="top" secondItem="fhb-tO-rxe" secondAttribute="bottom" constant="42" id="N6h-HU-cNg"/>
+                <constraint firstItem="fhb-tO-rxe" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" id="VMZ-hs-Ypb"/>
+                <constraint firstItem="0eZ-eY-kJv" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="43" id="kQw-Ek-ou1"/>
+                <constraint firstAttribute="bottom" secondItem="0eZ-eY-kJv" secondAttribute="bottom" constant="238" id="q0i-6Y-sdW"/>
+                <constraint firstAttribute="bottom" secondItem="TZe-de-DGE" secondAttribute="bottom" constant="20" symbolic="YES" id="sQO-UP-dZC"/>
+                <constraint firstItem="0eZ-eY-kJv" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="20" symbolic="YES" id="yxy-yj-LEv"/>
+            </constraints>
+        </customView>
+        <userDefaultsController representsSharedInstance="YES" id="EQQ-46-b2o"/>
+    </objects>
+</document>

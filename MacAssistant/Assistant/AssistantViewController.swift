@@ -10,8 +10,15 @@ import Cocoa
 import Log
 import SwiftGRPC
 import WebKit
+import SwiftyUserDefaults
 
-class AssistantViewController: NSViewController, AssistantDelegate, AudioDelegate, NSCollectionViewDataSource {
+// Eventual TODO: AssistantViewController should only interact with views
+// Current Assistant.swift should be renamed to API.swift
+// New Assistant.swift should handle business logic of mic/follow up/audio/
+
+
+
+class AssistantViewController: NSViewController, AssistantDelegate, AudioDelegate {
     
     let Log = Logger()
     let assistant = Assistant()
@@ -29,80 +36,50 @@ class AssistantViewController: NSViewController, AssistantDelegate, AudioDelegat
     
     override func viewDidLoad() {
         conversationCollectionView.dataSource = self
-        let conversationItemNib = NSNib(nibNamed: "ConversationItem", bundle: nil)
-        conversationCollectionView.register(conversationItemNib, forItemWithIdentifier: conversationItemIdentifier)
+        conversationCollectionView.delegate = self
+        conversationCollectionView.register(NSNib(nibNamed: "ConversationItem", bundle: nil), forItemWithIdentifier: conversationItemIdentifier)
     }
-
-    @IBAction func onEnterClicked(_ sender: Any) {
-        let query = keyboardInputField.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
-        if query.isNotEmpty {
-            micWasUsed = false
-            conversation.append(ConversationEntry(isFromUser: true, text: query))
-            conversationCollectionView.reloadData()
-            let lastIndexPath = Set([IndexPath(item: conversation.count-1, section: 0)])
-            conversationCollectionView.scrollToItems(at: lastIndexPath, scrollPosition: .bottom)
-            assistant.sendTextQuery(text: query, delegate: self)
-            keyboardInputField.stringValue = ""
+    
+    override func viewDidAppear() {
+        if Defaults[.shouldListenOnMenuClick] {
+            onMicClicked()
         }
     }
     
-    @IBAction func onMicClicked(_ sender: Any?) {
-        micWasUsed = true
-        audioEngine.stopPlayingAudio()
-        currentAssistantCall = AssistCallContainer(call: assistant.initiateSpokenRequest(delegate: self))
-        audioEngine.startRecording()
-        conversation.append(ConversationEntry(isFromUser: true, text: "..."))
-        conversationCollectionView.reloadData()
+    override func viewDidDisappear() {
+        cancelCurrentRequest()
     }
-    
-    // TODO: Link this up with the Mic Graph (Another TODO: Get the Mic Waveform working)
-    func onWaveformClicked(_ sender: Any?) {
-        audioEngine.stopRecording()
-        // TODO: Does a message need to be sent to Google to indicate user has clicked stop recording button?
-    }
-    
-    func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        return conversation.count
-    }
-
-    func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
-        let entry = conversation[indexPath.item]
-        let alignment = entry.isFromUser ? NSTextAlignment.right : NSTextAlignment.left
-        let item = collectionView.makeItem(withIdentifier: conversationItemIdentifier, for: indexPath)
-        item.textField?.stringValue = entry.text
-        item.textField?.alignment = alignment
-        return item
-    }
-
-    // TODO: supplementalView to display screen out?
 
     func onAssistantCallCompleted(result: CallResult) {
         currentAssistantCall = nil
+        Log.debug("Assistant Call Completed. Description: \(result.description)")
         
         if !result.success {
             // TODO: show error (Create ErrorConversationEntry)
         }
-        
-        Log.debug(result.description)
+
         if let statusMessage = result.statusMessage {
             Log.debug(statusMessage)
         }
     }
     
     func onDoneListening() {
+        Log.debug("Done Listening")
         audioEngine.stopRecording()
         currentAssistantCall?.doneSpeaking = true
-        // TODO: Set currentStreamCall to nil?
     }
     
     // Received text to display
     func onDisplayText(text: String) {
+        Log.debug("Received display text: \(text)")
         conversation.append(ConversationEntry(isFromUser: false, text: text))
         conversationCollectionView.reloadBackground()
     }
     
     func onScreenOut(htmlData: String) {
+        // TODO: supplementalView to display screen out?
         // TODO: Handle HTML Screen Out data
+        Log.info(htmlData)
     }
     
     func onTranscriptUpdate(transcript: String) {
@@ -113,7 +90,7 @@ class AssistantViewController: NSViewController, AssistantDelegate, AudioDelegat
     
     func onAudioOut(audio: Data) {
         Log.debug("Got audio")
-        audioEngine.playAudio(data: audio) { success in
+        audioEngine.playResponse(data: audio) { success in
             if !success {
                 self.Log.error("Error playing audio out")
             }
@@ -122,7 +99,8 @@ class AssistantViewController: NSViewController, AssistantDelegate, AudioDelegat
             if self.followUpRequired {
                 self.followUpRequired = false
                 if self.micWasUsed {
-                    self.onMicClicked(nil)
+                    self.Log.debug("Following up with mic")
+                    self.onMicClicked()
                 } // else, use text input
             }
         }
@@ -146,21 +124,101 @@ class AssistantViewController: NSViewController, AssistantDelegate, AudioDelegat
             }
         }
     }
-}
-
-extension NSCollectionView {
-    public func reloadBackground() {
-        DispatchQueue.main.async {
-            self.reloadData()
+    
+    func cancelCurrentRequest() {
+        followUpRequired = false
+        audioEngine.stopPlayingResponse()
+        if let call = currentAssistantCall {
+            Log.debug("Cancelling current request")
+            call.call.cancel()
+            if (!call.doneSpeaking) {
+                conversation.removeLast()
+                conversationCollectionView.reloadBackground()
+            }
+            currentAssistantCall = nil
+            onDoneListening()
         }
     }
 }
 
-class AssistCallContainer {
-    let call: AssistCall!
-    var doneSpeaking = false
-    
-    public init(call: AssistCall!) {
-        self.call = call
+// UI Actions
+extension AssistantViewController {
+    @IBAction func onEnterClicked(_ sender: Any) {
+        let query = keyboardInputField.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
+        if query.isNotEmpty {
+            Log.debug("Processing text query: \(query)")
+            micWasUsed = false
+            conversation.append(ConversationEntry(isFromUser: true, text: query))
+            conversationCollectionView.reloadData()
+            let lastIndexPath = Set([IndexPath(item: conversation.count-1, section: 0)])
+            conversationCollectionView.scrollToItems(at: lastIndexPath, scrollPosition: .bottom)
+            assistant.sendTextQuery(text: query, delegate: self)
+            keyboardInputField.stringValue = ""
+        }
     }
+    
+    @IBAction func onMicClicked(_ sender: Any? = nil) {
+        Log.debug("Mic clicked")
+        audioEngine.playBeginPrompt()
+        micWasUsed = true
+        audioEngine.stopPlayingResponse()
+        currentAssistantCall = AssistCallContainer(call: assistant.initiateSpokenRequest(delegate: self))
+        audioEngine.startRecording()
+        conversation.append(ConversationEntry(isFromUser: true, text: "..."))
+        conversationCollectionView.reloadData()
+    }
+    
+    // TODO: Link this up with the Mic Graph (Another TODO: Get the Mic Waveform working)
+    func onWaveformClicked(_ sender: Any?) {
+        Log.debug("Listening manually stopped")
+        audioEngine.stopRecording()
+        try? currentAssistantCall?.call.closeSend()
+    }
+}
+
+// CollectionView related methods
+extension AssistantViewController: NSCollectionViewDataSource, NSCollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
+        return conversation.count
+    }
+    
+    func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
+        let item = collectionView.makeItem(withIdentifier: conversationItemIdentifier, for: indexPath) as! ConversationItem
+        item.loadData(data: conversation[indexPath.item])
+        return item
+    }
+    
+    //    func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
+    //
+    //
+    //        let myNib = NSNib(nibNamed: "ConversationItem", bundle: nil)!
+    //        var myArray: NSArray!
+    //        myNib.instantiate(withOwner: ConversationItem.self, topLevelObjects: &myArray) // instantiate view and put in myArray
+    //        var item: ConversationItem? = nil
+    //        for i in myArray {
+    //            if let i = i as? ConversationItem {
+    //                item = i
+    //            }
+    //        }
+    ////        let item = myArray[2] as! ConversationItem
+    //
+    ////        Bundle.main.loadNibNamed("ConversationItem", owner: self, topLevelObjects: &myArray)
+    ////        let picker = NSBundle.mainBundle().loadNibNamed("advancedCellView", owner: nil, options: nil)
+    ////        let item = myArray[0] as! ConversationItem
+    //
+    ////        let item = collectionView.makeItem(withIdentifier: conversationItemIdentifier, for: IndexPath(item: 0, section: 0)) as! ConversationItem
+    ////        let item = collectionView.item(at: indexPath)
+    //        if let item = item as ConversationItem? {
+    //            item.loadData(data: conversation[indexPath.item])
+    //            let width = item.textField!.frame.size.width
+    //            let newSize = item.textField!.sizeThatFits(NSSize(width: width, height: .greatestFiniteMagnitude))
+    //            item.textField?.frame.size = NSSize(width: 300, height: newSize.height)
+    //            print(item.textField!.frame.size)
+    //            return item.textField!.frame.size
+    //        }
+    //
+    //        print("here 2")
+    //        return NSSize(width: 300, height: 30)
+    //
+    //    }
 }

@@ -6,7 +6,6 @@
 //  Copyright © 2018 Vansh Gandhi. All rights reserved.
 //
 
-import Foundation
 import SwiftyUserDefaults
 
 extension DefaultsKeys {

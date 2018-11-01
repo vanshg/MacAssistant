@@ -16,25 +16,36 @@ public class AudioEngine: NSObject, AVAudioPlayerDelegate {
     lazy var sampleRateRatio = AKSettings.sampleRate / sampleRate
     lazy var desiredFormat = AVAudioFormat(commonFormat: .pcmFormatInt16, sampleRate: self.sampleRate, channels: 1, interleaved: false)!
     lazy var converter = AVAudioConverter(from: AudioKit.format, to: desiredFormat)!
-    var mic: AKMicrophone!
+    lazy var mic = AKMicrophone()
     var delegate: AudioDelegate!
-    var player: AVAudioPlayer?
+    var responsePlayer: AVAudioPlayer?
+    var beginPromptPlayer: AVAudioPlayer! // Played when you start recording
+    var confirmationPromptPlayer: AVAudioPlayer! // Played when Google responds with endOfUtterance
+    var cancelPromptPlayer: AVAudioPlayer! // Played when user cancels request
     var isRecording: Bool {
         get {
-            return AudioKit.engine.isRunning
+            return mic.isStarted
         }
     }
-    var audioFinishedPlayingHandler: AudioPlayerHandler? = nil
+    var responseFinishedPlayingHandler: AudioPlayerHandler? = nil
 
     public init(delegate: AudioDelegate) {
         super.init()
         self.delegate = delegate
         AKSettings.sampleRate = AudioConstants.NATIVE_SAMPLE_RATE
-        print(AKSettings.sampleRate)
-        mic = AKMicrophone()
         AudioKit.output = AKBooster(mic, gain: 0)
         mic.avAudioNode.installTap(onBus: 0, bufferSize: AVAudioFrameCount(AudioConstants.NATIVE_SAMPLES_PER_FRAME), format: nil, block: onTap)
         try! AudioKit.start()
+        
+        // Setup prompts
+//        let beginPromptUrl = Bundle.main.url(forResource: "begin_prompt", withExtension: "mp3", subdirectory: "Audio")!
+//        beginPromptPlayer = try! AVAudioPlayer(contentsOf: beginPromptUrl)
+        
+//        let confirmationPromptUrl = Bundle.main.url(forResource: "confirmation_prompt", withExtension: "mp3", subdirectory: "Audio")!
+//        confirmationPromptPlayer = try! AVAudioPlayer(contentsOf: confirmationPromptUrl)
+        
+//        let cancelPromptUrl = Bundle.main.url(forResource: "cancel_prompt", withExtension: "mp3", subdirectory: "Audio")!
+//        cancelPromptPlayer = try! AVAudioPlayer(contentsOf: cancelPromptUrl)
     }
 
     func onTap(buffer: AVAudioPCMBuffer, time: AVAudioTime) {
@@ -58,17 +69,17 @@ public class AudioEngine: NSObject, AVAudioPlayerDelegate {
     }
 
 
-    public func playAudio(data: Data, completionHandler: @escaping (Bool) -> Void) {
-        player?.delegate = nil // Resets any old delegates that were set for previous audio plays
-        audioFinishedPlayingHandler = completionHandler
-        player = try? AVAudioPlayer(data: data, fileTypeHint: AVFileType.mp3.rawValue)
-        player?.delegate = self
-        player?.play()
+    public func playResponse(data: Data, completionHandler: @escaping (Bool) -> Void) {
+        responsePlayer?.delegate = nil // Resets any old delegates that were set for previous audio plays
+        responseFinishedPlayingHandler = completionHandler
+        responsePlayer = try? AVAudioPlayer(data: data, fileTypeHint: AVFileType.mp3.rawValue)
+        responsePlayer?.delegate = self
+        responsePlayer?.play()
     }
     
-    public func stopPlayingAudio() {
-        if (player?.isPlaying ?? false) {
-            player?.stop()
+    public func stopPlayingResponse() {
+        if (responsePlayer?.isPlaying ?? false) {
+            responsePlayer?.stop()
         }
     }
 
@@ -83,6 +94,19 @@ public class AudioEngine: NSObject, AVAudioPlayerDelegate {
     }
     
     public func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        audioFinishedPlayingHandler?(flag)
+        responseFinishedPlayingHandler?(flag)
     }
+    
+    public func playBeginPrompt() {
+//        beginPromptPlayer.play()
+    }
+    
+    public func playConfirmationPrompt() {
+//        confirmationPromptPlayer.play()
+    }
+    
+    public func playCancelledPrompt() {
+//        cancelPromptPlayer.play()
+    }
+    
 }

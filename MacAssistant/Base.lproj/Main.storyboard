@@ -713,6 +713,8 @@
                         <windowPositionMask key="initialPositionMask" rightStrut="YES" topStrut="YES"/>
                         <rect key="contentRect" x="1315" y="527" width="345" height="480"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <value key="minSize" type="size" width="345" height="80"/>
+                        <value key="maxSize" type="size" width="345" height="480"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="boolean" keyPath="isFloatingPanel" value="YES"/>
                         </userDefinedRuntimeAttributes>
@@ -736,14 +738,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="345" height="480"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RW5-d5-zZc">
-                                <rect key="frame" x="83" y="463" width="180" height="17"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="What do you need help with?" id="RAF-HE-ZYc">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                             <scrollView wantsLayer="YES" placeholderIntrinsicWidth="305" placeholderIntrinsicHeight="410" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="PrH-v6-qOv">
                                 <rect key="frame" x="20" y="50" width="305" height="410"/>
                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="WvU-eO-HbL">
@@ -762,12 +756,12 @@
                                     <color key="backgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </clipView>
                                 <edgeInsets key="contentInsets" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
-                                <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="rrE-jf-au8">
-                                    <rect key="frame" x="-100" y="-100" width="303" height="16"/>
+                                <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" controlSize="mini" horizontal="YES" id="rrE-jf-au8">
+                                    <rect key="frame" x="-100" y="-100" width="303" height="11"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
-                                <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="AVe-5D-Dxj">
-                                    <rect key="frame" x="289" y="0.0" width="16" height="10"/>
+                                <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" controlSize="mini" horizontal="NO" id="AVe-5D-Dxj">
+                                    <rect key="frame" x="289" y="0.0" width="16" height="11"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
@@ -808,19 +802,16 @@
                             <constraint firstItem="08b-OM-Y7I" firstAttribute="bottom" secondItem="yvq-zI-BSH" secondAttribute="bottom" id="EhV-OT-FsI"/>
                             <constraint firstItem="PrH-v6-qOv" firstAttribute="trailing" secondItem="yvq-zI-BSH" secondAttribute="trailing" id="Jxu-El-iwU"/>
                             <constraint firstItem="yvq-zI-BSH" firstAttribute="leading" secondItem="08b-OM-Y7I" secondAttribute="trailing" constant="18" id="LPQ-SX-7bv"/>
-                            <constraint firstItem="RW5-d5-zZc" firstAttribute="top" secondItem="HLP-1U-0m2" secondAttribute="top" id="Rx1-Uj-Zdo"/>
                             <constraint firstItem="08b-OM-Y7I" firstAttribute="top" secondItem="PrH-v6-qOv" secondAttribute="bottom" constant="8" symbolic="YES" id="U4c-dz-M89"/>
                             <constraint firstItem="PrH-v6-qOv" firstAttribute="leading" secondItem="08b-OM-Y7I" secondAttribute="leading" id="YNd-fe-pAB"/>
                             <constraint firstAttribute="bottom" secondItem="08b-OM-Y7I" secondAttribute="bottom" constant="20" symbolic="YES" id="d5t-qe-ngd"/>
                             <constraint firstItem="PrH-v6-qOv" firstAttribute="leading" secondItem="HLP-1U-0m2" secondAttribute="leading" constant="20" symbolic="YES" id="dBO-Dr-1Ij"/>
-                            <constraint firstItem="RW5-d5-zZc" firstAttribute="centerX" secondItem="PrH-v6-qOv" secondAttribute="centerX" id="gss-BZ-Daf"/>
                             <constraint firstAttribute="trailing" secondItem="PrH-v6-qOv" secondAttribute="trailing" constant="20" symbolic="YES" id="wnX-DC-gye"/>
                             <constraint firstItem="PrH-v6-qOv" firstAttribute="top" secondItem="HLP-1U-0m2" secondAttribute="top" constant="20" symbolic="YES" id="yY8-XJ-aop"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="conversationCollectionView" destination="QgA-Vi-9Sp" id="TFw-Vw-ie9"/>
-                        <outlet property="initialPromptLabel" destination="RW5-d5-zZc" id="xmd-lw-rbZ"/>
                         <outlet property="keyboardInputField" destination="08b-OM-Y7I" id="er3-kS-Zip"/>
                     </connections>
                 </viewController>

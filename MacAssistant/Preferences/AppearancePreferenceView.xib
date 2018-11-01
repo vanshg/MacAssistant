@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="GeneralPreferenceViewController" customModule="MacAssistant" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="c22-O7-iKe" id="ZQe-UH-LCX"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="174"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wWk-QB-Glg">
+                    <rect key="frame" x="141" y="130" width="77" height="25"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="72" id="AVF-rY-9f0"/>
+                    </constraints>
+                    <popUpButtonCell key="cell" type="push" title="System" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="xL0-iH-UPn" id="8Hj-Zb-YXS">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" id="pa6-83-vow">
+                            <items>
+                                <menuItem title="System" state="on" id="xL0-iH-UPn"/>
+                                <menuItem title="Light" id="TTC-dq-AaH"/>
+                                <menuItem title="Dark" id="RbG-iL-F73"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                </popUpButton>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Apx-x9-Jh5">
+                    <rect key="frame" x="18" y="56" width="402" height="18"/>
+                    <buttonCell key="cell" type="check" title="Allow MacAssistant window to be moved (app restart required)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Tgp-yx-xCR">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="fvs-ql-DaT" name="value" keyPath="values.allowWindowMovement" id="X4t-wu-ntn"/>
+                    </connections>
+                </button>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VGC-jl-PkL">
+                    <rect key="frame" x="18" y="137" width="82" height="17"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" title="Color Theme" id="CSk-7L-vYR">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9LE-7r-llW">
+                    <rect key="frame" x="18" y="96" width="92" height="17"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" title="Design Theme" id="aVZ-LJ-9ZP">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ol4-1U-MKK">
+                    <rect key="frame" x="18" y="18" width="404" height="18"/>
+                    <buttonCell key="cell" type="check" title="Allow MacAssistant window to lose focus (app restart required)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="1Lv-87-4Gb">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="fvs-ql-DaT" name="value" keyPath="values.allowWindowLoseFocus" id="L9P-55-dqZ"/>
+                    </connections>
+                </button>
+                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="di4-B7-fM7">
+                    <rect key="frame" x="141" y="89" width="77" height="25"/>
+                    <popUpButtonCell key="cell" type="push" title="Apple" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="mjN-qS-du5" id="R1R-Fy-39p">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" id="1yC-RT-lMx">
+                            <items>
+                                <menuItem title="Apple" state="on" id="mjN-qS-du5"/>
+                                <menuItem title="Google (Material Design)" id="A1q-tA-ChT"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                </popUpButton>
+            </subviews>
+            <constraints>
+                <constraint firstItem="di4-B7-fM7" firstAttribute="leading" secondItem="9LE-7r-llW" secondAttribute="trailing" constant="35" id="3so-RA-0d3"/>
+                <constraint firstItem="VGC-jl-PkL" firstAttribute="leading" secondItem="9LE-7r-llW" secondAttribute="leading" id="6Wa-Xj-jiw"/>
+                <constraint firstItem="Apx-x9-Jh5" firstAttribute="top" secondItem="9LE-7r-llW" secondAttribute="bottom" constant="24" id="CNj-9K-6Vx"/>
+                <constraint firstItem="wWk-QB-Glg" firstAttribute="trailing" secondItem="di4-B7-fM7" secondAttribute="trailing" id="Fbe-Qo-e7m"/>
+                <constraint firstItem="ol4-1U-MKK" firstAttribute="top" secondItem="Apx-x9-Jh5" secondAttribute="bottom" constant="24" id="OlN-Jk-fUY"/>
+                <constraint firstItem="9LE-7r-llW" firstAttribute="leading" secondItem="Apx-x9-Jh5" secondAttribute="leading" id="PNM-Cy-p1I"/>
+                <constraint firstItem="VGC-jl-PkL" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" symbolic="YES" id="XTS-ud-2do"/>
+                <constraint firstItem="9LE-7r-llW" firstAttribute="top" secondItem="VGC-jl-PkL" secondAttribute="bottom" constant="24" id="YXG-h9-ORo"/>
+                <constraint firstAttribute="bottom" secondItem="ol4-1U-MKK" secondAttribute="bottom" constant="20" id="hga-o6-PbI"/>
+                <constraint firstItem="wWk-QB-Glg" firstAttribute="leading" secondItem="di4-B7-fM7" secondAttribute="leading" id="kGL-gt-BeV"/>
+                <constraint firstItem="VGC-jl-PkL" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="20" id="nIb-9e-Ps1"/>
+                <constraint firstItem="wWk-QB-Glg" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="20" symbolic="YES" id="o4k-U2-hgz"/>
+                <constraint firstItem="Apx-x9-Jh5" firstAttribute="leading" secondItem="ol4-1U-MKK" secondAttribute="leading" id="oEJ-l3-Fl6"/>
+                <constraint firstItem="Apx-x9-Jh5" firstAttribute="top" secondItem="di4-B7-fM7" secondAttribute="bottom" constant="20" id="ogl-TG-oLx"/>
+                <constraint firstItem="di4-B7-fM7" firstAttribute="top" secondItem="wWk-QB-Glg" secondAttribute="bottom" constant="20" id="rhT-Gj-0uV"/>
+            </constraints>
+            <point key="canvasLocation" x="139" y="126"/>
+        </customView>
+        <userDefaultsController representsSharedInstance="YES" id="fvs-ql-DaT"/>
+    </objects>
+</document>

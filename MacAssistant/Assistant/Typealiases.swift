@@ -1,0 +1,26 @@
+//
+//  Typealiases.swift
+//  MacAssistant
+//
+//  Created by Vansh Gandhi on 10/31/18.
+//  Copyright © 2018 Vansh Gandhi. All rights reserved.
+//
+
+typealias AssistantServiceClient = Google_Assistant_Embedded_V1alpha2_EmbeddedAssistantServiceClient
+typealias AssistCall = Google_Assistant_Embedded_V1alpha2_EmbeddedAssistantAssistCall
+typealias AudioInConfig = Google_Assistant_Embedded_V1alpha2_AudioInConfig
+typealias AudioOut = Google_Assistant_Embedded_V1alpha2_AudioOut
+typealias AudioOutConfig = Google_Assistant_Embedded_V1alpha2_AudioOutConfig
+typealias AssistRequest = Google_Assistant_Embedded_V1alpha2_AssistRequest
+typealias AssistResponse = Google_Assistant_Embedded_V1alpha2_AssistResponse
+typealias AssistConfig = Google_Assistant_Embedded_V1alpha2_AssistConfig
+typealias SpeechRecognitionResult = Google_Assistant_Embedded_V1alpha2_SpeechRecognitionResult
+typealias DialogStateIn = Google_Assistant_Embedded_V1alpha2_DialogStateIn
+typealias DialogStateOut = Google_Assistant_Embedded_V1alpha2_DialogStateOut
+typealias DeviceConfig = Google_Assistant_Embedded_V1alpha2_DeviceConfig
+typealias DeviceLocation = Google_Assistant_Embedded_V1alpha2_DeviceLocation
+typealias DeviceAction = Google_Assistant_Embedded_V1alpha2_DeviceAction
+typealias ScreenOut = Google_Assistant_Embedded_V1alpha2_ScreenOut
+typealias ScreenOutConfig = Google_Assistant_Embedded_V1alpha2_ScreenOutConfig
+typealias DebugInfo = Google_Assistant_Embedded_V1alpha2_DebugInfo
+typealias DebugConfig = Google_Assistant_Embedded_V1alpha2_DebugConfig

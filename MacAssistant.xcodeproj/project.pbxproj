@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		58495794218ABCF40021602E /* AssistCallContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58495793218ABCF40021602E /* AssistCallContainer.swift */; };
+		58495797218ABD3A0021602E /* NSCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58495796218ABD3A0021602E /* NSCollectionView.swift */; };
+		58495799218AC0C60021602E /* Typealiases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58495798218AC0C60021602E /* Typealiases.swift */; };
+		5849579E218ACFED0021602E /* GeneralPreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5849579D218ACFED0021602E /* GeneralPreferenceViewController.swift */; };
+		584957A0218AD0E30021602E /* AppearancePreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5849579F218AD0E30021602E /* AppearancePreferenceViewController.swift */; };
+		584957A2218AD12C0021602E /* AudioPreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584957A1218AD12C0021602E /* AudioPreferenceViewController.swift */; };
+		584957A4218AD1510021602E /* AccountPreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584957A3218AD1510021602E /* AccountPreferenceViewController.swift */; };
+		584957A8218AD7F10021602E /* GeneralPreferenceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 584957A7218AD7F10021602E /* GeneralPreferenceView.xib */; };
+		584957AC218AD8DD0021602E /* AudioPreferenceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 584957A9218AD8DC0021602E /* AudioPreferenceView.xib */; };
+		584957AD218AD8DD0021602E /* AccountPreferenceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 584957AA218AD8DC0021602E /* AccountPreferenceView.xib */; };
+		584957AE218AD8DD0021602E /* AppearancePreferenceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 584957AB218AD8DD0021602E /* AppearancePreferenceView.xib */; };
+		584957B0218ADD140021602E /* PreferenceDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584957AF218ADD140021602E /* PreferenceDefaultsKeys.swift */; };
 		588AAED42114299F0030AE52 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588AAED32114299F0030AE52 /* AppDelegate.swift */; };
 		588AAED62114299F0030AE52 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588AAED52114299F0030AE52 /* LoginViewController.swift */; };
 		588AAED82114299F0030AE52 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 588AAED72114299F0030AE52 /* Assets.xcassets */; };
@@ -35,6 +47,18 @@
 
 /* Begin PBXFileReference section */
 		12C2C59A5FFED26A3F40BE2A /* Pods_MacAssistant.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MacAssistant.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		58495793218ABCF40021602E /* AssistCallContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistCallContainer.swift; sourceTree = "<group>"; };
+		58495796218ABD3A0021602E /* NSCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSCollectionView.swift; sourceTree = "<group>"; };
+		58495798218AC0C60021602E /* Typealiases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typealiases.swift; sourceTree = "<group>"; };
+		5849579D218ACFED0021602E /* GeneralPreferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralPreferenceViewController.swift; sourceTree = "<group>"; };
+		5849579F218AD0E30021602E /* AppearancePreferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearancePreferenceViewController.swift; sourceTree = "<group>"; };
+		584957A1218AD12C0021602E /* AudioPreferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPreferenceViewController.swift; sourceTree = "<group>"; };
+		584957A3218AD1510021602E /* AccountPreferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPreferenceViewController.swift; sourceTree = "<group>"; };
+		584957A7218AD7F10021602E /* GeneralPreferenceView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GeneralPreferenceView.xib; sourceTree = "<group>"; };
+		584957A9218AD8DC0021602E /* AudioPreferenceView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AudioPreferenceView.xib; sourceTree = "<group>"; };
+		584957AA218AD8DC0021602E /* AccountPreferenceView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountPreferenceView.xib; sourceTree = "<group>"; };
+		584957AB218AD8DD0021602E /* AppearancePreferenceView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AppearancePreferenceView.xib; sourceTree = "<group>"; };
+		584957AF218ADD140021602E /* PreferenceDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceDefaultsKeys.swift; sourceTree = "<group>"; };
 		588AAED02114299F0030AE52 /* MacAssistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacAssistant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		588AAED32114299F0030AE52 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		588AAED52114299F0030AE52 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -77,6 +101,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		58495795218ABD260021602E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				58495796218ABD3A0021602E /* NSCollectionView.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		5849579C218AC4AD0021602E /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				584957A7218AD7F10021602E /* GeneralPreferenceView.xib */,
+				5849579D218ACFED0021602E /* GeneralPreferenceViewController.swift */,
+				584957AB218AD8DD0021602E /* AppearancePreferenceView.xib */,
+				5849579F218AD0E30021602E /* AppearancePreferenceViewController.swift */,
+				584957A9218AD8DC0021602E /* AudioPreferenceView.xib */,
+				584957A1218AD12C0021602E /* AudioPreferenceViewController.swift */,
+				584957AA218AD8DC0021602E /* AccountPreferenceView.xib */,
+				584957A3218AD1510021602E /* AccountPreferenceViewController.swift */,
+				584957AF218ADD140021602E /* PreferenceDefaultsKeys.swift */,
+			);
+			path = Preferences;
+			sourceTree = "<group>";
+		};
 		588AAEC72114299F0030AE52 = {
 			isa = PBXGroup;
 			children = (
@@ -99,15 +147,17 @@
 			isa = PBXGroup;
 			children = (
 				588AAED32114299F0030AE52 /* AppDelegate.swift */,
-				588AAED72114299F0030AE52 /* Assets.xcassets */,
 				588AAF09211442E40030AE52 /* Assistant */,
+				5849579C218AC4AD0021602E /* Preferences */,
 				588AAF07211442A50030AE52 /* Audio */,
 				588AAF0621143EC20030AE52 /* Auth */,
+				58495795218ABD260021602E /* Extensions */,
 				588AAF08211442CA0030AE52 /* Config */,
 				588AAEF121142B390030AE52 /* Generated */,
-				588AAEDC211429A00030AE52 /* Info.plist */,
-				588AAEDD211429A00030AE52 /* MacAssistant.entitlements */,
 				588AAED92114299F0030AE52 /* Main.storyboard */,
+				588AAED72114299F0030AE52 /* Assets.xcassets */,
+				588AAEDD211429A00030AE52 /* MacAssistant.entitlements */,
+				588AAEDC211429A00030AE52 /* Info.plist */,
 			);
 			path = MacAssistant;
 			sourceTree = "<group>";
@@ -211,6 +261,8 @@
 				58D7383121162DC500D55D90 /* ConversationEntry.swift */,
 				58D73833211630AC00D55D90 /* ConversationItem.swift */,
 				58D73834211630AC00D55D90 /* ConversationItem.xib */,
+				58495793218ABCF40021602E /* AssistCallContainer.swift */,
+				58495798218AC0C60021602E /* Typealiases.swift */,
 			);
 			path = Assistant;
 			sourceTree = "<group>";
@@ -300,8 +352,12 @@
 			files = (
 				588AAF0121142C330030AE52 /* google_oauth.json in Resources */,
 				588AAED82114299F0030AE52 /* Assets.xcassets in Resources */,
+				584957AD218AD8DD0021602E /* AccountPreferenceView.xib in Resources */,
+				584957A8218AD7F10021602E /* GeneralPreferenceView.xib in Resources */,
 				588AAEDB2114299F0030AE52 /* Main.storyboard in Resources */,
+				584957AC218AD8DD0021602E /* AudioPreferenceView.xib in Resources */,
 				58D73836211630AC00D55D90 /* ConversationItem.xib in Resources */,
+				584957AE218AD8DD0021602E /* AppearancePreferenceView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -317,7 +373,10 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-MacAssistant/Pods-MacAssistant-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
+				"${BUILT_PRODUCTS_DIR}/KeyHolder/KeyHolder.framework",
 				"${BUILT_PRODUCTS_DIR}/Log/Log.framework",
+				"${BUILT_PRODUCTS_DIR}/Magnet/Magnet.framework",
+				"${BUILT_PRODUCTS_DIR}/Preferences/Preferences.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftGRPC/SwiftGRPC.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftProtobuf/SwiftProtobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
@@ -329,7 +388,10 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeyHolder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Log.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Magnet.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Preferences.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftGRPC.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftProtobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
@@ -367,8 +429,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5849579E218ACFED0021602E /* GeneralPreferenceViewController.swift in Sources */,
+				584957A0218AD0E30021602E /* AppearancePreferenceViewController.swift in Sources */,
+				584957A2218AD12C0021602E /* AudioPreferenceViewController.swift in Sources */,
 				588AAEFE21142B390030AE52 /* latlng.pb.swift in Sources */,
 				588AAEFD21142B390030AE52 /* embedded_assistant.pb.swift in Sources */,
+				58495794218ABCF40021602E /* AssistCallContainer.swift in Sources */,
+				58495797218ABD3A0021602E /* NSCollectionView.swift in Sources */,
 				58D7382E2115627A00D55D90 /* LoginSuccessDelegate.swift in Sources */,
 				58D7383221162DC500D55D90 /* ConversationEntry.swift in Sources */,
 				588AAEEB21142AD10030AE52 /* Assistant.swift in Sources */,
@@ -383,7 +450,10 @@
 				588AAF0B211443590030AE52 /* AssistantWindowController.swift in Sources */,
 				588AAEEC21142AD10030AE52 /* AudioDelegate.swift in Sources */,
 				58D7383021157DAC00D55D90 /* AssistantViewController.swift in Sources */,
+				58495799218AC0C60021602E /* Typealiases.swift in Sources */,
 				588AAEED21142AD10030AE52 /* AssistantDelegate.swift in Sources */,
+				584957B0218ADD140021602E /* PreferenceDefaultsKeys.swift in Sources */,
+				584957A4218AD1510021602E /* AccountPreferenceViewController.swift in Sources */,
 				588AAEF021142AD10030AE52 /* AudioConstants.swift in Sources */,
 				588AAF0521143DFF0030AE52 /* LoginWindowController.swift in Sources */,
 			);

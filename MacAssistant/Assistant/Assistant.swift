@@ -11,37 +11,13 @@ import Log
 import SwiftGRPC
 import SwiftyUserDefaults
 
-typealias AssistantServiceClient = Google_Assistant_Embedded_V1alpha2_EmbeddedAssistantServiceClient
-typealias AssistCall = Google_Assistant_Embedded_V1alpha2_EmbeddedAssistantAssistCall
-typealias AudioInConfig = Google_Assistant_Embedded_V1alpha2_AudioInConfig
-typealias AudioOut = Google_Assistant_Embedded_V1alpha2_AudioOut
-typealias AudioOutConfig = Google_Assistant_Embedded_V1alpha2_AudioOutConfig
-typealias AssistRequest = Google_Assistant_Embedded_V1alpha2_AssistRequest
-typealias AssistResponse = Google_Assistant_Embedded_V1alpha2_AssistResponse
-typealias AssistConfig = Google_Assistant_Embedded_V1alpha2_AssistConfig
-typealias SpeechRecognitionResult = Google_Assistant_Embedded_V1alpha2_SpeechRecognitionResult
-typealias DialogStateIn = Google_Assistant_Embedded_V1alpha2_DialogStateIn
-typealias DialogStateOut = Google_Assistant_Embedded_V1alpha2_DialogStateOut
-typealias DeviceConfig = Google_Assistant_Embedded_V1alpha2_DeviceConfig
-typealias DeviceLocation = Google_Assistant_Embedded_V1alpha2_DeviceLocation
-typealias DeviceAction = Google_Assistant_Embedded_V1alpha2_DeviceAction
-typealias ScreenOut = Google_Assistant_Embedded_V1alpha2_ScreenOut
-typealias ScreenOutConfig = Google_Assistant_Embedded_V1alpha2_ScreenOutConfig
-typealias DebugInfo = Google_Assistant_Embedded_V1alpha2_DebugInfo
-typealias DebugConfig = Google_Assistant_Embedded_V1alpha2_DebugConfig
-
-//typealias ClientError = Google_Assistant_Embedded_V1Alpha2_EmbeddedAssistantClientError
-
 public class Assistant {
 
     private let Log = Logger()
     private let DEBUG = true
     private let ASSISTANT_API_ENDPOINT = "embeddedassistant.googleapis.com"
-    private var service: AssistantServiceClient
-
-    public init() {
-        service = AssistantServiceClient(address: ASSISTANT_API_ENDPOINT, secure: true)
-    }
+    private var isNewConversation = true
+    lazy var service: AssistantServiceClient = AssistantServiceClient(address: ASSISTANT_API_ENDPOINT, secure: true)
 
     func initiateSpokenRequest(delegate: AssistantDelegate) -> AssistCall {
         var request = AssistRequest()
@@ -69,7 +45,7 @@ public class Assistant {
     }
 
     func sendTextQuery(text: String, delegate: AssistantDelegate) {
-        Log.debug("sending text query")
+        Log.debug("Sending text query")
         var request = AssistRequest()
         var config = AssistConfig()
         config.audioOutConfig = getAudioOutConfig()
@@ -189,13 +165,16 @@ public class Assistant {
     }
 
     private func getIsNewConversation() -> Bool {
-        // return true if window reopened
-        return true
+        // returns true on app restart, false otherwise
+        let retVal = isNewConversation
+        isNewConversation = false
+        return retVal
     }
 
     private func getDeviceLocation() -> DeviceLocation? {
         return nil
-        // TODO: Implement me based on Location Services (or manually set location)
+        // if let locationOverride = locationOverride { ... } else { if locationIsAvailable { ... } } return nil
+        // TODO: Implement me based on Location Services (with manually set location (i.e. override) in Preferences)
     }
 
     private func getAudioInConfig() -> AudioInConfig {
@@ -211,7 +190,6 @@ public class Assistant {
         audioOutConfig.volumePercentage = 100 // TODO: Take from settings?
         audioOutConfig.sampleRateHertz = AudioConstants.GOOGLE_SAMPLE_RATE
         return audioOutConfig
-        // TODO: Implement me based on hardware capability
     }
 
     private func getScreenOutConfig() -> ScreenOutConfig {
@@ -223,7 +201,7 @@ public class Assistant {
 
     private func getLanguageCode() -> String {
         return "en-US"
-        // TODO: Implement me based on User Preferences (with option of using manual override or system language)
+        // TODO: Implement based on User Preferences (with option of using manual override or system language or Google preset?)
     }
 
     private func getDebugConfig() -> DebugConfig {

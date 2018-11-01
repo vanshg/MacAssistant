@@ -10,4 +10,6 @@ target 'MacAssistant' do
   pod 'Alamofire', '~> 4.7'
   pod 'SwiftyJSON', '~> 4.2'
   pod 'SwiftyUserDefaults', '4.0.0-alpha.1'
+  pod 'Preferences'
+  pod 'KeyHolder'
 end

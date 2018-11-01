@@ -20,12 +20,16 @@ PODS:
     - gRPC-Core/Interface (= 1.12.0)
     - nanopb (~> 0.3)
   - gRPC-Core/Interface (1.12.0)
+  - KeyHolder (3.0.1):
+    - Magnet (~> 2.3)
   - Log (1.0)
+  - Magnet (2.3.1)
   - nanopb (0.3.901):
     - nanopb/decode (= 0.3.901)
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - Preferences (0.2.0)
   - SwiftGRPC (0.6.0):
     - BoringSSL (~> 10.0)
     - gRPC-Core (~> 1.12.0)
@@ -37,7 +41,9 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 4.7)
   - AudioKit (~> 4.5)
+  - KeyHolder
   - Log (~> 1.0)
+  - Preferences
   - SwiftGRPC
   - SwiftyJSON (~> 4.2)
   - SwiftyUserDefaults (= 4.0.0-alpha.1)
@@ -48,8 +54,11 @@ SPEC REPOS:
     - AudioKit
     - BoringSSL
     - gRPC-Core
+    - KeyHolder
     - Log
+    - Magnet
     - nanopb
+    - Preferences
     - SwiftGRPC
     - SwiftProtobuf
     - SwiftyJSON
@@ -60,13 +69,16 @@ SPEC CHECKSUMS:
   AudioKit: 086927b955ed65d9d3398006eaa7a5c39ae8a7f1
   BoringSSL: e10f92a27043805c01071fe815a5cd98ae8212e7
   gRPC-Core: 9696b220565b283e021cf2722d473a4a74b7622a
+  KeyHolder: 142932db4eac7420b003e2eae94c9a61b8b53cb1
   Log: 5e368c9528db07517d18d2d04ff5fe2b6f5a1e21
+  Magnet: f8dac2ffc845ffe68b2dd21c68a801f866f4a098
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  Preferences: ebc036a176a298cde835155c73251173768a2f8d
   SwiftGRPC: 465792c0e09dcb083d19d97137cee71b4f4f8b6f
   SwiftProtobuf: 7147b8ec19c8c0694a45155d989ea9e6dedaf51f
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
   SwiftyUserDefaults: cebe0ff9472f52699772a514b6f7155861d8069b
 
-PODFILE CHECKSUM: 762da79df459b4b91cabcf9f4c56c162fe20ca7e
+PODFILE CHECKSUM: b30f0dfa1388d4ae3968dbd3bc0e590c717fa6a8
 
 COCOAPODS: 1.5.3

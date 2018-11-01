@@ -12,6 +12,7 @@ import SwiftGRPC
 import Log
 import AudioKit
 import SwiftyUserDefaults
+import Preferences
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, LoginSuccessDelegate {
@@ -28,22 +29,48 @@ class AppDelegate: NSObject, NSApplicationDelegate, LoginSuccessDelegate {
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
     lazy var awc = sb.instantiateController(withIdentifier: assitantWindowControllerID) as! AssistantWindowController
     lazy var lwc = sb.instantiateController(withIdentifier: loginWindowControllerID) as! LoginWindowController
+    
+    lazy var preferencesWindowController = PreferencesWindowController(viewControllers: [
+            GeneralPreferenceViewController(),
+            AppearancePreferenceViewController(),
+            AudioPreferenceViewController(),
+            AccountPreferenceViewController()
+    ])
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         statusItem.image = #imageLiteral(resourceName: "statusIcon")
-        statusItem.action = #selector(showAppropriateWindow)
+        statusItem.action = #selector(toggleWindow)
         showAppropriateWindow()
+//        preferencesWindowController.showWindow()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
         
     }
     
-    @objc func showAppropriateWindow() {
+    @objc func toggleWindow() {
+        if awc.window?.isVisible ?? false || lwc.window?.isVisible ?? false {
+            hideAppropriateWindow()
+        } else {
+            showAppropriateWindow()
+        }
+    }
+    
+    func showAppropriateWindow() {
         if Defaults[.isLoggedIn] {
             showAssistant()
         } else {
             showLogin()
+        }
+    }
+    
+    func hideAppropriateWindow() {
+        if awc.window?.isVisible ?? false {
+            awc.close()
+        }
+        
+        if lwc.window?.isVisible ?? false {
+            lwc.close()
         }
     }
     

@@ -56,7 +56,7 @@ public class Authenticator {
             case .success(let value):
                 let json = JSON(value)
                 if let err = json["error"].string {
-                    self.Log.debug("\(err): \(json["error_description"].string)")
+                    self.Log.debug("\(err): \(json["error_description"].string ?? "no error msg")")
                     onLoginResult(NSError())
                     return
                 }
@@ -89,7 +89,7 @@ public class Authenticator {
             case .success(let value):
                 let json = JSON(value)
                 if let err = json["error"].string {
-                    self.Log.debug("\(err): \(json["error_description"].string)")
+                    self.Log.debug("\(err): \(json["error_description"].string ?? "No error msg provided")")
                     return
                 }
                 let tokenExpiration = Date(timeInterval: TimeInterval(json["expires_in"].int!), since: Date())

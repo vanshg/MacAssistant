@@ -145,7 +145,10 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/KeyHolder/KeyHolder.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Log/Log.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Magnet/Magnet.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Preferences/Preferences.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftGRPC/SwiftGRPC.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftProtobuf/SwiftProtobuf.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework"
@@ -156,7 +159,10 @@ fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/KeyHolder/KeyHolder.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Log/Log.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Magnet/Magnet.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Preferences/Preferences.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftGRPC/SwiftGRPC.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftProtobuf/SwiftProtobuf.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework"
