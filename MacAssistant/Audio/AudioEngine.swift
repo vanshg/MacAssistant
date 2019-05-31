@@ -24,7 +24,7 @@ public class AudioEngine: NSObject, AVAudioPlayerDelegate {
     var cancelPromptPlayer: AVAudioPlayer! // Played when user cancels request
     var isRecording: Bool {
         get {
-            return mic.isStarted
+            return mic!.isStarted
         }
     }
     var responseFinishedPlayingHandler: AudioPlayerHandler? = nil
@@ -34,7 +34,7 @@ public class AudioEngine: NSObject, AVAudioPlayerDelegate {
         self.delegate = delegate
         AKSettings.sampleRate = AudioConstants.NATIVE_SAMPLE_RATE
         AudioKit.output = AKBooster(mic, gain: 0)
-        mic.avAudioNode.installTap(onBus: 0, bufferSize: AVAudioFrameCount(AudioConstants.NATIVE_SAMPLES_PER_FRAME), format: nil, block: onTap)
+        mic!.avAudioNode.installTap(onBus: 0, bufferSize: AVAudioFrameCount(AudioConstants.NATIVE_SAMPLES_PER_FRAME), format: nil, block: onTap)
         try! AudioKit.start()
         
         // Setup prompts
@@ -85,12 +85,12 @@ public class AudioEngine: NSObject, AVAudioPlayerDelegate {
 
     public func startRecording() {
         Log.debug("Start recording")
-        mic.start()
+        mic!.start()
     }
 
     public func stopRecording() {
         Log.debug("Stop recording")
-        mic.stop()
+        mic!.stop()
     }
     
     public func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
