@@ -171,7 +171,11 @@ extension URL: DefaultsSerializable {
     }
 
     public static func saveArray(key: String, value: [URL], userDefaults: UserDefaults) {
-        userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: value), forKey: key)
+        if #available(OSX 10.11, *) {
+            userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: value), forKey: key)
+        } else {
+            // Fallback on earlier versions
+        }
     }
 }
 
@@ -245,11 +249,19 @@ extension DefaultsStoreable where Self: NSCoding {
             return
         }
 
-        userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: value), forKey: key)
+        if #available(OSX 10.11, *) {
+            userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: value), forKey: key)
+        } else {
+            // Fallback on earlier versions
+        }
     }
 
     public static func saveArray(key: String, value: [Self], userDefaults: UserDefaults) {
-        userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: value), forKey: key)
+        if #available(OSX 10.11, *) {
+            userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: value), forKey: key)
+        } else {
+            // Fallback on earlier versions
+        }
     }
 }
 
