@@ -18,13 +18,15 @@
 
 #include <grpc/support/port_platform.h>
 
+#include "src/core/tsi/grpc_shadow_boringssl.h"
+
 #include "src/core/tsi/alts/crypt/gsec.h"
 
-#include <openssl/bio.h>
-#include <openssl/buffer.h>
-#include <openssl/err.h>
-#include <openssl/evp.h>
-#include <openssl/hmac.h>
+#include <openssl_grpc/bio.h>
+#include <openssl_grpc/buffer.h>
+#include <openssl_grpc/err.h>
+#include <openssl_grpc/evp.h>
+#include <openssl_grpc/hmac.h>
 #include <string.h>
 
 #include <grpc/support/alloc.h>

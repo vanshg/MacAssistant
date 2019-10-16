@@ -42,6 +42,9 @@ public:
     
     /// call to load samples
     void loadSampleData(AKSampleDataDescriptor& sdd);
+
+    /// call to unload samples, freeing memory
+    void unloadAllSamples();
     
     // after loading samples, call one of these to build the key map
     
@@ -57,7 +60,7 @@ public:
     /// optionally call this to make samples continue looping after note-release
     void setLoopThruRelease(bool value) { loopThruRelease = value; }
     
-    void playNote(unsigned noteNumber, unsigned velocity, float noteFrequency);
+    void playNote(unsigned noteNumber, unsigned velocity);
     void stopNote(unsigned noteNumber, bool immediate);
     void sustainPedal(bool down);
     
@@ -142,7 +145,6 @@ protected:
     AudioKitCore::KeyMappedSampleBuffer *lookupSample(unsigned noteNumber, unsigned velocity);
     void play(unsigned noteNumber,
               unsigned velocity,
-              float noteFrequency,
               bool anotherKeyWasDown);
     void stop(unsigned noteNumber, bool immediate);
 };

@@ -23,11 +23,7 @@ private func parseDuration(text: String) throws -> (Int64, Int32) {
   var digits = [Character]()
   var digitCount = 0
   var total = 0
-#if swift(>=3.2)
   var chars = text.makeIterator()
-#else
-  var chars = text.characters.makeIterator()
-#endif
   var seconds: Int64?
   var nanos: Int32 = 0
   while let c = chars.next() {
@@ -115,7 +111,7 @@ private func formatDuration(seconds: Int64, nanos: Int32) -> String? {
   }
 }
 
-public extension Google_Protobuf_Duration {
+extension Google_Protobuf_Duration {
   /// Creates a new `Google_Protobuf_Duration` equal to the given number of
   /// seconds and nanoseconds.
   ///
@@ -133,7 +129,7 @@ extension Google_Protobuf_Duration: _CustomJSONCodable {
     let s = try decoder.scanner.nextQuotedString()
     (seconds, nanos) = try parseDuration(text: s)
   }
-  func encodedJSONString() throws -> String {
+  func encodedJSONString(options: JSONEncodingOptions) throws -> String {
     if let formatted = formatDuration(seconds: seconds, nanos: nanos) {
       return "\"\(formatted)\""
     } else {

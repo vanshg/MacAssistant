@@ -21,11 +21,13 @@
 
 #include <grpc/support/port_platform.h>
 
+#include "src/core/tsi/grpc_shadow_boringssl.h"
+
 #include <grpc/slice.h>
 #include <grpc/support/sync.h>
 
 extern "C" {
-#include <openssl/ssl.h>
+#include <openssl_grpc/ssl.h>
 }
 
 #include "src/core/lib/avl/avl.h"

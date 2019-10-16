@@ -23,9 +23,11 @@ import Foundation
 internal struct JSONMapEncodingVisitor: SelectiveVisitor {
   private var separator: StaticString?
   internal var encoder: JSONEncoder
+  private let options: JSONEncodingOptions
 
-  init(encoder: JSONEncoder) {
+  init(encoder: JSONEncoder, options: JSONEncodingOptions) {
       self.encoder = encoder
+      self.options = options
   }
 
   private mutating func startKey() {
@@ -38,6 +40,13 @@ internal struct JSONMapEncodingVisitor: SelectiveVisitor {
 
   private mutating func startValue() {
       encoder.append(staticText: ":")
+  }
+
+  mutating func visitSingularFloatField(value: Float, fieldNumber: Int) throws {
+      // Doubles/Floats can never be map keys, only values
+      assert(fieldNumber == 2)
+      startValue()
+      encoder.putFloatValue(value: value)
   }
 
   mutating func visitSingularDoubleField(value: Double, fieldNumber: Int) throws {
@@ -86,6 +95,30 @@ internal struct JSONMapEncodingVisitor: SelectiveVisitor {
       encoder.putUInt64(value: value)
   }
 
+  mutating func visitSingularSInt32Field(value: Int32, fieldNumber: Int) throws {
+      try visitSingularInt32Field(value: value, fieldNumber: fieldNumber)
+  }
+
+  mutating func visitSingularSInt64Field(value: Int64, fieldNumber: Int) throws {
+      try visitSingularInt64Field(value: value, fieldNumber: fieldNumber)
+  }
+
+  mutating func visitSingularFixed32Field(value: UInt32, fieldNumber: Int) throws {
+      try visitSingularUInt32Field(value: value, fieldNumber: fieldNumber)
+  }
+
+  mutating func visitSingularFixed64Field(value: UInt64, fieldNumber: Int) throws {
+      try visitSingularUInt64Field(value: value, fieldNumber: fieldNumber)
+  }
+
+  mutating func visitSingularSFixed32Field(value: Int32, fieldNumber: Int) throws {
+      try visitSingularInt32Field(value: value, fieldNumber: fieldNumber)
+  }
+
+  mutating func visitSingularSFixed64Field(value: Int64, fieldNumber: Int) throws {
+      try visitSingularInt64Field(value: value, fieldNumber: fieldNumber)
+  }
+
   mutating func visitSingularBoolField(value: Bool, fieldNumber: Int) throws {
       if fieldNumber == 1 {
           startKey()
@@ -116,7 +149,7 @@ internal struct JSONMapEncodingVisitor: SelectiveVisitor {
       // Enums can only be map values, never keys
       assert(fieldNumber == 2)
       startValue()
-      if let n = value.name {
+      if !options.alwaysPrintEnumsAsInts, let n = value.name {
           encoder.putStringValue(value: String(describing: n))
       } else {
           encoder.putEnumInt(value: value.rawValue)
@@ -127,7 +160,7 @@ internal struct JSONMapEncodingVisitor: SelectiveVisitor {
       // Messages can only be map values, never keys
       assert(fieldNumber == 2)
       startValue()
-      let json = try value.jsonString()
+      let json = try value.jsonString(options: options)
       encoder.append(text: json)
   }
 

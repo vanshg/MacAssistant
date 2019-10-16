@@ -18,7 +18,7 @@ import Foundation
 
 public let defaultAnyTypeURLPrefix: String = "type.googleapis.com"
 
-public extension Google_Protobuf_Any {
+extension Google_Protobuf_Any {
   /// Initialize an Any object from the provided message.
   ///
   /// This corresponds to the `pack` operation in the C++ API.
@@ -66,15 +66,19 @@ public extension Google_Protobuf_Any {
     self.init()
     if !textFormatString.isEmpty {
       if let data = textFormatString.data(using: String.Encoding.utf8) {
-        try data.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) in
-          var textDecoder = try TextFormatDecoder(
-            messageType: Google_Protobuf_Any.self,
-            utf8Pointer: bytes,
-            count: data.count,
-            extensions: extensions)
-          try decodeTextFormat(decoder: &textDecoder)
-          if !textDecoder.complete {
-            throw TextFormatDecodingError.trailingGarbage
+        try data.withUnsafeBytes { (body: UnsafeRawBufferPointer) in
+          if let baseAddress = body.baseAddress, body.count > 0 {
+            let bytes = baseAddress.assumingMemoryBound(to: UInt8.self)
+
+            var textDecoder = try TextFormatDecoder(
+              messageType: Google_Protobuf_Any.self,
+              utf8Pointer: bytes,
+              count: body.count,
+              extensions: extensions)
+            try decodeTextFormat(decoder: &textDecoder)
+            if !textDecoder.complete {
+              throw TextFormatDecodingError.trailingGarbage
+            }
           }
         }
       }
@@ -131,8 +135,8 @@ extension Google_Protobuf_Any: _CustomJSONCodable {
     }
   }
 
-  internal func encodedJSONString() throws -> String {
-    return try _storage.encodedJSONString()
+  internal func encodedJSONString(options: JSONEncodingOptions) throws -> String {
+    return try _storage.encodedJSONString(options: options)
   }
 
   internal mutating func decodeJSON(from decoder: inout JSONDecoder) throws {

@@ -90,7 +90,7 @@ your project as explained below.
 
 To use Swift with Protocol buffers, you'll need:
 
-* A Swift 3.1 or later compiler (Xcode 8.3.3 or later).  Support is included
+* A Swift 4.0 or later compiler (Xcode 9.1 or later).  Support is included
 for the Swift Package Manager; or using the included Xcode project. The Swift
 protobuf project is being developed and tested against the latest release
 version of Swift available from [Swift.org](https://swift.org)
@@ -127,7 +127,7 @@ build the protoc plugin:
 
 ```
 $ git checkout tags/[tag_name]
-$ swift build -c release -Xswiftc -static-stdlib
+$ swift build --static-swift-stdlib -c release
 ```
 
 This will create a binary called `protoc-gen-swift` in the `.build/release`
@@ -177,12 +177,16 @@ After copying the `.pb.swift` files into your project, you will need to add the
 [SwiftProtobuf library](https://github.com/apple/swift-protobuf) to your
 project to support the generated code.
 If you are using the Swift Package Manager, add a dependency to your
-`Package.swift` file.  Adjust the `Version()` here to match the `[tag_name]`
-you used to build the plugin above:
+`Package.swift` file and import the `SwiftProtobuf` library into the desired
+targets.  Adjust the `"1.2.0"` here to match the `[tag_name]` you used to build
+the plugin above:
 
 ```swift
 dependencies: [
-        .package(url: "https://github.com/apple/swift-protobuf.git", from: "1.1.0")
+    .package(url: "https://github.com/apple/swift-protobuf.git", from: "1.2.0"),
+],
+targets: [
+    .target(name: "MyTarget", dependencies: ["SwiftProtobuf"]),
 ]
 ```
 

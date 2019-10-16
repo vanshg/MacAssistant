@@ -15,17 +15,22 @@
 import Foundation
 
 /// JSON encoding and decoding methods for arrays of messages.
-public extension Message {
+extension Message {
   /// Returns a string containing the JSON serialization of the messages.
   ///
   /// Unlike binary encoding, presence of required fields is not enforced when
   /// serializing to JSON.
   ///
   /// - Returns: A string containing the JSON serialization of the messages.
-  /// - Parameter collection: The list of messages to encode.
+  /// - Parameters:
+  ///   - collection: The list of messages to encode.
+  ///   - options: The JSONEncodingOptions to use.
   /// - Throws: `JSONEncodingError` if encoding fails.
-  public static func jsonString<C: Collection>(from collection: C) throws -> String where C.Iterator.Element == Self {
-    let data = try jsonUTF8Data(from: collection)
+  public static func jsonString<C: Collection>(
+    from collection: C,
+    options: JSONEncodingOptions = JSONEncodingOptions()
+  ) throws -> String where C.Iterator.Element == Self {
+    let data = try jsonUTF8Data(from: collection, options: options)
     return String(data: data, encoding: String.Encoding.utf8)!
   }
 
@@ -35,10 +40,15 @@ public extension Message {
   /// serializing to JSON.
   ///
   /// - Returns: A Data containing the JSON serialization of the messages.
-  /// - Parameter collection: The list of messages to encode.
+  /// - Parameters:
+  ///   - collection: The list of messages to encode.
+  ///   - options: The JSONEncodingOptions to use.
   /// - Throws: `JSONEncodingError` if encoding fails.
-  public static func jsonUTF8Data<C: Collection>(from collection: C) throws -> Data where C.Iterator.Element == Self {
-    var visitor = try JSONEncodingVisitor(type: Self.self)
+  public static func jsonUTF8Data<C: Collection>(
+    from collection: C,
+    options: JSONEncodingOptions = JSONEncodingOptions()
+  ) throws -> Data where C.Iterator.Element == Self {
+    var visitor = try JSONEncodingVisitor(type: Self.self, options: options)
     visitor.startArray()
     for message in collection {
         visitor.startObject()
@@ -81,14 +91,19 @@ public extension Message {
     fromJSONUTF8Data jsonUTF8Data: Data,
     options: JSONDecodingOptions = JSONDecodingOptions()
   ) throws -> [Self] {
-    return try jsonUTF8Data.withUnsafeBytes { (bytes:UnsafePointer<UInt8>) in
+    return try jsonUTF8Data.withUnsafeBytes { (body: UnsafeRawBufferPointer) in
       var array = [Self]()
-      let buffer = UnsafeBufferPointer(start: bytes, count: jsonUTF8Data.count)
-      var decoder = JSONDecoder(source: buffer, options: options)
-      try decoder.decodeRepeatedMessageField(value: &array)
-      if !decoder.scanner.complete {
-        throw JSONDecodingError.trailingGarbage
+
+      if let baseAddress = body.baseAddress, body.count > 0 {
+        let bytes = baseAddress.assumingMemoryBound(to: UInt8.self)
+        let buffer = UnsafeBufferPointer(start: bytes, count: body.count)
+        var decoder = JSONDecoder(source: buffer, options: options)
+        try decoder.decodeRepeatedMessageField(value: &array)
+        if !decoder.scanner.complete {
+          throw JSONDecodingError.trailingGarbage
+        }
       }
+
       return array
     }
   }

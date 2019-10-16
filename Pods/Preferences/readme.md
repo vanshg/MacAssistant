@@ -16,10 +16,10 @@ Just pass in some view controllers and this package will take care of the rest.
 
 ## Install
 
-#### SPM
+#### SwiftPM
 
 ```swift
-.package(url: "https://github.com/sindresorhus/Preferences", from: "0.2.0")
+.package(url: "https://github.com/sindresorhus/Preferences", from: "0.2.1")
 ```
 
 #### Carthage
@@ -152,7 +152,7 @@ class PreferencesWindowController: NSWindowController {
 - [DockProgress](https://github.com/sindresorhus/DockProgress) - Show progress in your app's Dock icon
 - [More…](https://github.com/search?q=user%3Asindresorhus+language%3Aswift)
 
-You might also like my [apps](https://sindresorhus.com/#apps).
+You might also like my [apps](https://sindresorhus.com/apps).
 
 
 ## License

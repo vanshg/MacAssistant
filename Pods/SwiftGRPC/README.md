@@ -39,7 +39,7 @@ Then, run `pod install` from command line and use your project's generated
 
 ## Manual integration
 
-When not using CocoaPods, Swift gRPC includes **vendored copies** of the
+When not using CocoaPods, Swift gRPC includes **[vendored copies](./scripts/vendor-all.sh)** of the
 gRPC Core library and BoringSSL (an OpenSSL fork that is used by
 the gRPC Core). These are built automatically in Swift Package
 Manager builds.
@@ -71,15 +71,17 @@ generate the necessary support code.
 Binary releases of `protoc`, the Protocol Buffer Compiler, are
 available on [GitHub](https://github.com/google/protobuf/releases).
 
-To build the plugins, run `make` in the main directory.
+To build the plugins, run `make plugin` in the main directory.
 This uses the Swift Package Manager to build both of the necessary
 plugins: `protoc-gen-swift`, which generates Protocol Buffer support code
 and `protoc-gen-swiftgrpc`, which generates gRPC interface code.
 
+To install these plugins, just copy the two executables (`protoc-gen-swift` and `protoc-gen-swiftgrpc`) that show up in the main directory into a directory that is part of your `PATH` environment variable.
+
 ### Using the plugins
 
 To use the plugins, `protoc` and both plugins should be in your
-search path. Invoke them with commands like the following:
+search path (see above). Invoke them with commands like the following:
 
     protoc <your proto files> \
         --swift_out=. \
@@ -89,6 +91,7 @@ By convention the `--swift_out` option invokes the `protoc-gen-swift`
 plugin and `--swiftgrpc_out` invokes `protoc-gen-swiftgrpc`.
 
 #### Parameters
+
 To pass extra parameters to the plugin, use a comma-separated parameter list
 separated from the output directory by a colon.
 
@@ -97,7 +100,12 @@ separated from the output directory by a colon.
 | `Visibility` | `Internal`/`Public` | `Internal` | ACL of generated code |
 | `Server` |  `true`/`false` | `true` | Whether to generate server code |
 | `Client` |  `true`/`false` | `true` | Whether to generate client code |
+| `Async` |  `true`/`false` | `true` | Whether to generate asynchronous code |
+| `Sync` |  `true`/`false` | `true` | Whether to generate synchronous code |
+| `Implementations` |  `true`/`false` | `true` | Whether to generate protocols and non-test service code. Toggling this to `false` is mostly useful when combined with `TestStubs=true` to generate files containing only test stub code |
 | `TestStubs` |  `true`/`false` | `false` | Whether to generate test stub code |
+| `FileNaming` | `FullPath`/`PathToUnderscores`/`DropPath` | `FullPath` | How to handle the naming of generated sources |
+| `ExtraModuleImports` |  `String` | `` | Extra module to import in generated code. This parameter may be included multiple times to import more than one module |
 
 Example:
 
@@ -128,14 +136,56 @@ to directly build API clients and servers with no generated code.
 For an example of this in Swift, please see the
 [Simple](Examples/SimpleXcode) example.
 
+### Known issues
+
+The SwiftGRPC implementation that is backed by [gRPC-Core](https://github.com/grpc/grpc)
+(and not SwiftNIO) is known to have some connectivity issues on iOS clients - namely, silently
+disconnecting (making it seem like active calls/connections are hanging) when switching
+between wifi <> cellular or between cellular technologies (3G <> LTE). The root cause of these problems is that the
+backing gRPC-Core doesn't get the optimizations made by iOS' networking stack when these
+types of changes occur, and isn't able to handle them itself.
+
+There is also documentation of this behavior in [this gRPC-Core readme](https://github.com/grpc/grpc/blob/v1.19.0/src/objective-c/NetworkTransitionBehavior.md).
+
+To aid in this problem, there is a [`ClientNetworkMonitor`](./Sources/SwiftGRPC/Core/ClientNetworkMonitor.swift)
+that monitors the device for events that can cause gRPC to disconnect silently. We recommend utilizing this component to
+call `shutdown()` (or destroy) any active `Channel` instances, and start new ones when the network is reachable.
+
+Setting the [`keepAliveTimeout` argument](https://github.com/grpc/grpc-swift/blob/0.7.0/Sources/SwiftGRPC/Core/ChannelArgument.swift#L46)
+on channels is also encouraged.
+
+Details:
+- **Switching between wifi <> cellular:** Channels silently disconnect
+- **Switching between 3G <> LTE (etc.):** Channels silently disconnect
+- **Network becoming unreachable:** Most times channels will time out after a few seconds, but `ClientNetworkMonitor` will notify of these changes much faster
+- **Switching between background <> foreground:** No known issues
+
+Original SwiftGRPC issue: https://github.com/grpc/grpc-swift/issues/337.
+
 ## Having build problems?
 
 grpc-swift depends on Swift, Xcode, and swift-protobuf. We are currently
 testing with the following versions:
 
-- Xcode 9.1
-- Swift 4.0
-- swift-protobuf 1.1.1
+- Xcode 10.2
+- Swift 4.2 / 5.0
+- swift-protobuf 1.5.0
+
+## `SwiftGRPCNIO` package
+
+`SwiftGRPCNIO` is a clean-room implementation of the gRPC protocol on top of the [`SwiftNIO`](http://github.com/apple/swift-nio) library. This implementation is not yet production-ready as it lacks several things recommended for production use:
+
+- Better test coverage
+- Full error handling
+- SSL support
+- Client support
+- Example projects
+- iOS support
+- Removal of the `libnghttp2` dependency from `SwiftNIOHTTP2`
+
+However, if you are planning to implement a gRPC service based on `SwiftNIO` or the Vapor framework, you might find this package useful. In addition, once ready, this package should provide more predictable and reliable behavior in the future, combined with an improved API and better developer experience.
+
+You may also want to have a look at [this presentation](https://docs.google.com/presentation/d/1Mnsaq4mkeagZSP4mK1k0vewZrJKynm_MCteRDyM3OX8/edit) for more details on the motivation for this package.
 
 ## License
 
@@ -149,11 +199,20 @@ Please get involved! See our [guidelines for contributing](CONTRIBUTING.md).
 
 ### Releasing
 
-Prior to creating a new release tag for SwiftGRPC, the `.podspec` file's version should be bumped, and the
-CocoaPods spec linter should be run to ensure that there are no new warnings/errors:
+When issuing a new release, the following steps should be followed:
 
-    $ pod spec lint SwiftGRPC.podspec
+1. Run the CocoaPods linter to ensure that there are no new warnings/errors:
 
-Once a new release tag is created, the updated CocoaPods spec should also be pushed to the master specs repo:
+    `$ pod spec lint SwiftGRPC.podspec`
 
-    $ pod trunk push SwiftGRPC.podspec
+1. Update the Carthage Xcode project (diff will need to be checked in with the version bump):
+
+    `$ make project-carthage`
+
+1. Bump the version in the `SwiftGRPC.podspec` file
+
+1. Merge these changes, then create a new `Release` with corresponding `Tag`. Be sure to include a list of changes in the message
+
+1. Push the update to the CocoaPods specs repo:
+
+    `$ pod trunk push`

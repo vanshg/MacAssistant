@@ -1,8 +1,14 @@
 # SwiftyJSON
 
-[![Travis CI](https://travis-ci.org/SwiftyJSON/SwiftyJSON.svg?branch=master)](https://travis-ci.org/SwiftyJSON/SwiftyJSON) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) ![CocoaPods](https://img.shields.io/cocoapods/v/SwiftyJSON.svg) ![Platform](https://img.shields.io/badge/platforms-iOS%208.0+%20%7C%20macOS%2010.10+%20%7C%20tvOS%209.0+%20%7C%20watchOS%202.0+-333333.svg)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) ![CocoaPods](https://img.shields.io/cocoapods/v/SwiftyJSON.svg) ![Platform](https://img.shields.io/badge/platforms-iOS%208.0%20%7C%20macOS%2010.10%20%7C%20tvOS%209.0%20%7C%20watchOS%203.0-F28D00.svg) [![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
 
 SwiftyJSON makes it easy to deal with JSON data in Swift.
+
+Platform | Build Status
+---------| --------------| 
+*OS      | [![Travis CI](https://travis-ci.org/SwiftyJSON/SwiftyJSON.svg?branch=master)](https://travis-ci.org/SwiftyJSON/SwiftyJSON)    | 
+[Linux](https://github.com/IBM-Swift/SwiftyJSON)      | [![Build Status](https://travis-ci.org/IBM-Swift/SwiftyJSON.svg?branch=master)](https://travis-ci.org/IBM-Swift/SwiftyJSON)     | 
+
 
 1. [Why is the typical JSON handling in Swift NOT good](#why-is-the-typical-json-handling-in-swift-not-good)
 2. [Requirements](#requirements)
@@ -20,6 +26,7 @@ SwiftyJSON makes it easy to deal with JSON data in Swift.
    - [Merging](#merging)
 5. [Work with Alamofire](#work-with-alamofire)
 6. [Work with Moya](#work-with-moya)
+7. [SwiftyJSON Model Generator](#swiftyjson-model-generator)
 
 > [中文介绍](http://tangplin.github.io/swiftyjson/)
 
@@ -66,11 +73,12 @@ And don't worry about the Optional Wrapping thing. It's done for you automatical
 
 ```swift
 let json = JSON(data: dataFromNetworking)
-if let userName = json[999999]["wrong_key"]["wrong_name"].string {
+let result = json[999999]["wrong_key"]["wrong_name"]
+if let userName = result.string {
     //Calm down, take it easy, the ".string" property still produces the correct Optional String type with safety
 } else {
     //Print the error
-    print(json[999999]["wrong_key"]["wrong_name"])
+    print(result.error)
 }
 ```
 
@@ -161,7 +169,7 @@ let name = json[0].double
 
 ```swift
 // Getting an array of string from a JSON Array
-let arrayNames =  json["users"].arrayValue.map({$0["name"].stringValue})
+let arrayNames =  json["users"].arrayValue.map {$0["name"].stringValue}
 ```
 
 ```swift
@@ -547,3 +555,8 @@ provider.request(.showProducts) { result in
 }
 
 ```
+
+## SwiftyJSON Model Generator
+Tools to generate SwiftyJSON Models
+* [JSON Cafe](http://www.jsoncafe.com/)
+* [JSON Export](https://github.com/Ahmed-Ali/JSONExport)
