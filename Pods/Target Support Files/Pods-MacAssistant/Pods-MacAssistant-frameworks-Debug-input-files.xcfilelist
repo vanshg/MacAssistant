@@ -1,0 +1,14 @@
+${PODS_ROOT}/Target Support Files/Pods-MacAssistant/Pods-MacAssistant-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
+${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework
+${BUILT_PRODUCTS_DIR}/HotKey/HotKey.framework
+${BUILT_PRODUCTS_DIR}/KeyHolder/KeyHolder.framework
+${BUILT_PRODUCTS_DIR}/Log/Log.framework
+${BUILT_PRODUCTS_DIR}/Magnet/Magnet.framework
+${BUILT_PRODUCTS_DIR}/Preferences/Preferences.framework
+${BUILT_PRODUCTS_DIR}/SwiftGRPC/SwiftGRPC.framework
+${BUILT_PRODUCTS_DIR}/SwiftProtobuf/SwiftProtobuf.framework
+${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework
+${BUILT_PRODUCTS_DIR}/SwiftyUserDefaults/SwiftyUserDefaults.framework
+${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework
+${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework

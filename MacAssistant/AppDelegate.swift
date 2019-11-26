@@ -13,6 +13,7 @@ import Log
 import AudioKit
 import SwiftyUserDefaults
 import Preferences
+import HotKey
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, LoginSuccessDelegate {
@@ -22,12 +23,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, LoginSuccessDelegate {
     var audioEngine: AudioEngine!
     var streamCall: AssistCall!
     let authenticator = Authenticator.instance
-    
+    let hotKey = HotKey(key: .space, modifiers: [.command, .shift])
     let sb = NSStoryboard(name: "Main", bundle: nil)
     let assitantWindowControllerID = "AssistantWindowControllerID"
     let loginWindowControllerID = "LoginWindowControllerID"
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
     lazy var awc = sb.instantiateController(withIdentifier: assitantWindowControllerID) as! AssistantWindowController
+    lazy var avc = sb.instantiateController(withIdentifier: "AssistantViewControllerID") as! AssistantViewController
     lazy var lwc = sb.instantiateController(withIdentifier: loginWindowControllerID) as! LoginWindowController
     
     lazy var preferencesWindowController = PreferencesWindowController(viewControllers: [
@@ -41,6 +43,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, LoginSuccessDelegate {
         statusItem.image = #imageLiteral(resourceName: "statusIcon")
         statusItem.action = #selector(toggleWindow)
         showAppropriateWindow()
+        hotKey.keyDownHandler = {
+            self.showAppropriateWindow()
+            self.avc.onMicClicked();
+            
+        }
+
 //        preferencesWindowController.showWindow()
     }
 

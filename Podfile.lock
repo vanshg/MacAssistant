@@ -20,6 +20,7 @@ PODS:
     - gRPC-Core/Interface (= 1.12.0)
     - nanopb (~> 0.3)
   - gRPC-Core/Interface (1.12.0)
+  - HotKey (0.1.2)
   - KeyHolder (3.0.1):
     - Magnet (~> 2.3)
   - Log (1.0)
@@ -41,6 +42,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 4.7)
   - AudioKit (~> 4.5)
+  - HotKey
   - KeyHolder
   - Log (~> 1.0)
   - Preferences
@@ -49,11 +51,12 @@ DEPENDENCIES:
   - SwiftyUserDefaults (= 4.0.0-alpha.1)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - Alamofire
     - AudioKit
     - BoringSSL
     - gRPC-Core
+    - HotKey
     - KeyHolder
     - Log
     - Magnet
@@ -69,6 +72,7 @@ SPEC CHECKSUMS:
   AudioKit: ee4ab79e2fffe42e52b8fd8d214eaaea968c368e
   BoringSSL: e10f92a27043805c01071fe815a5cd98ae8212e7
   gRPC-Core: 9696b220565b283e021cf2722d473a4a74b7622a
+  HotKey: ad59450195936c10992438c4210f673de5aee43e
   KeyHolder: 142932db4eac7420b003e2eae94c9a61b8b53cb1
   Log: 5e368c9528db07517d18d2d04ff5fe2b6f5a1e21
   Magnet: f8dac2ffc845ffe68b2dd21c68a801f866f4a098
@@ -79,6 +83,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
   SwiftyUserDefaults: cebe0ff9472f52699772a514b6f7155861d8069b
 
-PODFILE CHECKSUM: b30f0dfa1388d4ae3968dbd3bc0e590c717fa6a8
+PODFILE CHECKSUM: 1467adc1b49bc6d900c2bb07a74b4824f796ae40
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.8.4
