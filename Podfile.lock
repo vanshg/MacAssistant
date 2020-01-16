@@ -1,10 +1,10 @@
 PODS:
   - Alamofire (4.7.3)
-  - AudioKit (4.7.2):
-    - AudioKit/Core (= 4.7.2)
-    - AudioKit/UI (= 4.7.2)
-  - AudioKit/Core (4.7.2)
-  - AudioKit/UI (4.7.2):
+  - AudioKit (4.9.3):
+    - AudioKit/Core (= 4.9.3)
+    - AudioKit/UI (= 4.9.3)
+  - AudioKit/Core (4.9.3)
+  - AudioKit/UI (4.9.3):
     - AudioKit/Core
   - BoringSSL (10.0.6):
     - BoringSSL/Implementation (= 10.0.6)
@@ -49,9 +49,8 @@ DEPENDENCIES:
   - SwiftyUserDefaults (= 4.0.0-alpha.1)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - Alamofire
-    - AudioKit
     - BoringSSL
     - gRPC-Core
     - KeyHolder
@@ -63,10 +62,12 @@ SPEC REPOS:
     - SwiftProtobuf
     - SwiftyJSON
     - SwiftyUserDefaults
+  trunk:
+    - AudioKit
 
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
-  AudioKit: ee4ab79e2fffe42e52b8fd8d214eaaea968c368e
+  AudioKit: d025ecbb68f567bba15dab7ea80b8991155729f9
   BoringSSL: e10f92a27043805c01071fe815a5cd98ae8212e7
   gRPC-Core: 9696b220565b283e021cf2722d473a4a74b7622a
   KeyHolder: 142932db4eac7420b003e2eae94c9a61b8b53cb1
@@ -81,4 +82,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: b30f0dfa1388d4ae3968dbd3bc0e590c717fa6a8
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.8.4
