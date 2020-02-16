@@ -7,23 +7,24 @@
 //
 
 import SwiftyUserDefaults
+import Preferences
 
 // If any keys here are changed, they should be changed in their respective Nib files, along with their default values!
 extension DefaultsKeys {
     // General
     
     // Appearance
-    static let allowWindowLoseFocus = DefaultsKey<Bool>("allowWindowLoseFocus", defaultValue: false)
-    static let allowWindowMovement = DefaultsKey<Bool>("allowWindowMovement", defaultValue: false)
-    static let colorTheme = DefaultsKey<String>("colorTheme", defaultValue: "Dark") // One of: "System", "Light", "Dark"
-    static let designTheme = DefaultsKey<String>("designTheme", defaultValue: "Apple") // One of: "Apple", "Google (Material Design)"
+    var allowWindowLoseFocus: DefaultsKey<Bool> { .init("allowWindowLoseFocus", defaultValue: false) }
+    var allowWindowMovement: DefaultsKey<Bool> { .init("allowWindowMovement", defaultValue: false) }
+    var colorTheme: DefaultsKey<String> { .init("colorTheme", defaultValue: "Dark") } // One of: "System", "Light", "Dark"
+    var designTheme: DefaultsKey<String> { .init("designTheme", defaultValue: "Apple") } // One of: "Apple", "Google (Material Design) }"
     
     // Audio
-    static let shouldPlayPrompts = DefaultsKey<Bool>("shouldPlayPrompts", defaultValue: true)
-    static let shouldSpeakResponses = DefaultsKey<Bool>("shouldSpeakResponses", defaultValue: true)
-    static let shouldListenOnMenuClick = DefaultsKey<Bool>("shouldListenOnMenuClick", defaultValue: true)
+    var shouldPlayPrompts: DefaultsKey<Bool> { .init("shouldPlayPrompts", defaultValue: true) }
+    var shouldSpeakResponses: DefaultsKey<Bool> { .init("shouldSpeakResponses", defaultValue: true) }
+    var shouldListenOnMenuClick: DefaultsKey<Bool> { .init("shouldListenOnMenuClick", defaultValue: true) }
     
     // Account
-    static let shouldUseCustomOAuth = DefaultsKey<Bool>("shouldUseCustomOAuth", defaultValue: false)
-    static let customOAuthJSON = DefaultsKey<String>("customOAuthJSON") // TODO: Validate custom OAuth contents
+    var shouldUseCustomOAuth: DefaultsKey<Bool> { .init("shouldUseCustomOAuth", defaultValue: false) }
+    var customOAuthJSON: DefaultsKey<String?> { .init("customOAuthJSON") } // TODO: Validate custom OAuth contents
 }

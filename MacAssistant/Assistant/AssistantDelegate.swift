@@ -4,10 +4,10 @@
 //
 
 import Foundation
-import SwiftGRPC
+import GRPC
 
-public protocol AssistantDelegate {
-    func onAssistantCallCompleted(result: CallResult)
+protocol AssistantDelegate {
+    func onAssistantCallCompleted(result: AssistResponse)
     func onDoneListening()
     func onDisplayText(text: String)
     func onScreenOut(htmlData: String)

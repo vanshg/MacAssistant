@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -19,6 +19,16 @@
 		584957AD218AD8DD0021602E /* AccountPreferenceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 584957AA218AD8DC0021602E /* AccountPreferenceView.xib */; };
 		584957AE218AD8DD0021602E /* AppearancePreferenceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 584957AB218AD8DD0021602E /* AppearancePreferenceView.xib */; };
 		584957B0218ADD140021602E /* PreferenceDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584957AF218ADD140021602E /* PreferenceDefaultsKeys.swift */; };
+		585430F123B9D96E00E8C030 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 585430F023B9D96E00E8C030 /* Alamofire */; };
+		585430F423B9DB2F00E8C030 /* Log in Frameworks */ = {isa = PBXBuildFile; productRef = 585430F323B9DB2F00E8C030 /* Log */; };
+		585430F723B9DB9300E8C030 /* SwiftyUserDefaults in Frameworks */ = {isa = PBXBuildFile; productRef = 585430F623B9DB9300E8C030 /* SwiftyUserDefaults */; };
+		585430FA23B9DC9200E8C030 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 585430F923B9DC9200E8C030 /* SwiftyJSON */; };
+		585430FD23B9DD1E00E8C030 /* Preferences in Frameworks */ = {isa = PBXBuildFile; productRef = 585430FC23B9DD1E00E8C030 /* Preferences */; };
+		5854310023B9DE5000E8C030 /* GRPC in Frameworks */ = {isa = PBXBuildFile; productRef = 585430FF23B9DE5000E8C030 /* GRPC */; };
+		5854310C23B9E9C300E8C030 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5854310B23B9E9C300E8C030 /* AudioKit.framework */; };
+		5854310D23B9E9C300E8C030 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5854310B23B9E9C300E8C030 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5854310F23B9F25700E8C030 /* error_details.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5854310E23B9F25700E8C030 /* error_details.pb.swift */; };
+		5854311123B9F45800E8C030 /* Identifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5854311023B9F45800E8C030 /* Identifiers.swift */; };
 		588AAED42114299F0030AE52 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588AAED32114299F0030AE52 /* AppDelegate.swift */; };
 		588AAED62114299F0030AE52 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588AAED52114299F0030AE52 /* LoginViewController.swift */; };
 		588AAED82114299F0030AE52 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 588AAED72114299F0030AE52 /* Assets.xcassets */; };
@@ -42,11 +52,23 @@
 		58D7383221162DC500D55D90 /* ConversationEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D7383121162DC500D55D90 /* ConversationEntry.swift */; };
 		58D73835211630AC00D55D90 /* ConversationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D73833211630AC00D55D90 /* ConversationItem.swift */; };
 		58D73836211630AC00D55D90 /* ConversationItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58D73834211630AC00D55D90 /* ConversationItem.xib */; };
-		F78A4B0538CCF92EDB2E20CA /* Pods_MacAssistant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12C2C59A5FFED26A3F40BE2A /* Pods_MacAssistant.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		5854310923B9E4ED00E8C030 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				5854310D23B9E9C300E8C030 /* AudioKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		12C2C59A5FFED26A3F40BE2A /* Pods_MacAssistant.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MacAssistant.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		58495793218ABCF40021602E /* AssistCallContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistCallContainer.swift; sourceTree = "<group>"; };
 		58495796218ABD3A0021602E /* NSCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSCollectionView.swift; sourceTree = "<group>"; };
 		58495798218AC0C60021602E /* Typealiases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typealiases.swift; sourceTree = "<group>"; };
@@ -59,6 +81,9 @@
 		584957AA218AD8DC0021602E /* AccountPreferenceView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountPreferenceView.xib; sourceTree = "<group>"; };
 		584957AB218AD8DD0021602E /* AppearancePreferenceView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AppearancePreferenceView.xib; sourceTree = "<group>"; };
 		584957AF218ADD140021602E /* PreferenceDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceDefaultsKeys.swift; sourceTree = "<group>"; };
+		5854310B23B9E9C300E8C030 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = MacAssistant/AudioKit.framework; sourceTree = "<group>"; };
+		5854310E23B9F25700E8C030 /* error_details.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = error_details.pb.swift; sourceTree = "<group>"; };
+		5854311023B9F45800E8C030 /* Identifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiers.swift; sourceTree = "<group>"; };
 		588AAED02114299F0030AE52 /* MacAssistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacAssistant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		588AAED32114299F0030AE52 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		588AAED52114299F0030AE52 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -85,8 +110,6 @@
 		58D7383121162DC500D55D90 /* ConversationEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationEntry.swift; sourceTree = "<group>"; };
 		58D73833211630AC00D55D90 /* ConversationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationItem.swift; sourceTree = "<group>"; };
 		58D73834211630AC00D55D90 /* ConversationItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConversationItem.xib; sourceTree = "<group>"; };
-		741C6460B9DAC9EEF984BEB6 /* Pods-MacAssistant.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacAssistant.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MacAssistant/Pods-MacAssistant.debug.xcconfig"; sourceTree = "<group>"; };
-		C0392D4A8B3A4D6F1146204B /* Pods-MacAssistant.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacAssistant.release.xcconfig"; path = "Pods/Target Support Files/Pods-MacAssistant/Pods-MacAssistant.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,7 +117,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F78A4B0538CCF92EDB2E20CA /* Pods_MacAssistant.framework in Frameworks */,
+				585430F123B9D96E00E8C030 /* Alamofire in Frameworks */,
+				5854310C23B9E9C300E8C030 /* AudioKit.framework in Frameworks */,
+				585430FD23B9DD1E00E8C030 /* Preferences in Frameworks */,
+				5854310023B9DE5000E8C030 /* GRPC in Frameworks */,
+				585430F723B9DB9300E8C030 /* SwiftyUserDefaults in Frameworks */,
+				585430FA23B9DC9200E8C030 /* SwiftyJSON in Frameworks */,
+				585430F423B9DB2F00E8C030 /* Log in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,17 +150,25 @@
 				584957AA218AD8DC0021602E /* AccountPreferenceView.xib */,
 				584957A3218AD1510021602E /* AccountPreferenceViewController.swift */,
 				584957AF218ADD140021602E /* PreferenceDefaultsKeys.swift */,
+				5854311023B9F45800E8C030 /* Identifiers.swift */,
 			);
 			path = Preferences;
+			sourceTree = "<group>";
+		};
+		5854310A23B9E9C300E8C030 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5854310B23B9E9C300E8C030 /* AudioKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		588AAEC72114299F0030AE52 = {
 			isa = PBXGroup;
 			children = (
-				B7A1D97A60103CC83F6649F6 /* Frameworks */,
 				588AAED22114299F0030AE52 /* MacAssistant */,
-				8909FAE8CB9A76FE9FF25789 /* Pods */,
 				588AAED12114299F0030AE52 /* Products */,
+				5854310A23B9E9C300E8C030 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -216,6 +253,7 @@
 		588AAEFA21142B390030AE52 /* rpc */ = {
 			isa = PBXGroup;
 			children = (
+				5854310E23B9F25700E8C030 /* error_details.pb.swift */,
 				588AAEFB21142B390030AE52 /* status.pb.swift */,
 			);
 			path = rpc;
@@ -267,23 +305,6 @@
 			path = Assistant;
 			sourceTree = "<group>";
 		};
-		8909FAE8CB9A76FE9FF25789 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				741C6460B9DAC9EEF984BEB6 /* Pods-MacAssistant.debug.xcconfig */,
-				C0392D4A8B3A4D6F1146204B /* Pods-MacAssistant.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		B7A1D97A60103CC83F6649F6 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				12C2C59A5FFED26A3F40BE2A /* Pods_MacAssistant.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -291,17 +312,24 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 588AAEE0211429A00030AE52 /* Build configuration list for PBXNativeTarget "MacAssistant" */;
 			buildPhases = (
-				C7E9E81A23AFF389BD5A7991 /* [CP] Check Pods Manifest.lock */,
+				5854310923B9E4ED00E8C030 /* Embed Frameworks */,
 				588AAECC2114299F0030AE52 /* Sources */,
 				588AAECD2114299F0030AE52 /* Frameworks */,
 				588AAECE2114299F0030AE52 /* Resources */,
-				8C9C93FB52324B7B8DE6844D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = MacAssistant;
+			packageProductDependencies = (
+				585430F023B9D96E00E8C030 /* Alamofire */,
+				585430F323B9DB2F00E8C030 /* Log */,
+				585430F623B9DB9300E8C030 /* SwiftyUserDefaults */,
+				585430F923B9DC9200E8C030 /* SwiftyJSON */,
+				585430FC23B9DD1E00E8C030 /* Preferences */,
+				585430FF23B9DE5000E8C030 /* GRPC */,
+			);
 			productName = MacAssistant;
 			productReference = 588AAED02114299F0030AE52 /* MacAssistant.app */;
 			productType = "com.apple.product-type.application";
@@ -328,7 +356,7 @@
 				};
 			};
 			buildConfigurationList = 588AAECB2114299F0030AE52 /* Build configuration list for PBXProject "MacAssistant" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -336,6 +364,14 @@
 				Base,
 			);
 			mainGroup = 588AAEC72114299F0030AE52;
+			packageReferences = (
+				585430EF23B9D96E00E8C030 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				585430F223B9DB2F00E8C030 /* XCRemoteSwiftPackageReference "Log" */,
+				585430F523B9DB9300E8C030 /* XCRemoteSwiftPackageReference "SwiftyUserDefaults" */,
+				585430F823B9DC9200E8C030 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+				585430FB23B9DD1E00E8C030 /* XCRemoteSwiftPackageReference "Preferences" */,
+				585430FE23B9DE5000E8C030 /* XCRemoteSwiftPackageReference "grpc-swift" */,
+			);
 			productRefGroup = 588AAED12114299F0030AE52 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -363,67 +399,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		8C9C93FB52324B7B8DE6844D /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MacAssistant/Pods-MacAssistant-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
-				"${BUILT_PRODUCTS_DIR}/KeyHolder/KeyHolder.framework",
-				"${BUILT_PRODUCTS_DIR}/Log/Log.framework",
-				"${BUILT_PRODUCTS_DIR}/Magnet/Magnet.framework",
-				"${BUILT_PRODUCTS_DIR}/Preferences/Preferences.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftGRPC/SwiftGRPC.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftProtobuf/SwiftProtobuf.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyUserDefaults/SwiftyUserDefaults.framework",
-				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeyHolder.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Log.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Magnet.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Preferences.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftGRPC.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftProtobuf.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyUserDefaults.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MacAssistant/Pods-MacAssistant-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C7E9E81A23AFF389BD5A7991 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MacAssistant-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		588AAECC2114299F0030AE52 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -448,7 +423,9 @@
 				588AAEFF21142B390030AE52 /* status.pb.swift in Sources */,
 				588AAED42114299F0030AE52 /* AppDelegate.swift in Sources */,
 				588AAF0B211443590030AE52 /* AssistantWindowController.swift in Sources */,
+				5854311123B9F45800E8C030 /* Identifiers.swift in Sources */,
 				588AAEEC21142AD10030AE52 /* AudioDelegate.swift in Sources */,
+				5854310F23B9F25700E8C030 /* error_details.pb.swift in Sources */,
 				58D7383021157DAC00D55D90 /* AssistantViewController.swift in Sources */,
 				58495799218AC0C60021602E /* Typealiases.swift in Sources */,
 				588AAEED21142AD10030AE52 /* AssistantDelegate.swift in Sources */,
@@ -524,7 +501,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -578,7 +555,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -588,18 +565,23 @@
 		};
 		588AAEE1211429A00030AE52 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 741C6460B9DAC9EEF984BEB6 /* Pods-MacAssistant.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = DU7NX744DX;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/MacAssistant",
+				);
 				INFOPLIST_FILE = MacAssistant/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = com.vanshgandhi.MacAssistant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -609,18 +591,23 @@
 		};
 		588AAEE2211429A00030AE52 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C0392D4A8B3A4D6F1146204B /* Pods-MacAssistant.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = DU7NX744DX;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/MacAssistant",
+				);
 				INFOPLIST_FILE = MacAssistant/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = com.vanshgandhi.MacAssistant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -650,6 +637,90 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		585430EF23B9D96E00E8C030 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.9.1;
+			};
+		};
+		585430F223B9DB2F00E8C030 /* XCRemoteSwiftPackageReference "Log" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/delba/Log";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		585430F523B9DB9300E8C030 /* XCRemoteSwiftPackageReference "SwiftyUserDefaults" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sunshinejr/SwiftyUserDefaults";
+			requirement = {
+				kind = exactVersion;
+				version = "5.0.0-beta.5";
+			};
+		};
+		585430F823B9DC9200E8C030 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		585430FB23B9DD1E00E8C030 /* XCRemoteSwiftPackageReference "Preferences" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/Preferences";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.1;
+			};
+		};
+		585430FE23B9DE5000E8C030 /* XCRemoteSwiftPackageReference "grpc-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/grpc/grpc-swift.git";
+			requirement = {
+				kind = exactVersion;
+				version = "1.0.0-alpha.6";
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		585430F023B9D96E00E8C030 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 585430EF23B9D96E00E8C030 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		585430F323B9DB2F00E8C030 /* Log */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 585430F223B9DB2F00E8C030 /* XCRemoteSwiftPackageReference "Log" */;
+			productName = Log;
+		};
+		585430F623B9DB9300E8C030 /* SwiftyUserDefaults */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 585430F523B9DB9300E8C030 /* XCRemoteSwiftPackageReference "SwiftyUserDefaults" */;
+			productName = SwiftyUserDefaults;
+		};
+		585430F923B9DC9200E8C030 /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 585430F823B9DC9200E8C030 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
+		};
+		585430FC23B9DD1E00E8C030 /* Preferences */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 585430FB23B9DD1E00E8C030 /* XCRemoteSwiftPackageReference "Preferences" */;
+			productName = Preferences;
+		};
+		585430FF23B9DE5000E8C030 /* GRPC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 585430FE23B9DE5000E8C030 /* XCRemoteSwiftPackageReference "grpc-swift" */;
+			productName = GRPC;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 588AAEC82114299F0030AE52 /* Project object */;
 }

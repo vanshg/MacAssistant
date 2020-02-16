@@ -6,8 +6,10 @@
 //  Copyright © 2018 Vansh Gandhi. All rights reserved.
 //
 
+import GRPC
+
 typealias AssistantServiceClient = Google_Assistant_Embedded_V1alpha2_EmbeddedAssistantServiceClient
-typealias AssistCall = Google_Assistant_Embedded_V1alpha2_EmbeddedAssistantAssistCall
+typealias AssistCall = BidirectionalStreamingCall<Google_Assistant_Embedded_V1alpha2_AssistRequest, Google_Assistant_Embedded_V1alpha2_AssistResponse>
 typealias AudioInConfig = Google_Assistant_Embedded_V1alpha2_AudioInConfig
 typealias AudioOut = Google_Assistant_Embedded_V1alpha2_AudioOut
 typealias AudioOutConfig = Google_Assistant_Embedded_V1alpha2_AudioOutConfig

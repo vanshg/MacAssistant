@@ -6,14 +6,13 @@
 //  Copyright © 2018 Vansh Gandhi. All rights reserved.
 //
 
+import Foundation
 import SwiftyUserDefaults
 
 extension DefaultsKeys {
-    static let isLoggedIn = DefaultsKey<Bool>("isLoggedIn")
-    static let accessToken = DefaultsKey<String>("accessToken")
-    static let refreshToken = DefaultsKey<String>("refreshToken")
-    static let tokenExpirationDate = DefaultsKey<Date?>("tokenExpirationDate")
-    static let conversationState = DefaultsKey<Data>("conversationState")
-
+    var isLoggedIn: DefaultsKey<Bool> { .init("isLoggedIn", defaultValue: false) }
+    var accessToken: DefaultsKey<String?> { .init("accessToken") }
+    var refreshToken: DefaultsKey<String?> { .init("refreshToken") }
+    var tokenExpirationDate: DefaultsKey<Date?> { .init("tokenExpirationDate") }
+    var conversationState: DefaultsKey<Data?> { .init("conversationState") }
 }
-

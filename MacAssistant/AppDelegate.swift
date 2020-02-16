@@ -8,7 +8,7 @@
 
 import Cocoa
 import AudioKit
-import SwiftGRPC
+import GRPC
 import Log
 import AudioKit
 import SwiftyUserDefaults
@@ -30,7 +30,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, LoginSuccessDelegate {
     lazy var awc = sb.instantiateController(withIdentifier: assitantWindowControllerID) as! AssistantWindowController
     lazy var lwc = sb.instantiateController(withIdentifier: loginWindowControllerID) as! LoginWindowController
     
-    lazy var preferencesWindowController = PreferencesWindowController(viewControllers: [
+    lazy var preferencesWindowController = PreferencesWindowController(preferencePanes: [
             GeneralPreferenceViewController(),
             AppearancePreferenceViewController(),
             AudioPreferenceViewController(),
@@ -38,8 +38,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, LoginSuccessDelegate {
     ])
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        statusItem.image = #imageLiteral(resourceName: "statusIcon")
-        statusItem.action = #selector(toggleWindow)
+        statusItem.button?.image = #imageLiteral(resourceName: "statusIcon")
+        statusItem.button?.action = #selector(toggleWindow)
         showAppropriateWindow()
 //        preferencesWindowController.showWindow()
     }
@@ -57,7 +57,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, LoginSuccessDelegate {
     }
     
     func showAppropriateWindow() {
-        if Defaults[.isLoggedIn] {
+        if Defaults[\.isLoggedIn] {
             showAssistant()
         } else {
             showLogin()

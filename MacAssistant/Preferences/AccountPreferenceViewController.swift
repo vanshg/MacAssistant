@@ -9,13 +9,12 @@
 import Cocoa
 import Preferences
 
-final class AccountPreferenceViewController: NSViewController, Preferenceable {
-    let toolbarItemTitle = "Account"
+final class AccountPreferenceViewController: NSViewController, PreferencePane {
+    let preferencePaneIdentifier = PreferencePane.Identifier.account
+    let preferencePaneTitle = PreferencePane.Identifier.account.rawValue
     let toolbarItemIcon = NSImage(named: NSImage.userGroupName)!
     
-    override var nibName: NSNib.Name {
-        return "AccountPreferenceView"
-    }
+    override var nibName: NSNib.Name { "AccountPreferenceView" }
     
     override func viewDidLoad() {
         super.viewDidLoad()

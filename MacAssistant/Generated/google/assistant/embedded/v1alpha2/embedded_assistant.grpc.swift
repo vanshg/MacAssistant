@@ -21,58 +21,44 @@
 // limitations under the License.
 //
 import Foundation
-import Dispatch
-import SwiftGRPC
+import GRPC
+import NIO
+import NIOHTTP1
 import SwiftProtobuf
 
-internal protocol Google_Assistant_Embedded_V1alpha2_EmbeddedAssistantAssistCall: ClientCallBidirectionalStreaming {
-  /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> Google_Assistant_Embedded_V1alpha2_AssistResponse?
-  /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<Google_Assistant_Embedded_V1alpha2_AssistResponse?>) -> Void) throws
 
-  /// Send a message to the stream. Nonblocking.
-  func send(_ message: Google_Assistant_Embedded_V1alpha2_AssistRequest, completion: @escaping (Error?) -> Void) throws
-  /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: Google_Assistant_Embedded_V1alpha2_AssistRequest, timeout: DispatchTime) throws
-
-  /// Call this to close the sending connection. Blocking.
-  func closeSend() throws
-  /// Call this to close the sending connection. Nonblocking.
-  func closeSend(completion: (() -> Void)?) throws
+/// Usage: instantiate Google_Assistant_Embedded_V1alpha2_EmbeddedAssistantServiceClient, then call methods of this protocol to make API calls.
+internal protocol Google_Assistant_Embedded_V1alpha2_EmbeddedAssistantService {
+  func assist(callOptions: CallOptions?, handler: @escaping (Google_Assistant_Embedded_V1alpha2_AssistResponse) -> Void) -> BidirectionalStreamingCall<Google_Assistant_Embedded_V1alpha2_AssistRequest, Google_Assistant_Embedded_V1alpha2_AssistResponse>
 }
 
-internal extension Google_Assistant_Embedded_V1alpha2_EmbeddedAssistantAssistCall {
-  /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> Google_Assistant_Embedded_V1alpha2_AssistResponse? { return try self._receive(timeout: timeout) }
-}
+internal final class Google_Assistant_Embedded_V1alpha2_EmbeddedAssistantServiceClient: GRPCClient, Google_Assistant_Embedded_V1alpha2_EmbeddedAssistantService {
+  internal let connection: ClientConnection
+  internal var defaultCallOptions: CallOptions
 
-internal extension Google_Assistant_Embedded_V1alpha2_EmbeddedAssistantAssistCall {
-  /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: Google_Assistant_Embedded_V1alpha2_AssistRequest, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
-}
+  /// Creates a client for the google.assistant.embedded.v1alpha2.EmbeddedAssistant service.
+  ///
+  /// - Parameters:
+  ///   - connection: `ClientConnection` to the service host.
+  ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
+  internal init(connection: ClientConnection, defaultCallOptions: CallOptions = CallOptions()) {
+    self.connection = connection
+    self.defaultCallOptions = defaultCallOptions
+  }
 
-fileprivate final class Google_Assistant_Embedded_V1alpha2_EmbeddedAssistantAssistCallBase: ClientCallBidirectionalStreamingBase<Google_Assistant_Embedded_V1alpha2_AssistRequest, Google_Assistant_Embedded_V1alpha2_AssistResponse>, Google_Assistant_Embedded_V1alpha2_EmbeddedAssistantAssistCall {
-  override class var method: String { return "/google.assistant.embedded.v1alpha2.EmbeddedAssistant/Assist" }
-}
-
-
-/// Instantiate Google_Assistant_Embedded_V1alpha2_EmbeddedAssistantServiceClient, then call methods of this protocol to make API calls.
-internal protocol Google_Assistant_Embedded_V1alpha2_EmbeddedAssistantService: ServiceClient {
-  /// Asynchronous. Bidirectional-streaming.
-  /// Use methods on the returned object to stream messages,
-  /// to wait for replies, and to close the connection.
-  func assist(completion: ((CallResult) -> Void)?) throws -> Google_Assistant_Embedded_V1alpha2_EmbeddedAssistantAssistCall
-
-}
-
-internal final class Google_Assistant_Embedded_V1alpha2_EmbeddedAssistantServiceClient: ServiceClientBase, Google_Assistant_Embedded_V1alpha2_EmbeddedAssistantService {
-  /// Asynchronous. Bidirectional-streaming.
-  /// Use methods on the returned object to stream messages,
-  /// to wait for replies, and to close the connection.
-  internal func assist(completion: ((CallResult) -> Void)?) throws -> Google_Assistant_Embedded_V1alpha2_EmbeddedAssistantAssistCall {
-    return try Google_Assistant_Embedded_V1alpha2_EmbeddedAssistantAssistCallBase(channel)
-      .start(metadata: metadata, completion: completion)
+  /// Asynchronous bidirectional-streaming call to Assist.
+  ///
+  /// Callers should use the `send` method on the returned object to send messages
+  /// to the server. The caller should send an `.end` after the final message has been sent.
+  ///
+  /// - Parameters:
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ClientStreamingCall` with futures for the metadata and status.
+  internal func assist(callOptions: CallOptions? = nil, handler: @escaping (Google_Assistant_Embedded_V1alpha2_AssistResponse) -> Void) -> BidirectionalStreamingCall<Google_Assistant_Embedded_V1alpha2_AssistRequest, Google_Assistant_Embedded_V1alpha2_AssistResponse> {
+    return self.makeBidirectionalStreamingCall(path: "/google.assistant.embedded.v1alpha2.EmbeddedAssistant/Assist",
+                                               callOptions: callOptions ?? self.defaultCallOptions,
+                                               handler: handler)
   }
 
 }

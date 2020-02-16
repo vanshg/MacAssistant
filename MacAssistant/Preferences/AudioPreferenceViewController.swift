@@ -9,13 +9,12 @@
 import Cocoa
 import Preferences
 
-final class AudioPreferenceViewController: NSViewController, Preferenceable {
-    let toolbarItemTitle = "Audio"
+final class AudioPreferenceViewController: NSViewController, PreferencePane {
+    let preferencePaneIdentifier = PreferencePane.Identifier.audio
+    let preferencePaneTitle = PreferencePane.Identifier.audio.rawValue
     let toolbarItemIcon = NSImage(named: NSImage.touchBarAudioOutputVolumeMediumTemplateName)!
     
-    override var nibName: NSNib.Name {
-        return "AudioPreferenceView"
-    }
+    override var nibName: NSNib.Name { "AudioPreferenceView" }
     
     override func viewDidLoad() {
         super.viewDidLoad()

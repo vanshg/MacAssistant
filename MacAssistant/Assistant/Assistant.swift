@@ -8,7 +8,7 @@
 
 import Foundation
 import Log
-import SwiftGRPC
+import GRPC
 import SwiftyUserDefaults
 
 public class Assistant {
@@ -62,7 +62,7 @@ public class Assistant {
     }
 
     private func beginCall(delegate: AssistantDelegate) throws -> AssistCall {
-        service.metadata = try! Metadata(["authorization": "Bearer \(Defaults[.accessToken])"])
+        service.metadata = try! Metadata(["authorization": "Bearer \(Defaults.accessToken)"])
         return try service.assist() { result in
             // This is called after the stream is finished
             delegate.onAssistantCallCompleted(result: result)
@@ -70,7 +70,8 @@ public class Assistant {
     }
 
     private func sendRequest(streamCall: AssistCall, request: AssistRequest, delegate: AssistantDelegate) throws {
-        try streamCall.send(request) { err in
+        try streamCall.sendMessage(request).map(<#T##callback: (Void) -> (NewValue)##(Void) -> (NewValue)#>)
+        try streamCall.sendMessage(request) { err in
             if let error = err {
                 delegate.onError(error: error)
             }
@@ -78,7 +79,7 @@ public class Assistant {
     }
     
     private func closeSend(streamCall: AssistCall) throws {
-        try streamCall.closeSend() {
+        try streamCall.sendEnd() {
             self.Log.debug("Closed sending channel")
         }
     }
@@ -155,7 +156,8 @@ public class Assistant {
         var dialogStateIn = DialogStateIn()
         dialogStateIn.languageCode = getLanguageCode()
         dialogStateIn.isNewConversation = getIsNewConversation()
-        dialogStateIn.conversationState = Defaults[.conversationState]
+        // TODO: fix the force unwrapping
+        dialogStateIn.conversationState = Defaults.conversationState!
 
         if let location = getDeviceLocation() {
             dialogStateIn.deviceLocation = location

@@ -1,0 +1,115 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Alamofire",
+        "repositoryURL": "https://github.com/Alamofire/Alamofire.git",
+        "state": {
+          "branch": null,
+          "revision": "747c8db8d57b68d5e35275f10c92d55f982adbd4",
+          "version": "4.9.1"
+        }
+      },
+      {
+        "package": "GRPC",
+        "repositoryURL": "https://github.com/grpc/grpc-swift.git",
+        "state": {
+          "branch": null,
+          "revision": "3972a3f9a49f88138b8ebfcc5276366cd57fb246",
+          "version": "1.0.0-alpha.6"
+        }
+      },
+      {
+        "package": "Log",
+        "repositoryURL": "https://github.com/delba/Log",
+        "state": {
+          "branch": "master",
+          "revision": "e190ad64673471a08a9637f214ffe9156fb37cf6",
+          "version": null
+        }
+      },
+      {
+        "package": "Preferences",
+        "repositoryURL": "https://github.com/sindresorhus/Preferences",
+        "state": {
+          "branch": null,
+          "revision": "139484818fe4b6b89823fa462cab686b3a419928",
+          "version": "1.0.1"
+        }
+      },
+      {
+        "package": "swift-log",
+        "repositoryURL": "https://github.com/apple/swift-log",
+        "state": {
+          "branch": null,
+          "revision": "74d7b91ceebc85daf387ebb206003f78813f71aa",
+          "version": "1.2.0"
+        }
+      },
+      {
+        "package": "swift-nio",
+        "repositoryURL": "https://github.com/apple/swift-nio.git",
+        "state": {
+          "branch": null,
+          "revision": "f6487a11d80bfb9a0a0a752b7442847c7e3a8253",
+          "version": "2.12.0"
+        }
+      },
+      {
+        "package": "swift-nio-http2",
+        "repositoryURL": "https://github.com/apple/swift-nio-http2.git",
+        "state": {
+          "branch": null,
+          "revision": "c1bfb7ce3f201e41ff60ef38fa63e67e0eb66a24",
+          "version": "1.9.0"
+        }
+      },
+      {
+        "package": "swift-nio-ssl",
+        "repositoryURL": "https://github.com/apple/swift-nio-ssl.git",
+        "state": {
+          "branch": null,
+          "revision": "b75ffaba05b2cffdb1420d558f1a90b4e6c46dcc",
+          "version": "2.5.0"
+        }
+      },
+      {
+        "package": "swift-nio-transport-services",
+        "repositoryURL": "https://github.com/apple/swift-nio-transport-services.git",
+        "state": {
+          "branch": null,
+          "revision": "c7f06384dc5ce7e8506de5ed9b59e35b4d88c64b",
+          "version": "1.3.0"
+        }
+      },
+      {
+        "package": "SwiftProtobuf",
+        "repositoryURL": "https://github.com/apple/swift-protobuf.git",
+        "state": {
+          "branch": null,
+          "revision": "da75a93ac017534e0028e83c0e4fc4610d2acf48",
+          "version": "1.7.0"
+        }
+      },
+      {
+        "package": "SwiftyJSON",
+        "repositoryURL": "https://github.com/SwiftyJSON/SwiftyJSON",
+        "state": {
+          "branch": null,
+          "revision": "2b6054efa051565954e1d2b9da831680026cd768",
+          "version": "5.0.0"
+        }
+      },
+      {
+        "package": "SwiftyUserDefaults",
+        "repositoryURL": "https://github.com/sunshinejr/SwiftyUserDefaults",
+        "state": {
+          "branch": null,
+          "revision": "dbd126b8957fc5af94d1ed5443f8f4b9405356ee",
+          "version": "5.0.0-beta.5"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

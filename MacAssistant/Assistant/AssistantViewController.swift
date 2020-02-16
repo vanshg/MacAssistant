@@ -8,7 +8,7 @@
 
 import Cocoa
 import Log
-import SwiftGRPC
+import GRPC
 import WebKit
 import SwiftyUserDefaults
 
@@ -41,7 +41,7 @@ class AssistantViewController: NSViewController, AssistantDelegate, AudioDelegat
     }
     
     override func viewDidAppear() {
-        if Defaults[.shouldListenOnMenuClick] {
+        if Defaults[\.shouldListenOnMenuClick] {
             onMicClicked()
         }
     }
@@ -50,17 +50,17 @@ class AssistantViewController: NSViewController, AssistantDelegate, AudioDelegat
         cancelCurrentRequest()
     }
 
-    func onAssistantCallCompleted(result: CallResult) {
+    func onAssistantCallCompleted(result: AssistResponse) {
         currentAssistantCall = nil
-        Log.debug("Assistant Call Completed. Description: \(result.description)")
+        Log.debug("Assistant Call Completed. Description: \(result.debugDescription)")
         
-        if !result.success {
-            // TODO: show error (Create ErrorConversationEntry)
-        }
-
-        if let statusMessage = result.statusMessage {
-            Log.debug(statusMessage)
-        }
+//        if !result.success {
+//            // TODO: show error (Create ErrorConversationEntry)
+//        }
+//
+//        if let statusMessage = result.statusMessage {
+//            Log.debug(statusMessage)
+//        }
     }
     
     func onDoneListening() {
@@ -172,7 +172,8 @@ extension AssistantViewController {
     func onWaveformClicked(_ sender: Any?) {
         Log.debug("Listening manually stopped")
         audioEngine.stopRecording()
-        try? currentAssistantCall?.call.closeSend()
+        // TODO: Hang until the send has succesfully completd (Below function returns a Future that will let us know)
+        currentAssistantCall?.call.sendEnd()
     }
 }
 
