@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class ConversationItem: NSCollectionViewItem{
+class ConversationItem: NSCollectionViewItem {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,4 +20,5 @@ class ConversationItem: NSCollectionViewItem{
         textField?.stringValue = data.text
         textField?.alignment = alignment
     }
+    
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,7 +18,7 @@
             <rect key="frame" x="0.0" y="0.0" width="325" height="22"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <textField canDrawConcurrently="YES" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pgz-1b-Tnc">
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pgz-1b-Tnc">
                     <rect key="frame" x="-2" y="0.0" width="329" height="22"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="22" id="dZM-bw-1cX"/>
@@ -35,7 +35,7 @@
                 <constraint firstItem="pgz-1b-Tnc" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="BbB-1k-3A2"/>
                 <constraint firstItem="pgz-1b-Tnc" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="XpE-Lv-cFd"/>
             </constraints>
-            <point key="canvasLocation" x="210.5" y="173"/>
+            <point key="canvasLocation" x="214.5" y="181"/>
         </customView>
         <customObject id="0tW-IC-Sih" customClass="ConversationItem" customModule="MacAssistant" customModuleProvider="target">
             <connections>

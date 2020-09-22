@@ -24,4 +24,3 @@ typealias ScreenOut = Google_Assistant_Embedded_V1alpha2_ScreenOut
 typealias ScreenOutConfig = Google_Assistant_Embedded_V1alpha2_ScreenOutConfig
 typealias DebugInfo = Google_Assistant_Embedded_V1alpha2_DebugInfo
 typealias DebugConfig = Google_Assistant_Embedded_V1alpha2_DebugConfig
-
