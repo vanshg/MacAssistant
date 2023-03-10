@@ -20,4 +20,5 @@ steps:
     signingOption: 'auto'
     configuration: 'Debug'
     xcWorkspacePath: './MacAssistant.xcworkspace'
-    xcodeVersion: '10'
+    xcodeDeveloperDir: '/Applications/Xcode_11.2.1.app/Contents/Developer'
+    #xcodeVersion: '11.2.1'

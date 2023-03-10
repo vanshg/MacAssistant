@@ -26,6 +26,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKDSPKernel.hpp"
 #import "AKSoundpipeKernel.hpp"
 #import "AKBankDSPKernel.hpp"
+#import "AKFilterSynthDSPKernel.hpp"
 #import "ExceptionCatcher.h"
 
 // Analysis
@@ -135,10 +136,18 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKPWMOscillatorBankAudioUnit.h"
 #import "AKSynthDSP.hpp"
 
+// Generators / Filter Polysynths
+#import "AKFMOscillatorFilterSynthAudioUnit.h"
+#import "AKMorphingOscillatorFilterSynthAudioUnit.h"
+#import "AKOscillatorFilterSynthAudioUnit.h"
+#import "AKPhaseDistortionOscillatorFilterSynthAudioUnit.h"
+#import "AKPWMOscillatorFilterSynthAudioUnit.h"
+
 // Mixing
 #import "AKAutoPannerDSP.hpp"
 #import "AKBalancerAudioUnit.h"
 #import "AKBoosterDSP.hpp"
+#import "AKFaderDSP.hpp"
 #import "AKPannerDSP.hpp"
 #import "AKStereoFieldLimiterDSP.hpp"
 
@@ -181,7 +190,12 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Sequencer
 #import "AKSamplerMetronome.h"
+#if !TARGET_OS_TV
+#import "AKSequencerEngine.h"
+#endif
 
 // Swift/ObjC/C/C++ Inter-operability
 #import "AKInterop.h"
 
+// Automation
+#import "AKParameterAutomation.h"

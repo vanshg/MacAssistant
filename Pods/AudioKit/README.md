@@ -1,4 +1,4 @@
-AudioKit V4.7
+AudioKit V4.9
 ===
 
 [![Build Status](https://travis-ci.org/AudioKit/AudioKit.svg)](https://travis-ci.org/AudioKit/AudioKit)
@@ -16,6 +16,10 @@ AudioKit is an audio synthesis, processing, and analysis platform for iOS, macOS
 |:--:|:--:|
 | Features, News, Blog, and Highlighted Apps | Developer Documentation |
 | [![AudioKitPro](http://audiokit.io/images/audiokitpro.png)](http://audiokitpro.com) | [![AudioKit.io](http://audiokit.io/images/audiokitio.png)](http://audiokit.io) |
+
+## Sponsor AudioKit!
+
+If you, your team or your company is using AudioKit, please consider [sponsoring Aure on Github Sponsors](http://github.com/sponsors/aure).
 
 ## Key Concepts
 
@@ -111,7 +115,7 @@ But, there are many other important people in our family:
 
 ### Contributors
 
-This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+This project exists thanks to all the people who [contribute](CONTRIBUTING.md).
 <a href="https://github.com/AudioKit/AudioKit/graphs/contributors"><img src="https://opencollective.com/AudioKit/contributors.svg?width=890&button=false" /></a>
 
 
