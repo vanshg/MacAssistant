@@ -12,4 +12,5 @@ target 'MacAssistant' do
   pod 'SwiftyUserDefaults', '4.0.0-alpha.1'
   pod 'Preferences'
   pod 'KeyHolder'
+  pod 'HotKey'
 end
